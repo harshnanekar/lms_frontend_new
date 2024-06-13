@@ -1,0 +1,68 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+	content: ['./src/**/*.{html,js,svelte,ts}'],
+	theme: {
+		extend: {
+			colors: {
+				primary: '#D2232A',
+				base: '#EAF1FB',
+				secondary: '#58585A',
+				white: '#FFFFFF',
+				black: '#000000',
+				'slate-100': '#7C8798',
+				'gray-50': '#F8F8F8',
+				'gray-100': '#EEEEEE',
+				'gray-150': '#D9D9D9',
+				'gray-200': '#BDBDBD',
+				'gray-300': '#9E9E9E',
+				'gray-400': '#757575',
+				'gray-500': '#616161',
+				'gray-600': '#404040',
+				'gray-700': '#333333',
+				'gray-800': '#282828',
+				'gray-900': '#181818',
+				success: '#1DB954',
+				'success-light': '#A7E8B0',
+				'success-dark': '#10793C',
+				error: '#E22134',
+				'error-light': '#F8A1A8',
+				'error-dark': '#A21724',
+				warning: '#FFED51',
+				'warning-light': '#FFF8A5',
+				'warning-dark': '#C7A800',
+				info: '#2E77D0',
+				'info-light': '#A9C8F2',
+				'info-dark': '#1A5193'
+			},
+			fontSize: {
+				'display-1': ['80px', { lineHeight: '88px', letterSpacing: '-0.125rem' }],
+				'display-2': ['48px', { lineHeight: '56px', letterSpacing: '-0.063rem' }],
+				'heading-1': ['32px', { lineHeight: '40px', letterSpacing: '-0.031rem' }],
+				'heading-2': ['24px', { lineHeight: '32px', letterSpacing: '-0.016rem' }],
+				'heading-3': ['18px', { lineHeight: '26px', letterSpacing: '-0.016rem' }],
+				'body-1': ['16px', { lineHeight: '24px', letterSpacing: '0' }],
+				'body-2': ['14px', { lineHeight: '20px', letterSpacing: '0' }],
+				'cta-md': ['14px', { letterSpacing: '0.094rem' }],
+				'cta-sm': ['12px', { letterSpacing: '0.063rem' }],
+				'label-lg': ['14px', { letterSpacing: '0.063rem' }],
+				'label-md': ['12px', { letterSpacing: '0.063rem' }],
+				'small-label': ['10px', { lineHeight: '14px', letterSpacing: '0.016rem' }],
+				caption: ['12px', { lineHeight: '16px', letterSpacing: '0.016rem' }],
+				breadcrumb: ['10px', { lineHeight: '14px', letterSpacing: '0.016rem' }]
+			},
+			fontFamily: {
+				'dm-sans': ['DM Sans', 'sans-serif']
+			},
+			boxShadow: {
+				xs: '0px 1px 2px 0px rgba(16, 24, 40, 0.05)',
+				sm: '0px 1px 2px 0px rgba(16, 24, 40, 0.06)',
+				md: '0px 4px 8px -2px rgba(16, 24, 40, 0.1)',
+				lg: '0px 12px 16px -4px rgba(16, 24, 40, 0.08)',
+				xl: '0px 8px 8px -4px rgba(16, 24, 40, 0.03)',
+				'2xl': '0px 24px 48px -12px rgba(16, 24, 40, 0.18)',
+				'3xl': '0px 32px 64px -12px rgba(16, 24, 40, 0.14)'
+			}
+		}
+	},
+	plugins: []
+};
