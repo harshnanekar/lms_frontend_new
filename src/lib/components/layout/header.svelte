@@ -38,11 +38,11 @@
 			/>
 		</button>
 		<div>
-            <Image
+			<Image
 				src="icons/layout/notificataion.png"
 				name="Notification"
 				classes="w-10 h-10 rounded-full"
 			/>
-        </div>
+		</div>
 	</div>
 </header>

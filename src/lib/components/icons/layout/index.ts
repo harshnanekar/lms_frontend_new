@@ -1,3 +1,3 @@
-import DashboardIcon from "./dashboard.-icon.svelte";
+import DashboardIcon from './dashboard.-icon.svelte';
 
 export { DashboardIcon };

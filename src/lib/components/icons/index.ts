@@ -1,3 +1,4 @@
-import { DashboardIcon } from "./layout";
+import { DashboardIcon } from './layout';
+import { ArrowIcon } from './base';
 
-export { DashboardIcon };
+export { DashboardIcon, ArrowIcon };

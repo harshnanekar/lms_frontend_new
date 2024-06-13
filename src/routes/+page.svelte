@@ -41,7 +41,7 @@
 			title: 'Financial Analytics-I (803AN2E001)-52245092',
 			meeting_count: 14,
 			content: 'Content 1'
-		},
+		}
 	];
 </script>
 
@@ -71,12 +71,15 @@
 </Accordion>
 
 <div class="p-10 font-dm-sans flex gap-10">
-
-	<button class="bg-primary text-white text-cta-md py-[10px] px-[16px] rounded-xl border-none hover:bg-danger-dark">
+	<button
+		class="bg-primary text-white text-cta-md py-[10px] px-[16px] rounded-xl border-none hover:bg-danger-dark"
+	>
 		Button
 	</button>
 
-	<button class="bg-white text-primary text-cta-md py-[10px] px-[16px] rounded-xl border-[1px] border-primary-light hover:bg-gray-100">
+	<button
+		class="bg-white text-primary text-cta-md py-[10px] px-[16px] rounded-xl border-[1px] border-primary-light hover:bg-gray-100"
+	>
 		Button
 	</button>
 </div>
