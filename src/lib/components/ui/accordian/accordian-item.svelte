@@ -99,6 +99,10 @@
 		-webkit-text-stroke: .7px black;
 	}
 
+	:global(.accordion-toggle.active .semi-bold) {
+		-webkit-text-stroke: .3px black;
+	}
+
 	.accordion-caret {
 		transition: rotate 0.3s ease;
 	}

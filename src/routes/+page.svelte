@@ -12,12 +12,38 @@
 			meeting_count: 14,
 			content: 'Content 1'
 		},
+		{
+			title: 'Financial Analytics-I (803AN2E001)-52245092',
+			meeting_count: 14,
+			content: 'Content 1'
+		},
+		{
+			title: 'Financial Analytics-I (803AN2E001)-52245092',
+			meeting_count: 14,
+			content: 'Content 1'
+		},
+		{
+			title: 'Financial Analytics-I (803AN2E001)-52245092',
+			meeting_count: 14,
+			content: 'Content 1'
+		},
+		{
+			title: 'Financial Analytics-I (803AN2E001)-52245092',
+			meeting_count: 14,
+			content: 'Content 1'
+		},
+		{
+			title: 'Financial Analytics-I (803AN2E001)-52245092',
+			meeting_count: 14,
+			content: 'Content 1'
+		},
+		{
+			title: 'Financial Analytics-I (803AN2E001)-52245092',
+			meeting_count: 14,
+			content: 'Content 1'
+		},
 	];
 </script>
-
-<button data-tooltip="This is my tooltip">
-hello
-</button>
 
 <Accordion collapse spaceBetween>
 	{#each items as item, i}
@@ -25,10 +51,10 @@ hello
 			<svelte:fragment slot="title">
 				<div class="sm:flex sm:items-center sm:justify-between">
 					<div class="max-w-[22ch] sm:max-w-[35ch] md:max-w-full truncate">
-						<span class="text-body-2 bold">
+						<span class="text-body-1 bold">
 							{item.title}
 						</span>
-						<span class="pl-4 text-small-label">
+						<span class="pl-4 text-label-md semi-bold">
 							Master Of Business Administration (8001) - 50300366
 						</span>
 					</div>
