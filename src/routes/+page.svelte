@@ -235,3 +235,11 @@
 		</span>
 	</div>
 </div>
+
+<div class="p-10 font-dm-sans flex gap-10">
+	<div class="lms-input-container">
+		<input id="lms-firstname" class="lms-input" type="text" placeholder="" />
+		<div class="lms-cut"></div>
+		<label for="lms-firstname" class="lms-placeholder">First Name<span class="">*</span></label>
+	</div>
+</div>
