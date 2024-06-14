@@ -12,7 +12,7 @@
 
 	function setActive() {
 		// update the store value in the context
-		if($activeComponentId === componentId) {
+		if ($activeComponentId === componentId) {
 			$activeComponentId = null;
 		} else {
 			$activeComponentId = componentId;
@@ -49,7 +49,7 @@
 			<slot name="title" />
 		</div>
 
-		<div class="accordion-caret" class:open={isOpen} >
+		<div class="accordion-caret" class:open={isOpen}>
 			<svg
 				width="18"
 				height="18"
@@ -89,14 +89,23 @@
 		gap: 12px;
 		padding: var(--accordion-padding, 17px 24px);
 		cursor: pointer;
-		/* transition: background-color 0.1s ease; */
+		transition: background-color 0.1s ease;
 		transition: font-weight 3s ease-in-out;
 		border: 1px solid rgba(229, 233, 241, 1);
 		border-radius: 8px 8px 0px 0px;
+		transition: border-radius .5s ease;
+	}
+
+	.accordion-toggle:not(.active) {
+		border-radius: 8px;
 	}
 
 	:global(.accordion-toggle.active .bold) {
-		-webkit-text-stroke: .7px black;
+		-webkit-text-stroke: 0.7px black;
+	}
+
+	:global(.accordion-toggle.active .semi-bold) {
+		-webkit-text-stroke: 0.3px black;
 	}
 
 	.accordion-caret {

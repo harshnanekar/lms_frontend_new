@@ -5,7 +5,44 @@
 *,
 *::before,
 *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+@layer components {
+	.lms-table {
+		@apply min-w-full text-left;
+	}
+
+	.lms-table thead th {
+		@apply px-5 py-[14px] text-sm leading-4 text-slate-100 text-table-header;
+	}
+
+	.lms-table tbody td {
+		@apply px-5 py-[14px] text-sm leading-5 text-gray-900 text-body-2;
+	}
+
+	.lms-table tbody tr:hover {
+		@apply bg-base rounded-lg cursor-pointer;
+		-webkit-text-stroke: 0.6px black;
+	}
+
+	.lms-table tbody tr:hover .action-icon .dot {
+		fill: var(--lms--color-primary) !important;
+	}
+
+	.lms-table tr:hover td:first-child {
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
+	}
+	
+	.lms-table tr:hover td:last-child {
+		border-top-right-radius: 10px;
+		border-bottom-right-radius: 10px;
+	}
+
+	.lms-table tbody tr:hover .table-alternalte-text {
+		@apply bg-white;
+	}
 }

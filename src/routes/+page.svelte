@@ -1,7 +1,15 @@
 <script lang="ts">
+	import Table from './../lib/components/ui/table/table.svelte';
 	import { Accordion, AccordionItem } from '$lib/components/ui';
+	import { headers, obj } from '$lib/test';
+	import { ActionIcon } from '$lib/components/icons';
 
 	const items = [
+		{
+			title: 'Financial Analytics-I (803AN2E001)-52245092',
+			meeting_count: 14,
+			content: 'Content 1'
+		},
 		{
 			title: 'Financial Analytics-I (803AN2E001)-52245092',
 			meeting_count: 14,
@@ -15,18 +23,17 @@
 	];
 </script>
 
-<button data-tooltip="This is my tooltip"> hello </button>
-
+<h3 class="text-body-1 font-semibold">All Meetings</h3>
 <Accordion collapse spaceBetween>
 	{#each items as item, i}
 		<AccordionItem open={items.length === 1}>
 			<svelte:fragment slot="title">
 				<div class="sm:flex sm:items-center sm:justify-between">
 					<div class="max-w-[22ch] sm:max-w-[35ch] md:max-w-full truncate">
-						<span class="text-body-2 bold">
+						<span class="text-body-1 bold">
 							{item.title}
 						</span>
-						<span class="pl-4 text-small-label">
+						<span class="pl-4 text-label-md semi-bold">
 							Master Of Business Administration (8001) - 50300366
 						</span>
 					</div>
@@ -37,7 +44,11 @@
 					</div>
 				</div>
 			</svelte:fragment>
-			<svelte:fragment slot="content">{item.content}</svelte:fragment>
+			<svelte:fragment slot="content">
+				<Table isAction tableData={obj} tableHeaders={headers} let:actionData>
+					<ActionIcon />
+				</Table>
+			</svelte:fragment>
 		</AccordionItem>
 	{/each}
 </Accordion>
