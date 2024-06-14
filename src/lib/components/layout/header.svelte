@@ -1,18 +1,24 @@
 <script>
-	import { Image } from '../ui';
+	import { MenuBarIcon } from '../icons';
+import { Image } from '../ui';
 </script>
 
 <header id="lms-header" class="h-[60px] flex justify-between items-center px-[28px] py-[8px]">
-	<div class="flex gap-x-[10px] items-center">
+	<div class="hidden lg:flex gap-x-[10px] items-center">
 		<p class="text-body-2 font-bold">School of Business Management</p>
 		<button class="text-primary text-label-md font-semibold cursor-pointer">Change</button>
 	</div>
-	<div class="flex items-center gap-x-6">
+	<div class="lg:hidden">
+		<button>
+			<MenuBarIcon />
+		</button>
+	</div>
+	<div class="flex items-center gap-x-4 md:gap-x-6">
 		<div class="relative">
 			<input
 				type="text"
 				placeholder="Search here..."
-				class="w-64 pl-4 pr-10 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-slate-200"
+				class="hidden sm:block w-64 pl-4 pr-10 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-slate-200"
 			/>
 			<div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
 				<svg

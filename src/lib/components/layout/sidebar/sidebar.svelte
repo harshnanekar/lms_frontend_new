@@ -10,7 +10,7 @@
 	$: setActiveSidebarUrl($page.url.href.split('/').pop(), SIDEBAR_URL);
 </script>
 
-<aside id="lms-sidebar" class="absolute left-0 top-0 bottom-0 h-screen w-[260px]">
+<aside id="lms-sidebar" class="hidden lg:block absolute left-0 top-0 bottom-0 h-screen w-[260px]">
 	<div class="pl-[60px] pt-[13px]">
 		<img src="images/layout/logo.png" alt="Logo" class="w-[122px] h-[44px]" />
 	</div>

@@ -12,15 +12,19 @@
 
 @layer components {
 	.lms-table {
-		@apply min-w-full text-left;
+		@apply min-w-[768px] w-full text-left font-normal text-black;
 	}
 
 	.lms-table thead th {
-		@apply px-5 py-[14px] text-sm leading-4 text-slate-100 text-table-header;
+		@apply px-5 py-[14px] text-sm leading-4 text-slate-100 text-table-header whitespace-nowrap;
 	}
 
 	.lms-table tbody td {
-		@apply px-5 py-[14px] text-sm leading-5 text-gray-900 text-body-2;
+		@apply px-5 py-[14px] text-sm leading-5 text-gray-900 text-body-2 w-[250px] whitespace-nowrap overflow-hidden text-ellipsis;
+	}
+
+	.lms-table tbody td {
+		@apply !w-fit;
 	}
 
 	.lms-table tbody tr:hover {
@@ -43,7 +47,7 @@
 		border-top-left-radius: 10px;
 		border-bottom-left-radius: 10px;
 	}
-	
+
 	.lms-table tr:hover td:last-child {
 		border-top-right-radius: 10px;
 		border-bottom-right-radius: 10px;
@@ -76,5 +80,27 @@
 	.lms-label-warning {
 		@apply bg-warning-100 text-warning-200 text-cta-md-no-space font-medium leading-5 py-[3px] px-[12px] rounded-[20px]
 		border-[1px] border-white w-fit;
+	}
+
+	.lms-primary-btn {
+		@apply bg-primary text-white text-cta-md-no-space gap-2.5 font-medium py-[10px] px-[16px] rounded-xl
+		border-none cursor-pointer flex items-center hover:bg-danger-hover active:bg-danger-pressed;
+	}
+
+	.lms-filter-badge-container {
+		@apply cursor-pointer flex items-center gap-x-3 bg-base text-slate-100 py-[8px] pl-[8px] pr-[16px] rounded-xl border-[1px] border-base
+		hover:bg-warning-300 hover:text-primary hover:border-[1px] hover:border-warning-400;
+	}
+
+	.lms-filter-badge-container.active {
+		@apply bg-warning-300 text-primary border-[1px] border-warning-400
+	}
+
+	.lms-filter-badge-text {
+		@apply font-medium text-cta-md-no-space leading-[18px] me-0.5 whitespace-nowrap;
+	}
+
+	.lms-filter-badge-count {
+		@apply bg-white text-black font-bold text-cta-md-no-space leading-[18px] py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300;
 	}
 }

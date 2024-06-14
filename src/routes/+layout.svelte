@@ -8,11 +8,11 @@
 </head>
 
 <Sidebar />
-<main class="ml-[260px]">
+<main class="lg:ml-[260px]">
 	<Header />
 	<main
 		id="lms-main-wrapper"
-		class="relative px-[30px] py-[22px] rounded-tl-[20px] bg-white overflow-y-auto overflow-x-hidden"
+		class="relative px-[13px] md:px-[30px] py-[22px] lg:rounded-tl-[20px] bg-white overflow-y-auto overflow-x-hidden"
 	>
 		<slot />
 	</main>
@@ -30,7 +30,7 @@
 	}
 
 	#lms-main-wrapper::-webkit-scrollbar {
-		width: 8px;
+		width: 5px;
 		height: 10px;
 		background-color: #f5f5f5;
 	}
@@ -38,7 +38,7 @@
 	#lms-main-wrapper::-webkit-scrollbar-thumb {
 		border-radius: 10px;
 		-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-		background-color: #ea9191;
+		background-color: #777171;
 	}
 
 	:global([data-tooltip]) {

@@ -61,31 +61,35 @@ export const SIDEBAR_URL = [
 export let obj = [
 	{
 		meeting_id: '1',
-		meeting_name: 'Meeting 1',
-		meeting_date: '2021-01-01',
-		acad_session: 'Session 1',
-		status: 'Completed'
+		meeting_name: 'MBA - 8001 - Trimester III- Financial Analytics - 1 - 803AN2E001 (2023) E001 (2023)',
+		meeting_date: '19 May’ 23, 11:32 AM',
+		acad_session: 'Tri III, 2023',
+		status: 'Completed',
+		status_abbr: 'COMPLETED'
 	},
 	{
 		meeting_id: '2',
-		meeting_name: 'Meeting 2',
-		meeting_date: '2021-01-02',
-		acad_session: 'Session 1',
-		status: 'Scheduled'
+		meeting_name: 'MBA - 8001 - Trimester III- Financial Analytics - 1 - 803AN2E001 (2023) E001 (2023)',
+		meeting_date: '19 May’ 23, 11:32 AM',
+		acad_session: 'Tri III, 2023',
+		status: 'Scheduled',
+		status_abbr: 'SCHEDULED'
 	},
 	{
 		meeting_id: '1',
-		meeting_name: 'Meeting 1',
-		meeting_date: '2021-01-01',
-		acad_session: 'Session 1',
-		status: 'Pending_FormA'
+		meeting_name: 'MBA - 8001 - Trimester III- Financial Analytics - 1 - 803AN2E001 (2023) E001 (2023)',
+		meeting_date: '19 May’ 23, 11:32 AM',
+		acad_session: 'Tri III, 2023',
+		status: 'Pending Form A',
+		status_abbr: 'PENDING_FORMA'
 	},
 	{
 		meeting_id: '2',
-		meeting_name: 'Meeting 2',
-		meeting_date: '2021-01-02',
-		acad_session: 'Session 1',
-		status: 'Pending_FormB'
+		meeting_name: 'MBA - 8001 - Trimester III- Financial Analytics - 1 - 803AN2E001 (2023) E001 (2023)',
+		meeting_date: '19 May’ 23, 11:32 AM',
+		acad_session: 'Tri III, 2023',
+		status: 'Pending Form-B',
+		status_abbr: 'PENDING_FORMB'
 	}
 ];
 
