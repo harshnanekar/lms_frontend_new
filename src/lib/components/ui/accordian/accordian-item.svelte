@@ -89,10 +89,15 @@
 		gap: 12px;
 		padding: var(--accordion-padding, 17px 24px);
 		cursor: pointer;
-		/* transition: background-color 0.1s ease; */
+		transition: background-color 0.1s ease;
 		transition: font-weight 3s ease-in-out;
 		border: 1px solid rgba(229, 233, 241, 1);
 		border-radius: 8px 8px 0px 0px;
+		transition: border-radius .5s ease;
+	}
+
+	.accordion-toggle:not(.active) {
+		border-radius: 8px;
 	}
 
 	:global(.accordion-toggle.active .bold) {

@@ -10,9 +10,6 @@
 </script>
 
 <li
-	data-tooltip={item.label}
-	data-tooltip-position="right"
-	use:tooltip
 	class="pl-[20px] sidebar-list"
 	class:text-primary={isactive}
 	class:active={isactive}
@@ -55,12 +52,10 @@
 
 	.sidebar-link.active {
 		border-radius: 15px 0 0 15px;
-		border-left: 1px solid var(--lms--color-primary);
-		border-top: 1px solid var(--lms--color-primary);
 		position: relative;
 		-webkit-transition-property: none;
 		transition-property: none;
-		transition: all 200ms ease-in-out;
+		transition: all 0ms ease-in-out;
 		background-color: #ffffff;
 	}
 

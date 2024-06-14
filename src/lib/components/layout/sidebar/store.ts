@@ -8,3 +8,20 @@ export const activeSidebarModule = writable<SidebarListType>({
 	url: '',
 	child: []
 });
+
+export const setActiveSidebarUrl = (url: string | undefined, sidebarList: SidebarListType[]) => {
+	for (let sidebar of sidebarList) {
+		if (sidebar.url === url) {
+			activeSidebarModule.set(sidebar);
+			return;
+		}
+
+		if(sidebar.child.length > 0) {
+			const activeChild = sidebar.child.find(child => child.url === url);
+			if(activeChild) {
+				activeSidebarModule.set(sidebar);
+				return;
+			}
+		}
+	}
+};

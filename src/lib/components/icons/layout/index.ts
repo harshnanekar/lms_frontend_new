@@ -1,3 +1,3 @@
 import DashboardIcon from './dashboard.-icon.svelte';
-
-export { DashboardIcon };
+import AnalyticsIcon from './analytics-icon.svelte';
+export { DashboardIcon, AnalyticsIcon };

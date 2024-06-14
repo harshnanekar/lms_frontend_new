@@ -1,4 +1,4 @@
-import { DashboardIcon } from './layout';
-import { ArrowIcon } from './base';
+import { DashboardIcon, AnalyticsIcon } from './layout';
+import { ArrowIcon, SortArrowIcon, ActionIcon } from './base';
 
-export { DashboardIcon, ArrowIcon };
+export { DashboardIcon, ArrowIcon, AnalyticsIcon, SortArrowIcon, ActionIcon };

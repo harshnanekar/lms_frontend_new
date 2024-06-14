@@ -57,3 +57,59 @@ export const SIDEBAR_URL = [
 		]
 	}
 ];
+
+export let obj = [
+	{
+		meeting_id: '1',
+		meeting_name: 'Meeting 1',
+		meeting_date: '2021-01-01',
+		acad_session: 'Session 1',
+		status: 'Scheduled'
+	},
+	{
+		meeting_id: '2',
+		meeting_name: 'Meeting 2',
+		meeting_date: '2021-01-02',
+		acad_session: 'Session 1',
+		status: 'Scheduled'
+	}
+];
+
+export const headers = [
+	{
+		label: 'MID',
+		key: 'meeting_id',
+		sortable: true,
+		addclass: true
+	},
+	{
+		label: 'Meeting Name',
+		key: 'meeting_name',
+		sortable: true,
+		addclass: true
+	},
+	{
+		label: 'Meeting Date',
+		key: 'meeting_date',
+		sortable: true,
+		addclass: true
+	},
+	{
+		label: 'Acad Session',
+		key: 'acad_session',
+		sortable: true,
+		addclass: true
+	},
+	{
+		label: 'Status',
+		key: 'status',
+		sortable: true,
+		addclass: true
+	},
+	{
+		label: 'Action',
+		key: 'action',
+		sortable: false,
+		addclass: false
+	}
+];

@@ -6,7 +6,7 @@
 	export let sidebarList: SidebarListType[] = [];
 </script>
 
-<ul class="pt-[43px]">
+<ul class="pt-[23px]">
 	{#each sidebarList as item, i}
 		{@const isactive = $page.url.href.split('/').pop() === item.url}
 		<SidebarList {item} {isactive} />
@@ -21,7 +21,7 @@
 
 	.highlight {
 		position: absolute;
-		top: 43px;
+		top: 23px;
 		left: 0;
 		width: 100%; /* Adjust width to account for padding */
 		height: 48px; /* Adjust this height to match the height of your list items */

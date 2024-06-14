@@ -5,17 +5,6 @@
 	import type { SidebarListType } from './types';
 
 	export let sidebarList: SidebarListType[] = [];
-
-	$: {
-		console.log('sidebarList>>>>>>>>', sidebarList);
-
-		const activeModule = sidebarList.filter((u) => u.url === $page.url.href.split('/').pop())[0];
-		console.log('activeModule>>>>>', activeModule);
-
-		if (activeModule) {
-			$activeSidebarModule = activeModule;
-		}
-	}
 </script>
 
 <ul class="pt-[43px]">
