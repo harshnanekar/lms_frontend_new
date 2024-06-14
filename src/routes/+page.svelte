@@ -162,9 +162,12 @@
 		hover:bg-warning-300 hover:text-primary hover:border-[1px] hover:border-warning-400"
 	>
 		<span class="bg-white rounded-[90px] p-1 me-3">(i)</span>
-		<span class="font-medium font-cta-md-no-space leading-[18px] me-0.5">All Meetings</span><span
-			class="bg-white text-black py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300">2</span
+		<span class="font-medium text-cta-md-no-space leading-[18px] me-0.5">All Meetings</span>
+		<span
+			class="bg-white text-black font-bold text-cta-md-no-space leading-[18px] py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300"
 		>
+			2
+		</span>
 	</div>
 
 	<div
@@ -172,9 +175,12 @@
 		hover:bg-warning-300 hover:text-primary hover:border-[1px] hover:border-warning-400"
 	>
 		<span class="bg-white rounded-[90px] p-1 me-3">(i)</span>
-		<span class="font-medium font-cta-md-no-space leading-[18px] me-0.5">Scheduled</span><span
-			class="bg-white text-black py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300">2</span
+		<span class="font-medium text-cta-md-no-space leading-[18px] me-0.5">Scheduled</span>
+		<span
+			class="bg-white text-black font-bold text-cta-md-no-space leading-[18px] py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300"
 		>
+			2
+		</span>
 	</div>
 
 	<div
@@ -182,9 +188,12 @@
 		hover:bg-warning-300 hover:text-primary hover:border-[1px] hover:border-warning-400"
 	>
 		<span class="bg-white rounded-[90px] p-1 me-3">(i)</span>
-		<span class="font-medium font-cta-md-no-space leading-[18px] me-0.5">Form A</span><span
-			class="bg-white text-black py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300">2</span
+		<span class="font-medium text-cta-md-no-space leading-[18px] me-0.5">Form A</span>
+		<span
+			class="bg-white text-black font-bold text-cta-md-no-space leading-[18px] py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300"
 		>
+			2
+		</span>
 	</div>
 
 	<div
@@ -192,9 +201,12 @@
 		hover:bg-warning-300 hover:text-primary hover:border-[1px] hover:border-warning-400"
 	>
 		<span class="bg-white rounded-[90px] p-1 me-3">(i)</span>
-		<span class="font-medium font-cta-md-no-space leading-[18px] me-0.5">Form B</span><span
-			class="bg-white text-black py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300">2</span
+		<span class="font-medium text-cta-md-no-space leading-[18px] me-0.5">Form B</span>
+		<span
+			class="bg-white text-black font-bold text-cta-md-no-space leading-[18px] py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300"
 		>
+			2
+		</span>
 	</div>
 
 	<div
@@ -202,9 +214,12 @@
 		hover:bg-warning-300 hover:text-primary hover:border-[1px] hover:border-warning-400"
 	>
 		<span class="bg-white rounded-[90px] p-1 me-3">(i)</span>
-		<span class="font-medium font-cta-md-no-space leading-[18px] me-0.5">Drafts</span><span
-			class="bg-white text-black py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300">3</span
+		<span class="font-medium text-cta-md-no-space leading-[18px] me-0.5">Drafts</span>
+		<span
+			class="bg-white text-black font-bold text-cta-md-no-space leading-[18px] py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300"
 		>
+			2
+		</span>
 	</div>
 
 	<div
@@ -212,8 +227,11 @@
 		hover:bg-warning-300 hover:text-primary hover:border-[1px] hover:border-warning-400"
 	>
 		<span class="bg-white rounded-[90px] p-1 me-3">(i)</span>
-		<span class="font-medium font-cta-md-no-space leading-[18px] me-0.5">Completed</span><span
-			class="bg-white text-black py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300">3</span
+		<span class="font-medium text-cta-md-no-space leading-[18px] me-0.5">Completed</span>
+		<span
+			class="bg-white text-black font-bold text-cta-md-no-space leading-[18px] py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300"
 		>
+			2
+		</span>
 	</div>
 </div>
