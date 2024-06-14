@@ -8,7 +8,7 @@
 	export let isAction = false;
 </script>
 
-<div class="lms-table-wrapper overflow-x-auto max-w-[100%]">
+<div class="lms-table-wrapper max-w-[100%] overflow-x-auto">
 	<table class="lms-table">
 		<thead>
 			<tr>
@@ -44,7 +44,7 @@
 								{:else}
 									<div
 										class={header.key.includes('id')
-											? 'bg-base w-fit rounded-lg px-4 py-2 table-alternalte-text'
+											? 'table-alternalte-text w-fit rounded-lg bg-base px-4 py-2'
 											: ''}
 									>
 										{item[header.key]}

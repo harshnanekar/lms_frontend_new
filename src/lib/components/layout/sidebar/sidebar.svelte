@@ -10,18 +10,18 @@
 	$: setActiveSidebarUrl($page.url.href.split('/').pop(), SIDEBAR_URL);
 </script>
 
-<aside id="lms-sidebar" class="hidden lg:block absolute left-0 top-0 bottom-0 h-screen w-[260px]">
+<aside id="lms-sidebar" class="absolute bottom-0 left-0 top-0 hidden h-screen w-[260px] lg:block">
 	<div class="pl-[60px] pt-[13px]">
-		<img src="images/layout/logo.png" alt="Logo" class="w-[122px] h-[44px]" />
+		<img src="images/layout/logo.png" alt="Logo" class="h-[44px] w-[122px]" />
 	</div>
 	{#if $activeSidebarModule?.child?.length < 1}
-		<div id="sidebar-wrapper" class="overflow-y-auto max-h-[80vh] overflow-x-hidden">
-			<div class="text-center pt-10"></div>
+		<div id="sidebar-wrapper" class="max-h-[80vh] overflow-y-auto overflow-x-hidden">
+			<div class="pt-10 text-center"></div>
 			<SidebarItem sidebarList={SIDEBAR_URL} />
 		</div>
 	{:else}
 		<button
-			class="flex gap-x-4 items-center text-primary hover:text-danger-dark font-bold pl-10 py-[10px] mt-[33px] text-body-2"
+			class="mt-[33px] flex items-center gap-x-4 py-[10px] pl-10 text-body-2 font-bold text-primary hover:text-danger-dark"
 			on:click={() => {
 				goto('/').then(() => {
 					$activeSidebarModule = {
@@ -37,7 +37,7 @@
 			<ArrowIcon fill={COLORS.PRIMARY_COLOR} width={24} height={24} />
 			<span>GO TO MAIN MENU</span>
 		</button>
-		<div id="sidebar-wrapper" class="overflow-y-auto max-h-[75vh] overflow-x-hidden">
+		<div id="sidebar-wrapper" class="max-h-[75vh] overflow-y-auto overflow-x-hidden">
 			<SecondSidebarItem sidebarList={$activeSidebarModule.child} />
 		</div>
 	{/if}

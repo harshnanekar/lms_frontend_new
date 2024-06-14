@@ -9,10 +9,10 @@
 	export let isactive: boolean;
 </script>
 
-<li class="pl-[20px] sidebar-list" class:text-primary={isactive} class:active={isactive}>
+<li class="sidebar-list pl-[20px]" class:text-primary={isactive} class:active={isactive}>
 	<a
 		href={item.url}
-		class="w-full h-full flex items-center space-x-[10px] gap-4 py-[15px] px-[20px] sidebar-link"
+		class="sidebar-link flex h-full w-full items-center gap-4 space-x-[10px] px-[20px] py-[15px]"
 		class:active={isactive}
 	>
 		<DashboardIcon
@@ -20,7 +20,7 @@
 			width={20}
 			height={20}
 		/>
-		<span class="text-[#333333] text-[14px] font-semibold !m-0 max-w-56 truncate">{item.label}</span
+		<span class="!m-0 max-w-56 truncate text-[14px] font-semibold text-[#333333]">{item.label}</span
 		>
 	</a>
 </li>
@@ -44,6 +44,50 @@
 
 	:global(li:nth-child(5).active ~ .highlight) {
 		transform: translateY(calc(51px * 4));
+	}
+
+	:global(li:nth-child(6).active ~ .highlight) {
+		transform: translateY(calc(51px * 5));
+	}
+
+	:global(li:nth-child(7).active ~ .highlight) {
+		transform: translateY(calc(51px * 6));
+	}
+
+	:global(li:nth-child(8).active ~ .highlight) {
+		transform: translateY(calc(51px * 7));
+	}
+
+	:global(li:nth-child(9).active ~ .highlight) {
+		transform: translateY(calc(51px * 8));
+	}
+
+	:global(li:nth-child(10).active ~ .highlight) {
+		transform: translateY(calc(51px * 9));
+	}
+
+	:global(li:nth-child(11).active ~ .highlight) {
+		transform: translateY(calc(51px * 10));
+	}
+
+	:global(li:nth-child(12).active ~ .highlight) {
+		transform: translateY(calc(51px * 11));
+	}
+
+	:global(li:nth-child(13).active ~ .highlight) {
+		transform: translateY(calc(51px * 12));
+	}
+
+	:global(li:nth-child(14).active ~ .highlight) {
+		transform: translateY(calc(51px * 13));
+	}
+
+	:global(li:nth-child(15).active ~ .highlight) {
+		transform: translateY(calc(51px * 14));
+	}
+
+	:global(li:nth-child(16).active ~ .highlight) {
+		transform: translateY(calc(51px * 15));
 	}
 
 	.sidebar-link.active {

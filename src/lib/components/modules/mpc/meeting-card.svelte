@@ -6,10 +6,10 @@
 	export let item: MpcMasterList;
 </script>
 
-<div class="p-3 space-y-4">
-	<div class="flex items-center w-full">
-		<div class="mr-3 px-[12px] py-[2px] rounded-lg bg-base h-fit">{item.meeting_id}</div>
-		<div class="overflow-hidden whitespace-nowrap text-ellipsis">{item.meeting_name}</div>
+<div class="space-y-4 p-3">
+	<div class="flex w-full items-center">
+		<div class="mr-3 h-fit rounded-lg bg-base px-[12px] py-[2px]">{item.meeting_id}</div>
+		<div class="overflow-hidden text-ellipsis whitespace-nowrap">{item.meeting_name}</div>
 		<div class="ml-5 md:ml-5">
 			<ActionIcon />
 		</div>

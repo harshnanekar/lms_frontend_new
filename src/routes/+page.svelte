@@ -5,6 +5,7 @@
 	import { ActionIcon, PlusIcon } from '$lib/components/icons';
 	import TestComponents from '$lib/components/test.components.svelte';
 	import { MPCMeetingCard, MPCTableFilters } from '$lib/components/modules';
+	import { tooltip } from '@svelte-plugins/tooltips';
 
 	const items = [
 		{
@@ -26,8 +27,8 @@
 </script>
 
 <div class="flex justify-between">
-	<h1 class="text-lg md:text-xl font-bold">Multi Program Campus</h1>
-	<button class="py-4 md:py-2.5 fixed bottom-16 right-5 md:static lms-primary-btn">
+	<h1 class="text-lg font-bold md:text-xl">Multi Program Campus</h1>
+	<button class="lms-primary-btn fixed bottom-16 right-5 py-4 md:static md:py-2.5">
 		<PlusIcon />
 		<span class="hidden md:block">Create New Meeting</span>
 	</button>
@@ -39,16 +40,26 @@
 		<AccordionItem open={items.length === 1}>
 			<svelte:fragment slot="title">
 				<div class="md:flex md:items-center md:justify-between">
-					<div class="max-w-[22ch] md:max-w-[35ch] lg:max-w-full truncate">
-						<span class="text-body-1 bold">
+					<div class="flex flex-col gap-x-2 md:flex-row md:items-center">
+						<div
+							use:tooltip={{
+								content: item.title
+							}}
+							class="bold w-64 truncate text-left text-body-2 sm:w-[350px] md:w-[300px] 2xl:text-body-1"
+						>
 							{item.title}
-						</span>
-						<span class="pl-4 text-label-md semi-bold max-w-12 truncate">
+						</div>
+						<div
+							use:tooltip={{
+								content: item.title
+							}}
+							class="semi-bold w-48 truncate text-small-label md:w-64 2xl:text-label-md"
+						>
 							Master Of Business Administration (8001) - 50300366
-						</span>
+						</div>
 					</div>
 					<div
-						class="text-small-label sm:text-body-2 text-slate-100 sm:text-inherit text-start bold"
+						class="bold text-start text-small-label text-slate-100 sm:text-inherit 2xl:text-body-2"
 					>
 						{item.meeting_count} Meetings
 					</div>
@@ -62,7 +73,7 @@
 						</button>
 					</Table>
 				</div>
-				<div class="md:hidden divide-y-2 space-y-4">
+				<div class="space-y-4 divide-y-2 md:hidden">
 					{#each obj as item}
 						<MPCMeetingCard {item} />
 					{/each}

@@ -1,30 +1,30 @@
-<div class="p-10 font-dm-sans flex gap-10">
+<div class="flex gap-10 p-10 font-dm-sans">
 	<button
-		class="bg-primary text-white text-cta-md font-medium py-[10px] px-[16px] rounded-xl border-none hover:bg-danger-hover active:bg-danger-pressed"
+		class="rounded-xl border-none bg-primary px-[16px] py-[10px] text-cta-md font-medium text-white hover:bg-danger-hover active:bg-danger-pressed"
 	>
 		Button
 	</button>
 
 	<button
-		class="bg-white text-primary text-cta-md font-medium py-[10px] px-[16px] rounded-xl border-[1px] border-primary-light hover:bg-gray-100 active:bg-danger-pressed active:text-white"
+		class="rounded-xl border-[1px] border-primary-light bg-white px-[16px] py-[10px] text-cta-md font-medium text-primary hover:bg-gray-100 active:bg-danger-pressed active:text-white"
 	>
 		Button
 	</button>
 
 	<button
-		class="bg-gray-250 text-white text-cta-md-no-space py-[10px] px-[16px] rounded-xl font-medium border-none leading-5 cursor-not-allowed"
+		class="cursor-not-allowed rounded-xl border-none bg-gray-250 px-[16px] py-[10px] text-cta-md-no-space font-medium leading-5 text-white"
 	>
 		Button
 	</button>
 
 	<button
-		class="bg-transparent text-primary text-cta-md-no-space font-medium gap-2.5 flex items-center py-[10px] px-[16px] rounded-xl border-none cursor-pointer"
+		class="flex cursor-pointer items-center gap-2.5 rounded-xl border-none bg-transparent px-[16px] py-[10px] text-cta-md-no-space font-medium text-primary"
 		>Button icon ghost
 	</button>
 
 	<button
-		class="bg-white text-primary text-cta-md-no-space gap-2.5 font-medium py-[10px] px-[16px] rounded-xl
-		border-[1px] border-primary-light cursor-pointer flex items-center hover:bg-gray-100 active:bg-danger-pressed active:text-white"
+		class="flex cursor-pointer items-center gap-2.5 rounded-xl border-[1px] border-primary-light bg-white
+		px-[16px] py-[10px] text-cta-md-no-space font-medium text-primary hover:bg-gray-100 active:bg-danger-pressed active:text-white"
 	>
 		Button icon
 	</button>
@@ -34,13 +34,13 @@
 
 <div class="p-10 font-dm-sans">
 	<p>
-		<a href="#" class="text-primary text-cta-md-no-space font-medium leading-5 no-underline"
+		<a href="#" class="text-cta-md-no-space font-medium leading-5 text-primary no-underline"
 			>Text Link</a
 		>
 	</p>
 
 	<p>
-		<a href="" class="text-primary text-cta-md-no-space font-medium leading-5 no-underline"
+		<a href="" class="text-cta-md-no-space font-medium leading-5 text-primary no-underline"
 			>Text Link (icon)</a
 		>
 	</p>
@@ -48,7 +48,7 @@
 	<p>
 		<a
 			href="#"
-			class="text-slate-100 text-cta-md-no-space font-medium leading-5 no-underline cursor-not-allowed"
+			class="cursor-not-allowed text-cta-md-no-space font-medium leading-5 text-slate-100 no-underline"
 			>Text Link</a
 		>
 	</p>
@@ -62,19 +62,19 @@
 	</div> -->
 </div>
 
-<div class="p-10 font-dm-sans flex gap-10">
+<div class="flex gap-10 p-10 font-dm-sans">
 	<button
-		class="bg-primary text-white text-cta-md-no-space font-medium leading-5 border-none rounded-lg
-		 py-[8px] px-[20px] hover:bg-danger-hover active:bg-danger-pressed">Primary</button
+		class="rounded-lg border-none bg-primary px-[20px] py-[8px] text-cta-md-no-space font-medium
+		 leading-5 text-white hover:bg-danger-hover active:bg-danger-pressed">Primary</button
 	>
 
 	<button
-		class="bg-danger-200 text-primary text-cta-md-no-space font-medium leading-5 rounded-lg border-[1px] border-primary
-		 py-[8px] px-[20px] active:bg-danger-pressed active:text-white">Primary</button
+		class="rounded-lg border-[1px] border-primary bg-danger-200 px-[20px] py-[8px] text-cta-md-no-space font-medium
+		 leading-5 text-primary active:bg-danger-pressed active:text-white">Primary</button
 	>
 </div>
 
-<div class="p-10 font-dm-sans flex gap-10">
+<div class="flex gap-10 p-10 font-dm-sans">
 	<div class="lms-status-success">
 		<span class="lms-label-success">Scheduled </span>
 	</div>
@@ -92,87 +92,87 @@
 	</div>
 </div>
 
-<div class="p-10 font-dm-sans flex gap-10">
+<div class="flex gap-10 p-10 font-dm-sans">
 	<div
-		class="bg-base text-slate-100 py-[8px] px-[16px] rounded-xl border-[1px] border-base
-		hover:bg-warning-300 hover:text-primary hover:border-[1px] hover:border-warning-400"
+		class="rounded-xl border-[1px] border-base bg-base px-[16px] py-[8px] text-slate-100
+		hover:border-[1px] hover:border-warning-400 hover:bg-warning-300 hover:text-primary"
 	>
-		<span class="bg-white rounded-[90px] p-1 me-3">(i)</span>
-		<span class="font-medium text-cta-md-no-space leading-[18px] me-0.5">All Meetings</span>
+		<span class="me-3 rounded-[90px] bg-white p-1">(i)</span>
+		<span class="me-0.5 text-cta-md-no-space font-medium leading-[18px]">All Meetings</span>
 		<span
-			class="bg-white text-black font-bold text-cta-md-no-space leading-[18px] py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300"
+			class="rounded-[60px] bg-white px-[8px] py-[3px] text-cta-md-no-space font-bold leading-[18px] text-black hover:bg-warning-300"
 		>
 			2
 		</span>
 	</div>
 
 	<div
-		class="bg-base text-slate-100 py-[8px] px-[16px] rounded-xl border-[1px] border-base
-		hover:bg-warning-300 hover:text-primary hover:border-[1px] hover:border-warning-400"
+		class="rounded-xl border-[1px] border-base bg-base px-[16px] py-[8px] text-slate-100
+		hover:border-[1px] hover:border-warning-400 hover:bg-warning-300 hover:text-primary"
 	>
-		<span class="bg-white rounded-[90px] p-1 me-3">(i)</span>
-		<span class="font-medium text-cta-md-no-space leading-[18px] me-0.5">Scheduled</span>
+		<span class="me-3 rounded-[90px] bg-white p-1">(i)</span>
+		<span class="me-0.5 text-cta-md-no-space font-medium leading-[18px]">Scheduled</span>
 		<span
-			class="bg-white text-black font-bold text-cta-md-no-space leading-[18px] py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300"
+			class="rounded-[60px] bg-white px-[8px] py-[3px] text-cta-md-no-space font-bold leading-[18px] text-black hover:bg-warning-300"
 		>
 			2
 		</span>
 	</div>
 
 	<div
-		class="bg-base text-slate-100 py-[8px] px-[16px] rounded-xl border-[1px] border-base
-		hover:bg-warning-300 hover:text-primary hover:border-[1px] hover:border-warning-400"
+		class="rounded-xl border-[1px] border-base bg-base px-[16px] py-[8px] text-slate-100
+		hover:border-[1px] hover:border-warning-400 hover:bg-warning-300 hover:text-primary"
 	>
-		<span class="bg-white rounded-[90px] p-1 me-3">(i)</span>
-		<span class="font-medium text-cta-md-no-space leading-[18px] me-0.5">Form A</span>
+		<span class="me-3 rounded-[90px] bg-white p-1">(i)</span>
+		<span class="me-0.5 text-cta-md-no-space font-medium leading-[18px]">Form A</span>
 		<span
-			class="bg-white text-black font-bold text-cta-md-no-space leading-[18px] py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300"
+			class="rounded-[60px] bg-white px-[8px] py-[3px] text-cta-md-no-space font-bold leading-[18px] text-black hover:bg-warning-300"
 		>
 			2
 		</span>
 	</div>
 
 	<div
-		class="bg-base text-slate-100 py-[8px] px-[16px] rounded-xl border-[1px] border-base
-		hover:bg-warning-300 hover:text-primary hover:border-[1px] hover:border-warning-400"
+		class="rounded-xl border-[1px] border-base bg-base px-[16px] py-[8px] text-slate-100
+		hover:border-[1px] hover:border-warning-400 hover:bg-warning-300 hover:text-primary"
 	>
-		<span class="bg-white rounded-[90px] p-1 me-3">(i)</span>
-		<span class="font-medium text-cta-md-no-space leading-[18px] me-0.5">Form B</span>
+		<span class="me-3 rounded-[90px] bg-white p-1">(i)</span>
+		<span class="me-0.5 text-cta-md-no-space font-medium leading-[18px]">Form B</span>
 		<span
-			class="bg-white text-black font-bold text-cta-md-no-space leading-[18px] py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300"
+			class="rounded-[60px] bg-white px-[8px] py-[3px] text-cta-md-no-space font-bold leading-[18px] text-black hover:bg-warning-300"
 		>
 			2
 		</span>
 	</div>
 
 	<div
-		class="bg-base text-slate-100 py-[8px] px-[16px] rounded-xl border-[1px] border-base
-		hover:bg-warning-300 hover:text-primary hover:border-[1px] hover:border-warning-400"
+		class="rounded-xl border-[1px] border-base bg-base px-[16px] py-[8px] text-slate-100
+		hover:border-[1px] hover:border-warning-400 hover:bg-warning-300 hover:text-primary"
 	>
-		<span class="bg-white rounded-[90px] p-1 me-3">(i)</span>
-		<span class="font-medium text-cta-md-no-space leading-[18px] me-0.5">Drafts</span>
+		<span class="me-3 rounded-[90px] bg-white p-1">(i)</span>
+		<span class="me-0.5 text-cta-md-no-space font-medium leading-[18px]">Drafts</span>
 		<span
-			class="bg-white text-black font-bold text-cta-md-no-space leading-[18px] py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300"
+			class="rounded-[60px] bg-white px-[8px] py-[3px] text-cta-md-no-space font-bold leading-[18px] text-black hover:bg-warning-300"
 		>
 			2
 		</span>
 	</div>
 
 	<div
-		class="bg-base text-slate-100 py-[8px] px-[16px] rounded-xl border-[1px] border-base
-		hover:bg-warning-300 hover:text-primary hover:border-[1px] hover:border-warning-400"
+		class="rounded-xl border-[1px] border-base bg-base px-[16px] py-[8px] text-slate-100
+		hover:border-[1px] hover:border-warning-400 hover:bg-warning-300 hover:text-primary"
 	>
-		<span class="bg-white rounded-[90px] p-1 me-3">(i)</span>
-		<span class="font-medium text-cta-md-no-space leading-[18px] me-0.5">Completed</span>
+		<span class="me-3 rounded-[90px] bg-white p-1">(i)</span>
+		<span class="me-0.5 text-cta-md-no-space font-medium leading-[18px]">Completed</span>
 		<span
-			class="bg-white text-black font-bold text-cta-md-no-space leading-[18px] py-[3px] px-[8px] rounded-[60px] hover:bg-warning-300"
+			class="rounded-[60px] bg-white px-[8px] py-[3px] text-cta-md-no-space font-bold leading-[18px] text-black hover:bg-warning-300"
 		>
 			2
 		</span>
 	</div>
 </div>
 
-<div class="p-10 font-dm-sans flex gap-10">
+<div class="flex gap-10 p-10 font-dm-sans">
 	<div class="lms-input-container">
 		<input id="lms-firstname" class="lms-input" type="text" placeholder="" />
 		<div class="lms-cut"></div>
