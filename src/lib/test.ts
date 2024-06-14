@@ -64,7 +64,7 @@ export let obj = [
 		meeting_name: 'Meeting 1',
 		meeting_date: '2021-01-01',
 		acad_session: 'Session 1',
-		status: 'Scheduled'
+		status: 'Completed'
 	},
 	{
 		meeting_id: '2',
@@ -72,6 +72,20 @@ export let obj = [
 		meeting_date: '2021-01-02',
 		acad_session: 'Session 1',
 		status: 'Scheduled'
+	},
+	{
+		meeting_id: '1',
+		meeting_name: 'Meeting 1',
+		meeting_date: '2021-01-01',
+		acad_session: 'Session 1',
+		status: 'Pending_FormA'
+	},
+	{
+		meeting_id: '2',
+		meeting_name: 'Meeting 2',
+		meeting_date: '2021-01-02',
+		acad_session: 'Session 1',
+		status: 'Pending_FormB'
 	}
 ];
 

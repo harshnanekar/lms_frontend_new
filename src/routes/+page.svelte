@@ -136,33 +136,28 @@
 <div class="p-10 font-dm-sans flex gap-10">
 	<div class="lms-status-success">
 		<span
-			class="bg-success-100 text-success-200 text-cta-md-no-space font-medium leading-5 py-[3px] px-[12px] rounded-[20px]
-			 border-[1px] border-white"
+			class="lms-label-success"
 			>Scheduled
 		</span>
 	</div>
 	<div class="lms-status-info">
 		<span
-			class="bg-purple-100 text-purple-200 text-cta-md-no-space font-medium leading-5 py-[3px] px-[12px] rounded-[20px]
-		border-[1px] border-white">Pending F-A</span
+			class="lms-label-info">Pending F-A</span
 		>
 	</div>
 	<div class="lms-status-info-b">
 		<span
-			class="bg-info-100 text-info-200 text-cta-md-no-space font-medium leading-5 py-[3px] px-[12px] rounded-[20px]
-		border-[1px] border-white">Pending F-B</span
+			class="lms-label-info-b">Pending F-B</span
 		>
 	</div>
 	<div class="lms-status-done">
 		<span
-			class="bg-slate-200 text-slate-100 text-cta-md-no-space font-medium leading-5 py-[3px] px-[12px] rounded-[20px]
-		border-[1px] border-white">Completed</span
+			class="lms-label-light">Completed</span
 		>
 	</div>
 	<div class="lms-status-warning">
 		<span
-			class="bg-warning-100 text-warning-200 text-cta-md-no-space font-medium leading-5 py-[3px] px-[12px] rounded-[20px]
-		border-[1px] border-white">Draft</span
+			class="lms-label-warning">Draft</span
 		>
 	</div>
 </div>

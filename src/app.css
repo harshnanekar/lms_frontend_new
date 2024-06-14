@@ -25,7 +25,14 @@
 
 	.lms-table tbody tr:hover {
 		@apply bg-base rounded-lg cursor-pointer;
+	}
+
+	.lms-table tbody tr:hover *:not(.no-bold) {
 		-webkit-text-stroke: 0.6px black;
+	}
+
+	.lms-table tbody tr:hover .no-bold {
+		-webkit-text-stroke: 0.1px black;
 	}
 
 	.lms-table tbody tr:hover .action-icon .dot {
@@ -44,5 +51,30 @@
 
 	.lms-table tbody tr:hover .table-alternalte-text {
 		@apply bg-white;
+	}
+
+	.lms-label-success {
+		@apply bg-success-100 !text-success-200 text-cta-md-no-space font-medium leading-5 py-[3px] px-[12px] rounded-[20px]
+		border-[1px] border-white w-fit;
+	}
+
+	.lms-label-light {
+		@apply bg-slate-200 text-slate-100 text-cta-md-no-space font-medium leading-5 py-[3px] px-[12px] rounded-[20px]
+		border-[1px] border-white w-fit;
+	}
+
+	.lms-label-info {
+		@apply bg-purple-100 text-purple-200 text-cta-md-no-space font-medium leading-5 py-[3px] px-[12px] rounded-[20px]
+		border-[1px] border-white w-fit;
+	}
+
+	.lms-label-info-b {
+		@apply bg-info-100 text-info-200 text-cta-md-no-space font-medium leading-5 py-[3px] px-[12px] rounded-[20px]
+		border-[1px] border-white w-fit;
+	}
+
+	.lms-label-warning {
+		@apply bg-warning-100 text-warning-200 text-cta-md-no-space font-medium leading-5 py-[3px] px-[12px] rounded-[20px]
+		border-[1px] border-white w-fit;
 	}
 }

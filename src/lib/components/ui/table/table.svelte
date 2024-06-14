@@ -7,10 +7,11 @@
 	export let isAction = false;
 
 	let statusColors: { [key: string]: string } = {
-		scheduled: 'bg-blue-100 text-blue-800 py-1 px-20 rounded-full w-fit',
-		completed: 'bg-green-100 text-green-800 p-1 rounded-full w-fit',
-		cancelled: 'bg-red-100 text-red-800 p-1 rounded-full w-fit',
-		postponed: 'bg-yellow-100 text-yellow-800 p-1 rounded-full w-fit'
+		scheduled: 'lms-label-success',
+		completed: 'lms-label-light',
+		cancelled: 'lms-label-warning',
+		'pending_forma': 'lms-label-info',
+		'pending_formb': 'lms-label-info-b',
 	};
 </script>
 
@@ -39,7 +40,7 @@
 					{#if isAction && header.key !== 'action'}
 						<td>
 							{#if header.key === 'status'}
-								<div class={statusColors[item[header.key].toString().toLocaleLowerCase()]}>
+								<div class="{statusColors[item[header.key].toString().toLocaleLowerCase()]} no-bold">
 									{item[header.key]}
 								</div>
 							{:else}
