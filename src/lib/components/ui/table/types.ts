@@ -1,10 +1,10 @@
 export type TableData = {
-    [key: string]: string | number;
-}
+	[key: string]: string | number;
+};
 
 export type TableHeaders = {
-    key: string;
-    label: string;
-    sortable?: boolean;
-    sortDirection?: 'asc' | 'desc';
-}
+	key: string;
+	label: string;
+	sortable?: boolean;
+	sortDirection?: 'asc' | 'desc';
+};

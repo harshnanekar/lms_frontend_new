@@ -83,17 +83,17 @@
 	}
 
 	.lms-primary-btn {
-		@apply bg-primary text-white text-cta-md-no-space gap-2.5 font-medium py-[10px] px-[16px] rounded-xl
+		@apply bg-primary text-white text-cta-md-no-space gap-2.5 font-medium py-2.5 px-[16px] rounded-xl
 		border-none cursor-pointer flex items-center hover:bg-danger-hover active:bg-danger-pressed;
 	}
 
 	.lms-filter-badge-container {
-		@apply cursor-pointer flex items-center gap-x-3 bg-base text-slate-100 py-[8px] pl-[8px] pr-[16px] rounded-xl border-[1px] border-base
-		hover:bg-warning-300 hover:text-primary hover:border-[1px] hover:border-warning-400;
+		@apply cursor-pointer flex items-center gap-x-2 md:gap-x-3 bg-base text-slate-100 py-2 pl-2 pr-2 md:pr-[16px] rounded-xl border-[1px] border-base
+		text-label-md font-semibold hover:bg-warning-300 hover:text-primary hover:border-[1px] hover:border-warning-400;
 	}
 
 	.lms-filter-badge-container.active {
-		@apply bg-warning-300 text-primary border-[1px] border-warning-400
+		@apply bg-warning-300 text-primary border-[1px] border-warning-400;
 	}
 
 	.lms-filter-badge-text {

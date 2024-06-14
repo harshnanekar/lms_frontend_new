@@ -26,10 +26,10 @@
 </script>
 
 <div class="flex justify-between">
-	<h1 class="text-xl font-medium">Multi Program Campus</h1>
-	<button class="lms-primary-btn">
+	<h1 class="text-lg md:text-xl font-bold">Multi Program Campus</h1>
+	<button class="py-4 md:py-2.5 fixed bottom-16 right-5 md:static lms-primary-btn">
 		<PlusIcon />
-		Create New Meeting
+		<span class="hidden md:block">Create New Meeting</span>
 	</button>
 </div>
 <MPCTableFilters />

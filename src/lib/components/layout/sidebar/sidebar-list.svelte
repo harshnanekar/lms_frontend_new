@@ -9,11 +9,7 @@
 	export let isactive: boolean;
 </script>
 
-<li
-	class="pl-[20px] sidebar-list"
-	class:text-primary={isactive}
-	class:active={isactive}
->
+<li class="pl-[20px] sidebar-list" class:text-primary={isactive} class:active={isactive}>
 	<a
 		href={item.url}
 		class="w-full h-full flex items-center space-x-[10px] gap-4 py-[15px] px-[20px] sidebar-link"

@@ -1,6 +1,6 @@
 <script>
 	import { MenuBarIcon } from '../icons';
-import { Image } from '../ui';
+	import { Image } from '../ui';
 </script>
 
 <header id="lms-header" class="h-[60px] flex justify-between items-center px-[28px] py-[8px]">

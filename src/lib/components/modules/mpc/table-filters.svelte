@@ -8,7 +8,7 @@
 	} from '$lib/components/icons';
 </script>
 
-<div id="mpc-filter-wrapper" class="overflow-x-auto flex gap-x-3 my-[30px]">
+<div id="mpc-filter-wrapper" class="overflow-x-auto flex gap-x-3 my-[16px] md:my-[30px]">
 	<div class="lms-filter-badge-container active">
 		<MeetingIcon />
 		<span class="lms-filter-badge-text">All Meetings</span>

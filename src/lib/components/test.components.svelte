@@ -1,4 +1,3 @@
-
 <div class="p-10 font-dm-sans flex gap-10">
 	<button
 		class="bg-primary text-white text-cta-md font-medium py-[10px] px-[16px] rounded-xl border-none hover:bg-danger-hover active:bg-danger-pressed"
@@ -30,13 +29,8 @@
 		Button icon
 	</button>
 
-	<button
-		class="lms-primary-btn"
-		>icon Button
-	</button>
+	<button class="lms-primary-btn">icon Button </button>
 </div>
-
-
 
 <div class="p-10 font-dm-sans">
 	<p>
@@ -68,8 +62,6 @@
 	</div> -->
 </div>
 
-
-
 <div class="p-10 font-dm-sans flex gap-10">
 	<button
 		class="bg-primary text-white text-cta-md-no-space font-medium leading-5 border-none rounded-lg
@@ -84,30 +76,19 @@
 
 <div class="p-10 font-dm-sans flex gap-10">
 	<div class="lms-status-success">
-		<span
-			class="lms-label-success"
-			>Scheduled
-		</span>
+		<span class="lms-label-success">Scheduled </span>
 	</div>
 	<div class="lms-status-info">
-		<span
-			class="lms-label-info">Pending F-A</span
-		>
+		<span class="lms-label-info">Pending F-A</span>
 	</div>
 	<div class="lms-status-info-b">
-		<span
-			class="lms-label-info-b">Pending F-B</span
-		>
+		<span class="lms-label-info-b">Pending F-B</span>
 	</div>
 	<div class="lms-status-done">
-		<span
-			class="lms-label-light">Completed</span
-		>
+		<span class="lms-label-light">Completed</span>
 	</div>
 	<div class="lms-status-warning">
-		<span
-			class="lms-label-warning">Draft</span
-		>
+		<span class="lms-label-warning">Draft</span>
 	</div>
 </div>
 

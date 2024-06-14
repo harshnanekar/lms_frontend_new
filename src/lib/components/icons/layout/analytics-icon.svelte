@@ -4,8 +4,8 @@
 	export let height = 20;
 </script>
 
-<svg width={width} height={height} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-	<rect x="1.66602" y="1.66675" width="16.6667" height="16.6667" rx="5" fill={fill} />
+<svg {width} {height} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<rect x="1.66602" y="1.66675" width="16.6667" height="16.6667" rx="5" {fill} />
 	<path
 		d="M13.2696 15.0897C13.2271 15.448 12.9279 15.7147 12.5779 15.7147C12.2187 15.7147 11.9196 15.448 11.8862 15.0897V12.3564C11.8529 12.0889 11.9771 11.8397 12.2029 11.698C12.4362 11.5564 12.7196 11.5564 12.9437 11.698C13.1696 11.8397 13.2937 12.0889 13.2696 12.3564V15.0897Z"
 		fill="white"

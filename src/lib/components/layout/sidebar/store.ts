@@ -16,9 +16,9 @@ export const setActiveSidebarUrl = (url: string | undefined, sidebarList: Sideba
 			return;
 		}
 
-		if(sidebar.child.length > 0) {
-			const activeChild = sidebar.child.find(child => child.url === url);
-			if(activeChild) {
+		if (sidebar.child.length > 0) {
+			const activeChild = sidebar.child.find((child) => child.url === url);
+			if (activeChild) {
 				activeSidebarModule.set(sidebar);
 				return;
 			}

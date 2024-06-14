@@ -35,7 +35,9 @@
 							<td class="table-cell">
 								{#if header.key === 'status'}
 									<div
-										class="{STATUS_COLORS[item['status_abbr'].toString().toLocaleLowerCase()]} no-bold"
+										class="{STATUS_COLORS[
+											item['status_abbr'].toString().toLocaleLowerCase()
+										]} no-bold"
 									>
 										{item[header.key]}
 									</div>

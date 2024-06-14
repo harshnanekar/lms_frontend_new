@@ -1,3 +1,3 @@
-import { MeetingIcon, ScheduledIcon } from "./mpc";
+import { MeetingIcon, ScheduledIcon } from './mpc';
 
-export { MeetingIcon, ScheduledIcon }
+export { MeetingIcon, ScheduledIcon };

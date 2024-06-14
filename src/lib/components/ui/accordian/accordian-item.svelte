@@ -93,7 +93,7 @@
 		transition: font-weight 3s ease-in-out;
 		border: 1px solid rgba(229, 233, 241, 1);
 		border-radius: 8px 8px 0px 0px;
-		transition: border-radius .5s ease;
+		transition: border-radius 0.5s ease;
 	}
 
 	.accordion-toggle:not(.active) {

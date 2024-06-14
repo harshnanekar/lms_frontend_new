@@ -67,7 +67,10 @@ export default {
 				'small-label': ['10px', { lineHeight: '14px', letterSpacing: '0.016rem' }],
 				caption: ['12px', { lineHeight: '16px', letterSpacing: '0.016rem' }],
 				breadcrumb: ['10px', { lineHeight: '14px', letterSpacing: '0.016rem' }],
-				'table-header': ['12px', { lineHeight: '17px', letterSpacing: '0.016rem', fontWeight: '700' }],
+				'table-header': [
+					'12px',
+					{ lineHeight: '17px', letterSpacing: '0.016rem', fontWeight: '700' }
+				]
 			},
 			fontFamily: {
 				'dm-sans': ['DM Sans', 'sans-serif']
