@@ -104,7 +104,11 @@
 		-webkit-text-stroke: 0.7px black;
 	}
 
-	:global(.accordion-toggle.active .semi-bold) {
+	:global(.accordion-toggle.active #tooltip) {
+		-webkit-text-stroke: 0.1px white;
+	}
+
+	:global(.accordion-toggle.active .semi-bold:not(#tooltip)) {
 		-webkit-text-stroke: 0.3px black;
 	}
 

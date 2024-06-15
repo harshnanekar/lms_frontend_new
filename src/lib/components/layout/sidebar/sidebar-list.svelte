@@ -2,14 +2,24 @@
 	import { COLORS } from '$lib/constants/colors';
 	import { DashboardIcon } from '$lib/components/icons';
 	import type { SidebarListType } from './types';
-	import { tooltip } from '@svelte-plugins/tooltips';
+	import { tooltip } from '$lib/utils/tooltip';
 
 	// TODO: add types properly
 	export let item: SidebarListType;
 	export let isactive: boolean;
+	export let index: number;
 </script>
 
-<li class="sidebar-list pl-[20px]" class:text-primary={isactive} class:active={isactive}>
+<li
+	use:tooltip={{
+		content: item.label,
+		position: 'bottom'
+	}}
+	class="sidebar-list pl-[20px]"
+	style="--active-index: {index}"
+	class:text-primary={isactive}
+	class:active={isactive}
+>
 	<a
 		href={item.url}
 		class="sidebar-link flex h-full w-full items-center gap-4 space-x-[10px] px-[20px] py-[15px]"

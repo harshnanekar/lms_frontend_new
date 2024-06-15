@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { SortArrowIcon } from '$lib/components/icons';
 	import { STATUS_COLORS } from '$lib/constants/colors';
+	import { tooltip } from '$lib/utils/tooltip';
 	import type { TableHeaders, TableData } from './types';
 
 	export let tableData: TableData[] = [];
@@ -16,7 +17,6 @@
 					<th class="w-24">
 						<div class="flex">
 							{header.label}
-
 							{#if header.sortable}
 								<button>
 									<SortArrowIcon />
@@ -32,21 +32,27 @@
 				<tr>
 					{#each tableHeaders as header}
 						{#if isAction && header.key !== 'action'}
-							<td class="table-cell">
+							<td class="table-cell {header.classes}">
 								{#if header.key === 'status'}
 									<div
 										class="{STATUS_COLORS[
 											item['status_abbr'].toString().toLocaleLowerCase()
-										]} no-bold"
+										]} no-bold whitespace-nowrap"
+									>
+										{item[header.key]}
+									</div>
+								{:else if header.showTooltip}
+									<div
+										use:tooltip={{
+											content: item[header.key].toString(),
+											position: 'top'
+										}}
+										class="description relative"
 									>
 										{item[header.key]}
 									</div>
 								{:else}
-									<div
-										class={header.key.includes('id')
-											? 'table-alternalte-text w-fit rounded-lg bg-base px-4 py-2'
-											: ''}
-									>
+									<div>
 										{item[header.key]}
 									</div>
 								{/if}

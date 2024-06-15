@@ -86,5 +86,10 @@ export default {
 			}
 		}
 	},
+	variants: {
+		extend: {
+			truncate: ['responsive']
+		}
+	},
 	plugins: []
 };

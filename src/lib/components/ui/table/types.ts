@@ -7,4 +7,6 @@ export type TableHeaders = {
 	label: string;
 	sortable?: boolean;
 	sortDirection?: 'asc' | 'desc';
+	classes?: string;
+	showTooltip?: boolean;
 };

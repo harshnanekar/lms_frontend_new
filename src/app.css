@@ -12,7 +12,7 @@
 
 @layer components {
 	.lms-table {
-		@apply w-full min-w-[768px] text-left font-normal text-black;
+		@apply w-full table-auto text-left font-normal text-black;
 	}
 
 	.lms-table thead th {
@@ -20,22 +20,24 @@
 	}
 
 	.lms-table tbody td {
-		@apply w-[250px] overflow-hidden text-ellipsis whitespace-nowrap px-5 py-[14px] text-body-2 text-sm leading-5 text-gray-900;
+		@apply px-5 py-[14px] text-body-2 text-sm leading-5 text-gray-900;
 	}
 
-	.lms-table tbody td {
-		@apply !w-fit;
+	.lms-table tbody td .description {
+		@apply  overflow-hidden whitespace-nowrap text-ellipsis max-w-[450px];
 	}
 
 	.lms-table tbody tr:hover {
-		@apply cursor-pointer rounded-lg bg-base;
+		@apply rounded-lg bg-base;
 	}
 
 	.lms-table tbody tr:hover *:not(.no-bold) {
 		-webkit-text-stroke: 0.6px black;
 	}
 
-	.lms-table tbody tr:hover .no-bold {
+	.lms-table tbody tr:hover .no-bold,
+	.lms-table tbody tr:hover .tooltip,
+	.lms-table tbody tr:hover .action-button {
 		-webkit-text-stroke: 0.1px black;
 	}
 
@@ -53,8 +55,12 @@
 		border-bottom-right-radius: 10px;
 	}
 
-	.lms-table tbody tr:hover .table-alternalte-text {
+	.lms-table tbody tr:hover .id .description {
 		@apply bg-white;
+	}
+
+	.lms-table tbody .id div {
+		@apply !w-fit rounded-lg bg-base px-4 py-2;
 	}
 
 	.lms-label-success {
@@ -77,6 +83,14 @@
 		@apply w-fit rounded-[20px] border-[1px] border-white bg-warning-100 px-[12px] py-[3px] text-cta-md-no-space font-medium leading-5 text-warning-200;
 	}
 
+	button.lms-btn {
+		transition: transform 400ms ease-in-out;
+	}
+
+	button.lms-btn:active {
+		transform:scale(.90);
+	}
+
 	.lms-primary-btn {
 		@apply flex cursor-pointer items-center gap-2.5 rounded-xl border-none bg-primary px-[16px] py-2.5 text-cta-md-no-space font-medium text-white hover:bg-danger-hover active:bg-danger-pressed;
 	}
@@ -94,6 +108,48 @@
 	}
 
 	.lms-filter-badge-count {
-		@apply rounded-[60px] bg-white px-[8px] py-[3px] text-cta-md-no-space font-bold leading-[18px] text-black hover:bg-warning-300;
+		@apply rounded-[60px] bg-white px-[8px] py-[3px] text-cta-md-no-space font-bold leading-[18px] text-black;
+	}
+	
+	.tooltip {
+		@apply fixed max-w-80 text-wrap bg-black text-white text-center rounded-md p-2.5 opacity-90 z-[100000] pointer-events-none;
+	}
+
+	.tooltip::after {
+		content: '';
+		position: absolute;
+		border-width: 8px;
+		border-style: solid;
+		border-color: #000 transparent transparent transparent;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	
+	.tooltip.tooltip-bottom::after {
+		top: -50%;
+		bottom: 100%;
+		border-color: transparent transparent #000 transparent;
+		transform: translateX(-50%);
+	}
+	
+	.tooltip.tooltip-top::after {
+		bottom: -15px;
+		top: auto;
+	}
+	
+	.tooltip.tooltip-left::after {
+		right: -50%;
+		left: 100%;
+		top: 50%;
+		border-color: transparent transparent transparent #000;
+		transform: translateY(-50%);
+	}
+	
+	.tooltip.tooltip-right::after {
+		left: -50%;
+		top: 50%;
+		right: 100%;
+		border-color: transparent #000 transparent transparent;
+		transform: translateY(-50%);
 	}
 }

@@ -1,8 +1,17 @@
+import type { TableHeaders } from "./components/ui/table/types";
+
 export const SIDEBAR_URL = [
 	{
 		url: '',
 		icon: 'dashboard',
 		label: 'Home',
+		module: null,
+		child: []
+	},
+	{
+		url: '#',
+		icon: 'test',
+		label: 'Test',
 		module: null,
 		child: []
 	},
@@ -124,7 +133,7 @@ export let obj = [
 		meeting_name:
 			'MBA - 8001 - Trimester III- Financial Analytics - 1 - 803AN2E001 (2023) E001 (2023)',
 		meeting_date: '19 May’ 23, 11:32 AM',
-		acad_session: 'Tri III, 2023',
+		acad_session: ' Tri III, 2023',
 		status: 'Pending Form A',
 		status_abbr: 'PENDING_FORMA'
 	},
@@ -139,41 +148,47 @@ export let obj = [
 	}
 ];
 
-export const headers = [
+export const headers: TableHeaders[] = [
 	{
 		label: 'MID',
 		key: 'meeting_id',
 		sortable: true,
-		addclass: true
+		classes: 'id',
+		showTooltip: false
 	},
 	{
 		label: 'Meeting Name',
 		key: 'meeting_name',
 		sortable: true,
-		addclass: true
+		classes: 'max-w-[500px]',
+		showTooltip: true
 	},
 	{
 		label: 'Meeting Date',
 		key: 'meeting_date',
 		sortable: true,
-		addclass: true
+		classes: '',
+		showTooltip: false
 	},
 	{
 		label: 'Acad Session',
 		key: 'acad_session',
 		sortable: true,
-		addclass: true
+		classes: '',
+		showTooltip: false
 	},
 	{
 		label: 'Status',
 		key: 'status',
 		sortable: true,
-		addclass: true
+		classes: '',
+		showTooltip: false
 	},
 	{
 		label: 'Action',
 		key: 'action',
 		sortable: false,
-		addclass: false
+		classes: '',
+		showTooltip: false
 	}
 ];

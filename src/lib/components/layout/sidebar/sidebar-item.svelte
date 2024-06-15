@@ -10,7 +10,7 @@
 <ul class="pt-[43px]">
 	{#each sidebarList as item, i}
 		{@const isactive = $page.url.href.split('/').pop() === item.url}
-		<SidebarList {item} {isactive} />
+		<SidebarList index={i} {item} {isactive} />
 	{/each}
 	<div class="highlight"></div>
 </ul>
@@ -22,7 +22,6 @@
 
 	.highlight {
 		position: absolute;
-		opacity: 0;
 		top: 43px;
 		left: 0;
 		width: 100%; /* Adjust width to account for padding */
