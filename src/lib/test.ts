@@ -1,4 +1,4 @@
-import type { TableHeaders } from "./components/ui/table/types";
+import type { TableHeaders } from './components/ui/table/types';
 
 export const SIDEBAR_URL = [
 	{

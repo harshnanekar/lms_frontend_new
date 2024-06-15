@@ -1,18 +1,18 @@
 <script lang="ts">
-	import { ActionIcon } from "$lib/components/icons";
-	import type { TableData } from "$lib/components/ui/table/types";
-	import { onDestroy } from "svelte";
-	import { writable } from "svelte/store";
+	import { ActionIcon } from '$lib/components/icons';
+	import type { TableData } from '$lib/components/ui/table/types';
+	import { onDestroy } from 'svelte';
+	import { writable } from 'svelte/store';
 
 	export let actionData: TableData;
 	const showMenu = writable<boolean>(false);
-	const menuPosition = writable<{ top: number, left: number }>({ top: 0, left: 0 });
+	const menuPosition = writable<{ top: number; left: number }>({ top: 0, left: 0 });
 
 	let buttonElement: HTMLButtonElement;
 	let menuElement: HTMLDivElement;
 
 	const toggleMenu = () => {
-		showMenu.update(value => !value);
+		showMenu.update((value) => !value);
 	};
 
 	$: if ($showMenu && menuElement) {
@@ -41,7 +41,10 @@
 	}
 
 	const handleClickOutside = (event: MouseEvent) => {
-		if (!buttonElement.contains(event.target as Node) && (!menuElement || !menuElement.contains(event.target as Node))) {
+		if (
+			!buttonElement.contains(event.target as Node) &&
+			(!menuElement || !menuElement.contains(event.target as Node))
+		) {
 			showMenu.set(false);
 		}
 	};
@@ -50,13 +53,39 @@
 	onDestroy(() => document.removeEventListener('click', handleClickOutside));
 </script>
 
+<div>
+	<button class="action-button" bind:this={buttonElement} on:click={toggleMenu}>
+		<ActionIcon />
+	</button>
+	{#if $showMenu}
+		<div class="backdrop" on:click={handleClickOutside}></div>
+		<div
+			bind:this={menuElement}
+			class="fixed-menu mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5"
+			style="top: {$menuPosition.top}px; left: {$menuPosition.left}px;"
+		>
+			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+				<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+					>View</a
+				>
+				<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+					>Edit</a
+				>
+				<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+					>Delete</a
+				>
+			</div>
+		</div>
+	{/if}
+</div>
+
 <style>
 	.fixed-menu {
 		position: fixed;
 		z-index: 1000;
 	}
 
-  .backdrop {
+	.backdrop {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -64,22 +93,6 @@
 		height: 100%;
 		background: rgba(0, 0, 0, 0.5);
 		z-index: 1000;
-    transition: background 5000ms ease;
+		transition: background 5000ms ease;
 	}
 </style>
-
-<div>
-	<button class="action-button" bind:this={buttonElement} on:click={toggleMenu}>
-		<ActionIcon />
-	</button>
-	{#if $showMenu}
-    <div class="backdrop" on:click={handleClickOutside}></div>
-		<div bind:this={menuElement} class="fixed-menu mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5" style="top: {$menuPosition.top}px; left: {$menuPosition.left}px;">
-			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-				<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">View</a>
-				<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Edit</a>
-				<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Delete</a>
-			</div>
-		</div>
-	{/if}
-</div>

@@ -11,10 +11,6 @@
 </script>
 
 <li
-	use:tooltip={{
-		content: item.label,
-		position: 'bottom'
-	}}
 	class="sidebar-list pl-[20px]"
 	style="--active-index: {index}"
 	class:text-primary={isactive}

@@ -1,10 +1,10 @@
 <script>
-	import { ActionIcon } from "$lib/components/icons";
-	import { Accordion, AccordionItem } from "$lib/components/ui";
-	import { Table } from "$lib/components/ui/table";
+	import { ActionIcon } from '$lib/components/icons';
+	import { Accordion, AccordionItem } from '$lib/components/ui';
+	import { Table } from '$lib/components/ui/table';
 	import { tooltip } from '$lib/utils/tooltip';
-	import { MPCMeetingCard, MeetingAction } from ".";
-	import { headers, obj } from "$lib/test";
+	import { MPCMeetingCard, MeetingAction } from '.';
+	import { headers, obj } from '$lib/test';
 
 	const items = [
 		{
@@ -24,6 +24,7 @@
 		}
 	];
 </script>
+
 <Accordion collapse spaceBetween>
 	{#each items as item, i}
 		<AccordionItem open={items.length === 1}>

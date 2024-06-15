@@ -24,7 +24,7 @@
 	}
 
 	.lms-table tbody td .description {
-		@apply  overflow-hidden whitespace-nowrap text-ellipsis max-w-[450px];
+		@apply max-w-[450px] overflow-hidden text-ellipsis whitespace-nowrap;
 	}
 
 	.lms-table tbody tr:hover {
@@ -88,7 +88,7 @@
 	}
 
 	button.lms-btn:active {
-		transform:scale(.90);
+		transform: scale(0.9);
 	}
 
 	.lms-primary-btn {
@@ -110,9 +110,9 @@
 	.lms-filter-badge-count {
 		@apply rounded-[60px] bg-white px-[8px] py-[3px] text-cta-md-no-space font-bold leading-[18px] text-black;
 	}
-	
+
 	.tooltip {
-		@apply fixed max-w-80 text-wrap bg-black text-white text-center rounded-md p-2.5 opacity-90 z-[100000] pointer-events-none;
+		@apply pointer-events-none fixed z-[100000] max-w-80 text-wrap rounded-md bg-black p-2.5 text-center text-white opacity-90;
 	}
 
 	.tooltip::after {
@@ -124,19 +124,19 @@
 		left: 50%;
 		transform: translateX(-50%);
 	}
-	
+
 	.tooltip.tooltip-bottom::after {
 		top: -50%;
 		bottom: 100%;
 		border-color: transparent transparent #000 transparent;
 		transform: translateX(-50%);
 	}
-	
+
 	.tooltip.tooltip-top::after {
 		bottom: -15px;
 		top: auto;
 	}
-	
+
 	.tooltip.tooltip-left::after {
 		right: -50%;
 		left: 100%;
@@ -144,7 +144,7 @@
 		border-color: transparent transparent transparent #000;
 		transform: translateY(-50%);
 	}
-	
+
 	.tooltip.tooltip-right::after {
 		left: -50%;
 		top: 50%;

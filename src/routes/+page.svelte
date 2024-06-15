@@ -2,7 +2,6 @@
 	import { PlusIcon } from '$lib/components/icons';
 	import { MPCTableFilters } from '$lib/components/modules';
 	import { MeetingAccordianList } from '$lib/components/modules/mpc';
-
 </script>
 
 <div class="flex justify-between">
