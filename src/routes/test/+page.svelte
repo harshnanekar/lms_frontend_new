@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { DynamicSelect, Modal } from '$lib/components/ui';
+	import type { ModalSizes } from '$lib/components/ui/modal/types';
 
 	import { writable } from 'svelte/store';
 
 	const isOpen = writable(false);
-	let modalwidthPercent: number = 40;
+	let modalwidthPercent: ModalSizes = "md";
 
-	const openModal = (width: number) => {
-		modalwidthPercent = width;
+	const openModal = (size: ModalSizes) => {
+		modalwidthPercent = size;
 		isOpen.set(true);
 	};
 
@@ -18,16 +19,18 @@
 
 <DynamicSelect />
 
-<div class="flex h-screen items-center justify-center">
+<div class="flex h-[50vh] items-center justify-center">
 	<div class="flex space-x-4">
-		<button class="lms-btn lms-primary-btn" on:click={() => openModal(20)}>Open Small Modal</button>
-		<button class="lms-btn lms-primary-btn" on:click={() => openModal(40)}>Open Medium Modal</button>
-		<button class="lms-btn lms-primary-btn" on:click={() => openModal(60)}>Open Large Modal</button>
-		<button class="lms-btn lms-primary-btn" on:click={() => openModal(80)}>Open XLarge Modal</button>
+		<button class="lms-btn lms-primary-btn" on:click={() => openModal("sm")}>Open Small Modal</button>
+		<button class="lms-btn lms-primary-btn" on:click={() => openModal("md")}>Open Medium Modal</button>
+		<button class="lms-btn lms-primary-btn" on:click={() => openModal("lg")}>Open Large Modal</button>
+		<button class="lms-btn lms-primary-btn" on:click={() => openModal("xl")}>Open XLarge Modal</button>
+		<button class="lms-btn lms-primary-btn" on:click={() => openModal("full")}>Open FUll Modal</button>
 	</div>
 </div>
+<DynamicSelect />
 
-<Modal bind:isOpen={$isOpen} widthPercentage={modalwidthPercent} on:close={closeModal}>
+<Modal bind:isOpen={$isOpen} size={modalwidthPercent} on:close={closeModal}>
 	<div slot="header">
 		<div class="border-b p-4">
 			<h2 class="text-lg font-semibold">Custom Modal Title</h2>
@@ -37,6 +40,7 @@
 	<div slot="body">
 		<div class="p-4">
 			<p>This is custom modal body content.</p>
+			<DynamicSelect />
 		</div>
 	</div>
 	<div slot="footer">

@@ -2,18 +2,6 @@
 	import { ArrowIcon, SearchIcon } from '$lib/components/icons';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import {
-		isOpen,
-		searchQuery,
-		filteredOptions,
-		selectedOption,
-		dropdownPositionStyle,
-		toggleDropdown,
-		closeDropdown,
-		filterOptions,
-		setPosition,
-		selectOption
-	} from './select.store';
 
 	export let placeholder = 'Select an Option';
 
@@ -50,6 +38,61 @@
 			window.removeEventListener('click', handleClickOutside);
 		};
 	});
+
+	import { writable } from 'svelte/store';
+
+	const isOpen = writable(false);
+	const searchQuery = writable('');
+	const options = Array.from({ length: 10 }, (_, i) => `Option ${i + 1}`);
+	const filteredOptions = writable(options);
+	const selectedOption = writable('');
+
+	let dropdownPositionStyle = ''; // Inline style for dropdown position
+
+	function toggleDropdown(setPosition: () => void) {
+		isOpen.update((n) => !n);
+		setTimeout(setPosition, 10); // Set position after the dropdown is rendered
+	}
+
+	function closeDropdown() {
+		isOpen.set(false);
+	}
+
+	function filterOptions(searchQueryValue: string) {
+		filteredOptions.set(
+			options.filter((option) => option.toLowerCase().includes(searchQueryValue.toLowerCase()))
+		);
+	}
+
+	function setPosition(buttonRef: HTMLElement, dropdownRef: HTMLElement) {
+		if (!dropdownRef || !buttonRef) return;
+		const buttonRect = buttonRef.getBoundingClientRect();
+		const viewportHeight = window.innerHeight;
+
+		const spaceBelow = viewportHeight - buttonRect.bottom;
+		const spaceAbove = buttonRect.top;
+
+		// Calculate total space needed for dropdown (dropdown height + button height)
+		const dropdownSpaceNeeded = dropdownRef.clientHeight + buttonRef.clientHeight;
+
+		// Determine the position based on available space
+		if (spaceBelow >= dropdownSpaceNeeded) {
+			dropdownPositionStyle = `top: ${buttonRect.bottom}px`; // Place dropdown below the button
+		} else if (spaceAbove >= dropdownSpaceNeeded) {
+			dropdownPositionStyle = `bottom: ${viewportHeight - buttonRect.top}px`; // Place dropdown above the button
+		} else {
+			// Default to placing where there is more space
+			dropdownPositionStyle =
+				spaceAbove > spaceBelow
+					? `bottom: ${viewportHeight - buttonRect.top}px`
+					: `top: ${buttonRect.bottom}px`;
+		}
+	}
+
+	function selectOption(option: string) {
+		selectedOption.set(option);
+		closeDropdown();
+	}
 </script>
 
 <div class="relative inline-block">

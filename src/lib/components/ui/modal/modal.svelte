@@ -1,12 +1,13 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { onMount } from 'svelte';
+	import { ModalSizeMap, type ModalSizes } from './types';
+	import { fly } from 'svelte/transition';
 
   export let isOpen: boolean = false;
-  export let widthPercentage: number = 50;
+  export let size: ModalSizes = "md";
 
   const dispatch = createEventDispatcher();
-
   const closeModal = () => {
     isOpen = false;
     dispatch('close');
@@ -27,7 +28,7 @@
 
 <style>
   .modal-overlay {
-    @apply fixed inset-0 bg-[#576173] bg-opacity-40 flex items-start pt-6 justify-center z-50;
+    @apply fixed inset-0 bg-[#576173] bg-opacity-40 flex items-start pt-10 lg:pt-6 justify-center z-50;
   }
   .modal-content {
     @apply bg-white rounded-2xl shadow-modal overflow-hidden;
@@ -35,16 +36,14 @@
 </style>
 
 {#if isOpen}
-  <div class="modal-overlay relative" on:click={closeModal}>
+  <div transition:fly|local class="modal-overlay relative" on:click={closeModal}>
     <div
-      class="modal-content"
+      class="modal-content w-full {ModalSizeMap[size]}"
       on:click|stopPropagation
-      style="min-width: {widthPercentage}%"
     >
       <slot name="header">
         <div class="p-4 border-b relative">
           <h2 class="text-lg font-semibold">Modal Title</h2>
-          <button class="absolute top-2 right-2" on:click={closeModal}>✕</button>
         </div>
       </slot>
       <slot name="body">
