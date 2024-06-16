@@ -187,48 +187,50 @@
 					<slot />
 				</tbody>
 			</table>
-			</div>
-			{#if showPagination}
-				<div class="pagination mt-4 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2">
-					<div>
-						<span class="text-sm text-gray-500">
-							Showing
-							<span class="font-medium">{($page - 1) * $limit + 1}</span>
-							to
-							<span class="font-medium">{Math.min($page * $limit, $data.total)}</span>
-							of
-							<span class="font-medium">{$data.total}</span>
-							results
-						</span>
-					</div>
-					<div class="text-cta-sm lg:text-cta-md">
-						<button
-							class="rounded border px-4 py-2 disabled:opacity-50 hover:bg-primary-light"
-							on:click={() => setPage($page - 1)}
-							disabled={$page === 1}>Previous</button
-						>
-						{#each getPageNumbers() as pageNum}
-							{#if pageNum === '...' || typeof pageNum === 'string'}
-								<span class="px-4 py-2">...</span>
-							{:else}
-								<button
-									class="rounded border px-4 py-2 {pageNum === $page
-										? 'bg-primary text-white'
-										: 'hover:bg-primary-light'}"
-									on:click={() => setPage(pageNum)}
-								>
-									{pageNum}
-								</button>
-							{/if}
-						{/each}
-						<button
-							class="rounded border px-4 py-2 disabled:opacity-50 hover:bg-primary-light"
-							on:click={() => setPage($page + 1)}
-							disabled={$page >= Math.ceil($data.total / $limit)}>Next</button
-						>
-					</div>
+		</div>
+		{#if showPagination}
+			<div
+				class="pagination mt-4 flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between"
+			>
+				<div>
+					<span class="text-sm text-gray-500">
+						Showing
+						<span class="font-medium">{($page - 1) * $limit + 1}</span>
+						to
+						<span class="font-medium">{Math.min($page * $limit, $data.total)}</span>
+						of
+						<span class="font-medium">{$data.total}</span>
+						results
+					</span>
 				</div>
-			{/if}
+				<div class="text-cta-sm lg:text-cta-md">
+					<button
+						class="rounded border px-4 py-2 hover:bg-primary-light disabled:opacity-50"
+						on:click={() => setPage($page - 1)}
+						disabled={$page === 1}>Previous</button
+					>
+					{#each getPageNumbers() as pageNum}
+						{#if pageNum === '...' || typeof pageNum === 'string'}
+							<span class="px-4 py-2">...</span>
+						{:else}
+							<button
+								class="rounded border px-4 py-2 {pageNum === $page
+									? 'bg-primary text-white'
+									: 'hover:bg-primary-light'}"
+								on:click={() => setPage(pageNum)}
+							>
+								{pageNum}
+							</button>
+						{/if}
+					{/each}
+					<button
+						class="rounded border px-4 py-2 hover:bg-primary-light disabled:opacity-50"
+						on:click={() => setPage($page + 1)}
+						disabled={$page >= Math.ceil($data.total / $limit)}>Next</button
+					>
+				</div>
+			</div>
+		{/if}
 	{/if}
 </div>
 

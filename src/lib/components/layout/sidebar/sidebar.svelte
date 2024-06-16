@@ -7,7 +7,9 @@
 	import { SecondSidebarItem, SidebarItem } from '.';
 	import { page } from '$app/stores';
 
-	$: setActiveSidebarUrl($page.url.href.split('/').pop(), SIDEBAR_URL);
+	$: console.log($page.url.pathname);
+	$: console.log($activeSidebarModule);
+	$: setActiveSidebarUrl($page.url.pathname, SIDEBAR_URL);
 </script>
 
 <aside id="lms-sidebar" class="absolute bottom-0 left-0 top-0 hidden h-screen w-[260px] lg:block">

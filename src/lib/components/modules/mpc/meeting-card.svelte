@@ -7,7 +7,7 @@
 	export let item: MpcMasterList;
 </script>
 
-<div class="space-y-4 meeting-list-card pt-4">
+<div class="meeting-list-card space-y-4 pt-4">
 	<div class="flex w-full items-center">
 		<div class="mr-3 h-fit rounded-lg bg-base px-[12px] py-[2px]">{item.meeting_id}</div>
 		<div class="overflow-hidden text-ellipsis whitespace-nowrap">{item.meeting_name}</div>
@@ -15,7 +15,7 @@
 			<MeetingAction actionData={item} />
 		</div>
 	</div>
-	<div class="pl-8 flex justify-around text-slate-100">
+	<div class="flex justify-around pl-8 text-slate-100">
 		<div>
 			{item.meeting_date}
 		</div>

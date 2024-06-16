@@ -12,6 +12,7 @@
 	const { collapse, activeComponentId } = getAccordionOptions();
 
 	function setActive() {
+		console.log('INSIDE>>>>>>>>>.');
 		// update the store value in the context
 		if ($activeComponentId === componentId) {
 			$activeComponentId = null;
@@ -26,11 +27,12 @@
 
 	function handleClick() {
 		// if `collapse` is passed only one item can be active
+		console.log('CLICKED::::::::;');
 		collapse ? setActive() : toggleOpen();
 	}
 
 	// the accordion item to be open by default
-	$: open && collapse && setActive();
+	// $: open && collapse && setActive();
 	// compare if the active id matches the component id
 	$: isActive = $activeComponentId === componentId;
 	// if `collapse`, set one item as active, otherwise use `open`
@@ -50,7 +52,7 @@
 			<slot name="title" />
 		</div>
 
-		<div class="accordion-caret" class:open={open}>
+		<div class="accordion-caret" class:open>
 			<svg
 				width="18"
 				height="18"
@@ -72,7 +74,7 @@
 			transition:slide|local
 			class="accordion-content"
 			role="region"
-			class:open={open}
+			class:open
 			aria-hidden={!open}
 			aria-labelledby="accordion-{componentId}"
 		>

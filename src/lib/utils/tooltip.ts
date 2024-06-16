@@ -6,7 +6,7 @@ interface TooltipParams {
 }
 
 export function tooltip(node: HTMLElement, params: TooltipParams) {
-	if(!params.content) {
+	if (!params.content) {
 		return;
 	}
 	let tooltipElement: HTMLSpanElement | null = null;

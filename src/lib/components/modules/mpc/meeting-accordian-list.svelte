@@ -30,13 +30,13 @@
 					<div class="lg:flex lg:items-center lg:space-x-2">
 						<!-- use:tooltip={{ content: item.title }} -->
 						<div
-							class="bold flex-shrink-0 text-left text-body-2 max-w-[250px] lg:max-w-[350px] xl:max-w-[400px] 2xl:max-w-[450px] 2xl:text-body-1 truncate"
+							class="bold max-w-[250px] flex-shrink-0 truncate text-left text-body-2 lg:max-w-[350px] xl:max-w-[400px] 2xl:max-w-[450px] 2xl:text-body-1"
 						>
 							{item.title}
 						</div>
 						<!-- use:tooltip={{ content: item.title }} -->
 						<div
-							class="text-left semi-bold flex-shrink-0 text-small-label max-w-[250px] xl:max-w-[350px] 2xl:max-w-[450px] 2xl:text-label-md truncate"
+							class="semi-bold max-w-[250px] flex-shrink-0 truncate text-left text-small-label xl:max-w-[350px] 2xl:max-w-[450px] 2xl:text-label-md"
 						>
 							Master Of Business Administration (8001) - 50300366
 						</div>

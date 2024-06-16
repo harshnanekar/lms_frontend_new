@@ -9,7 +9,7 @@
 
 <ul class="pt-[43px]">
 	{#each sidebarList as item, i}
-		{@const isactive = $page.url.href.split('/').pop() === item.url}
+		{@const isactive = $page.url.pathname === item.url}
 		<SidebarList index={i} {item} {isactive} />
 	{/each}
 	<div class="highlight"></div>

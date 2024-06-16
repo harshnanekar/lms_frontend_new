@@ -9,10 +9,10 @@
 	export let tableData: MpcMasterList[] = [];
 	export let tableHeaders: TableHeaders<MpcMasterList>[] = [];
 
-  let sort = {
-    column: 'meeting_id',
-    order: 'asc'
-  }
+	let sort = {
+		column: 'meeting_id',
+		order: 'asc'
+	};
 </script>
 
 <div class="lms-table-wrapper">
@@ -24,7 +24,8 @@
 						<div class="flex">
 							{header.label}
 							{#if header.sortable}
-                {@const sortOrder = sort.column === header.key ? sort.order === 'asc' ? "asc" : "desc" : "none"}
+								{@const sortOrder =
+									sort.column === header.key ? (sort.order === 'asc' ? 'asc' : 'desc') : 'none'}
 								<button>
 									<SortArrowIcon {sortOrder} />
 								</button>

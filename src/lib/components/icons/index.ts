@@ -6,7 +6,8 @@ import {
 	PlusIcon,
 	PenIcon,
 	DraftIcon,
-	OpenBookIcon
+	OpenBookIcon,
+	SearchIcon
 } from './base';
 import { MeetingIcon, ScheduledIcon } from './modules';
 
@@ -22,5 +23,6 @@ export {
 	ScheduledIcon,
 	PenIcon,
 	DraftIcon,
-	OpenBookIcon
+	OpenBookIcon,
+	SearchIcon
 };

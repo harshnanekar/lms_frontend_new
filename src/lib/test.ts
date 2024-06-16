@@ -1,16 +1,16 @@
-import type { TableHeaders } from "./types/layout/table";
-import type { MpcMasterList } from "./types/modules/mpc";
+import type { TableHeaders } from './types/layout/table';
+import type { MpcMasterList } from './types/modules/mpc';
 
 export const SIDEBAR_URL = [
 	{
-		url: '',
+		url: '/',
 		icon: 'dashboard',
 		label: 'Home',
 		module: null,
 		child: []
 	},
 	{
-		url: '#',
+		url: '/test',
 		icon: 'test',
 		label: 'Test',
 		module: null,

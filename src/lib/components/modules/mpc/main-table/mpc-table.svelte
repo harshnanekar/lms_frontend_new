@@ -21,10 +21,10 @@
 	bind:url
 	header={headers}
 	bind:tableData
-  addLimit={true}
+	addLimit={true}
 >
 	{#each tableData as item}
-    {tableData && JSON.stringify(item, null, 2)}
+		{tableData && JSON.stringify(item, null, 2)}
 		<tr>
 			{#each tableHeaders as header}
 				<td

@@ -12,6 +12,7 @@ export default {
 				black: '#000000',
 				'slate-100': '#7C8798',
 				'slate-200': '#F1F3F7',
+				'slate-250': '#E5E9F1',
 				'gray-50': '#F8F8F8',
 				'gray-100': '#EEEEEE',
 				'gray-150': '#D9D9D9',

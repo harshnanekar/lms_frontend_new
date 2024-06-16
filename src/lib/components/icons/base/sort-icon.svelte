@@ -5,8 +5,8 @@
 	export let bottomFill = '#7C8798';
 	export let width = 16;
 	export let height = 16;
-	export let sortOrder: "asc" | "desc" | "none" = "none";
-	
+	export let sortOrder: 'asc' | 'desc' | 'none' = 'none';
+
 	$: topFill = sortOrder === 'asc' ? COLORS.PRIMARY_COLOR : '#7C8798';
 	$: bottomFill = sortOrder === 'desc' ? COLORS.PRIMARY_COLOR : '#7C8798';
 </script>
