@@ -1,4 +1,5 @@
-import type { TableHeaders } from './components/ui/table/types';
+import type { TableHeaders } from "./types/layout/table";
+import type { MpcMasterList } from "./types/modules/mpc";
 
 export const SIDEBAR_URL = [
 	{
@@ -148,7 +149,7 @@ export let obj = [
 	}
 ];
 
-export const headers: TableHeaders[] = [
+export const headers: TableHeaders<MpcMasterList>[] = [
 	{
 		label: 'MID',
 		key: 'meeting_id',
@@ -160,14 +161,14 @@ export const headers: TableHeaders[] = [
 		label: 'Meeting Name',
 		key: 'meeting_name',
 		sortable: true,
-		classes: 'max-w-[500px]',
-		showTooltip: true
+		classes: '',
+		showTooltip: false
 	},
 	{
 		label: 'Meeting Date',
 		key: 'meeting_date',
 		sortable: true,
-		classes: '',
+		classes: 'whitespace-nowrap',
 		showTooltip: false
 	},
 	{
@@ -183,12 +184,21 @@ export const headers: TableHeaders[] = [
 		sortable: true,
 		classes: '',
 		showTooltip: false
-	},
-	{
-		label: 'Action',
-		key: 'action',
-		sortable: false,
-		classes: '',
-		showTooltip: false
 	}
 ];
+
+// const setupObserver = () => {
+// 	const options = {
+// 		root: null,
+// 		rootMargin: '0px',
+// 		threshold: 0.1
+// 	};
+
+// 	observer = new IntersectionObserver(async ([entry]) => {
+// 		if (entry.isIntersecting) {
+// 			console.log("came here");
+// 		}
+// 	}, options);
+
+// 	observer.observe(document.querySelector('#scroll-anchor'));
+// };

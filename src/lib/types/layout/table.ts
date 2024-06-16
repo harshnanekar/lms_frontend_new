@@ -1,9 +1,5 @@
-export type TableData = {
-	[key: string]: string | number;
-};
-
-export type TableHeaders = {
-	key: string;
+export type TableHeaders<T> = {
+	key: keyof T;
 	label: string;
 	sortable?: boolean;
 	sortDirection?: 'asc' | 'desc';

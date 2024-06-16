@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
 	import { getAccordionOptions } from './context';
+	import { generateRandomUUID } from '$lib/utils/helper';
 
 	// by default the accordion item is closed
 	export let open = false;
 	// assign a unique identifier for the component
-	const componentId = crypto.randomUUID();
+	const componentId = generateRandomUUID();
 
 	// get the accordion options using the context api
 	const { collapse, activeComponentId } = getAccordionOptions();
@@ -33,23 +34,23 @@
 	// compare if the active id matches the component id
 	$: isActive = $activeComponentId === componentId;
 	// if `collapse`, set one item as active, otherwise use `open`
-	$: isOpen = collapse ? isActive : open;
+	$: open = collapse ? isActive : open;
 </script>
 
 <div class="accordion-item">
 	<button
 		on:click={handleClick}
 		class="accordion-toggle"
-		class:active={isOpen}
-		class:bg-base={isOpen}
-		aria-expanded={isOpen}
+		class:active={open}
+		class:bg-base={open}
+		aria-expanded={open}
 		aria-controls="accordion-{componentId}"
 	>
 		<div class="accordion-title flex-none sm:flex-1">
 			<slot name="title" />
 		</div>
 
-		<div class="accordion-caret" class:open={isOpen}>
+		<div class="accordion-caret" class:open={open}>
 			<svg
 				width="18"
 				height="18"
@@ -65,17 +66,17 @@
 		</div>
 	</button>
 
-	{#if isOpen}
+	{#if open}
 		<!-- local transitions only play when the block they belong to is created or destroyed -->
 		<div
 			transition:slide|local
 			class="accordion-content"
 			role="region"
-			class:open={isOpen}
-			aria-hidden={!isOpen}
+			class:open={open}
+			aria-hidden={!open}
 			aria-labelledby="accordion-{componentId}"
 		>
-			<slot name="content" />
+			<slot name="content" {open} />
 		</div>
 	{/if}
 </div>
@@ -124,6 +125,8 @@
 		border: 1px solid rgba(229, 233, 241, 1);
 		border-radius: 0px 0px 8px 8px;
 		box-shadow: 0px 2px 8px 0px #00000012;
+		/* max-height: 1000px;
+		overflow-y: auto; */
 	}
 
 	.accordion-caret.open {

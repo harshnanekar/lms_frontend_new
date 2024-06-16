@@ -4,7 +4,7 @@
 	import { MeetingAccordianList } from '$lib/components/modules/mpc';
 </script>
 
-<div class="flex justify-between">
+<div class="flex justify-between items-center">
 	<h1 class="text-lg font-bold md:text-xl">Multi Program Campus</h1>
 	<button class="lms-btn lms-primary-btn fixed bottom-16 right-5 py-4 md:static md:py-2.5">
 		<PlusIcon />

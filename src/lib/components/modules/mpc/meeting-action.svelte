@@ -58,7 +58,7 @@
 		<ActionIcon />
 	</button>
 	{#if $showMenu}
-		<div class="backdrop" on:click={handleClickOutside}></div>
+		<div role="presentation" class="backdrop" on:click={handleClickOutside}></div>
 		<div
 			bind:this={menuElement}
 			class="fixed-menu mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5"

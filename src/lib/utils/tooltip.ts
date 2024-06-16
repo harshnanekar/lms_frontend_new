@@ -6,6 +6,9 @@ interface TooltipParams {
 }
 
 export function tooltip(node: HTMLElement, params: TooltipParams) {
+	if(!params.content) {
+		return;
+	}
 	let tooltipElement: HTMLSpanElement | null = null;
 
 	function createTooltip() {
@@ -79,14 +82,21 @@ export function tooltip(node: HTMLElement, params: TooltipParams) {
 		window.removeEventListener('scroll', updateTooltipPosition);
 	}
 
+	function handleDblClick() {
+		// copy this text to clipboard for both mac and windows
+		// navigator.clipboard.writeText(params.content)
+	}
+
 	node.addEventListener('mouseenter', handleMouseEnter);
 	node.addEventListener('mouseleave', handleMouseLeave);
+	node.addEventListener('dblclick', handleDblClick);
 
 	return {
 		destroy() {
 			handleMouseLeave();
 			node.removeEventListener('mouseenter', handleMouseEnter);
 			node.removeEventListener('mouseleave', handleMouseLeave);
+			node.removeEventListener('dblclick', handleDblClick);
 		}
 	};
 }
