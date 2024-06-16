@@ -83,7 +83,8 @@ export default {
 				lg: '0px 12px 16px -4px rgba(16, 24, 40, 0.08)',
 				xl: '0px 8px 8px -4px rgba(16, 24, 40, 0.03)',
 				'2xl': '0px 24px 48px -12px rgba(16, 24, 40, 0.18)',
-				'3xl': '0px 32px 64px -12px rgba(16, 24, 40, 0.14)'
+				'3xl': '0px 32px 64px -12px rgba(16, 24, 40, 0.14)',
+				'modal': '0px 4px 16px 0px rgba(0, 0, 0, 0.16)'
 			}
 		}
 	},
