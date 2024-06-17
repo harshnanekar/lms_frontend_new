@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { onMount } from 'svelte';
-	import { modalPositionMap, modalSizeMap, type ModalPositions, type ModalSizes } from './types';
+	import { modalPositionClasses, modalSizeMap, type ModalPositions, type ModalSizes } from './types';
 	import { fly } from 'svelte/transition';
 
 	export let isOpen: boolean = false;
 	export let size: ModalSizes = 'md';
-	export let position: ModalPositions = 'center';
+	export let position: ModalPositions = 'center-bottom';
+	export let closeOnOutsideClick: boolean = true;
 
 	const dispatch = createEventDispatcher();
 
@@ -16,7 +17,7 @@
 	};
 
 	const handleOverlayClick = (event: MouseEvent) => {
-		if (event.target === event.currentTarget) {
+		if (closeOnOutsideClick && event.target === event.currentTarget) {
 			closeModal();
 		}
 	};
@@ -37,7 +38,7 @@
 {#if isOpen}
 	<div
 		transition:fly|local
-		class="modal-overlay {modalPositionMap[position]}"
+		class="modal-overlay {modalPositionClasses[position]}"
 		on:click={handleOverlayClick}
 	>
 		<div class="modal-content w-full {modalSizeMap[size]}">

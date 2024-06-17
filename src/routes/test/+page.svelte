@@ -20,7 +20,7 @@
 <DynamicSelect />
 
 <div class="flex h-[50vh] items-center justify-center">
-	<div class="flex space-x-4">
+	<div class="flex flex-wrap space-x-4">
 		<button class="lms-btn lms-primary-btn" on:click={() => openModal('sm')}
 			>Open Small Modal</button
 		>
@@ -36,6 +36,9 @@
 		<button class="lms-btn lms-primary-btn" on:click={() => openModal('full')}
 			>Open FUll Modal</button
 		>
+		<button class="lms-btn lms-primary-btn" on:click={() => openModal('fluid')}
+			>Open Fluid Modal</button
+		>
 	</div>
 </div>
 <DynamicSelect />
@@ -44,15 +47,14 @@
 	<div slot="header">
 		<div class="border-b p-4">
 			<h2 class="text-lg font-semibold">Custom Modal Title</h2>
-			<button class="absolute right-2 top-2" on:click={closeModal}>✕</button>
 		</div>
 	</div>
-	<div slot="body">
-		<div class="p-4">
+	<svalte:fragment slot="body">
+		<div class="p-4 min-h-[50vh]">
 			<p>This is custom modal body content.</p>
 			<DynamicSelect />
 		</div>
-	</div>
+	</svalte:fragment>
 	<div slot="footer">
 		<div class="border-t p-4">
 			<button class="lms-btn lms-primary-btn" on:click={closeModal}>Close</button>
