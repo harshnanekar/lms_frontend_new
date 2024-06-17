@@ -5,7 +5,7 @@
 	import { writable } from 'svelte/store';
 
 	const isOpen = writable(false);
-	let modalwidthPercent: ModalSizes = "md";
+	let modalwidthPercent: ModalSizes = 'md';
 
 	const openModal = (size: ModalSizes) => {
 		modalwidthPercent = size;
@@ -21,11 +21,21 @@
 
 <div class="flex h-[50vh] items-center justify-center">
 	<div class="flex space-x-4">
-		<button class="lms-btn lms-primary-btn" on:click={() => openModal("sm")}>Open Small Modal</button>
-		<button class="lms-btn lms-primary-btn" on:click={() => openModal("md")}>Open Medium Modal</button>
-		<button class="lms-btn lms-primary-btn" on:click={() => openModal("lg")}>Open Large Modal</button>
-		<button class="lms-btn lms-primary-btn" on:click={() => openModal("xl")}>Open XLarge Modal</button>
-		<button class="lms-btn lms-primary-btn" on:click={() => openModal("full")}>Open FUll Modal</button>
+		<button class="lms-btn lms-primary-btn" on:click={() => openModal('sm')}
+			>Open Small Modal</button
+		>
+		<button class="lms-btn lms-primary-btn" on:click={() => openModal('md')}
+			>Open Medium Modal</button
+		>
+		<button class="lms-btn lms-primary-btn" on:click={() => openModal('lg')}
+			>Open Large Modal</button
+		>
+		<button class="lms-btn lms-primary-btn" on:click={() => openModal('xl')}
+			>Open XLarge Modal</button
+		>
+		<button class="lms-btn lms-primary-btn" on:click={() => openModal('full')}
+			>Open FUll Modal</button
+		>
 	</div>
 </div>
 <DynamicSelect />
@@ -49,4 +59,3 @@
 		</div>
 	</div>
 </Modal>
-

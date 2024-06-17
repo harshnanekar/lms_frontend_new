@@ -84,7 +84,7 @@ export default {
 				xl: '0px 8px 8px -4px rgba(16, 24, 40, 0.03)',
 				'2xl': '0px 24px 48px -12px rgba(16, 24, 40, 0.18)',
 				'3xl': '0px 32px 64px -12px rgba(16, 24, 40, 0.14)',
-				'modal': '0px 4px 16px 0px rgba(0, 0, 0, 0.16)'
+				modal: '0px 4px 16px 0px rgba(0, 0, 0, 0.16)'
 			}
 		}
 	},
@@ -95,7 +95,7 @@ export default {
 	},
 	plugins: [],
 	safelist: [
-    /^w-\d{1,3}$/, // Match classes like w-10, w-20, ..., w-100
-    /^md:w-\d{1,3}%$/, // Match classes like md:w-10%, md:w-20%, ..., md:w-100%
-  ],
+		/^w-\d{1,3}$/, // Match classes like w-10, w-20, ..., w-100
+		/^md:w-\d{1,3}%$/ // Match classes like md:w-10%, md:w-20%, ..., md:w-100%
+	]
 };
