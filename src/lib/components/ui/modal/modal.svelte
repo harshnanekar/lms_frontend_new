@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { onMount } from 'svelte';
-	import { modalPositionClasses, modalSizeMap, type ModalPositions, type ModalSizes } from './types';
+	import { modalPositionClasses, modalSizeMap, type ModalPositions, type ModalSizes } from './helper.modal';
 	import { fly } from 'svelte/transition';
 
 	export let isOpen: boolean = false;

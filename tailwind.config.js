@@ -84,7 +84,8 @@ export default {
 				xl: '0px 8px 8px -4px rgba(16, 24, 40, 0.03)',
 				'2xl': '0px 24px 48px -12px rgba(16, 24, 40, 0.18)',
 				'3xl': '0px 32px 64px -12px rgba(16, 24, 40, 0.14)',
-				modal: '0px 4px 16px 0px rgba(0, 0, 0, 0.16)'
+				modal: '0px 4px 16px 0px rgba(0, 0, 0, 0.16)',
+				card: '0px 2px 8px 0px #00000012'
 			}
 		}
 	},

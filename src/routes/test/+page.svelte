@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { DynamicSelect, Modal } from '$lib/components/ui';
-	import type { ModalSizes } from '$lib/components/ui/modal/types';
+	import { Card, DynamicSelect, Modal } from '$lib/components/ui';
+	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
 
 	import { writable } from 'svelte/store';
 
@@ -61,3 +61,10 @@
 		</div>
 	</div>
 </Modal>
+
+
+<Card title="Meeting Details">
+	<div class="p-4">
+		<p>This is the card body content.</p>
+	</div>
+</Card>
