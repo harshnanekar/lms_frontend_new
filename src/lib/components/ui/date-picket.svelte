@@ -144,7 +144,7 @@
 						>
 					{:else if $view === 'months'}
 						<button
-							on:click={() => changeView('days')}
+							on:click={() => changeView('years')}
 							class="lms-btn block rounded-md border border-base px-2"
 							>{new Date(currentYear, currentMonth).getFullYear()}</button
 						>
@@ -226,14 +226,14 @@
 						class="cursor-pointer rounded-lg p-2.5 hover:bg-primary-light"
 						on:click={() => {
 							currentYear = year;
-							changeView('months');
+							changeView('days');
 						}}
 					>
 						{year}
 					</div>
 				{/each}
 			</div>
-
+      <hr>
 			<!-- Time selection section -->
 			<div class="time-selection mt-3 text-center">
 				<p class="cta-sm-lh mb-1.5 font-medium">Select Time</p>
