@@ -1,6 +1,7 @@
 <script>
 	import { MenuBarIcon, SearchIcon } from '../icons';
 	import { Image } from '../ui';
+	import { isSidebarOverlayOpen } from './sidebar/store';
 </script>
 
 <header id="lms-header" class="flex h-[60px] items-center justify-between px-[28px] py-[8px]">
@@ -8,10 +9,13 @@
 		<p class="text-body-2 font-bold">School of Business Management</p>
 		<button class="cursor-pointer text-label-md font-semibold text-primary">Change</button>
 	</div>
-	<div class="lg:hidden">
-		<button>
+	<div class="md:hidden">
+		<button on:click|stopPropagation={() => $isSidebarOverlayOpen = !$isSidebarOverlayOpen}>
 			<MenuBarIcon />
 		</button>
+	</div>
+	<div class="hidden md:block lg:hidden">
+		<img src="images/layout/logo.png" alt="Logo" class="h-[36px] w-[102px]" />
 	</div>
 	<div class="flex items-center gap-x-4 md:gap-x-6">
 		<div class="relative">

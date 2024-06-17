@@ -78,3 +78,29 @@
 	--lms-gap-7: 28px;
 	--lms-gap-8: 32px;
 }
+
+@media (max-width: 1024px) {
+  #lms-sidebar.overlay {
+		display: block;
+		width: 260px;
+		z-index: 10000;
+		background-color: #EAF1FB;
+		opacity: 1;
+	}
+
+  #lms-sidebar.overlay .logo-wrapper {
+		display: block;
+	}
+
+  #lms-sidebar.overlay .sidebar-action-msg {
+		display: inline;
+	}
+
+  #lms-sidebar.overlay .sidebar-list .sidebar-label {
+		display: inline !important;
+	}
+
+  #lms-sidebar.overlay .sidebar-list {
+		padding-left: 20px;
+	}
+}

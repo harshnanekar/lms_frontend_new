@@ -11,14 +11,14 @@
 </script>
 
 <li
-	class="sidebar-list pl-[20px]"
+	class="sidebar-list pl-3 lg:pl-[20px]"
 	style="--active-index: {index}"
 	class:text-primary={isactive}
 	class:active={isactive}
 >
 	<a
 		href={item.url}
-		class="sidebar-link flex h-full w-full items-center gap-4 space-x-[10px] px-[20px] py-[15px]"
+		class="sidebar-link flex h-full w-full items-center gap-4 space-x-[10px] px-2 lg:px-5 py-[15px]"
 		class:active={isactive}
 	>
 		<DashboardIcon
@@ -26,7 +26,7 @@
 			width={20}
 			height={20}
 		/>
-		<span class="!m-0 max-w-56 truncate text-[14px] font-semibold text-[#333333]">{item.label}</span
+		<span class="sidebar-label hidden lg:inline !m-0 max-w-56 truncate text-[14px] font-semibold text-[#333333]">{item.label}</span
 		>
 	</a>
 </li>

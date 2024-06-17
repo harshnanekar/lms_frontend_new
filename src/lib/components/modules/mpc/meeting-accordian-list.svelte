@@ -18,11 +18,21 @@
 			title: 'Financial Analytics-I (803AN2E001)-52245092',
 			meeting_count: 14,
 			content: 'Content 1'
+		},
+		{
+			title: 'Financial Analytics-I (803AN2E001)-52245092',
+			meeting_count: 14,
+			content: 'Content 1'
+		},
+		{
+			title: 'Financial Analytics-I (803AN2E001)-52245092',
+			meeting_count: 14,
+			content: 'Content 1'
 		}
 	];
 </script>
 
-<Accordion collapse spaceBetween>
+<Accordion spaceBetween>
 	{#each items as item, i}
 		<AccordionItem>
 			<svelte:fragment slot="title">
