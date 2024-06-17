@@ -10,7 +10,7 @@
 		<button class="cursor-pointer text-label-md font-semibold text-primary">Change</button>
 	</div>
 	<div class="md:hidden">
-		<button on:click|stopPropagation={() => $isSidebarOverlayOpen = !$isSidebarOverlayOpen}>
+		<button on:click|stopPropagation={() => ($isSidebarOverlayOpen = !$isSidebarOverlayOpen)}>
 			<MenuBarIcon />
 		</button>
 	</div>

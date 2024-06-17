@@ -8,11 +8,11 @@
 </head>
 
 <Sidebar />
-<main class="md:ml-[62px] lg:ml-[260px] transition-all">
+<main class="transition-all md:ml-[62px] lg:ml-[260px]">
 	<Header />
 	<main
 		id="lms-main-wrapper"
-		class="relative overflow-y-auto overflow-x-hidden bg-white px-[13px] py-[22px] md:px-[30px] md:rounded-tl-[20px]"
+		class="relative overflow-y-auto overflow-x-hidden bg-white px-[13px] py-[22px] md:rounded-tl-[20px] md:px-[30px]"
 	>
 		<slot />
 	</main>

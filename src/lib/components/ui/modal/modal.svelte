@@ -1,7 +1,12 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { onMount } from 'svelte';
-	import { modalPositionClasses, modalSizeMap, type ModalPositions, type ModalSizes } from './helper.modal';
+	import {
+		modalPositionClasses,
+		modalSizeMap,
+		type ModalPositions,
+		type ModalSizes
+	} from './helper.modal';
 	import { fly } from 'svelte/transition';
 
 	export let isOpen: boolean = false;
@@ -41,17 +46,9 @@
 		class="modal-overlay {modalPositionClasses[position]}"
 		on:click={handleOverlayClick}
 	>
-		<div class="modal-content w-full {modalSizeMap[size]}">
-			<slot name="header">
-				<div class="relative border-b p-4">
-					<h2 class="text-lg font-semibold">Modal Title</h2>
-				</div>
-			</slot>
-			<slot name="body">
-				<div class="p-4">
-					<p>This is the modal body content.</p>
-				</div>
-			</slot>
+		<div class="modal-content {modalSizeMap[size]}">
+			<slot name="header"></slot>
+			<slot name="body"></slot>
 			<slot name="footer"></slot>
 		</div>
 	</div>

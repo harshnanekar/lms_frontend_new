@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Card, DynamicSelect, Modal } from '$lib/components/ui';
+	import DatePicket from '$lib/components/ui/date-picket.svelte';
 	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
 
 	import { writable } from 'svelte/store';
@@ -15,6 +16,10 @@
 	const closeModal = () => {
 		isOpen.set(false);
 	};
+
+	let selectedDateTime: Date | null;
+
+	$: console.log('Selected Date and Time:', selectedDateTime);
 </script>
 
 <DynamicSelect />
@@ -50,7 +55,7 @@
 		</div>
 	</div>
 	<svalte:fragment slot="body">
-		<div class="p-4 min-h-[50vh]">
+		<div class="min-h-[50vh] p-4">
 			<p>This is custom modal body content.</p>
 			<DynamicSelect />
 		</div>
@@ -62,9 +67,10 @@
 	</div>
 </Modal>
 
-
 <Card title="Meeting Details">
 	<div class="p-4">
 		<p>This is the card body content.</p>
 	</div>
 </Card>
+
+<DatePicket bind:selectedDateTime />

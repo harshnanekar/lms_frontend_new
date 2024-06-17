@@ -61,6 +61,7 @@ export default {
 				'body-2': ['14px', { lineHeight: '20px', letterSpacing: '0' }],
 				'cta-md': ['14px', { letterSpacing: '0.094rem' }],
 				'cta-sm': ['12px', { letterSpacing: '0.063rem' }],
+				'cta-sm-lh': ['12px', { letterSpacing: '0.063rem', lineHeight: '18px' }],
 				'cta-md-no-space': ['14px', { letterSpacing: '0' }],
 				'cta-sm-no-space': ['12px', { letterSpacing: '0' }],
 				'label-lg': ['14px', { letterSpacing: '0.063rem' }],

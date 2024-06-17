@@ -18,7 +18,7 @@
 >
 	<a
 		href={item.url}
-		class="sidebar-link flex h-full w-full items-center gap-4 space-x-[10px] px-2 lg:px-5 py-[15px]"
+		class="sidebar-link flex h-full w-full items-center gap-4 space-x-[10px] px-2 py-[15px] lg:px-5"
 		class:active={isactive}
 	>
 		<DashboardIcon
@@ -26,7 +26,9 @@
 			width={20}
 			height={20}
 		/>
-		<span class="sidebar-label hidden lg:inline !m-0 max-w-56 truncate text-[14px] font-semibold text-[#333333]">{item.label}</span
+		<span
+			class="sidebar-label !m-0 hidden max-w-56 truncate text-[14px] font-semibold text-[#333333] lg:inline"
+			>{item.label}</span
 		>
 	</a>
 </li>
