@@ -74,3 +74,56 @@
 </Card>
 
 <DatePicket bind:selectedDateTime />
+
+<div class="mb-10"></div>
+
+<!----------input---------->
+<div class="lms-input-container">
+	<input id="firstname" class="lms-input error" type="text" placeholder="" >
+	<div class="lms-cut"></div>
+	<label for="firstname" class="lms-placeholder">First Name<span>*</span></label>
+</div>
+
+<div class="mb-10"></div>
+
+<!----------input-error---------->
+<div class="lms-input-container">
+	<input id="firstname" class="lms-input-error" type="text" placeholder="" value="Lisa">
+	<div class="lms-cut-error"></div>
+	<label for="firstname" class="lms-placeholder-error">First Name<span>*</span></label>
+	<div>
+		<span class="lms-error-msg">(i) Numeric characters are not allowed</span>
+	</div>
+</div>
+
+<div class="mb-14"></div>
+
+<!----------input-focus---------->
+<div class="lms-input-container ">
+	<input id="firstname" class="lms-input-focus" type="text" placeholder="" value="Lisa">
+	<div class="lms-cut-focus"></div>
+	<label for="firstname" class="lms-placeholder-focus">First Name<span>*</span> </label>
+</div>
+
+<div class="mt-14"></div>
+
+<!----------input-hint---------->
+<div class="lms-input-container">
+	<input id="firstname" class="lms-input-hint" type="text" placeholder="" value="Lisa">
+	<div class="lms-cut-hint"></div>
+	<label for="firstname" class="lms-placeholder-hint">First Name<span>*</span> </label>
+	<div>
+		<span class="lms-hint-msg">(i) Hint text here</span>
+	</div>
+</div>
+
+<div class="mt-14"></div>
+
+<!----------input-disabled---------->
+<div class="lms-input-container ">
+	<input id="firstname" class="lms-input-disabled" type="text" placeholder="" value="Lisa" disabled>
+	<div class="lms-cut-disabled"></div>
+	<label for="firstname" class="lms-placeholder-disabled">First Name</label>
+</div>
+
+<div class="mt-14"></div>
