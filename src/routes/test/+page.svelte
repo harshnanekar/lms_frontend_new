@@ -46,7 +46,6 @@
 		>
 	</div>
 </div>
-<DynamicSelect />
 
 <Modal bind:isOpen={$isOpen} size={modalwidthPercent} on:close={closeModal}>
 	<div slot="header">
@@ -74,3 +73,4 @@
 </Card>
 
 <DatePicket bind:selectedDateTime />
+<DynamicSelect />

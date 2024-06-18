@@ -4,7 +4,7 @@
 	import { Modal } from '../ui'; // Replace with your Modal component
 
 	// Export selectedDateTime so it can be used outside the component
-	export let selectedDateTime;
+	export let selectedDateTime: Date | null = null;
 
 	// Define writable stores for selectedDate and selectedTime
 	const selectedDate = writable<Date | null>(null);
@@ -88,7 +88,7 @@
 
 	// Function to handle the 'Select' button click
 	function handleSelect() {
-		const selectedDateTime = $combinedDateTime;
+		selectedDateTime = $combinedDateTime;
 		if (selectedDateTime) {
 			console.log('Selected Date and Time:', selectedDateTime);
 			// You can perform further actions with selectedDateTime, like emitting an event or passing it to a parent component
@@ -290,9 +290,9 @@
 			<div class="actions mt-4 flex justify-between">
 				<button
 					on:click={() => isModalOpen.set(false)}
-					class="rounded-xl border border-primary px-12 py-3.5 text-primary">Cancel</button
+					class="rounded-xl border border-primary px-12 py-2.5 text-primary">Cancel</button
 				>
-				<button on:click={handleSelect} class="lms-btn lms-primary-btn rounded-xl px-12 py-3.5"
+				<button on:click={handleSelect} class="lms-btn lms-primary-btn rounded-xl px-12 py-2.5"
 					>Select</button
 				>
 			</div>

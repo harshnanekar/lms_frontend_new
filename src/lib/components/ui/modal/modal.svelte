@@ -29,7 +29,7 @@
 
 	onMount(() => {
 		const handleEsc = (event: KeyboardEvent) => {
-			if (event.key === 'Escape') closeModal();
+			if (closeOnOutsideClick && event.key === 'Escape') closeModal();
 		};
 
 		window.addEventListener('keydown', handleEsc);
