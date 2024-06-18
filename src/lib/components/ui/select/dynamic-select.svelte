@@ -99,7 +99,7 @@
 	<div>
 		<button
 			type="button"
-			class="inline-flex w-[300px] items-center justify-between rounded-xl border border-slate-250 bg-white px-4 py-2 text-sm font-medium text-black shadow-sm hover:bg-slate-50 focus:outline-none"
+			class="inline-flex w-[300px] items-center justify-between rounded-xl border border-slate-250 bg-white px-5 py-3 text-sm font-medium text-black shadow-sm hover:bg-slate-50 focus:outline-none"
 			on:click={() => toggleDropdown(() => setPosition(buttonRef, dropdownRef))}
 			bind:this={buttonRef}
 		>
@@ -112,7 +112,7 @@
 
 	{#if $isOpen}
 		<div
-			class="dropdown-content fixed left-0 mt-2 w-[300px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5"
+			class="dropdown-content fixed left-0 mt-2 w-[300px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 z-[9999999999999]"
 			style="{dropdownPositionStyle}; left: {buttonRef.getBoundingClientRect().left}px;"
 			bind:this={dropdownRef}
 			transition:fade={{

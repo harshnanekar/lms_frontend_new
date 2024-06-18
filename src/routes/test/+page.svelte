@@ -71,8 +71,11 @@
 		<p>This is the card body content.</p>
 	</div>
 </Card>
+<div class="mt-10"></div>
 
 <DatePicket bind:selectedDateTime />
+<div class="mt-10"></div>
+<DynamicSelect placeholder="select acad year" />
 
 <div class="mb-10"></div>
 
