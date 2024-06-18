@@ -56,6 +56,7 @@ export default {
 				'display-2': ['48px', { lineHeight: '56px', letterSpacing: '-0.063rem' }],
 				'heading-1': ['32px', { lineHeight: '40px', letterSpacing: '-0.031rem' }],
 				'heading-2': ['24px', { lineHeight: '32px', letterSpacing: '-0.016rem' }],
+				'heading-2.5': ['20px', { lineHeight: '29px' }],
 				'heading-3': ['18px', { lineHeight: '26px', letterSpacing: '-0.016rem' }],
 				'body-1': ['16px', { lineHeight: '24px', letterSpacing: '0' }],
 				'body-2': ['14px', { lineHeight: '20px', letterSpacing: '0' }],

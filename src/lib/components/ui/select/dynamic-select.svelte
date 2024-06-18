@@ -2,6 +2,7 @@
 	import { ArrowIcon, SearchIcon } from '$lib/components/icons';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import { writable } from 'svelte/store';
 
 	export let placeholder = 'Select an Option';
 
@@ -15,8 +16,8 @@
 
 	// Recalculate position on mount and resize
 	onMount(() => {
-		window.addEventListener('resize', () => setPosition(buttonRef, dropdownRef));
-		window.addEventListener('scroll', () => setPosition(buttonRef, dropdownRef));
+		window.addEventListener('resize', () => setPosition());
+		document.getElementById('lms-main-wrapper')?.addEventListener('scroll', () => setPosition());
 
 		// Close dropdown on outside click
 		const handleClickOutside = (event: MouseEvent) => {
@@ -33,13 +34,13 @@
 		window.addEventListener('click', handleClickOutside);
 
 		return () => {
-			window.removeEventListener('resize', () => setPosition(buttonRef, dropdownRef));
-			window.removeEventListener('scroll', () => setPosition(buttonRef, dropdownRef));
+			window.removeEventListener('resize', () => setPosition());
+			document
+				.getElementById('lms-main-wrapper')
+				?.removeEventListener('scroll', () => setPosition());
 			window.removeEventListener('click', handleClickOutside);
 		};
 	});
-
-	import { writable } from 'svelte/store';
 
 	const isOpen = writable(false);
 	const searchQuery = writable('');
@@ -64,7 +65,7 @@
 		);
 	}
 
-	function setPosition(buttonRef: HTMLElement, dropdownRef: HTMLElement) {
+	function setPosition() {
 		if (!dropdownRef || !buttonRef) return;
 		const buttonRect = buttonRef.getBoundingClientRect();
 		const viewportHeight = window.innerHeight;
@@ -77,16 +78,19 @@
 
 		// Determine the position based on available space
 		if (spaceBelow >= dropdownSpaceNeeded) {
-			dropdownPositionStyle = `top: ${buttonRect.bottom}px`; // Place dropdown below the button
+			dropdownPositionStyle = `top: ${buttonRect.bottom}px;`; // Place dropdown below the button
 		} else if (spaceAbove >= dropdownSpaceNeeded) {
-			dropdownPositionStyle = `bottom: ${viewportHeight - buttonRect.top}px`; // Place dropdown above the button
+			dropdownPositionStyle = `bottom: ${viewportHeight - buttonRect.top}px;`; // Place dropdown above the button
 		} else {
 			// Default to placing where there is more space
 			dropdownPositionStyle =
 				spaceAbove > spaceBelow
-					? `bottom: ${viewportHeight - buttonRect.top}px`
-					: `top: ${buttonRect.bottom}px`;
+					? `bottom: ${viewportHeight - buttonRect.top}px;`
+					: `top: ${buttonRect.bottom}px;`;
 		}
+
+		dropdownPositionStyle += `left: ${buttonRect.left}px;`;
+		dropdownPositionStyle += `width: ${buttonRect.width}px;`;
 	}
 
 	function selectOption(option: string) {
@@ -99,8 +103,9 @@
 	<div>
 		<button
 			type="button"
-			class="inline-flex w-[300px] items-center justify-between rounded-xl border border-slate-250 bg-white px-5 py-3 text-sm font-medium text-black shadow-sm hover:bg-slate-50 focus:outline-none"
-			on:click={() => toggleDropdown(() => setPosition(buttonRef, dropdownRef))}
+			class="inline-flex w-full items-center justify-between rounded-lg border border-slate-250 bg-white px-5 py-3.5 text-sm font-medium text-black shadow-sm hover:bg-slate-50 focus:outline-none"
+			class:text-gray-400={!$selectedOption}
+			on:click={() => toggleDropdown(() => setPosition())}
 			bind:this={buttonRef}
 		>
 			{$selectedOption || placeholder}
@@ -112,7 +117,7 @@
 
 	{#if $isOpen}
 		<div
-			class="dropdown-content fixed left-0 mt-2 w-[300px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 z-[9999999999999]"
+			class="dropdown-content fixed left-0 z-[9999] mt-2 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5"
 			style="{dropdownPositionStyle}; left: {buttonRef.getBoundingClientRect().left}px;"
 			bind:this={dropdownRef}
 			transition:fade={{
@@ -125,12 +130,11 @@
 						<ul class="small-scrollbar max-h-48 divide-y-2 divide-slate-200 overflow-y-auto px-2">
 							{#each $filteredOptions as option}
 								<li
-									class="block max-w-64 cursor-pointer break-words rounded-lg px-4 py-2 text-body-1 text-gray-700 hover:bg-warning-300"
-									on:click={() => selectOption(option)}
-									on:keydown={() => selectOption(option)}
-									on:keyup={() => selectOption(option)}
+									class="block w-[98%] cursor-pointer break-words rounded-lg text-body-1 text-gray-700 hover:bg-warning-300"
 								>
+								<button on:click={() => selectOption(option)} class="px-4 py-2 text-left w-full">
 									{option}
+								</button>
 								</li>
 							{:else}
 								<p class="block py-2 text-sm text-gray-700">No options found</p>
@@ -139,7 +143,7 @@
 						<input
 							type="text"
 							class="mt-2 h-10 w-full rounded-lg border-2 bg-white px-5 pr-10 text-sm focus:outline-none"
-							placeholder="Search text here"
+							placeholder="Search..."
 							bind:value={$searchQuery}
 							bind:this={searchInputRef}
 						/>
@@ -150,7 +154,7 @@
 						<input
 							type="text"
 							class="mb-2 h-10 w-full rounded-lg border-2 bg-white px-5 pr-10 text-sm focus:outline-none"
-							placeholder="Search text here"
+							placeholder="Search..."
 							bind:value={$searchQuery}
 							bind:this={searchInputRef}
 						/>
@@ -160,10 +164,12 @@
 						<ul class="small-scrollbar max-h-48 divide-y-2 divide-slate-200 overflow-y-auto px-2">
 							{#each $filteredOptions as option}
 								<li
-									class="block max-w-64 cursor-pointer break-words rounded-lg px-4 py-2 text-body-1 text-gray-700 hover:bg-warning-300"
-									on:click={() => selectOption(option)}
+									class="block w-[98%] cursor-pointer break-words rounded-lg text-body-1 text-gray-700 hover:bg-warning-300"
+									
 								>
-									{option}
+									<button on:click={() => selectOption(option)} class="px-4 py-2 text-left w-full">
+										{option}
+									</button>
 								</li>
 							{:else}
 								<p class="block py-2 text-sm text-gray-700">No options found</p>

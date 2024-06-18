@@ -12,7 +12,7 @@
 	<Header />
 	<main
 		id="lms-main-wrapper"
-		class="relative overflow-y-auto overflow-x-hidden bg-white px-[13px] py-[22px] md:rounded-tl-[20px] md:px-[30px]"
+		class="relative overflow-y-auto overflow-x-hidden bg-white px-[13px] py-[22px] md:rounded-tl-[20px] md:p-[30px]"
 	>
 		<slot />
 	</main>

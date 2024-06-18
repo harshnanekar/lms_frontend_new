@@ -17,9 +17,9 @@ export const SIDEBAR_URL = [
 		child: []
 	},
 	{
-		url: '#1',
-		icon: 'dashboard2',
-		label: 'Dashboard',
+		url: '/page',
+		icon: 'Mpc',
+		label: 'Mpc',
 		module: null,
 		child: []
 	},

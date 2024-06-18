@@ -13,7 +13,7 @@ export function tooltip(node: HTMLElement, params: TooltipParams) {
 
 	function createTooltip() {
 		tooltipElement = document.createElement('span');
-		tooltipElement.textContent = params.content;
+		tooltipElement.innerHTML = params.content;
 		tooltipElement.classList.add('tooltip', `tooltip-${params.position || 'top'}`);
 		document.body.appendChild(tooltipElement);
 	}

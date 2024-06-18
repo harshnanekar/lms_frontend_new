@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Card, DynamicSelect, Modal } from '$lib/components/ui';
-	import DatePicket from '$lib/components/ui/date-picket.svelte';
+	import DatePicket from '$lib/components/ui/date-picker.svelte';
 	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
 
 	import { writable } from 'svelte/store';

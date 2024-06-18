@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { writable, derived } from 'svelte/store';
 	import { ArrowIcon } from '../icons';
-	import { Modal } from '../ui'; // Replace with your Modal component
+	import { Modal } from '.'; // Replace with your Modal component
+	import { createEventDispatcher } from 'svelte';
 
 	// Export selectedDateTime so it can be used outside the component
 	export let selectedDateTime: Date | null = null;
@@ -86,14 +87,16 @@
 		}
 	);
 
+	const dispatch = createEventDispatcher();
 	// Function to handle the 'Select' button click
 	function handleSelect() {
 		selectedDateTime = $combinedDateTime;
-		if (selectedDateTime) {
-			console.log('Selected Date and Time:', selectedDateTime);
-			// You can perform further actions with selectedDateTime, like emitting an event or passing it to a parent component
+		if (selectedDateTime && $selectedDate?.toString() !== 'Invalid Date') {
+			dispatch('change');
+			isModalOpen.set(false);
+		} else {
+			alert('Invalid Date');
 		}
-		isModalOpen.set(false);
 	}
 
 	// State management for current view (days, months, years)
@@ -115,8 +118,8 @@
 </script>
 
 <!-- Button to open the modal -->
-<button on:click={() => isModalOpen.set(true)} class="lms-btn lms-primary-btn">
-	Select date and time
+<button on:click={() => isModalOpen.set(true)} class="lms-btn">
+	<slot>Select a date</slot>
 </button>
 
 <!-- Modal component -->
@@ -185,8 +188,8 @@
 				style="display: {$view === 'days' ? 'grid' : 'none'}"
 			>
 				{#each getDaysInMonth(currentMonth, currentYear) as day}
-					<div
-						class="cursor-pointer rounded-lg p-2.5 hover:bg-primary-light"
+					<button
+						class="rounded-lg p-2.5 hover:bg-primary-light"
 						class:active={new Date(currentYear, currentMonth, day).toDateString() ===
 							$selectedDate?.toDateString()}
 						class:bg-base={new Date(currentYear, currentMonth, day).toDateString() ===
@@ -194,7 +197,7 @@
 						on:click={() => selectDate(day)}
 					>
 						{day}
-					</div>
+					</button>
 				{/each}
 			</div>
 
@@ -204,15 +207,15 @@
 				style="display: {$view === 'months' ? 'grid' : 'none'}"
 			>
 				{#each monthsOfYear as month, index}
-					<div
-						class="cursor-pointer rounded-lg p-2.5 hover:bg-primary-light"
+					<button
+						class="rounded-lg p-2.5 hover:bg-primary-light"
 						on:click={() => {
 							currentMonth = index;
 							changeView('days');
 						}}
 					>
 						{month}
-					</div>
+					</button>
 				{/each}
 			</div>
 
@@ -222,18 +225,18 @@
 				style="display: {$view === 'years' ? 'grid' : 'none'}"
 			>
 				{#each Array.from({ length: 12 }, (_, i) => currentYear - 5 + i) as year}
-					<div
-						class="cursor-pointer rounded-lg p-2.5 hover:bg-primary-light"
+					<button
+						class="rounded-lg p-2.5 hover:bg-primary-light"
 						on:click={() => {
 							currentYear = year;
 							changeView('days');
 						}}
 					>
 						{year}
-					</div>
+					</button>
 				{/each}
 			</div>
-      <hr>
+			<hr />
 			<!-- Time selection section -->
 			<div class="time-selection mt-3 text-center">
 				<p class="cta-sm-lh mb-1.5 font-medium">Select Time</p>

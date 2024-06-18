@@ -7,7 +7,10 @@ import {
 	PenIcon,
 	DraftIcon,
 	OpenBookIcon,
-	SearchIcon
+	SearchIcon,
+	SelectDateIcon,
+	XIcon,
+	CampusIcon
 } from './base';
 import { MeetingIcon, ScheduledIcon } from './modules';
 
@@ -24,5 +27,8 @@ export {
 	PenIcon,
 	DraftIcon,
 	OpenBookIcon,
-	SearchIcon
+	SearchIcon,
+	SelectDateIcon,
+	XIcon,
+	CampusIcon
 };
