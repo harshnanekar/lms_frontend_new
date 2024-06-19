@@ -102,7 +102,6 @@
 <!----------input-focus---------->
 <div class="lms-input-container ">
 	<input id="firstname" class="lms-input border-[1px] border-primary" type="text" placeholder="" value="focus">
-	<!-- <div class="lms-cut-focus"></div> -->
 	<label for="firstname" class="lms-placeholder">First Name<span>*</span> </label>
 </div>
 
@@ -111,7 +110,6 @@
 <!----------input-hint---------->
 <div class="lms-input-container">
 	<input id="firstname" class="lms-input" type="text" placeholder="" value="hint">
-	<!-- <div class="lms-cut-hint"></div> -->
 	<label for="firstname" class="lms-placeholder">First Name<span>*</span> </label>
 	<div>
 		<span class="lms-hint-msg">(i) Hint text here</span>
@@ -122,8 +120,7 @@
 
 <!----------input-disabled---------->
 <div class="lms-input-container ">
-	<input id="firstname" class="lms-input bg-base disabled" type="text" placeholder="" value="Disabled" disabled>
-	<!-- <div class="lms-cut-disabled"></div> -->
+	<input id="firstname" class="lms-input bg-base" type="text" placeholder="" value="Disabled" disabled>
 	<label for="firstname" class="lms-placeholder">First Name</label>
 </div>
 

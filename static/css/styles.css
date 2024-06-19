@@ -140,18 +140,16 @@
 
 
 
-/* ---------------input-container--------------- */
+/* ---------------input--------------- */
 .lms-input-container {
     height: 50px;
     position: relative;
     /* width: 100%; */
   }
 
-  /* ---------------input--------------- */
-
   .lms-input {
     background-color: var(--lms--color-white);
-    color: var(--lms--color-black);
+    color: #000000;
     font-size: 14px;
     font-weight: 400;
     line-height: 20.3px;
@@ -161,26 +159,24 @@
     width: 100%;
     outline: 0;
     padding: 12px 16px;
+    border: 1px solid #e5e9f1;
     border-radius: 8px;
-    border: 1px solid var(--lms--color-info-300);
   }
-
+  
   .lms-input.error {
-    border: 1px solid var(--lms--color-danger-400);
+    border: 1px solid var(--lms--color-primary);
+  }
+  
+  .lms-input:disabled {
+    background-color: var(--lms--color-base);
   }
 
   .lms-input.error ~ .lms-placeholder {
-    color: var(--lms--color-danger-400);
+    color: var(--lms--color-primary);
   }
 
-  .lms-input:disabled {
-    background-color: var(--lms--color-base);
-    color: var(--lms--color-grey-400);
-  }
-  
   .lms-placeholder {
     background-color: #ffffff;
-    /* border: 1px solid #000000; */
     color: #888888;
     font-family: var(--lms--font-family);
     position: absolute;
@@ -188,7 +184,7 @@
     top: 16px;
     pointer-events: none;
     transform-origin: 0 50%;
-    transition: transform 200ms, color 200ms;
+    transition: all 150ms ease-in-out;
     font-size: 12px;
     font-weight: 400;
     line-height: 17.4px;
@@ -201,7 +197,7 @@
   
   .lms-input:focus ~ .lms-placeholder,
   .lms-input:not(:placeholder-shown) ~ .lms-placeholder {
-    transform: translateY(-25px) translateX(-5px) scale(0.75);
+    transform: translateY(-25px) translateX(-5px) scale(1.05);
     padding: 0 6px;
     background-color: #ffffff;
     border-radius: 4px;
@@ -209,70 +205,6 @@
   
   .lms-input:not(:placeholder-shown) ~ .lms-placeholder {
     color: #888888;
-  }
-
-  /* ---------------input.error--------------- */
-.lms-input-error {
-    background-color: var(--lms--color-white);
-    color: var(--lms--color-black);
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20.3px;
-    letter-spacing: 0.30000001192092896px;
-    box-sizing: border-box;
-    height: 100%;
-    width: 100%;
-    outline: 0;
-    padding: 12px 16px;
-    border: 1px solid var(--lms--color-warning-400);
-    border-radius: 8px;
-  }
-  
-  .lms-cut-error {
-    background-color: var(--lms--color-white);
-    border-radius: 4px;
-    height: 20px;
-    left: 20px;
-    position: absolute;
-    top: -20px;
-    transform: translateY(0);
-    transition: transform 200ms;
-    width: 76px;
-    /* padding: 0px 6px; */
-    /* border: 1px solid var(--lms--color-info-300); */
-  }
-  
-  .lms-placeholder-error {
-    color: var(--lms--color-grey-450);
-    font-family: var(--lms--font-family);
-    position: absolute;
-    left: 20px;
-    top: 16px;
-    pointer-events: none;
-    transform-origin: 0 50%;
-    transition: transform 200ms, color 200ms;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 17.4px;
-    letter-spacing: 0.30000001192092896px;
-  }
-  
-  .lms-placeholder-error span {
-    color: var(--lms--color-danger-400);
-  }
-  
-  .lms-input-error:focus ~ .lms-cut-error,
-  .lms-input-error:not(:placeholder-shown) ~ .lms-cut-error {
-    transform: translateY(8px);
-  }
-  
-  .lms-input-error:focus ~ .lms-placeholder-error,
-  .lms-input-error:not(:placeholder-shown) ~ .lms-placeholder-error {
-    transform: translateY(-26px) translateX(5px) scale(0.75);
-  }
-  
-  .lms-input-error:not(:placeholder-shown) ~ .lms-placeholder-error {
-    color: var(--lms--color-danger-400);
   }
   
   .lms-error-msg {
@@ -284,10 +216,7 @@
     line-height: 17.4px;
     letter-spacing: 0.30000001192092896px;
   }
-
- 
-
-  /* ---------------input-hint--------------- */
+  
   .lms-hint-msg {
     font-family: var(--lms--font-family);
     color: var(--lms--color-slate-100);
