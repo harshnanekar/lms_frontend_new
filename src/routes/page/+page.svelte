@@ -5,7 +5,7 @@
 	import { tooltip } from '$lib/utils/tooltip';
 	import { writable } from 'svelte/store';
 
-	let meetingName: string = 'meeting for me',
+	let meetingName: string,
 		meetingDescription: string,
 		meetingDate: Date | null = new Date();
 
@@ -23,7 +23,7 @@
 
 <Card title="Meeting Details">
 	<div class="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6 space-y-5">
-		<Input disabled placeholder="Meeting Name" bind:value={meetingName}  />
+		<Input placeholder="Meeting Name" bind:value={meetingName} error="error message"  />
 		<DynamicSelect placeholder="Academic Year" />
 		<div class="col-span-full">
 			<Textarea value={meetingDescription} placeholder="Meeting Link & Password" />
