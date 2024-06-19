@@ -99,7 +99,7 @@
 	<div>
 		<button
 			type="button"
-			class="inline-flex w-[300px] items-center justify-between rounded-xl border border-slate-250 bg-white px-4 py-2 text-sm font-medium text-black shadow-sm hover:bg-slate-50 focus:outline-none"
+			class="inline-flex w-[300px] items-center justify-between rounded-lg border border-slate-250 bg-white px-4 py-3 text-base font-medium text-black shadow-sm hover:bg-slate-50 focus:outline-none"
 			on:click={() => toggleDropdown(() => setPosition(buttonRef, dropdownRef))}
 			bind:this={buttonRef}
 		>

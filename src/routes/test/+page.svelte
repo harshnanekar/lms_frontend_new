@@ -79,8 +79,7 @@
 
 <!----------input---------->
 <div class="lms-input-container">
-	<input id="firstname" class="lms-input error" type="text" placeholder="" >
-	<div class="lms-cut"></div>
+	<input id="firstname" class="lms-input" type="text" placeholder="" >
 	<label for="firstname" class="lms-placeholder">First Name<span>*</span></label>
 </div>
 
@@ -88,7 +87,7 @@
 
 <!----------input-error---------->
 <div class="lms-input-container">
-	<input id="firstname" class="lms-input-error" type="text" placeholder="" value="Lisa">
+	<input id="firstname" class="lms-input-error" type="text" placeholder="" value="error">
 	<div class="lms-cut-error"></div>
 	<label for="firstname" class="lms-placeholder-error">First Name<span>*</span></label>
 	<div>
@@ -100,18 +99,18 @@
 
 <!----------input-focus---------->
 <div class="lms-input-container ">
-	<input id="firstname" class="lms-input-focus" type="text" placeholder="" value="Lisa">
-	<div class="lms-cut-focus"></div>
-	<label for="firstname" class="lms-placeholder-focus">First Name<span>*</span> </label>
+	<input id="firstname" class="lms-input border-[1px] border-primary" type="text" placeholder="" value="focus">
+	<!-- <div class="lms-cut-focus"></div> -->
+	<label for="firstname" class="lms-placeholder">First Name<span>*</span> </label>
 </div>
 
 <div class="mt-14"></div>
 
 <!----------input-hint---------->
 <div class="lms-input-container">
-	<input id="firstname" class="lms-input-hint" type="text" placeholder="" value="Lisa">
-	<div class="lms-cut-hint"></div>
-	<label for="firstname" class="lms-placeholder-hint">First Name<span>*</span> </label>
+	<input id="firstname" class="lms-input" type="text" placeholder="" value="hint">
+	<!-- <div class="lms-cut-hint"></div> -->
+	<label for="firstname" class="lms-placeholder">First Name<span>*</span> </label>
 	<div>
 		<span class="lms-hint-msg">(i) Hint text here</span>
 	</div>
@@ -121,9 +120,9 @@
 
 <!----------input-disabled---------->
 <div class="lms-input-container ">
-	<input id="firstname" class="lms-input-disabled" type="text" placeholder="" value="Lisa" disabled>
+	<input id="firstname" class="lms-input bg-base" type="text" placeholder="" value="disabled" disabled>
 	<div class="lms-cut-disabled"></div>
-	<label for="firstname" class="lms-placeholder-disabled">First Name</label>
+	<label for="firstname" class="lms-placeholder">First Name</label>
 </div>
 
 <div class="mt-14"></div>
