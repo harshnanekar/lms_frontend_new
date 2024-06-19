@@ -81,7 +81,7 @@
 
 <!----------input---------->
 <div class="lms-input-container">
-	<input id="firstname" class="lms-input" type="text" placeholder="" >
+	<input id="firstname" class="lms-input error" type="text" placeholder="" >
 	<label for="firstname" class="lms-placeholder">First Name<span>*</span></label>
 </div>
 

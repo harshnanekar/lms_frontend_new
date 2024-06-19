@@ -164,6 +164,19 @@
     border-radius: 8px;
     border: 1px solid var(--lms--color-info-300);
   }
+
+  .lms-input.error {
+    border: 1px solid var(--lms--color-danger-400);
+  }
+
+  .lms-input.error ~ .lms-placeholder {
+    color: var(--lms--color-danger-400);
+  }
+
+  .lms-input:disabled {
+    background-color: var(--lms--color-base);
+    color: var(--lms--color-grey-400);
+  }
   
   .lms-placeholder {
     background-color: #ffffff;

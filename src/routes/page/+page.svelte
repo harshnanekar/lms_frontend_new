@@ -5,7 +5,7 @@
 	import { tooltip } from '$lib/utils/tooltip';
 	import { writable } from 'svelte/store';
 
-	let meetingName: string,
+	let meetingName: string = 'meeting for me',
 		meetingDescription: string,
 		meetingDate: Date | null = new Date();
 
@@ -22,8 +22,8 @@
 <div class="my-6 lg:my-14"></div>
 
 <Card title="Meeting Details">
-	<div class="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6">
-		<Input placeholder="Meeting Name" bind:value={meetingName} />
+	<div class="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6 space-y-5">
+		<Input disabled placeholder="Meeting Name" bind:value={meetingName}  />
 		<DynamicSelect placeholder="Academic Year" />
 		<div class="col-span-full">
 			<Textarea value={meetingDescription} placeholder="Meeting Link & Password" />
@@ -43,7 +43,7 @@
 					<p class="m-0">{formattedDate}</p>
 					<button
 						use:tooltip={{
-							content: `<span class="text-primary">REMOVE</span> ${formattedDate}`
+							content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
 						}}
 						on:click={() => {
 							// remove the current date
