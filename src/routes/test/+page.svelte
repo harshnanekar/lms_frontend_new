@@ -120,8 +120,8 @@
 
 <!----------input-disabled---------->
 <div class="lms-input-container ">
-	<input id="firstname" class="lms-input bg-base" type="text" placeholder="" value="disabled" disabled>
-	<div class="lms-cut-disabled"></div>
+	<input id="firstname" class="lms-input bg-base disabled" type="text" placeholder="" value="Disabled" disabled>
+	<!-- <div class="lms-cut-disabled"></div> -->
 	<label for="firstname" class="lms-placeholder">First Name</label>
 </div>
 
