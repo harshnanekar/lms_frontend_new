@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CampusIcon, SelectDateIcon, XIcon } from '$lib/components/icons';
+	import { CampusIcon, DownloadIcon, SelectDateIcon, XIcon } from '$lib/components/icons';
 	import { Card, DatePicker, DynamicSelect, Input, Textarea } from '$lib/components/ui';
 	import { formatDateTimeShort } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
@@ -23,7 +23,7 @@
 
 <Card title="Meeting Details">
 	<div class="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6 space-y-5">
-		<Input placeholder="Meeting Name" bind:value={meetingName} error="error message"  />
+		<Input placeholder="Meeting Name" bind:value={meetingName} error="error message" />
 		<DynamicSelect placeholder="Academic Year" />
 		<div class="col-span-full">
 			<Textarea value={meetingDescription} placeholder="Meeting Link & Password" />
@@ -61,10 +61,10 @@
 <div class="my-6"></div>
 
 <Card title="Campus Details">
-  <!-- each through selected campus data -->
-  <div class="my-3"></div>
-  <button class="flex items-center gap-x-3 rounded-lg px-3 py-2 text-primary">
-    <CampusIcon />
-    <span class="text-body-2 font-bold">Add Campus</span>
-  </button>
+	<!-- each through selected campus data -->
+	<div class="my-3"></div>
+	<button class="flex items-center gap-x-3 rounded-lg px-3 py-2 text-primary">
+		<CampusIcon />
+		<span class="text-body-2 font-bold">Add Campus</span>
+	</button>
 </Card>

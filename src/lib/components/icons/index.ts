@@ -10,7 +10,8 @@ import {
 	SearchIcon,
 	SelectDateIcon,
 	XIcon,
-	CampusIcon
+	CampusIcon,
+	DownloadIcon
 } from './base';
 import { MeetingIcon, ScheduledIcon } from './modules';
 
@@ -30,5 +31,6 @@ export {
 	SearchIcon,
 	SelectDateIcon,
 	XIcon,
-	CampusIcon
+	CampusIcon,
+	DownloadIcon
 };
