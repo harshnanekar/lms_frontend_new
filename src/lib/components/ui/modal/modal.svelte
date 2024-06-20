@@ -43,10 +43,10 @@
 {#if isOpen}
 	<div
 		transition:fly|local
-		class="modal-overlay {modalPositionClasses[position]}"
+		class="no-scrollbar modal-overlay {modalPositionClasses[position]}"
 		on:click={handleOverlayClick}
 	>
-		<div class="no-scrollbar modal-content {modalSizeMap[size]}">
+		<div class="modal-content {modalSizeMap[size]}">
 			<slot name="header"></slot>
 			<slot name="body"></slot>
 			<slot name="footer"></slot>
