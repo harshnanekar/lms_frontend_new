@@ -5,6 +5,7 @@
 	import { writable } from 'svelte/store';
 
 	export let placeholder = 'Select an Option';
+	export let isRequired = true;
 
 	let dropdownRef: HTMLElement;
 	let buttonRef: HTMLElement;
@@ -99,16 +100,22 @@
 	}
 </script>
 
-<div class="relative inline-block">
+<div class="relative inline-block lms-custom-select-wrapper">
 	<div>
 		<button
 			type="button"
-			class="inline-flex w-full items-center justify-between rounded-lg border border-slate-250 bg-white px-5 py-3.5 text-sm font-medium text-black shadow-sm hover:bg-slate-50 focus:outline-none"
+			class="lms-custom-select-trigger inline-flex w-full items-center justify-between rounded-lg border border-slate-250 bg-white px-5 py-3.5 text-xs font-medium text-black shadow-sm hover:bg-slate-50 focus:outline-none"
 			class:text-gray-400={!$selectedOption}
 			on:click={() => toggleDropdown(() => setPosition())}
 			bind:this={buttonRef}
 		>
 			{$selectedOption || placeholder}
+			<div class="placeholder" class:active={$selectedOption}>
+				{placeholder}
+				{#if isRequired}
+					<span class="required">*</span>
+				{/if}
+			</div>
 			<div class="transition-all" style="rotate: {$isOpen ? '90' : '-90'}deg;">
 				<ArrowIcon />
 			</div>
@@ -130,11 +137,11 @@
 						<ul class="small-scrollbar max-h-48 divide-y-2 divide-slate-200 overflow-y-auto px-2">
 							{#each $filteredOptions as option}
 								<li
-									class="block w-[98%] cursor-pointer break-words rounded-lg text-body-1 text-gray-700 hover:bg-warning-300"
+									class="block w-[98%] cursor-pointer break-words rounded-lg text-label-md text-gray-700 hover:bg-warning-300"
 								>
-								<button on:click={() => selectOption(option)} class="px-4 py-2 text-left w-full">
-									{option}
-								</button>
+									<button on:click={() => selectOption(option)} class="px-4 py-2 text-left w-full">
+										{option}
+									</button>
 								</li>
 							{:else}
 								<p class="block py-2 text-sm text-gray-700">No options found</p>
@@ -164,8 +171,7 @@
 						<ul class="small-scrollbar max-h-48 divide-y-2 divide-slate-200 overflow-y-auto px-2">
 							{#each $filteredOptions as option}
 								<li
-									class="block w-[98%] cursor-pointer break-words rounded-lg text-body-1 text-gray-700 hover:bg-warning-300"
-									
+									class="block w-[98%] cursor-pointer break-words rounded-lg text-label-md text-gray-700 hover:bg-warning-300"
 								>
 									<button on:click={() => selectOption(option)} class="px-4 py-2 text-left w-full">
 										{option}

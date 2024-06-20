@@ -226,3 +226,20 @@
     line-height: 17.4px;
     letter-spacing: 0.30000001192092896px;
   }
+
+  .required {
+    color: #cf1e0a;
+  }
+
+  .lms-custom-select-wrapper .lms-custom-select-trigger .placeholder {
+    position: absolute;
+    display: none;
+    color: var(--lms--color-grey-450);
+    padding: 0 6px;
+  }
+
+  .lms-custom-select-wrapper .lms-custom-select-trigger .placeholder.active {
+    transform: translateY(-25px) translateX(-5px) scale(1.05);
+    display: block;
+    background: white;
+  }

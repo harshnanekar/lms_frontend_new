@@ -8,6 +8,7 @@
 	export let error: string = '';
 	export let disabled = false;
 	export let type: HTMLInputTypeAttribute = 'text';
+	export let inputClass = '';
 
 	const id = generateRandomUUID();
 	const typeWorkaround = (node: HTMLInputElement) => {
@@ -18,7 +19,7 @@
 <div class="lms-input-container">
 	<input
 		{id}
-		class="lms-input"
+		class="lms-input {inputClass}"
 		class:error={error && error.length > 0}
 		placeholder=""
 		use:typeWorkaround

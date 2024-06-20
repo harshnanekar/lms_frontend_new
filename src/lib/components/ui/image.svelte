@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-
 	export let name: string;
 	export let width: number = 44;
+	export let height: number = 44;
 	export let round: boolean = true;
 	export let src: string = '';
 	export let classes: string = '';
@@ -17,27 +16,27 @@
 		return nameSplit[0].charAt(0) + nameSplit[1].charAt(0);
 	}
 
-	function LetterAvatar(name: string, size: number): string {
+	function LetterAvatar(name: string, width: number, height: number): string {
 		const initials = getInitials(name);
 
 		const canvas = document.createElement('canvas');
-		canvas.width = size;
-		canvas.height = size;
+		canvas.width = width;
+		canvas.height = height;
 		const context = canvas.getContext('2d');
 
 		if (context) {
 			context.fillStyle = '#D2232A';
-			context.fillRect(0, 0, size, size);
-			context.font = `${Math.round(size / 2)}px Arial`;
+			context.fillRect(0, 0, width, height);
+			context.font = `${Math.round(width / 2)}px Arial`;
 			context.textAlign = 'center';
 			context.fillStyle = '#FFF';
-			context.fillText(initials, size / 2, size / 1.5);
+			context.fillText(initials, width / 2, height / 1.5);
 		}
 
 		return canvas.toDataURL();
 	}
 
-	$: avatarImage && (avatarImage.src = src ? src : LetterAvatar(name, width));
+	$: avatarImage && (avatarImage.src = src ? src : LetterAvatar(name, width, height));
 </script>
 
 <div class="avatar-container">

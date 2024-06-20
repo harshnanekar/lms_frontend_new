@@ -152,7 +152,7 @@
 	}
 
 	.tooltip {
-		@apply pointer-events-none fixed z-[100000] max-w-80 text-wrap rounded-md bg-black p-2.5 text-center text-white opacity-90;
+		@apply pointer-events-none fixed z-[10000000] max-w-80 text-wrap rounded-md bg-black p-2.5 text-center text-white opacity-90;
 	}
 
 	.tooltip::after {

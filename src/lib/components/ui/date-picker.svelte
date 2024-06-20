@@ -274,13 +274,13 @@
 					<!-- Period selection buttons -->
 					<div class="period flex flex-col">
 						<button
-							class="rounded-t-md border-[1px] border-b-0 border-base px-1.5 py-px text-cta-md"
+							class="rounded-t-lg border-[1px] border-b-0 border-base px-1.5 py-px text-cta-md"
 							class:active={$selectedTime.period === 'AM'}
 							on:click={() =>
 								selectTime(hoursInput.valueAsNumber, minutesInput.valueAsNumber, 'AM')}>AM</button
 						>
 						<button
-							class="rounded-b-md border-[1px] border-t-0 px-1.5 py-px text-cta-md"
+							class="rounded-b-lg border-[1px] border-t-0 px-1.5 py-px text-cta-md"
 							class:active={$selectedTime.period === 'PM'}
 							on:click={() =>
 								selectTime(hoursInput.valueAsNumber, minutesInput.valueAsNumber, 'PM')}>PM</button
