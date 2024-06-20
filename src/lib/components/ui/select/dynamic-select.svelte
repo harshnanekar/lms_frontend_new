@@ -3,9 +3,16 @@
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { writable } from 'svelte/store';
+	import type { CustomOptions } from './helper.select';
+	import { fetchOptions } from './helper.select';
+	import type { Filter } from '$lib/types/request.types';
 
 	export let placeholder = 'Select an Option';
 	export let isRequired = true;
+	export let options: CustomOptions[] = [];
+	export let url = '';
+	export let dependsOn: Filter[] = [];
+	export let selectedOption: CustomOptions | null = null;
 
 	let dropdownRef: HTMLElement;
 	let buttonRef: HTMLElement;
@@ -45,16 +52,29 @@
 
 	const isOpen = writable(false);
 	const searchQuery = writable('');
-	const options = Array.from({ length: 10 }, (_, i) => `Option ${i + 1}`);
 	const filteredOptions = writable(options);
-	const selectedOption = writable('');
+	const isLoading = writable(false);
+	const errorMsg = writable<string>('');
 
 	let dropdownPositionStyle = ''; // Inline style for dropdown position
 
-	function toggleDropdown(setPosition: () => void) {
+	async function toggleDropdown(setPosition: () => void) {
+		$isLoading = true;
 		isOpen.update((n) => !n);
 		setTimeout(setPosition, 10); // Set position after the dropdown is rendered
+
+		if ($isOpen && url) {
+			const res = await fetchOptions(url, dependsOn);
+
+			if (res.json) {
+				options = res.json.data;
+			}
+		}
+		$isLoading = false;
 	}
+
+	$: console.log('options changed>>>>>>>', options);
+	$: console.log('errorMsg>>>>>>', $errorMsg);
 
 	function closeDropdown() {
 		isOpen.set(false);
@@ -62,7 +82,9 @@
 
 	function filterOptions(searchQueryValue: string) {
 		filteredOptions.set(
-			options.filter((option) => option.toLowerCase().includes(searchQueryValue.toLowerCase()))
+			options.filter((option) =>
+				option.toString().toLowerCase().includes(searchQueryValue.toLowerCase())
+			)
 		);
 	}
 
@@ -94,23 +116,26 @@
 		dropdownPositionStyle += `width: ${buttonRect.width}px;`;
 	}
 
-	function selectOption(option: string) {
-		selectedOption.set(option);
+	function selectOption(option: CustomOptions) {
+		selectedOption = option;
 		closeDropdown();
 	}
+
+	$: disabled = dependsOn.some((filter) => !filter.value);
 </script>
 
 <div class="relative inline-block lms-custom-select-wrapper">
 	<div>
 		<button
+			{disabled}
 			type="button"
-			class="lms-custom-select-trigger inline-flex w-full items-center justify-between rounded-lg border border-slate-250 bg-white px-5 py-3.5 text-xs font-medium text-black shadow-sm hover:bg-slate-50 focus:outline-none"
-			class:text-gray-400={!$selectedOption}
+			class="lms-custom-select-trigger inline-flex w-full items-center justify-between rounded-lg border border-slate-250 bg-white px-5 py-3.5 text-xs font-medium text-slate-100 shadow-sm hover:bg-slate-50 focus:outline-none text-left"
+			class:text-gray-400={!selectedOption}
 			on:click={() => toggleDropdown(() => setPosition())}
 			bind:this={buttonRef}
 		>
-			{$selectedOption || placeholder}
-			<div class="placeholder" class:active={$selectedOption}>
+			{selectedOption?.label || placeholder}
+			<div class="placeholder" class:active={selectedOption}>
 				{placeholder}
 				{#if isRequired}
 					<span class="required">*</span>
@@ -140,7 +165,7 @@
 									class="block w-[98%] cursor-pointer break-words rounded-lg text-label-md text-gray-700 hover:bg-warning-300"
 								>
 									<button on:click={() => selectOption(option)} class="px-4 py-2 text-left w-full">
-										{option}
+										{option.label}
 									</button>
 								</li>
 							{:else}
@@ -169,17 +194,24 @@
 							<SearchIcon />
 						</button>
 						<ul class="small-scrollbar max-h-48 divide-y-2 divide-slate-200 overflow-y-auto px-2">
-							{#each $filteredOptions as option}
-								<li
-									class="block w-[98%] cursor-pointer break-words rounded-lg text-label-md text-gray-700 hover:bg-warning-300"
-								>
-									<button on:click={() => selectOption(option)} class="px-4 py-2 text-left w-full">
-										{option}
-									</button>
-								</li>
+							{#if !$errorMsg && $errorMsg.length === 0}
+								{#each options as option}
+									<li
+										class="block w-[98%] cursor-pointer break-words rounded-lg text-label-md text-gray-700 hover:bg-warning-300"
+									>
+										<button
+											on:click={() => selectOption(option)}
+											class="px-4 py-2 text-left w-full"
+										>
+											{option.label}
+										</button>
+									</li>
+								{:else}
+									<p class="block py-2 text-sm text-gray-700">No options found</p>
+								{/each}
 							{:else}
-								<p class="block py-2 text-sm text-gray-700">No options found</p>
-							{/each}
+								<p class="block py-2 text-sm text-gray-700">{errorMsg}</p>
+							{/if}
 						</ul>
 					{/if}
 				</div>

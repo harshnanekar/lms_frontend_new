@@ -1,3 +1,4 @@
+import type { ApiResponse } from '$lib/types/request.types';
 import type { HttpMethod } from '@sveltejs/kit';
 
 export const fetchApi = async <T>({
@@ -40,21 +41,8 @@ export const fetchApi = async <T>({
 
 		const json = (await response.json()) as T;
 		return { json, error: null };
-	} catch (error: any) {
+	} catch (error: unknown) {
 		console.log('Network error:', error);
 		return { json: null, error: { message: 'Network error or something went wrong' } };
 	}
 };
-
-type ApiResponse<T> =
-	| {
-			json: null;
-			error: {
-				message: string;
-				[key: string]: string;
-			};
-	  }
-	| {
-			json: T;
-			error: null;
-	  };

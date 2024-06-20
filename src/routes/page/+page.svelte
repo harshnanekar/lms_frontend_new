@@ -2,7 +2,9 @@
 	import { CampusIcon, DownloadIcon, SelectDateIcon, XIcon } from '$lib/components/icons';
 	import { AddCampusModal } from '$lib/components/modules/mpc';
 	import { Card, DatePicker, DynamicSelect, Input, Textarea } from '$lib/components/ui';
+	import type { CustomOptions } from '$lib/components/ui/select/helper.select';
 	import { formatDateTimeShort } from '$lib/utils/date-formatter';
+	import { getAcadYear } from '$lib/utils/select.helper';
 	import { tooltip } from '$lib/utils/tooltip';
 	import { writable } from 'svelte/store';
 	import { fly } from 'svelte/transition';
@@ -20,6 +22,8 @@
 
 	// Modal
 	const isModalOpen = writable(false);
+
+	let acadYearOption: CustomOptions;
 </script>
 
 <h2 class="text-heading-2.5 font-medium">Create New Meeting</h2>
@@ -29,7 +33,11 @@
 <Card title="Meeting Details">
 	<div class="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6">
 		<Input placeholder="Meeting Name" bind:value={meetingName} />
-		<DynamicSelect placeholder="Academic Year" />
+		<DynamicSelect
+			placeholder="Academic Year"
+			options={getAcadYear()}
+			bind:selectedOption={acadYearOption}
+		/>
 		<div class="col-span-full">
 			<Textarea value={meetingDescription} placeholder="Meeting Link & Password" />
 		</div>
@@ -73,6 +81,8 @@
 	<!-- each end -->
 	<div class="my-3"></div>
 	<button
+		disabled={!acadYearOption?.value}
+		use:tooltip={{ content: !acadYearOption?.value ? 'Please select academic year' : 'Add Campus'}}
 		class="flex items-center gap-x-3 rounded-lg px-3 py-2 text-primary"
 		on:click={() => ($isModalOpen = !$isModalOpen)}
 	>
@@ -81,4 +91,4 @@
 	</button>
 </Card>
 
-<AddCampusModal bind:isModalOpen={$isModalOpen} />
+<AddCampusModal bind:isModalOpen={$isModalOpen} {acadYearOption} />

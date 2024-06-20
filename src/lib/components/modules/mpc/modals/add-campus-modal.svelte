@@ -1,9 +1,14 @@
-<script>
+<script lang="ts">
 	import { SearchIcon } from '$lib/components/icons';
 	import { UserList } from '$lib/components/layout';
 	import { DynamicSelect, Modal } from '$lib/components/ui';
+	import type { CustomOptions } from '$lib/components/ui/select/helper.select';
 
 	export let isModalOpen = false;
+	export let acadYearOption: CustomOptions;
+	let campusOption: CustomOptions;
+	let programOption: CustomOptions;
+	let sessionOption: CustomOptions;
 </script>
 
 <Modal isOpen={isModalOpen} closeOnOutsideClick={false} size="xl" position="top-bottom">
@@ -12,10 +17,59 @@
 			<div class="relative">
 				<div class="grid grid-cols-1 gap-y-6">
 					<h2 class="text-heading-2.5 font-bold">Add Campus</h2>
-					<DynamicSelect placeholder="Campus" />
-					<DynamicSelect placeholder="Program" />
-					<DynamicSelect placeholder="Academic Select" />
-					<DynamicSelect placeholder="Course" />
+					<DynamicSelect
+						placeholder="Campus"
+						url="faculty/campus"
+						bind:selectedOption={campusOption}
+					/>
+					<DynamicSelect
+						placeholder="Program"
+						url="faculty/programs"
+						bind:selectedOption={programOption}
+						dependsOn={[
+							{
+								key: 'campusLid',
+								value: campusOption?.value
+							}
+						]}
+					/>
+					<DynamicSelect
+						placeholder="Academic Session"
+						url="faculty/acad-session"
+						bind:selectedOption={sessionOption}
+						dependsOn={[
+							{
+								key: 'campusLid',
+								value: campusOption?.value
+							},
+							{
+								key: 'programLid',
+								value: programOption?.value
+							}
+						]}
+					/>
+					<DynamicSelect
+						placeholder="Course"
+						url="faculty/subject"
+						dependsOn={[
+							{
+								key: 'acadYear',
+								value: acadYearOption?.value
+							},
+							{
+								key: 'campusLid',
+								value: campusOption?.value
+							},
+							{
+								key: 'programLid',
+								value: programOption?.value
+							},
+							{
+								key: 'sessionLid',
+								value: sessionOption?.value
+							}
+						]}
+					/>
 				</div>
 				<div class="absolute bottom-3 flex">
 					<button class="lms-btn px-16" on:click={() => (isModalOpen = !isModalOpen)}>
