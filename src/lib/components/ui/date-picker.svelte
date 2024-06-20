@@ -24,9 +24,15 @@
 	const daysOfWeek = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 
 	// Function to get days in a specific month and year
-	function getDaysInMonth(month: number, year: number): number[] {
+	function getDaysInMonth(month: number, year: number): (number | null)[] {
 		const date = new Date(year, month, 1);
 		const days = [];
+		const firstDatIndex = (date.getDay() + 6) % 7;
+
+		for (let i = 0; i < firstDatIndex; i++) {
+			days.push(null);
+		}
+
 		while (date.getMonth() === month) {
 			days.push(new Date(date).getDate());
 			date.setDate(date.getDate() + 1);
@@ -187,16 +193,20 @@
 				style="display: {$view === 'days' ? 'grid' : 'none'}"
 			>
 				{#each getDaysInMonth(currentMonth, currentYear) as day}
-					<button
-						class="rounded-lg p-2.5 hover:bg-primary-light"
-						class:active={new Date(currentYear, currentMonth, day).toDateString() ===
-							$selectedDate?.toDateString()}
-						class:bg-base={new Date(currentYear, currentMonth, day).toDateString() ===
-							new Date().toDateString()}
-						on:click={() => selectDate(day)}
-					>
-						{day}
-					</button>
+					{#if day !== null}
+						<button
+							class="rounded-lg p-2.5 hover:bg-primary-light"
+							class:active={new Date(currentYear, currentMonth, day).toDateString() ===
+								$selectedDate?.toDateString()}
+							class:bg-base={new Date(currentYear, currentMonth, day).toDateString() ===
+								new Date().toDateString()}
+							on:click={() => selectDate(day)}
+						>
+							{day}
+						</button>
+					{:else}
+						<div class="p-2 5"></div>
+					{/if}
 				{/each}
 			</div>
 

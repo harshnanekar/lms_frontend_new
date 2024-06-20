@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ActionIcon } from '$lib/components/icons';
 	import type { MpcMasterList } from '$lib/types/modules/mpc/master-form';
-	import { onDestroy } from 'svelte';
+	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 
 	export let actionData: MpcMasterList;
@@ -49,8 +49,14 @@
 		}
 	};
 
-	document.addEventListener('click', handleClickOutside);
-	onDestroy(() => document.removeEventListener('click', handleClickOutside));
+	onMount(() => {
+		console.log("handle this>>", actionData);
+		
+		document.addEventListener('click', handleClickOutside);
+		return () => {
+			document.removeEventListener('click', handleClickOutside);
+		};
+	});
 </script>
 
 <div>
@@ -65,14 +71,14 @@
 			style="top: {$menuPosition.top}px; left: {$menuPosition.left}px;"
 		>
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-				<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
-					>View</a
+				<button class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+					>View</button
 				>
-				<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
-					>Edit</a
+				<button class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+					>Edit</button
 				>
-				<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
-					>Delete</a
+				<button class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+					>Delete</button
 				>
 			</div>
 		</div>
