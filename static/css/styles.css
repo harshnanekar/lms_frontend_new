@@ -116,7 +116,7 @@
 	#lms-sidebar.overlay {
 		display: block;
 		width: 260px;
-		z-index: 10000;
+		z-index: 9999999;
 		background-color: #eaf1fb;
 		opacity: 1;
 	}
@@ -138,7 +138,20 @@
 	}
 }
 
+@media (max-width: 768px) {
+  #lms-sidebar {
+    transform: translateX(-260px);
+    opacity: 0;
+		background-color: #eaf1fb;
+		z-index: 9999999;
+    transition: transform 300ms, opacity 300ms;
+  }
 
+	#lms-sidebar.overlay {
+    transform: translateX(0px);
+    opacity: 1;
+	}
+}
 
 /* ---------------input--------------- */
 .lms-input-container {

@@ -3,6 +3,7 @@
 	import { DashboardIcon } from '$lib/components/icons';
 	import type { SidebarListType } from './types';
 	import { tooltip } from '$lib/utils/tooltip';
+	import { isSidebarOverlayOpen } from './store';
 
 	// TODO: add types properly
 	export let item: SidebarListType;
@@ -20,6 +21,9 @@
 		href={item.url}
 		class="sidebar-link flex h-full w-full items-center gap-4 space-x-[10px] px-2 py-[15px] lg:px-5"
 		class:active={isactive}
+		on:click={() => {
+			$isSidebarOverlayOpen = false;
+		}}
 	>
 		<DashboardIcon
 			fill={isactive ? COLORS.PRIMARY_COLOR : COLORS.ICON_DEFAULT_COLOR}
