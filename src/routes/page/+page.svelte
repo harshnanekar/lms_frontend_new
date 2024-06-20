@@ -24,6 +24,16 @@
 	const isModalOpen = writable(false);
 
 	let acadYearOption: CustomOptions;
+
+	function handleAddCampus() {
+		console.log('Add Campus');
+
+		if (!acadYearOption?.value) {
+			alert('Please select an academic year');
+			return;
+		}
+		$isModalOpen = !$isModalOpen;
+	}
 </script>
 
 <h2 class="text-heading-2.5 font-medium">Create New Meeting</h2>
@@ -81,10 +91,8 @@
 	<!-- each end -->
 	<div class="my-3"></div>
 	<button
-		disabled={!acadYearOption?.value}
-		use:tooltip={{ content: !acadYearOption?.value ? 'Please select academic year' : 'Add Campus'}}
 		class="flex items-center gap-x-3 rounded-lg px-3 py-2 text-primary"
-		on:click={() => ($isModalOpen = !$isModalOpen)}
+		on:click={handleAddCampus}
 	>
 		<CampusIcon />
 		<span class="text-body-2 font-bold">Add Campus</span>

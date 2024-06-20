@@ -2,7 +2,7 @@
 	import { SortArrowIcon } from '$lib/components/icons';
 	import type { TableHeaders } from '$lib/types/layout/table';
 	import { STATUS_COLORS } from '$lib/constants/colors';
-	import type { MpcMasterList } from '$lib/types/modules/mpc';
+	import type { MpcMasterList } from '$lib/types/modules/mpc/master-form';
 	import { tooltip } from '$lib/utils/tooltip';
 	import { MeetingAction } from '..';
 

@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { ArrowIcon, SearchIcon } from '$lib/components/icons';
-	import { onMount } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { writable } from 'svelte/store';
 	import type { CustomOptions } from './helper.select';
 	import { fetchOptions } from './helper.select';
 	import type { Filter } from '$lib/types/request.types';
+	import { debounce } from '$lib/utils/debounce';
 
 	export let placeholder = 'Select an Option';
 	export let isRequired = true;
@@ -19,8 +20,6 @@
 	let searchInputRef: HTMLInputElement;
 
 	$: $isOpen && searchInputRef?.focus();
-
-	$: $searchQuery, filterOptions($searchQuery);
 
 	// Recalculate position on mount and resize
 	onMount(() => {
@@ -52,41 +51,73 @@
 
 	const isOpen = writable(false);
 	const searchQuery = writable('');
-	const filteredOptions = writable(options);
 	const isLoading = writable(false);
 	const errorMsg = writable<string>('');
+	const nextCursor = writable<string | number>('');
 
 	let dropdownPositionStyle = ''; // Inline style for dropdown position
 
 	async function toggleDropdown(setPosition: () => void) {
+		if (dependsOn.some((filter) => !filter.value)) {
+			alert('Please select all the required fields');
+			return;
+		}
+
 		$isLoading = true;
 		isOpen.update((n) => !n);
 		setTimeout(setPosition, 10); // Set position after the dropdown is rendered
+		if (!$isOpen) return ($isLoading = false);
+		if (!url) return ($isLoading = false);
 
-		if ($isOpen && url) {
-			const res = await fetchOptions(url, dependsOn);
-
+		if (options.length === 0) {
+			const res = await fetchOptions(url, dependsOn, '', '');
 			if (res.json) {
 				options = res.json.data;
+				nextCursor.set(res.json.nextCursor || '');
 			}
 		}
+		const setupObserver = () => {
+			const optionss = {
+				root: null,
+				rootMargin: '0px',
+				threshold: 0.1
+			};
+
+			observer = new IntersectionObserver(async ([entry]) => {
+				if (entry.isIntersecting && $nextCursor && !$isLoading) {
+					$isLoading = true;
+					const res = await fetchOptions(url, dependsOn, $searchQuery, $nextCursor);
+					if (res.json) {
+						options = [...options, ...res.json.data];
+						nextCursor.set(res.json.nextCursor || '');
+					}
+					$isLoading = false;
+				}
+			}, optionss);
+
+			observer.observe(dropdownRef.querySelector('.scroll-anchor')!);
+		};
+		setTimeout(setupObserver, 10);
 		$isLoading = false;
 	}
 
-	$: console.log('options changed>>>>>>>', options);
-	$: console.log('errorMsg>>>>>>', $errorMsg);
+	let observer: IntersectionObserver;
 
 	function closeDropdown() {
 		isOpen.set(false);
 	}
 
-	function filterOptions(searchQueryValue: string) {
-		filteredOptions.set(
-			options.filter((option) =>
-				option.toString().toLowerCase().includes(searchQueryValue.toLowerCase())
-			)
-		);
+	async function filterOptions(searchQueryValue: string) {
+		$isLoading = true;
+		const res = await fetchOptions(url, dependsOn, searchQueryValue, '');
+		if (res.json) {
+			options = res.json.data;
+			nextCursor.set(res.json.nextCursor || '');
+		}
+		$isLoading = false;
 	}
+
+	const debounceFilterOptions = debounce(filterOptions, 300);
 
 	function setPosition() {
 		if (!dropdownRef || !buttonRef) return;
@@ -116,18 +147,25 @@
 		dropdownPositionStyle += `width: ${buttonRect.width}px;`;
 	}
 
+	const dispatch = createEventDispatcher();
 	function selectOption(option: CustomOptions) {
 		selectedOption = option;
 		closeDropdown();
+		dispatch('change');
 	}
 
-	$: disabled = dependsOn.some((filter) => !filter.value);
+	$: {
+		// clear options when dependant filters change
+		if (dependsOn.some((filter) => filter.value)) {
+			options = [];
+			selectedOption = null;
+		}
+	}
 </script>
 
 <div class="relative inline-block lms-custom-select-wrapper">
 	<div>
 		<button
-			{disabled}
 			type="button"
 			class="lms-custom-select-trigger inline-flex w-full items-center justify-between rounded-lg border border-slate-250 bg-white px-5 py-3.5 text-xs font-medium text-slate-100 shadow-sm hover:bg-slate-50 focus:outline-none text-left"
 			class:text-gray-400={!selectedOption}
@@ -160,7 +198,7 @@
 				<div class="relative">
 					{#if dropdownPositionStyle.includes('bottom')}
 						<ul class="small-scrollbar max-h-48 divide-y-2 divide-slate-200 overflow-y-auto px-2">
-							{#each $filteredOptions as option}
+							{#each options as option}
 								<li
 									class="block w-[98%] cursor-pointer break-words rounded-lg text-label-md text-gray-700 hover:bg-warning-300"
 								>
@@ -171,6 +209,11 @@
 							{:else}
 								<p class="block py-2 text-sm text-gray-700">No options found</p>
 							{/each}
+							<li class="py-2 text-center scroll-anchor">
+								{#if $isLoading}
+									<div class="spinner"></div>
+								{/if}
+							</li>
 						</ul>
 						<input
 							type="text"
@@ -178,6 +221,7 @@
 							placeholder="Search..."
 							bind:value={$searchQuery}
 							bind:this={searchInputRef}
+							on:input={() => debounceFilterOptions($searchQuery)}
 						/>
 						<button type="submit" class="absolute bottom-0 right-0 mb-2 mr-4">
 							<SearchIcon />
@@ -189,6 +233,7 @@
 							placeholder="Search..."
 							bind:value={$searchQuery}
 							bind:this={searchInputRef}
+							on:input={() => debounceFilterOptions($searchQuery)}
 						/>
 						<button type="submit" class="absolute right-0 top-0 mr-4 mt-2">
 							<SearchIcon />
@@ -212,6 +257,11 @@
 							{:else}
 								<p class="block py-2 text-sm text-gray-700">{errorMsg}</p>
 							{/if}
+							<li class="py-2 text-center scroll-anchor">
+								{#if $isLoading}
+									<div class="spinner"></div>
+								{/if}
+							</li>
 						</ul>
 					{/if}
 				</div>
@@ -219,3 +269,21 @@
 		</div>
 	{/if}
 </div>
+
+<style>
+	.spinner {
+		border: 4px solid rgba(0, 0, 0, 0.1);
+		border-left-color: #4a90e2;
+		border-radius: 50%;
+		width: 24px;
+		height: 24px;
+		animation: spin 1s linear infinite;
+		margin: 0 auto;
+	}
+
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+</style>

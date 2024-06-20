@@ -46,7 +46,7 @@
 		class="modal-overlay {modalPositionClasses[position]}"
 		on:click={handleOverlayClick}
 	>
-		<div class="modal-content {modalSizeMap[size]}">
+		<div class="no-scrollbar modal-content {modalSizeMap[size]}">
 			<slot name="header"></slot>
 			<slot name="body"></slot>
 			<slot name="footer"></slot>
@@ -56,9 +56,9 @@
 
 <style>
 	.modal-overlay {
-		@apply fixed inset-0 z-[999999] flex justify-center bg-[#576173] bg-opacity-40 lg:pt-6 w-[100vw];
+		@apply fixed inset-0 z-[999999] flex justify-center bg-[#576173] bg-opacity-40 w-[100vw];
 	}
 	.modal-content {
-		@apply rounded-2xl bg-white shadow-modal overflow-y-auto;
+		@apply rounded-2xl bg-white shadow-modal overflow-y-auto max-h-[90vh];
 	}
 </style>

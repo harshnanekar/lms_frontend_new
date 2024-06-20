@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { ActionIcon } from '$lib/components/icons';
 	import { STATUS_COLORS } from '$lib/constants/colors';
-	import type { MpcMasterList } from '$lib/types/modules/mpc';
+	import type { MpcMasterList } from '$lib/types/modules/mpc/master-form';
 	import MeetingAction from './meeting-action.svelte';
 
 	export let item: MpcMasterList;

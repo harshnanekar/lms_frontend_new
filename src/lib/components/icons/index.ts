@@ -32,5 +32,5 @@ export {
 	SelectDateIcon,
 	XIcon,
 	CampusIcon,
-	DownloadIcon
+	DownloadIcon,
 };

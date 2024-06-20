@@ -97,8 +97,4 @@ export default {
 		}
 	},
 	plugins: [],
-	safelist: [
-		/^w-\d{1,3}$/, // Match classes like w-10, w-20, ..., w-100
-		/^md:w-\d{1,3}%$/ // Match classes like md:w-10%, md:w-20%, ..., md:w-100%
-	]
 };

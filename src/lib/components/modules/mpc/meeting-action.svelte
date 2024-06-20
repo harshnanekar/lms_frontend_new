@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { ActionIcon } from '$lib/components/icons';
-	import type { TableData } from '$lib/components/ui/table/types';
 	import { onDestroy } from 'svelte';
 	import { writable } from 'svelte/store';
 
-	export let actionData: TableData;
+	export let actionData: MeetingList;
 	const showMenu = writable<boolean>(false);
 	const menuPosition = writable<{ top: number; left: number }>({ top: 0, left: 0 });
 

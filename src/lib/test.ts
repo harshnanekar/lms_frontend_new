@@ -1,5 +1,5 @@
 import type { TableHeaders } from './types/layout/table';
-import type { MpcMasterList } from './types/modules/mpc';
+import type { MpcMasterList } from './types/modules/mpc/master-form';
 
 export const SIDEBAR_URL = [
 	{
@@ -110,7 +110,7 @@ export const SIDEBAR_URL = [
 	}
 ];
 
-export let obj = [
+export const obj = [
 	{
 		meeting_id: '1',
 		meeting_name:

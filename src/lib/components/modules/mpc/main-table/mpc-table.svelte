@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { SortArrowIcon } from '$lib/components/icons';
 	import { PaginateWithSlot } from '$lib/components/layout';
 	import type { TableHeaders } from '$lib/types/layout/table';
 	import { STATUS_COLORS } from '$lib/constants/colors';
 	import { headers } from '$lib/test';
-	import type { MpcMasterList } from '$lib/types/modules/mpc';
+	import type { MpcMasterList } from '$lib/types/modules/mpc/master-form';
 	import { tooltip } from '$lib/utils/tooltip';
 	import { MeetingAction } from '..';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
