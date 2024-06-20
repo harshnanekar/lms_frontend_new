@@ -163,11 +163,11 @@
 	}
 </script>
 
-<div class="relative inline-block lms-custom-select-wrapper">
+<div class="lms-custom-select-wrapper relative inline-block">
 	<div>
 		<button
 			type="button"
-			class="lms-custom-select-trigger inline-flex w-full items-center justify-between rounded-lg border border-slate-250 bg-white px-5 py-3.5 text-xs font-medium text-slate-100 shadow-sm hover:bg-slate-50 focus:outline-none text-left"
+			class="lms-custom-select-trigger inline-flex w-full items-center justify-between rounded-lg border border-slate-250 bg-white px-5 py-3.5 text-left text-xs font-medium text-slate-100 shadow-sm hover:bg-slate-50 focus:outline-none"
 			class:text-gray-400={!selectedOption}
 			on:click={() => toggleDropdown(() => setPosition())}
 			bind:this={buttonRef}
@@ -202,14 +202,14 @@
 								<li
 									class="block w-[98%] cursor-pointer break-words rounded-lg text-label-md text-gray-700 hover:bg-warning-300"
 								>
-									<button on:click={() => selectOption(option)} class="px-4 py-2 text-left w-full">
+									<button on:click={() => selectOption(option)} class="w-full px-4 py-2 text-left">
 										{option.label}
 									</button>
 								</li>
 							{:else}
 								<p class="block py-2 text-sm text-gray-700">No options found</p>
 							{/each}
-							<li class="py-2 text-center scroll-anchor">
+							<li class="scroll-anchor py-2 text-center">
 								{#if $isLoading}
 									<div class="spinner"></div>
 								{/if}
@@ -246,7 +246,7 @@
 									>
 										<button
 											on:click={() => selectOption(option)}
-											class="px-4 py-2 text-left w-full"
+											class="w-full px-4 py-2 text-left"
 										>
 											{option.label}
 										</button>
@@ -257,7 +257,7 @@
 							{:else}
 								<p class="block py-2 text-sm text-gray-700">{errorMsg}</p>
 							{/if}
-							<li class="py-2 text-center scroll-anchor">
+							<li class="scroll-anchor py-2 text-center">
 								{#if $isLoading}
 									<div class="spinner"></div>
 								{/if}

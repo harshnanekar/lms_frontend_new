@@ -96,5 +96,5 @@ export default {
 			truncate: ['responsive']
 		}
 	},
-	plugins: [],
+	plugins: []
 };

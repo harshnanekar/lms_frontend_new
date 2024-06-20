@@ -10,7 +10,7 @@ export const activeSidebarModule = writable<SidebarListType>({
 });
 
 export const setActiveSidebarUrl = (url: string | undefined, sidebarList: SidebarListType[]) => {
-	for (let sidebar of sidebarList) {
+	for (const sidebar of sidebarList) {
 		if (sidebar.url === url) {
 			activeSidebarModule.set(sidebar);
 			return;

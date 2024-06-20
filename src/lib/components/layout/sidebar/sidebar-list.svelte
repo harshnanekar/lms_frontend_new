@@ -2,7 +2,6 @@
 	import { COLORS } from '$lib/constants/colors';
 	import { DashboardIcon } from '$lib/components/icons';
 	import type { SidebarListType } from './types';
-	import { tooltip } from '$lib/utils/tooltip';
 	import { isSidebarOverlayOpen } from './store';
 
 	// TODO: add types properly

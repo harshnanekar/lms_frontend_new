@@ -10,9 +10,11 @@
 </head>
 
 {#if $navigating}
-	 <div class="z-[9999999999] bg-[#576173] bg-opacity-40 fixed flex justify-center items-center w-screen h-screen inset-0">
-			<Circle3 size="100" unit="px" />
-	 </div>
+	<div
+		class="fixed inset-0 z-[9999999999] flex h-screen w-screen items-center justify-center bg-[#576173] bg-opacity-40"
+	>
+		<Circle3 size="100" unit="px" />
+	</div>
 {/if}
 
 <Sidebar />

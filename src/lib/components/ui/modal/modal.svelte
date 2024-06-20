@@ -56,9 +56,9 @@
 
 <style>
 	.modal-overlay {
-		@apply fixed inset-0 z-[999999] flex justify-center bg-[#576173] bg-opacity-40 w-[100vw];
+		@apply fixed inset-0 z-[999999] flex w-[100vw] justify-center bg-[#576173] bg-opacity-40;
 	}
 	.modal-content {
-		@apply rounded-2xl bg-white shadow-modal overflow-y-auto max-h-[90vh];
+		@apply max-h-[90vh] overflow-y-auto rounded-2xl bg-white shadow-modal;
 	}
 </style>

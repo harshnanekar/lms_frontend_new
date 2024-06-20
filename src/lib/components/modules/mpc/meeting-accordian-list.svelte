@@ -33,7 +33,7 @@
 </script>
 
 <Accordion spaceBetween>
-	{#each items as item, i}
+	{#each items as item (item.title)}
 		<AccordionItem>
 			<svelte:fragment slot="title">
 				<div class="md:flex md:items-center md:justify-between">
@@ -64,7 +64,7 @@
 						<MpcTable />
 					</div>
 					<div class="space-y-4 divide-y-2 md:hidden">
-						{#each obj as item}
+						{#each obj as item (item.meeting_id)}
 							<MPCMeetingCard {item} />
 						{/each}
 					</div>

@@ -17,7 +17,7 @@
 			height={32}
 		/>
 	</div>
-	<p class="text-label-lg m-0 p-0">
+	<p class="m-0 p-0 text-label-lg">
 		{user.full_name} ( {user.username} )
 	</p>
 	{#if isClosable}

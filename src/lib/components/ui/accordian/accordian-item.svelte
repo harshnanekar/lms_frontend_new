@@ -27,7 +27,6 @@
 
 	function handleClick() {
 		// if `collapse` is passed only one item can be active
-		console.log('CLICKED::::::::;');
 		collapse ? setActive() : toggleOpen();
 	}
 

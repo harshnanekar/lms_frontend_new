@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { ActionIcon } from '$lib/components/icons';
+	import type { MpcMasterList } from '$lib/types/modules/mpc/master-form';
 	import { onDestroy } from 'svelte';
 	import { writable } from 'svelte/store';
 
-	export let actionData: MeetingList;
+	export let actionData: MpcMasterList;
 	const showMenu = writable<boolean>(false);
 	const menuPosition = writable<{ top: number; left: number }>({ top: 0, left: 0 });
 

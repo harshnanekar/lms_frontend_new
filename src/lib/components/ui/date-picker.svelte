@@ -20,7 +20,6 @@
 	const monthsOfYear = Array.from({ length: 12 }, (_, i) =>
 		new Date(0, i).toLocaleString('default', { month: 'short' })
 	);
-	const yearsRange = Array.from({ length: 10 }, (_, i) => currentYear - 5 + i);
 
 	const daysOfWeek = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 

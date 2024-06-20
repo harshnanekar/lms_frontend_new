@@ -63,9 +63,9 @@
 	$: count = userList.filter((u) => u.isSelected).length;
 </script>
 
-<div class="border-slate-250 mx-auto rounded-xl border p-4">
+<div class="mx-auto rounded-xl border border-slate-250 p-4">
 	<div class="flex items-center justify-between">
-		<h2 class="text-body-1 font-bold">Add {type === "course" ? "Course" : "Program"} Anchor</h2>
+		<h2 class="text-body-1 font-bold">Add {type === 'course' ? 'Course' : 'Program'} Anchor</h2>
 		<p class="text-label-lg">{count} Added</p>
 	</div>
 	<!-- <div class="relative mt-4">
