@@ -9,7 +9,7 @@
 </script>
 
 {#if masterFormList}
-	<Accordion spaceBetween>
+	<Accordion collapse spaceBetween>
 		{#each masterFormList as item}
 			<AccordionItem>
 				<svelte:fragment slot="title">

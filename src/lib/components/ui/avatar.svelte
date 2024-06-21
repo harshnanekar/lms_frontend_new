@@ -5,7 +5,7 @@
 	export let name: string;
 </script>
 
-<Avatar.Root class="absolute h-10 w-10 bg-blue-400 text-white">
+<Avatar.Root class="h-10 w-10 bg-blue-400 text-white">
 	<Avatar.Image {src} alt="avatar" class="h-10 w-10 rounded-full border-2 border-white" />
 	<Avatar.Fallback class="h-10 w-10 rounded-full border-2 border-white"
 		>{name.charAt(0).toUpperCase()}</Avatar.Fallback

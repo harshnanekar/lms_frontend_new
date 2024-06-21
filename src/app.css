@@ -11,7 +11,7 @@
 }
 
 @layer components {
-	#lms-table-wrapper {
+	.lms-table-wrapper {
 		@apply w-full overflow-auto;
 	}
 

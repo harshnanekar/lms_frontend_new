@@ -12,7 +12,6 @@
 	const { collapse, activeComponentId } = getAccordionOptions();
 
 	function setActive() {
-		console.log('INSIDE>>>>>>>>>.');
 		// update the store value in the context
 		if ($activeComponentId === componentId) {
 			$activeComponentId = null;

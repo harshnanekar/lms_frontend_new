@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Image, Toggle } from '$lib/components/ui';
+	import Avatar from '$lib/components/ui/avatar.svelte';
 	import type { Anchor } from '$lib/types/modules/mpc/master-form';
 
 	export let user: Anchor;
@@ -8,16 +9,11 @@
 </script>
 
 <div class="flex items-center gap-x-5 rounded-xl p-2" class:shadow-lg={isClosable && !isSelected}>
-	<div>
-		<Image
-			src="https://via.placeholder.com/150"
-			name={user.full_name}
-			round
-			width={32}
-			height={32}
+		<Avatar
+			src={user.avatar}
+			name={user.full_name} 
 		/>
-	</div>
-	<p class="m-0 p-0 text-label-lg">
+	<p class="m-0 p-0 text-label-lg text-black font-medium">
 		{user.full_name} ( {user.username} )
 	</p>
 	{#if isClosable}

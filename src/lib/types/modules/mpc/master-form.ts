@@ -9,29 +9,6 @@ export type MpcMasterList = {
 	status_abbr: string;
 };
 
-export type MeetingSubjectReq = {
-	campus_lid: string;
-	program_lid: string;
-	acad_session: string;
-	subject_lid: string;
-	program_anchor: string[];
-	course_anchor: string[];
-	attendees: string[];
-	is_parent: boolean;
-};
-
-export type MasterMeetingReq = {
-	meeting_name: string;
-	acad_year: string;
-	link_passowrd: string;
-	meeting_date: Date[];
-	meeting_subject: MeetingSubjectReq[];
-};
-
-export type MeetingRequestObject = {
-	master_meeting: MasterMeetingReq;
-};
-
 export type Anchor = {
 	user_lid: number;
 	full_name: string;

@@ -90,7 +90,6 @@
 		{#each userList.filter((v) => !v.isHidden) as user}
 			<UserList
 				{user}
-				on:click={() => console.log('clicked')}
 				isClosable
 				on:change={() => handleToggle(user)}
 				bind:isSelected={user.isSelected}

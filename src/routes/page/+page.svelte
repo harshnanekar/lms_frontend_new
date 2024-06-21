@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { CampusIcon, DownloadIcon, SelectDateIcon, XIcon } from '$lib/components/icons';
+	import { CampusIcon, SelectDateIcon, XIcon } from '$lib/components/icons';
 	import { AddCampusModal } from '$lib/components/modules/mpc';
 	import { Card, DatePicker, DynamicSelect, Input, Textarea } from '$lib/components/ui';
-	import type { CustomOptions } from '$lib/components/ui/select/helper.select';
 	import { formatDateTimeShort } from '$lib/utils/date-formatter';
 	import { getAcadYear } from '$lib/utils/select.helper';
 	import { tooltip } from '$lib/utils/tooltip';
@@ -11,7 +10,13 @@
 	import { toast } from 'svelte-sonner';
 	import { defaultMasterStoreValue, masterFormStore } from '$lib/stores/modules/mpc/master.store';
 	import { CampusDetailCard } from '$lib/components/modules/mpc/master-form';
+	import { validateWithZod } from '$lib/utils/validations';
+	import { meetingSchema, type MasterFormReq } from '$lib/schemas/modules/mpc/master-form';
+	import { fetchApi } from '$lib/utils/fetcher';
+	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 
+	let meetingName: string = ''
+	let meetingDescription: string = ''
 	let meetingDate: Date | null = new Date();
 	function handleDateChange(e: CustomEvent<any>) {
 		if (!meetingDate) return;
@@ -21,12 +26,9 @@
 	const isModalOpen = writable(false);
 
 	function handleAddCampus() {
-		console.log('Add Campus');
-
 		if (!$masterFormStore?.acadYear.value) {
 			toast.info('Alert!', {
 				description: 'Please select an academic year',
-				dismissable: true
 			});
 			return;
 		} 
@@ -34,15 +36,62 @@
 	}
 
 	function clearForm() {
-		console.log("CLICKED>>>>>>");
 		masterFormStore.update((form) => {
 			return  defaultMasterStoreValue
 		})
-		// meetingName = ''
+		meetingName = ''
+		meetingDescription = ''
 	}
 
-	$: console.log("masterFormStore>>>>>", $masterFormStore);
-	
+	async function handlePublishMeeting() {
+		console.log('Publish Meeting');
+		
+		const meetingObject: MasterFormReq = {
+			meeting_name: meetingName,
+			acad_year: $masterFormStore.acadYear.value.toString(),
+			link_password: meetingDescription,
+			meeting_date: $masterFormStore.meetingDate,
+			meeting_subject: $masterFormStore.meetingSubject.map((v) => {
+				return {
+					campus_lid: v.campusOption.value.toString(),
+					program_lid: v.programOption.value.toString(),
+					acad_session: v.sessionOption.value.toString(),
+					subject_lid: v.subjectOption.value.toString(),
+					is_parent: v.isParent,
+					program_anchor: v.programAnchor.map((u) => u.user_lid.toString()),
+					course_anchor: v.courseAnchor.map((u) => u.user_lid.toString()),
+					attendees: v.attendees.map((u) => u.user_lid.toString())
+				};
+			})
+		};
+
+		console.log('objectToSend>>>>>', meetingObject);
+		const result = validateWithZod(meetingSchema, meetingObject);
+    if (result.errors) {
+			const [firstPath, firstMessage] = Object.entries(result.errors)[0];
+			toast.error(firstMessage);
+			return;
+    }
+
+		// API CALL
+		const {error, json} = await fetchApi({
+			url: `${PUBLIC_API_BASE_URL}/faculty/insert-master-form`,
+			method: 'POST',
+			body: {
+				master_meeting: result.data
+			},
+		});
+
+		if(error) {
+			toast.error(error.message || 'Something went wrong!', {
+				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+			});
+			return;
+		}
+
+		toast.success('Meeting Published Successfully');
+		// clearForm();
+	}
 </script>
 
 <h2 class="text-heading-2.5 font-medium">Create New Meeting</h2>
@@ -51,14 +100,14 @@
 
 <Card title="Meeting Details">
 	<div class="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6">
-		<Input placeholder="Meeting Name" value={$masterFormStore.meetingName} />
+		<Input placeholder="Meeting Name" bind:value={meetingName} />
 		<DynamicSelect
 			placeholder="Academic Year"
 			options={getAcadYear()}
 			bind:selectedOption={$masterFormStore.acadYear}
 		/>
 		<div class="col-span-full">
-			<Textarea value={$masterFormStore.linkPassword} placeholder="Meeting Link & Password" />
+			<Textarea bind:value={meetingDescription} placeholder="Meeting Link & Password" />
 		</div>
 		<div class="col-span-full flex flex-wrap items-center gap-2">
 			<DatePicker on:change={handleDateChange} bind:selectedDateTime={meetingDate}>
@@ -110,7 +159,7 @@
 
 <div class="w-full flex gap-x-4 justify-end items-center mt-6 ">
 	<button class="lms-btn lms-secondary-btn px-8 py-3" on:click={clearForm}>Clear Form</button>
-	<button class="lms-btn lms-primary-btn px-12 py-3">Publish</button>
+	<button class="lms-btn lms-primary-btn px-12 py-3" on:click={handlePublishMeeting}>Publish</button>
 </div>
 
 <AddCampusModal bind:isModalOpen={$isModalOpen} />

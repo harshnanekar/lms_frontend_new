@@ -14,7 +14,7 @@
 
 <PaginateClient
 	showSearch={false}
-	showPagination={true}
+	showPagination={false}
 	header={headers}
 	bind:tableData
 	addLimit={true}

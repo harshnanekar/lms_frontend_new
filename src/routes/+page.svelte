@@ -5,8 +5,6 @@
 
 	export let data;
 
-	$: console.log(data);
-
 	$: masterFormList = data.masterFormList
 </script>
 

@@ -186,19 +186,3 @@ export const headers: TableHeaders<SubjectMeetingDetail>[] = [
 		showTooltip: false
 	}
 ];
-
-// const setupObserver = () => {
-// 	const options = {
-// 		root: null,
-// 		rootMargin: '0px',
-// 		threshold: 0.1
-// 	};
-
-// 	observer = new IntersectionObserver(async ([entry]) => {
-// 		if (entry.isIntersecting) {
-// 			console.log("came here");
-// 		}
-// 	}, options);
-
-// 	observer.observe(document.querySelector('#scroll-anchor'));
-// };

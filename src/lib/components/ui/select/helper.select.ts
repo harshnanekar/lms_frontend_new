@@ -5,6 +5,7 @@ import { fetchApi } from '$lib/utils/fetcher';
 export type CustomOptions = {
 	value: string | number;
 	label: string;
+	isHidden?: boolean;
 };
 
 export type GojoInfinity = {
@@ -19,8 +20,6 @@ export async function fetchOptions(
 	search: string,
 	nextCursor: string | number
 ): Promise<ApiResponse<GojoInfinity>> {
-	console.log(url, filters);
-
 	const _url = new URL(PUBLIC_API_BASE_URL + '/' + url);
 
 	filters
@@ -41,8 +40,6 @@ export async function fetchOptions(
 		url: _url.href,
 		method: 'GET'
 	});
-
-	console.log(response);
 
 	return response;
 }

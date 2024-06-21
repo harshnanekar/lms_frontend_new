@@ -7,9 +7,7 @@
 
 	export let campusJson: MeetingSubjectStore;
     function handlePrimaryClick() {
-
         if(campusJson.isParent) return;
-
         masterFormStore.update((form) => {
             form.meetingSubject.forEach((sub) => {
                 if(sub.uid === campusJson.uid) {
@@ -29,7 +27,7 @@
 	class="shadow-card relative mt-6 space-y-5 overflow-hidden rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-3 sm:p-6"
 >
 	<button
-		class="absolute right-0 top-0 flex items-center gap-x-1.5 rounded-bl-xl rounded-tr-lg px-3 py-1"
+		class="absolute left-0 md:left-auto md:right-0 top-0 flex items-center gap-x-1.5 rounded-br-xl md:rounded-br-none md:rounded-bl-xl rounded-tr-lg px-3 py-1"
 		class:bg-slate-250={!campusJson.isParent}
 		class:bg-success-100={campusJson.isParent}
 		class:text-success-200={campusJson.isParent}
@@ -54,8 +52,8 @@
 		{/if}
 		{campusJson.isParent ? 'Primary' : 'Make Primary'}
 	</button>
-	<b class="">{campusJson.campusOption.label}</b>
-	<div class="flex flex-wrap gap-x-5 gap-y-2">
+	<p class="!mt-10 md:!mt-0 font-bold">{campusJson.campusOption.label}</p>
+	<div class="flex flex-wrap gap-2">
 		<div
 			class="bg-base text-body-2 mr-3 items-center gap-x-4 rounded-3xl px-4 py-3 font-medium text-black"
 		>
@@ -69,12 +67,12 @@
 		<div
 			class="bg-base text-body-2 mr-3 items-center gap-x-4 rounded-3xl px-4 py-3 font-medium text-black"
 		>
-			{campusJson.subjectOption.label}
+			{campusJson.sessionOption.label}
 		</div>
 	</div>
 	<div class="grid grid-cols-1 gap-x-5 gap-y-3 lg:grid-cols-3">
 		<div class="text-start">
-			<span class="text-sm text-slate-500"> Program Anchor </span>
+			<span class="text-sm text-slate-100"> Program Anchor </span>
 			<div class="mt-3">
 				{#each campusJson.programAnchor as userAvtar}
 					<UserList user={userAvtar} />
@@ -91,12 +89,12 @@
 		</div>
 		<div class="text-start min-h-20">
 			<span class="text-sm text-slate-500"> Attendees </span>
-			<div class="relative flex items-center">
+			<div class="relative h-full">
 				{#each campusJson.attendees as attendees, i}
 					{#if i < 4}
-                        <div class="absolute" style="left: {i * 3 * 8}px;">
-                            <Avatar src={attendees.avatar} name={attendees.full_name} />
-                        </div>
+						<div class="absolute mt-7" style="left: {i * 3 * 8}px;">
+								<Avatar src={attendees.avatar} name={attendees.full_name} />
+						</div>
 					{/if}
 				{/each}
 				{#if campusJson.attendees.length > 4}

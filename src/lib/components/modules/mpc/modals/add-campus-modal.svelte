@@ -18,19 +18,8 @@
 
 	function add() {
 
-		console.log("ADD Clicked");
-		
 		if(!campusOption || !sessionOption || !programOption || !subjectOption || !programAnchor || !courseAnchor || !attendees) {
-			console.log("IN ERROR", {
-			campusOption,
-			programOption,
-			sessionOption,
-			subjectOption,
-			programAnchor,
-			courseAnchor,
-			attendees,
-			isParent: $masterFormStore?.meetingSubject.length === 0 ? true : false
-		});
+			// TODO: add zod validations
 			return
 		}
 

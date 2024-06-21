@@ -18,9 +18,6 @@ export const load: PageServerLoad = async ({ cookies, fetch }) => {
 		});
 	}
 
-    console.log("json", json);
-    
-
 	return {
 		masterFormList: json
 	};

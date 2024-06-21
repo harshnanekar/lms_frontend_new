@@ -20,7 +20,6 @@ import { Card, DynamicSelect, Modal } from '$lib/components/ui';
 
 	let selectedDateTime: Date | null;
 
-	$: console.log('Selected Date and Time:', selectedDateTime);
 </script>
 
 <div class="mb-[30px]">

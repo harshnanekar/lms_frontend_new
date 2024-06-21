@@ -113,6 +113,18 @@
 	}
 
 	async function filterOptions(searchQueryValue: string) {
+		// if(!url) {
+		// 	options = options.map((v) => {
+		// 		if(v.label.includes(searchQueryValue)) {
+		// 			v.isHidden = false
+		// 		} else{ 
+		// 			v.isHidden = true
+		// 		}
+		// 		return v
+		// 	});
+		// 	nextCursor.set('')
+		// 	return;
+		// }
 		$isLoading = true;
 		const res = await fetchOptions(url, dependsOn, searchQueryValue, '');
 		if (res.json) {
