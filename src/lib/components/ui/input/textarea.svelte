@@ -5,13 +5,20 @@
 	export let placeholder = '';
 	export let isRequired = true;
 	export let error = '';
-  export let rows = 1;
+	export let rows = 1;
 
 	const id = generateRandomUUID();
 </script>
 
 <div class="lms-input-container h-fit">
-	<textarea {id} class="lms-input" placeholder={''} class:error={error && error.length > 0} rows={rows} bind:value />
+	<textarea
+		{id}
+		class="lms-input"
+		placeholder={''}
+		class:error={error && error.length > 0}
+		{rows}
+		bind:value
+	/>
 	<label for={id} class="lms-placeholder"
 		>{placeholder}
 		{#if isRequired}

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import SidebarList from './sidebar-list.svelte';
-	import { activeSidebarModule } from './store';
 	import type { SidebarListType } from './types';
 
 	export let sidebarList: SidebarListType[] = [];

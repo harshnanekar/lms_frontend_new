@@ -25,10 +25,15 @@
 	});
 </script>
 
+<div
+	class="close-layer fixed {$isSidebarOverlayOpen
+		? 'block'
+		: 'hidden'} inset-0 z-50 h-screen bg-[#576173] bg-opacity-40 md:hidden"
+></div>
 <aside
 	id="lms-sidebar"
 	class:overlay={$isSidebarOverlayOpen}
-	class="no-scrollbar absolute bottom-0 left-0 top-0 hidden h-screen opacity-0 transition-all md:block md:w-[62px] md:opacity-100 lg:w-[260px]"
+	class="no-scrollbar fixed bottom-0 left-0 top-0 h-screen w-[260px] transition-all md:w-[62px] lg:w-[260px]"
 >
 	<div class="logo-wrapper hidden pl-[60px] pt-[13px] lg:block">
 		<img src="images/layout/logo.png" alt="Logo" class="h-[44px] w-[122px]" />

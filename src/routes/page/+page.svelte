@@ -8,6 +8,7 @@
 	import { tooltip } from '$lib/utils/tooltip';
 	import { writable } from 'svelte/store';
 	import { fly } from 'svelte/transition';
+	import { toast } from 'svelte-sonner';
 
 	let meetingName: string,
 		meetingDescription: string,
@@ -29,7 +30,10 @@
 		console.log('Add Campus');
 
 		if (!acadYearOption?.value) {
-			alert('Please select an academic year');
+			toast.info('Alert!', {
+				description: 'Please select an academic year',
+				dismissable: true
+			});
 			return;
 		}
 		$isModalOpen = !$isModalOpen;

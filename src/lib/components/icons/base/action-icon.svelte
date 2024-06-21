@@ -4,7 +4,6 @@
 	export let height = 24;
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
 <svg
 	class="action-icon"
 	{width}

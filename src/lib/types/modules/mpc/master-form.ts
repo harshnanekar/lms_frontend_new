@@ -1,4 +1,4 @@
-import type { CustomOptions } from "$lib/components/ui/select/helper.select";
+import type { CustomOptions } from '$lib/components/ui/select/helper.select';
 
 export type MpcMasterList = {
 	meeting_id: string;
@@ -21,15 +21,15 @@ export type MeetingSubjectReq = {
 };
 
 export type MasterMeetingReq = {
-    meeting_name: string;
-    acad_year: string;
-    link_passowrd: string;
-    meeting_date: Date[];
-    meeting_subject: MeetingSubjectReq[];
+	meeting_name: string;
+	acad_year: string;
+	link_passowrd: string;
+	meeting_date: Date[];
+	meeting_subject: MeetingSubjectReq[];
 };
 
 export type MeetingRequestObject = {
-    master_meeting: MasterMeetingReq;
+	master_meeting: MasterMeetingReq;
 };
 
 export type Anchor = {
@@ -37,7 +37,7 @@ export type Anchor = {
 	full_name: string;
 	username: string;
 	avatar: string;
-}
+};
 
 export type MeetingSubjectStore = {
 	campusOption: CustomOptions;
@@ -48,7 +48,7 @@ export type MeetingSubjectStore = {
 	courseAnchor: Anchor[];
 	attendees: Anchor[];
 	isParent: boolean;
-}
+};
 
 export type MasterMeetingStore = {
 	meetingName: string;
@@ -56,4 +56,21 @@ export type MasterMeetingStore = {
 	linkPassword: string;
 	meetingDate: Date[];
 	meetingSubject: MeetingSubjectStore[];
-}
+};
+
+export type SubjectMeetingDetail = {
+	status: string;
+	status_abbr: string;
+	meeting_id: number;
+	acad_session: string;
+	meeting_date: string;
+	meeting_name: string;
+ };
+ 
+ export type MeetingListItem = {
+	program_id: number;
+	subject_id: number;
+	program_name: string;
+	subject_name: string;
+	subject_meeting_details: SubjectMeetingDetail[];
+ };

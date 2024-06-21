@@ -81,7 +81,7 @@
 
 <!----------input---------->
 <div class="lms-input-container">
-	<input id="firstname" class="lms-input error" type="text" placeholder="" >
+	<input id="firstname" class="lms-input error" type="text" placeholder="" />
 	<label for="firstname" class="lms-placeholder">First Name<span>*</span></label>
 </div>
 
@@ -89,7 +89,7 @@
 
 <!----------input-error---------->
 <div class="lms-input-container">
-	<input id="firstname" class="lms-input-error" type="text" placeholder="" value="error">
+	<input id="firstname" class="lms-input-error" type="text" placeholder="" value="error" />
 	<div class="lms-cut-error"></div>
 	<label for="firstname" class="lms-placeholder-error">First Name<span>*</span></label>
 	<div>
@@ -100,8 +100,14 @@
 <div class="mb-14"></div>
 
 <!----------input-focus---------->
-<div class="lms-input-container ">
-	<input id="firstname" class="lms-input border-[1px] border-primary" type="text" placeholder="" value="focus">
+<div class="lms-input-container">
+	<input
+		id="firstname"
+		class="lms-input border-[1px] border-primary"
+		type="text"
+		placeholder=""
+		value="focus"
+	/>
 	<label for="firstname" class="lms-placeholder">First Name<span>*</span> </label>
 </div>
 
@@ -109,7 +115,7 @@
 
 <!----------input-hint---------->
 <div class="lms-input-container">
-	<input id="firstname" class="lms-input" type="text" placeholder="" value="hint">
+	<input id="firstname" class="lms-input" type="text" placeholder="" value="hint" />
 	<label for="firstname" class="lms-placeholder">First Name<span>*</span> </label>
 	<div>
 		<span class="lms-hint-msg">(i) Hint text here</span>
@@ -119,8 +125,15 @@
 <div class="mt-14"></div>
 
 <!----------input-disabled---------->
-<div class="lms-input-container ">
-	<input id="firstname" class="lms-input bg-base" type="text" placeholder="" value="Disabled" disabled>
+<div class="lms-input-container">
+	<input
+		id="firstname"
+		class="lms-input bg-base"
+		type="text"
+		placeholder=""
+		value="Disabled"
+		disabled
+	/>
 	<label for="firstname" class="lms-placeholder">First Name</label>
 </div>
 

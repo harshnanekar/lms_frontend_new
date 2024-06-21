@@ -213,3 +213,17 @@
     @apply top-full mt-2;
   } */
 }
+
+@layer base {
+	body {
+		@apply bg-base text-black;
+	}
+}
+
+div[data-icon] {
+	@apply mr-4;
+}
+
+div[data-icon] svg {
+	@apply h-7 w-7;
+}

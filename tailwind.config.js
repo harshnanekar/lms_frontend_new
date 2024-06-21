@@ -2,6 +2,13 @@
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
+		container: {
+			center: true,
+			padding: '2rem',
+			screens: {
+				'2xl': '1400px'
+			}
+		},
 		extend: {
 			colors: {
 				primary: '#D2232A',
@@ -49,7 +56,8 @@ export default {
 				'warning-100': '#FFF5DA',
 				'warning-200': '#EDA210',
 				'warning-300': '#FDEEEE',
-				'warning-400': '#FCDCDC'
+				'warning-400': '#FCDCDC',
+				border: 'hsl(var(--border) / <alpha-value>)'
 			},
 			fontSize: {
 				'display-1': ['80px', { lineHeight: '88px', letterSpacing: '-0.125rem' }],
@@ -75,6 +83,11 @@ export default {
 					{ lineHeight: '17px', letterSpacing: '0.016rem', fontWeight: '700' }
 				]
 			},
+			borderRadius: {
+				lg: 'var(--radius)',
+				md: 'calc(var(--radius) - 2px)',
+				sm: 'calc(var(--radius) - 4px)'
+			},
 			fontFamily: {
 				'dm-sans': ['DM Sans', 'sans-serif']
 			},
@@ -96,5 +109,5 @@ export default {
 			truncate: ['responsive']
 		}
 	},
-	plugins: [],
+	plugins: []
 };

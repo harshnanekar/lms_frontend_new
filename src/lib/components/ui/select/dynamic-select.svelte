@@ -7,6 +7,7 @@
 	import { fetchOptions } from './helper.select';
 	import type { Filter } from '$lib/types/request.types';
 	import { debounce } from '$lib/utils/debounce';
+	import SelectList from './select-list.svelte';
 
 	export let placeholder = 'Select an Option';
 	export let isRequired = true;
@@ -59,7 +60,7 @@
 
 	async function toggleDropdown(setPosition: () => void) {
 		if (dependsOn.some((filter) => !filter.value)) {
-			alert('Please select all the required fields');
+			alert('Please select all the previous required fields');
 			return;
 		}
 
@@ -74,6 +75,8 @@
 			if (res.json) {
 				options = res.json.data;
 				nextCursor.set(res.json.nextCursor || '');
+			} else {
+				errorMsg.set(res.error.message);
 			}
 		}
 		const setupObserver = () => {
@@ -90,6 +93,8 @@
 					if (res.json) {
 						options = [...options, ...res.json.data];
 						nextCursor.set(res.json.nextCursor || '');
+					} else {
+						errorMsg.set(res.error.message);
 					}
 					$isLoading = false;
 				}
@@ -148,8 +153,8 @@
 	}
 
 	const dispatch = createEventDispatcher();
-	function selectOption(option: CustomOptions) {
-		selectedOption = option;
+	function selectOption(params: CustomEvent<CustomOptions>) {
+		selectedOption = params.detail;
 		closeDropdown();
 		dispatch('change');
 	}
@@ -163,11 +168,11 @@
 	}
 </script>
 
-<div class="relative inline-block lms-custom-select-wrapper">
+<div class="lms-custom-select-wrapper relative inline-block">
 	<div>
 		<button
 			type="button"
-			class="lms-custom-select-trigger inline-flex w-full items-center justify-between rounded-lg border border-slate-250 bg-white px-5 py-3.5 text-xs font-medium text-slate-100 shadow-sm hover:bg-slate-50 focus:outline-none text-left"
+			class="lms-custom-select-trigger inline-flex w-full items-center justify-between rounded-lg border border-slate-250 bg-white px-5 py-3.5 text-left text-xs font-medium text-slate-100 shadow-sm hover:bg-slate-50 focus:outline-none"
 			class:text-gray-400={!selectedOption}
 			on:click={() => toggleDropdown(() => setPosition())}
 			bind:this={buttonRef}
@@ -197,24 +202,12 @@
 			<div class="p-2">
 				<div class="relative">
 					{#if dropdownPositionStyle.includes('bottom')}
-						<ul class="small-scrollbar max-h-48 divide-y-2 divide-slate-200 overflow-y-auto px-2">
-							{#each options as option}
-								<li
-									class="block w-[98%] cursor-pointer break-words rounded-lg text-label-md text-gray-700 hover:bg-warning-300"
-								>
-									<button on:click={() => selectOption(option)} class="px-4 py-2 text-left w-full">
-										{option.label}
-									</button>
-								</li>
-							{:else}
-								<p class="block py-2 text-sm text-gray-700">No options found</p>
-							{/each}
-							<li class="py-2 text-center scroll-anchor">
-								{#if $isLoading}
-									<div class="spinner"></div>
-								{/if}
-							</li>
-						</ul>
+						<SelectList
+							isLoading={$isLoading}
+							{options}
+							errorMsg={$errorMsg}
+							on:select={selectOption}
+						/>
 						<input
 							type="text"
 							class="mt-2 h-10 w-full rounded-lg border-2 bg-white px-5 pr-10 text-sm focus:outline-none"
@@ -238,52 +231,15 @@
 						<button type="submit" class="absolute right-0 top-0 mr-4 mt-2">
 							<SearchIcon />
 						</button>
-						<ul class="small-scrollbar max-h-48 divide-y-2 divide-slate-200 overflow-y-auto px-2">
-							{#if !$errorMsg && $errorMsg.length === 0}
-								{#each options as option}
-									<li
-										class="block w-[98%] cursor-pointer break-words rounded-lg text-label-md text-gray-700 hover:bg-warning-300"
-									>
-										<button
-											on:click={() => selectOption(option)}
-											class="px-4 py-2 text-left w-full"
-										>
-											{option.label}
-										</button>
-									</li>
-								{:else}
-									<p class="block py-2 text-sm text-gray-700">No options found</p>
-								{/each}
-							{:else}
-								<p class="block py-2 text-sm text-gray-700">{errorMsg}</p>
-							{/if}
-							<li class="py-2 text-center scroll-anchor">
-								{#if $isLoading}
-									<div class="spinner"></div>
-								{/if}
-							</li>
-						</ul>
+						<SelectList
+							isLoading={$isLoading}
+							{options}
+							errorMsg={$errorMsg}
+							on:select={selectOption}
+						/>
 					{/if}
 				</div>
 			</div>
 		</div>
 	{/if}
 </div>
-
-<style>
-	.spinner {
-		border: 4px solid rgba(0, 0, 0, 0.1);
-		border-left-color: #4a90e2;
-		border-radius: 50%;
-		width: 24px;
-		height: 24px;
-		animation: spin 1s linear infinite;
-		margin: 0 auto;
-	}
-
-	@keyframes spin {
-		to {
-			transform: rotate(360deg);
-		}
-	}
-</style>
