@@ -3,25 +3,6 @@
 	import {Card} from '$lib/components/ui';
 </script>
 
-<div class="flex gap-5">
-	<button class="lms-primary-btn">
-		button
-	</button>
-	
-	<button class="lms-secondary-btn">
-		BUTTON
-	</button>
-
-	<button class="lms-ghost-btn">
-		Button
-	</button>
-
-	<button class="lms-disabled-btn">
-		Disabled
-	</button>
-
-</div>
-
 <div class="mb-[30px]">
 	<div class=" mb-3">
 		
