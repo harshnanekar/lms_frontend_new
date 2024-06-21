@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Card, DynamicSelect, Modal } from '$lib/components/ui';
+	
+import { Card, DynamicSelect, Modal } from '$lib/components/ui';
 	import DatePicket from '$lib/components/ui/date-picker.svelte';
 	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
 
@@ -21,6 +22,34 @@
 
 	$: console.log('Selected Date and Time:', selectedDateTime);
 </script>
+
+<div class="mb-[30px]">
+
+	<div class="flex items-center justify-between mb-3 ">
+		
+		<div>
+			<h1 class="text-lg font-bold md:text-xl mb-2">MBA - 8001 - Trimester III- Financial Analytics - 1 - 803AN2E001</h1>
+			<p class="font-normal text-sm">Financial Analytics-I (803AN2E001)-52245092   •   Master Of Business Administration (8001) - 50300366</p>
+		</div>
+		
+		<div class="flex justify-items-center gap-3">
+			<button class="lms-btn lms-primary-btn fixed bottom-16 right-5 py-4 md:static md:py-2.5 z-10">
+			</button>
+			<span class="font-bold text-primary text-body-3">PDF</span>
+		</div>
+
+	</div>
+	
+	<div class="flex gap-2">
+		<div class="bg-base px-[16px] py-[3px] rounded-[46px] gap-4 text-black text-sm font-normal leading-5 tracking-[0.30000001192092896px]">21 Mar’ 24  •  2:30 PM</div>
+		<div class="bg-base px-[16px] py-[3px] rounded-[46px] gap-4 text-black text-sm font-normal leading-5 tracking-[0.30000001192092896px]">
+			Trimester III, 2023
+		</div>
+	</div>
+
+	
+</div>
+
 
 <DynamicSelect />
 

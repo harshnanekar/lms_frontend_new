@@ -11,7 +11,9 @@ import {
 	SelectDateIcon,
 	XIcon,
 	CampusIcon,
-	DownloadIcon
+	DownloadIcon,
+	AttendanceIcon,
+	SuccessIcon
 } from './base';
 import { MeetingIcon, ScheduledIcon } from './modules';
 
@@ -32,5 +34,7 @@ export {
 	SelectDateIcon,
 	XIcon,
 	CampusIcon,
-	DownloadIcon
+	DownloadIcon,
+	AttendanceIcon,
+	SuccessIcon
 };

@@ -10,3 +10,5 @@ export { default as SelectDateIcon } from './select-date-icon.svelte';
 export { default as XIcon } from './x-icon.svelte';
 export { default as CampusIcon } from './campus-icon.svelte';
 export { default as DownloadIcon } from './download-icon.svelte';
+export { default as AttendanceIcon } from './attendance-icon.svelte';
+export { default as SuccessIcon } from './success-icon.svelte';
