@@ -60,6 +60,8 @@ export default {
 				'heading-3': ['18px', { lineHeight: '26px', letterSpacing: '-0.016rem' }],
 				'body-1': ['16px', { lineHeight: '24px', letterSpacing: '0' }],
 				'body-2': ['14px', { lineHeight: '20px', letterSpacing: '0' }],
+				'body-3': ['14px', { lineHeight: '20.3px', letterSpacing: '0.3px' }],
+				'body-4': ['12px', { lineHeight: '17.4px', letterSpacing: '0.3px' }],
 				'cta-md': ['14px', { letterSpacing: '0.094rem' }],
 				'cta-sm': ['12px', { letterSpacing: '0.063rem' }],
 				'cta-sm-lh': ['12px', { letterSpacing: '0.063rem', lineHeight: '18px' }],
