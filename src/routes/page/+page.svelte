@@ -8,6 +8,7 @@
 	import { tooltip } from '$lib/utils/tooltip';
 	import { writable } from 'svelte/store';
 	import { fly } from 'svelte/transition';
+	import { toast } from 'svelte-sonner';
 
 	let meetingName: string,
 		meetingDescription: string,
@@ -29,7 +30,10 @@
 		console.log('Add Campus');
 
 		if (!acadYearOption?.value) {
-			alert('Please select an academic year');
+			toast.info('Alert!', {
+				description: 'Please select an academic year',
+				dismissable: true
+			});
 			return;
 		}
 		$isModalOpen = !$isModalOpen;
@@ -53,7 +57,7 @@
 		</div>
 		<div class="col-span-full flex flex-wrap items-center gap-2">
 			<DatePicker on:change={handleDateChange} bind:selectedDateTime={meetingDate}>
-				<div class="flex items-center gap-x-3 rounded-lg px-3 py-2 text-primary hover:bg-base">
+				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 					<SelectDateIcon />
 					<span class="text-body-2 font-bold">Add Meeting Dates</span>
 				</div>
@@ -61,7 +65,7 @@
 			{#each $meetingDates as date, i}
 				{@const formattedDate = formatDateTimeShort(date)}
 				<div
-					class="mr-3 flex items-center gap-x-4 rounded-3xl bg-base px-4 py-3 text-body-2 font-medium text-black"
+					class="bg-base text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-3 font-medium text-black"
 					in:fly={{ x: -100, duration: 300 }}
 					out:fly={{ x: 100, duration: 300 }}
 				>
@@ -91,7 +95,7 @@
 	<!-- each end -->
 	<div class="my-3"></div>
 	<button
-		class="flex items-center gap-x-3 rounded-lg px-3 py-2 text-primary"
+		class="text-primary flex items-center gap-x-3 rounded-lg px-3 py-2"
 		on:click={handleAddCampus}
 	>
 		<CampusIcon />

@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+ 
 
 *,
 *::before,
@@ -212,4 +213,18 @@
   .dropdown-content.bottom {
     @apply top-full mt-2;
   } */
+}
+
+@layer base {
+  body {
+    @apply bg-base text-black;
+  }
+}
+
+div[data-icon] {
+	@apply mr-4;
+}
+
+div[data-icon] svg {
+	  @apply w-7 h-7;
 }
