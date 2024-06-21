@@ -9,6 +9,8 @@
 	import { writable } from 'svelte/store';
 	import { fly } from 'svelte/transition';
 	import { toast } from 'svelte-sonner';
+	import { masterFormStore } from '$lib/stores/modules/mpc/master.store';
+	import { CampusDetailCard } from '$lib/components/modules/mpc/master-form';
 
 	let meetingName: string,
 		meetingDescription: string,
@@ -57,7 +59,7 @@
 		</div>
 		<div class="col-span-full flex flex-wrap items-center gap-2">
 			<DatePicker on:change={handleDateChange} bind:selectedDateTime={meetingDate}>
-				<div class="flex items-center gap-x-3 rounded-lg px-3 py-2 text-primary hover:bg-base">
+				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 					<SelectDateIcon />
 					<span class="text-body-2 font-bold">Add Meeting Dates</span>
 				</div>
@@ -65,7 +67,7 @@
 			{#each $meetingDates as date, i}
 				{@const formattedDate = formatDateTimeShort(date)}
 				<div
-					class="mr-3 flex items-center gap-x-4 rounded-3xl bg-base px-4 py-3 text-body-2 font-medium text-black"
+					class="bg-base text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-3 font-medium text-black"
 					in:fly={{ x: -100, duration: 300 }}
 					out:fly={{ x: 100, duration: 300 }}
 				>
@@ -90,17 +92,21 @@
 <div class="my-6"></div>
 
 <Card title="Campus Details">
-	<!-- each through selected campus data -->
-
-	<!-- each end -->
+	{#each $masterFormStore.meetingSubject as sub}
+		<CampusDetailCard campusJson={sub} />
+	{/each}
 	<div class="my-3"></div>
 	<button
-		class="flex items-center gap-x-3 rounded-lg px-3 py-2 text-primary"
+		class="text-primary flex items-center gap-x-3 rounded-lg px-3 py-2"
 		on:click={handleAddCampus}
 	>
 		<CampusIcon />
 		<span class="text-body-2 font-bold">Add Campus</span>
 	</button>
 </Card>
+
+<div class="w-full flex justify-end items-center mt-6 ">
+	<button class="lms-btn lms-primary-btn px-12 py-3">Publish</button>
+</div>
 
 <AddCampusModal bind:isModalOpen={$isModalOpen} {acadYearOption} />

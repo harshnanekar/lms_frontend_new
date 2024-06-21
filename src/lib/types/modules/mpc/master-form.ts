@@ -39,7 +39,14 @@ export type Anchor = {
 	avatar: string;
 };
 
+
+export type AnchorWithSelection = Anchor & {
+	isSelected: boolean;
+	isHidden?: boolean;
+};
+
 export type MeetingSubjectStore = {
+	uid: string;
 	campusOption: CustomOptions;
 	programOption: CustomOptions;
 	sessionOption: CustomOptions;

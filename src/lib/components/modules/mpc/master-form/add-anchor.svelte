@@ -1,17 +1,13 @@
 <script lang="ts">
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
-	import type { Anchor } from '$lib/types/modules/mpc/master-form';
+	import type { Anchor, AnchorWithSelection } from '$lib/types/modules/mpc/master-form';
 	import type { Filter } from '$lib/types/request.types';
 	import { fetchApi } from '$lib/utils/fetcher';
 	import UserList from './user-list.svelte';
 
-	type UserWithSelection = Anchor & {
-		isSelected: boolean;
-	};
-
 	export let type: 'program' | 'course' = 'program';
 	export let dependsOn: Filter[] = [];
-	export let userList: UserWithSelection[] = [];
+	export let userList: AnchorWithSelection[] = [];
 
 	const url = type === 'program' ? 'faculty/getProgramAnchor' : 'faculty/getCourseAnchor';
 
@@ -51,7 +47,7 @@
 		}
 	}
 
-	function handleToggle(user: UserWithSelection) {
+	function handleToggle(user: AnchorWithSelection) {
 		userList = userList.map((u) => {
 			if (u.user_lid === user.user_lid) {
 				u.isSelected = !u.isSelected;

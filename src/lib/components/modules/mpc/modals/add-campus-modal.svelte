@@ -1,7 +1,10 @@
 <script lang="ts">
-	import { AddAnchor, AddAttendees } from '../';
+	import { AddAnchor, AddAttendees, userList } from '../';
 	import { DynamicSelect, Modal } from '$lib/components/ui';
 	import type { CustomOptions } from '$lib/components/ui/select/helper.select';
+	import { masterFormStore } from '$lib/stores/modules/mpc/master.store';
+	import type { AnchorWithSelection, MeetingSubjectStore } from '$lib/types/modules/mpc/master-form';
+	import { generateRandomUUID } from '$lib/utils/helper';
 
 	export let isModalOpen = false;
 	export let acadYearOption: CustomOptions;
@@ -10,9 +13,17 @@
 	let programOption: CustomOptions | undefined;
 	let sessionOption: CustomOptions | undefined;
 	let subjectOption: CustomOptions | undefined;
+	let programAnchor: AnchorWithSelection[] | undefined;
+	let courseAnchor: AnchorWithSelection[] | undefined;
+	let attendees: AnchorWithSelection[] | undefined;
+	let isParent: boolean | undefined;
 
 	function add() {
-		const obj = {
+
+		console.log("ADD Clicked");
+		
+		if(!campusOption || !sessionOption || !programOption || !subjectOption || !programAnchor || !courseAnchor || !attendees) {
+			console.log("IN ERROR", {
 			campusOption,
 			programOption,
 			sessionOption,
@@ -20,14 +31,34 @@
 			programAnchor,
 			courseAnchor,
 			attendees,
-			isParent: $meetingStore.subject.length === 0
+			isParent: $masterFormStore?.meetingSubject.length === 0 ? true : false
+		});
+			return
+		}
+
+		const obj: MeetingSubjectStore = {
+			uid: generateRandomUUID(),
+			campusOption,
+			programOption,
+			sessionOption,
+			subjectOption,
+			programAnchor,
+			courseAnchor,
+			attendees,
+			isParent: $masterFormStore?.meetingSubject.length === 0 ? true : false
 		};
 
 		console.log(obj);
-		$meetingStore.update((store) => {
-			store.subject.push(obj);
-			return store;
-		});
+		$masterFormStore.meetingSubject = [...$masterFormStore.meetingSubject, obj]
+
+		campusOption = undefined;
+		programOption  = undefined;
+		sessionOption = undefined;
+		subjectOption = undefined;
+		programAnchor = undefined;
+		courseAnchor = undefined;
+		attendees = undefined;
+		isModalOpen = false;
 	}
 </script>
 
@@ -99,7 +130,7 @@
 					>
 						Cancel
 					</button>
-					<button class="lms-btn lms-primary-btn rounded-xl px-16"> ADD </button>
+					<button class="lms-btn lms-primary-btn rounded-xl px-16" on:click={add}> ADD </button>
 				</div>
 			</div>
 			<div>
@@ -143,6 +174,7 @@
 			</div>
 			<div class="h-full">
 				<AddAttendees
+					bind:userList={attendees}
 					dependsOn={[
 						{
 							key: 'programLid',
@@ -167,7 +199,7 @@
 					>
 						Cancel
 					</button>
-					<button class="lms-btn lms-primary-btn px-16"> ADD </button>
+					<button class="lms-btn lms-primary-btn px-16" on:click={add}> ADD </button>
 				</div>
 			</div>
 		</div>

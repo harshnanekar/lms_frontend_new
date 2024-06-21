@@ -7,7 +7,7 @@
 	export let isSelected: boolean = false;
 </script>
 
-<div class="flex items-center gap-x-5 rounded-xl p-2" class:shadow-lg={!isSelected}>
+<div class="flex items-center gap-x-5 rounded-xl p-2" class:shadow-lg={isClosable && !isSelected}>
 	<div>
 		<Image
 			src="https://via.placeholder.com/150"
