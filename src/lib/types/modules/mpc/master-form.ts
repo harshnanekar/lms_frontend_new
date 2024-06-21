@@ -57,3 +57,20 @@ export type MasterMeetingStore = {
 	meetingDate: Date[];
 	meetingSubject: MeetingSubjectStore[];
 };
+
+export type SubjectMeetingDetail = {
+	status: string;
+	status_abbr: string;
+	meeting_id: number;
+	acad_session: string;
+	meeting_date: string;
+	meeting_name: string;
+ };
+ 
+ export type MeetingListItem = {
+	program_id: number;
+	subject_id: number;
+	program_name: string;
+	subject_name: string;
+	subject_meeting_details: SubjectMeetingDetail[];
+ };

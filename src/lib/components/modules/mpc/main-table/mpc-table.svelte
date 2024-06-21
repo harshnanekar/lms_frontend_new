@@ -1,34 +1,30 @@
 <script lang="ts">
-	import { PaginateWithSlot } from '$lib/components/layout';
 	import type { TableHeaders } from '$lib/types/layout/table';
 	import { STATUS_COLORS } from '$lib/constants/colors';
 	import { headers } from '$lib/test';
-	import type { MpcMasterList } from '$lib/types/modules/mpc/master-form';
+	import type { SubjectMeetingDetail } from '$lib/types/modules/mpc/master-form';
 	import { tooltip } from '$lib/utils/tooltip';
 	import { MeetingAction } from '..';
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PaginateClient } from '$lib/components/layout/pagination';
 
-	let tableHeaders: TableHeaders<MpcMasterList>[] = headers;
+	let tableHeaders: TableHeaders<SubjectMeetingDetail>[] = headers;
 
-	let url = new URL(`${PUBLIC_API_BASE_URL}/products`);
-	let tableData: MpcMasterList[] = [];
+	export let tableData: SubjectMeetingDetail[] = [];
 </script>
 
-<PaginateWithSlot
+<PaginateClient
 	showSearch={false}
 	showPagination={true}
-	bind:url
 	header={headers}
 	bind:tableData
 	addLimit={true}
 >
 	{#each tableData as item}
-		{tableData && JSON.stringify(item, null, 2)}
 		<tr>
 			{#each tableHeaders as header}
 				<td
 					use:tooltip={{
-						content: header.showTooltip ? item[header.key] : ''
+						content: header.showTooltip ? item[header.key]?.toString() : ''
 					}}
 					class="table-cell {header.classes}"
 				>
@@ -50,4 +46,4 @@
 			</td>
 		</tr>
 	{/each}
-</PaginateWithSlot>
+</PaginateClient>

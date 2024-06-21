@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { ActionIcon } from '$lib/components/icons';
-	import type { MpcMasterList } from '$lib/types/modules/mpc/master-form';
+	import type { SubjectMeetingDetail } from '$lib/types/modules/mpc/master-form';
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 
-	export let actionData: MpcMasterList;
+	export let actionData: SubjectMeetingDetail;
 	const showMenu = writable<boolean>(false);
 	const menuPosition = writable<{ top: number; left: number }>({ top: 0, left: 0 });
 
@@ -71,13 +71,13 @@
 			style="top: {$menuPosition.top}px; left: {$menuPosition.left}px;"
 		>
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-				<button class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+				<button class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
 					>View</button
 				>
-				<button class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+				<button class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
 					>Edit</button
 				>
-				<button class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+				<button class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
 					>Delete</button
 				>
 			</div>
@@ -88,7 +88,7 @@
 <style>
 	.fixed-menu {
 		position: fixed;
-		z-index: 1000;
+		z-index: 90000000;
 	}
 
 	.backdrop {
@@ -98,7 +98,7 @@
 		width: 100%;
 		height: 100%;
 		background: rgba(0, 0, 0, 0.5);
-		z-index: 1000;
+		z-index: 9000000;
 		transition: background 5000ms ease;
 	}
 </style>

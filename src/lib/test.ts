@@ -1,5 +1,5 @@
 import type { TableHeaders } from './types/layout/table';
-import type { MpcMasterList } from './types/modules/mpc/master-form';
+import type { SubjectMeetingDetail } from './types/modules/mpc/master-form';
 
 export const SIDEBAR_URL = [
 	{
@@ -149,7 +149,7 @@ export const obj = [
 	}
 ];
 
-export const headers: TableHeaders<MpcMasterList>[] = [
+export const headers: TableHeaders<SubjectMeetingDetail>[] = [
 	{
 		label: 'MID',
 		key: 'meeting_id',

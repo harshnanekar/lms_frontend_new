@@ -4,9 +4,9 @@ export const COLORS = {
 };
 
 export const STATUS_COLORS: { [key: string]: string } = {
-	scheduled: 'lms-label-success',
-	completed: 'lms-label-light',
+	mtcd: 'lms-label-success',
+	mtc: 'lms-label-light',
 	cancelled: 'lms-label-warning',
-	pending_forma: 'lms-label-info',
-	pending_formb: 'lms-label-info-b'
+	fap: 'lms-label-info',
+	fbp: 'lms-label-info-b'
 };

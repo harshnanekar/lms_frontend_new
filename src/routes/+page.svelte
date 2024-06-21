@@ -2,7 +2,12 @@
 	import { PlusIcon } from '$lib/components/icons';
 	import { MPCTableFilters } from '$lib/components/modules';
 	import { MeetingAccordianList } from '$lib/components/modules/mpc';
-	import { DynamicSelect } from '$lib/components/ui';
+
+	export let data;
+
+	$: console.log(data);
+
+	$: masterFormList = data.masterFormList
 </script>
 
 <div class="flex items-center justify-between">
@@ -14,4 +19,4 @@
 </div>
 <MPCTableFilters />
 <h3 class="mb-3 text-body-1 font-semibold">All Meetings</h3>
-<MeetingAccordianList />
+<MeetingAccordianList {masterFormList} />

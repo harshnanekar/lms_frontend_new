@@ -10,6 +10,25 @@
 	let programOption: CustomOptions | undefined;
 	let sessionOption: CustomOptions | undefined;
 	let subjectOption: CustomOptions | undefined;
+
+	function add() {
+		const obj = {
+			campusOption,
+			programOption,
+			sessionOption,
+			subjectOption,
+			programAnchor,
+			courseAnchor,
+			attendees,
+			isParent: $meetingStore.subject.length === 0
+		};
+
+		console.log(obj);
+		$meetingStore.update((store) => {
+			store.subject.push(obj);
+			return store;
+		});
+	}
 </script>
 
 <Modal isOpen={isModalOpen} closeOnOutsideClick={false} size="xl" position="top-bottom">
@@ -75,7 +94,7 @@
 				</div>
 				<div class="hidden w-full justify-evenly xl:flex">
 					<button
-						class="lms-btn rounded-xl border border-primary px-12 py-2.5 text-primary"
+						class="lms-btn border-primary text-primary rounded-xl border px-12 py-2.5"
 						on:click={() => (isModalOpen = !isModalOpen)}
 					>
 						Cancel
@@ -85,6 +104,7 @@
 			</div>
 			<div>
 				<AddAnchor
+					bind:userList={programAnchor}
 					type="program"
 					dependsOn={[
 						{
@@ -103,6 +123,7 @@
 				/>
 				<div class="my-2"></div>
 				<AddAnchor
+					bind:userList={courseAnchor}
 					type="course"
 					dependsOn={[
 						{
@@ -141,7 +162,7 @@
 			<div class="xl:hidden">
 				<div class="bottom-3 flex w-full justify-start gap-x-5">
 					<button
-						class="lms-btn rounded-xl border border-primary px-12 py-2.5 text-primary"
+						class="lms-btn border-primary text-primary rounded-xl border px-12 py-2.5"
 						on:click={() => (isModalOpen = !isModalOpen)}
 					>
 						Cancel
