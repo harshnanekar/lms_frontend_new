@@ -9,37 +9,40 @@
 	import { writable } from 'svelte/store';
 	import { fly } from 'svelte/transition';
 	import { toast } from 'svelte-sonner';
-	import { masterFormStore } from '$lib/stores/modules/mpc/master.store';
+	import { defaultMasterStoreValue, masterFormStore } from '$lib/stores/modules/mpc/master.store';
 	import { CampusDetailCard } from '$lib/components/modules/mpc/master-form';
 
-	let meetingName: string,
-		meetingDescription: string,
-		meetingDate: Date | null = new Date();
-
-	const meetingDates = writable<Date[]>([new Date(), new Date()]);
-
+	let meetingDate: Date | null = new Date();
 	function handleDateChange(e: CustomEvent<any>) {
 		if (!meetingDate) return;
-		$meetingDates = [...$meetingDates, meetingDate];
+		$masterFormStore.meetingDate = [...$masterFormStore.meetingDate, meetingDate];
 	}
 
-	// Modal
 	const isModalOpen = writable(false);
-
-	let acadYearOption: CustomOptions;
 
 	function handleAddCampus() {
 		console.log('Add Campus');
 
-		if (!acadYearOption?.value) {
+		if (!$masterFormStore?.acadYear.value) {
 			toast.info('Alert!', {
 				description: 'Please select an academic year',
 				dismissable: true
 			});
 			return;
-		}
+		} 
 		$isModalOpen = !$isModalOpen;
 	}
+
+	function clearForm() {
+		console.log("CLICKED>>>>>>");
+		masterFormStore.update((form) => {
+			return  defaultMasterStoreValue
+		})
+		// meetingName = ''
+	}
+
+	$: console.log("masterFormStore>>>>>", $masterFormStore);
+	
 </script>
 
 <h2 class="text-heading-2.5 font-medium">Create New Meeting</h2>
@@ -48,14 +51,14 @@
 
 <Card title="Meeting Details">
 	<div class="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6">
-		<Input placeholder="Meeting Name" bind:value={meetingName} />
+		<Input placeholder="Meeting Name" value={$masterFormStore.meetingName} />
 		<DynamicSelect
 			placeholder="Academic Year"
 			options={getAcadYear()}
-			bind:selectedOption={acadYearOption}
+			bind:selectedOption={$masterFormStore.acadYear}
 		/>
 		<div class="col-span-full">
-			<Textarea value={meetingDescription} placeholder="Meeting Link & Password" />
+			<Textarea value={$masterFormStore.linkPassword} placeholder="Meeting Link & Password" />
 		</div>
 		<div class="col-span-full flex flex-wrap items-center gap-2">
 			<DatePicker on:change={handleDateChange} bind:selectedDateTime={meetingDate}>
@@ -64,10 +67,10 @@
 					<span class="text-body-2 font-bold">Add Meeting Dates</span>
 				</div>
 			</DatePicker>
-			{#each $meetingDates as date, i}
+			{#each $masterFormStore.meetingDate as date, i}
 				{@const formattedDate = formatDateTimeShort(date)}
 				<div
-					class="bg-base text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-3 font-medium text-black"
+					class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 md:py-3 font-medium text-black"
 					in:fly={{ x: -100, duration: 300 }}
 					out:fly={{ x: 100, duration: 300 }}
 				>
@@ -78,7 +81,7 @@
 						}}
 						on:click={() => {
 							// remove the current date
-							meetingDates.update((dates) => dates.filter((_, idx) => i !== idx));
+							$masterFormStore.meetingDate = $masterFormStore.meetingDate.filter((_, idx) => i !== idx);
 						}}
 					>
 						<XIcon />
@@ -105,8 +108,9 @@
 	</button>
 </Card>
 
-<div class="w-full flex justify-end items-center mt-6 ">
+<div class="w-full flex gap-x-4 justify-end items-center mt-6 ">
+	<button class="lms-btn lms-secondary-btn px-8 py-3" on:click={clearForm}>Clear Form</button>
 	<button class="lms-btn lms-primary-btn px-12 py-3">Publish</button>
 </div>
 
-<AddCampusModal bind:isModalOpen={$isModalOpen} {acadYearOption} />
+<AddCampusModal bind:isModalOpen={$isModalOpen} />

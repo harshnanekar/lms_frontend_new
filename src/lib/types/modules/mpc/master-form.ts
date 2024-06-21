@@ -59,7 +59,7 @@ export type MeetingSubjectStore = {
 
 export type MasterMeetingStore = {
 	meetingName: string;
-	acadYear: string;
+	acadYear: CustomOptions;
 	linkPassword: string;
 	meetingDate: Date[];
 	meetingSubject: MeetingSubjectStore[];

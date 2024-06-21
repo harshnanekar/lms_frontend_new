@@ -7,7 +7,6 @@
 	import { generateRandomUUID } from '$lib/utils/helper';
 
 	export let isModalOpen = false;
-	export let acadYearOption: CustomOptions;
 
 	let campusOption: CustomOptions | undefined;
 	let programOption: CustomOptions | undefined;
@@ -16,7 +15,6 @@
 	let programAnchor: AnchorWithSelection[] | undefined;
 	let courseAnchor: AnchorWithSelection[] | undefined;
 	let attendees: AnchorWithSelection[] | undefined;
-	let isParent: boolean | undefined;
 
 	function add() {
 
@@ -106,7 +104,7 @@
 						dependsOn={[
 							{
 								key: 'acadYear',
-								value: acadYearOption?.value
+								value: $masterFormStore.acadYear?.value
 							},
 							{
 								key: 'campusLid',
