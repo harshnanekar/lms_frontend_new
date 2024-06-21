@@ -75,7 +75,7 @@
 				</div>
 				<div class="hidden w-full justify-evenly xl:flex">
 					<button
-						class="lms-btn border-primary text-primary rounded-xl border px-12 py-2.5"
+						class="lms-btn rounded-xl border border-primary px-12 py-2.5 text-primary"
 						on:click={() => (isModalOpen = !isModalOpen)}
 					>
 						Cancel
@@ -141,7 +141,7 @@
 			<div class="xl:hidden">
 				<div class="bottom-3 flex w-full justify-start gap-x-5">
 					<button
-						class="lms-btn border-primary text-primary rounded-xl border px-12 py-2.5"
+						class="lms-btn rounded-xl border border-primary px-12 py-2.5 text-primary"
 						on:click={() => (isModalOpen = !isModalOpen)}
 					>
 						Cancel

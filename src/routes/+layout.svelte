@@ -1,12 +1,30 @@
 <script>
+	import { navigating } from '$app/stores';
 	import { Header, Sidebar } from '$lib/components/layout';
 	import { Toaster } from '$lib/components/ui/sonner';
+	import { Circle3 } from 'svelte-loading-spinners';
 	import '../app.css';
 </script>
 
 <head>
 	<title>LMS</title>
 </head>
+
+{#if $navigating}
+	<div
+		class="fixed inset-0 z-[9999999999] flex h-screen w-screen items-center justify-center bg-[#576173] bg-opacity-40"
+	>
+		<Circle3 size="100" unit="px" />
+	</div>
+{/if}
+
+{#if $navigating}
+	<div
+		class="fixed inset-0 z-[9999999999] flex h-screen w-screen items-center justify-center bg-[#576173] bg-opacity-40"
+	>
+		<Circle3 size="100" unit="px" />
+	</div>
+{/if}
 
 <Toaster
 	richColors

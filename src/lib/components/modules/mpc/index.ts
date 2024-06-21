@@ -13,7 +13,7 @@ export {
 	MeetingAction,
 	MpcTable,
 	AddCampusModal,
-    AddAnchor,
-    AddAttendees,
+	AddAnchor,
+	AddAttendees,
 	userList
 };

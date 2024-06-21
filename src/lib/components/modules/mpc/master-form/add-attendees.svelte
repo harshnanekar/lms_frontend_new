@@ -29,7 +29,7 @@
 				.forEach((filter) => {
 					_url.searchParams.append(filter.key, String(filter.value));
 				});
-            _url.searchParams.append('limit', '10000');
+			_url.searchParams.append('limit', '10000');
 			fetchApi<AnchorListResponse>({
 				url: _url.href,
 				method: 'GET'
@@ -67,25 +67,32 @@
 		const target = e.target as HTMLInputElement;
 		const value = target.value.toLowerCase().trim();
 		userList = userList.map((user) => {
-			user.isHidden = !user.full_name.toLowerCase().includes(value) && !user.username.toLowerCase().includes(value);
+			user.isHidden =
+				!user.full_name.toLowerCase().includes(value) &&
+				!user.username.toLowerCase().includes(value);
 			return user;
 		});
 	}
 </script>
 
-<div class="bg-base h-[60vh] rounded-xl p-4 relative">
+<div class="relative h-[60vh] rounded-xl bg-base p-4">
 	<div class="flex items-center justify-between">
 		<h2 class="text-body-1 font-bold">Add Attendees</h2>
 		<p class="text-label-lg">{count} Added</p>
 	</div>
 	<div class="relative mt-4">
-		<input class="lms-input rounded-full" type="text" placeholder="Search here..." on:input={handleSearch} />
+		<input
+			class="lms-input rounded-full"
+			type="text"
+			placeholder="Search here..."
+			on:input={handleSearch}
+		/>
 		<div class="absolute right-4 top-2.5">
 			<SearchIcon />
 		</div>
 	</div>
 	<div class="small-scrollbar absolute mt-8 h-[75%] w-[95%] space-y-3 overflow-y-auto">
-		{#each (userList.filter(v => !v.isHidden)) as user}
+		{#each userList.filter((v) => !v.isHidden) as user}
 			<UserList
 				{user}
 				on:click={() => console.log('clicked')}

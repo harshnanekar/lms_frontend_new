@@ -4,7 +4,7 @@
 	import { isSidebarOverlayOpen } from './sidebar/store';
 </script>
 
-<header id="lms-header" class="relative bg-base z-[99999]">
+<header id="lms-header" class="relative z-[99999] bg-base">
 	<div class="flex h-[60px] items-center justify-between px-[28px] py-[8px]">
 		<div class="hidden items-center gap-x-[10px] lg:flex">
 			<p class="text-body-2 font-bold">School of Business Management</p>
