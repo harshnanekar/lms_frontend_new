@@ -202,7 +202,7 @@
 			<div class="p-2">
 				<div class="relative">
 					{#if dropdownPositionStyle.includes('bottom')}
-						<SelectList 
+						<SelectList
 							isLoading={$isLoading}
 							{options}
 							errorMsg={$errorMsg}

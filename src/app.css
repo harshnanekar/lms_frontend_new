@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
 
 *,
 *::before,
@@ -216,9 +215,9 @@
 }
 
 @layer base {
-  body {
-    @apply bg-base text-black;
-  }
+	body {
+		@apply bg-base text-black;
+	}
 }
 
 div[data-icon] {
@@ -226,5 +225,5 @@ div[data-icon] {
 }
 
 div[data-icon] svg {
-	  @apply w-7 h-7;
+	@apply h-7 w-7;
 }

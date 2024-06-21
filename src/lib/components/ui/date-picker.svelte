@@ -205,7 +205,7 @@
 							{day}
 						</button>
 					{:else}
-						<div class="p-2 5"></div>
+						<div class="5 p-2"></div>
 					{/if}
 				{/each}
 			</div>

@@ -50,8 +50,8 @@
 	};
 
 	onMount(() => {
-		console.log("handle this>>", actionData);
-		
+		console.log('handle this>>', actionData);
+
 		document.addEventListener('click', handleClickOutside);
 		return () => {
 			document.removeEventListener('click', handleClickOutside);

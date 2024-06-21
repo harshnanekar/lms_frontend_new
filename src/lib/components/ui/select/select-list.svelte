@@ -9,7 +9,7 @@
 	const dispatch = createEventDispatcher();
 
 	function handleSelectClick(option: CustomOptions) {
-    dispatch('select', option);
+		dispatch('select', option);
 	}
 </script>
 

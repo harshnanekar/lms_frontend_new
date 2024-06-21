@@ -18,24 +18,15 @@
 	</div>
 {/if}
 
-{#if $navigating}
-	<div
-		class="fixed inset-0 z-[9999999999] flex h-screen w-screen items-center justify-center bg-[#576173] bg-opacity-40"
-	>
-		<Circle3 size="100" unit="px" />
-	</div>
-{/if}
-
 <Toaster
 	richColors
-	duration={5000000}
 	theme="light"
 	closeButton
 	toastOptions={{
 		cancelButtonStyle: '!bg-white',
 		classes: {
 			description: 'md:!text-body-2',
-			title: "md:!text-xl",
+			title: 'md:!text-xl'
 		}
 	}}
 />
