@@ -85,11 +85,6 @@ export default {
 					{ lineHeight: '17px', letterSpacing: '0.016rem', fontWeight: '700' }
 				]
 			},
-			borderRadius: {
-				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
-			},
 			fontFamily: {
 				'dm-sans': ['DM Sans', 'sans-serif']
 			},
