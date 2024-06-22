@@ -10,7 +10,7 @@
 	<div class="flex w-full items-center justify-between">
 		<div class="flex">
 			<div class="mr-3 h-fit rounded-lg bg-base px-[12px] py-[2px]">{item.meeting_id}</div>
-			<div class="overflow-hidden text-ellipsis whitespace-nowrap">{item.meeting_name}</div>
+			<div class="line-clamp-2">{item.meeting_name}</div>
 		</div>
 		<div class="ml-5 md:ml-5">
 			<MeetingAction actionData={item} />
