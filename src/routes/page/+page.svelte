@@ -112,7 +112,12 @@
 			<Textarea bind:value={meetingDescription} placeholder="Meeting Link & Password" />
 		</div>
 		<div class="col-span-full flex flex-wrap items-center gap-2">
-			<DatePicker on:change={handleDateChange} bind:selectedDateTime={meetingDate}>
+			<DatePicker 
+				on:change={handleDateChange} bind:selectedDateTime={meetingDate}
+				disabled={(date) =>
+					date > new Date() || date < new Date("1900-01-01")
+				}	
+			>
 				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 					<SelectDateIcon />
 					<span class="text-body-2 font-bold">Add Meeting Dates</span>

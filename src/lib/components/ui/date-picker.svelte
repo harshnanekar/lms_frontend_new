@@ -2,10 +2,12 @@
 	import { writable, derived } from 'svelte/store';
 	import { ArrowIcon } from '../icons';
 	import { Modal } from '.'; // Replace with your Modal component
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 
 	// Export selectedDateTime so it can be used outside the component
 	export let selectedDateTime: Date | null = null;
+	// Optional disabled function prop
+	export let disabled: ((date: Date) => boolean) | undefined = undefined;
 
 	// Define writable stores for selectedDate and selectedTime
 	const selectedDate = writable<Date | null>(null);
@@ -69,6 +71,14 @@
 		selectedTime.set({ hours, minutes, period });
 	}
 
+	// Function to check if a date is disabled
+	function isDateDisabled(date: Date): boolean {
+		if (disabled) {
+			return disabled(date);
+		}
+		return false;
+	}
+
 	// Initialize hours and minutes input elements
 	let hoursInput: HTMLInputElement;
 	let minutesInput: HTMLInputElement;
@@ -120,10 +130,19 @@
 			currentYear += 10;
 		}
 	}
+
+	function handleModalOpen() {
+		isModalOpen.set(true);
+		if($selectedDate === null) {
+			// set to current month and year default
+			currentMonth = new Date().getMonth();
+			currentYear = new Date().getFullYear();
+		}
+	}
 </script>
 
 <!-- Button to open the modal -->
-<button on:click={() => isModalOpen.set(true)} class="lms-btn">
+<button on:click={handleModalOpen} class="lms-btn">
 	<slot>Select a date</slot>
 </button>
 
@@ -194,18 +213,20 @@
 			>
 				{#each getDaysInMonth(currentMonth, currentYear) as day}
 					{#if day !== null}
+						{@const isDisabled = isDateDisabled(new Date(currentYear, currentMonth, day))}
+						{@const currentDateVal = new Date(currentYear, currentMonth, day).toDateString()}
 						<button
-							class="rounded-lg p-2.5 hover:bg-primary-light"
-							class:active={new Date(currentYear, currentMonth, day).toDateString() ===
-								$selectedDate?.toDateString()}
-							class:bg-base={new Date(currentYear, currentMonth, day).toDateString() ===
-								new Date().toDateString()}
+							class="rounded-lg p-2.5 {!isDisabled && 'hover:bg-primary-light'}"
+							class:active={currentDateVal === $selectedDate?.toDateString()}
+							class:bg-base={currentDateVal === new Date().toDateString()}
+							disabled={isDisabled}
 							on:click={() => selectDate(day)}
+							class:line-through={isDisabled}
 						>
 							{day}
 						</button>
 					{:else}
-						<div class="5 p-2"></div>
+						<div class="p-2"></div>
 					{/if}
 				{/each}
 			</div>
@@ -256,7 +277,7 @@
 						max="12"
 						value="00"
 						bind:this={hoursInput}
-						class="mr-1 h-11 w-11 rounded border border-base p-1 text-center"
+						class="mr-1 h-11 w-11 rounded border border-base p-1 text-center outline-slate-100/50"
 						on:input={() =>
 							selectTime(
 								hoursInput.valueAsNumber,
@@ -271,7 +292,7 @@
 						max="59"
 						value="00"
 						bind:this={minutesInput}
-						class="!ml-1 h-11 w-11 rounded border border-base p-1 text-center"
+						class="!ml-1 h-11 w-11 rounded border border-base p-1 text-center outline-slate-100/50"
 						on:input={() =>
 							selectTime(
 								hoursInput.valueAsNumber,
