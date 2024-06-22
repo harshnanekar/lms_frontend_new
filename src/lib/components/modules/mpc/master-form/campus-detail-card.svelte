@@ -92,13 +92,13 @@
 			<div class="relative h-full">
 				{#each campusJson.attendees as attendees, i}
 					{#if i < 4}
-						<div class="absolute mt-7" style="left: {i * 3 * 8}px;">
+						<div class="absolute mt-5" style="left: {i * 3 * 8}px;">
 								<Avatar src={attendees.avatar} name={attendees.full_name} />
 						</div>
 					{/if}
 				{/each}
 				{#if campusJson.attendees.length > 4}
-					<div class="absolute mt-10" style="left: 120px">
+					<div class="absolute mt-7" style="left: 120px">
 						+ {campusJson.attendees.length - 4} More ...
 					</div>
 				{/if}

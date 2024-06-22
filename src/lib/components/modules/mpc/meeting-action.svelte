@@ -76,7 +76,7 @@
 					>Edit</button
 				>
 				<button class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
-					>Delete</button
+					>Delete ({actionData.meeting_name})</button
 				>
 			</div>
 		</div>
@@ -88,7 +88,6 @@
 		position: fixed;
 		z-index: 90000000;
 	}
-
 	.backdrop {
 		position: fixed;
 		top: 0;

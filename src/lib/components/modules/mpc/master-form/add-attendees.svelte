@@ -70,7 +70,7 @@
 	}
 </script>
 
-<div class="relative h-[60vh] rounded-xl bg-base p-4">
+<div class="h-[65vh] xl:h-full rounded-xl bg-base p-4">
 	<div class="flex items-center justify-between">
 		<h2 class="text-body-1 font-bold">Add Attendees</h2>
 		<p class="text-label-lg">{count} Added</p>
@@ -86,7 +86,7 @@
 			<SearchIcon />
 		</div>
 	</div>
-	<div class="small-scrollbar absolute mt-8 h-[75%] w-[95%] space-y-3 overflow-y-auto">
+	<div class="small-scrollbar absolute mt-8 h-[70%] w-[95%] space-y-3 overflow-y-auto">
 		{#each userList.filter((v) => !v.isHidden) as user}
 			<UserList
 				{user}

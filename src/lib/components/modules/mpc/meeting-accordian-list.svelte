@@ -42,11 +42,11 @@
 						<div class="hidden md:block">
 							<MpcTable tableData={item.subject_meeting_details} />
 						</div>
-						<!-- <div class="space-y-4 divide-y-2 md:hidden">
-							{#each obj as item (item.meeting_id)}
-								<MPCMeetingCard {item} />
+						<div class="space-y-4 divide-y-2 md:hidden">
+							{#each item.subject_meeting_details as data, i}
+								<MPCMeetingCard item={data} />
 							{/each}
-						</div> -->
+						</div>
 						<div id="scroll-anchor" style="height: 1px;"></div>
 					{/if}
 				</svelte:fragment>

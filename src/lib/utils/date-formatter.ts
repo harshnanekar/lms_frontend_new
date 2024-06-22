@@ -27,5 +27,5 @@ export function formatDateTimeShort(date: Date): string {
 	const formatted = `${day}-${monthName}' ${year.slice(-2)}  •  ${hours.toString().padStart(2, '0')}.${minutes} ${meridian}`;
 
 	// Replace placeholders with dashes and a dot
-	return formatted.replace(/-/g, ' ').replace('.', '•'); // Replace hyphens with spaces, dot with separator
+	return formatted.replace(/-/g, ' ').replace('.', ':'); // Replace hyphens with spaces, dot with separator
 }

@@ -51,7 +51,7 @@
 
 <Modal isOpen={isModalOpen} closeOnOutsideClick={false} size="xl" position="top-bottom">
 	<svelte:fragment slot="body">
-		<div class="grid min-h-[65vh] grid-cols-1 gap-6 overflow-y-auto p-6 xl:grid-cols-3">
+		<div class="grid min-h-[65vh] grid-cols-1 gap-6 p-6 xl:grid-cols-3">
 			<div class="flex flex-col items-center justify-between">
 				<div class="grid w-full grid-cols-1 gap-y-6">
 					<h2 class="text-heading-2.5 font-bold">Add Campus</h2>
@@ -159,7 +159,7 @@
 					]}
 				/>
 			</div>
-			<div class="h-full">
+			<div class="relative h-full">
 				<AddAttendees
 					bind:userList={attendees}
 					dependsOn={[
