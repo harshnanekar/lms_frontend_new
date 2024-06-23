@@ -37,7 +37,9 @@
 							{item[header.key]}
 						</div>
 					{:else}
-						{item[header.key]}
+						<div class="description">
+							{item[header.key]}
+						</div>
 					{/if}
 				</td>
 			{/each}

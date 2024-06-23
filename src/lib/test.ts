@@ -153,35 +153,35 @@ export const headers: TableHeaders<SubjectMeetingDetail>[] = [
 	{
 		label: 'MID',
 		key: 'meeting_id',
-		sortable: true,
+		sortable: false,
 		classes: 'id',
 		showTooltip: false
 	},
 	{
 		label: 'Meeting Name',
 		key: 'meeting_name',
-		sortable: true,
+		sortable: false,
 		classes: '',
 		showTooltip: false
 	},
 	{
 		label: 'Meeting Date',
 		key: 'meeting_date',
-		sortable: true,
+		sortable: false,
 		classes: 'whitespace-nowrap',
 		showTooltip: false
 	},
 	{
 		label: 'Acad Session',
 		key: 'acad_session',
-		sortable: true,
+		sortable: false,
 		classes: '',
 		showTooltip: false
 	},
 	{
 		label: 'Status',
 		key: 'status',
-		sortable: true,
+		sortable: false,
 		classes: '',
 		showTooltip: false
 	}

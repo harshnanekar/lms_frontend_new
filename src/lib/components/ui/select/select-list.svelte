@@ -13,7 +13,7 @@
 	}
 </script>
 
-<ul class="small-scrollbar max-h-48 divide-y-2 divide-slate-200 overflow-y-auto px-2">
+<ul class="small-scrollbar min-h-16 max-h-48 divide-y-2 divide-slate-200 overflow-y-auto px-2">
 	{#if isLoading}
 		<div class="spinner"></div>
 	{:else}
