@@ -13,7 +13,8 @@ import {
 	CampusIcon,
 	DownloadIcon,
 	AttendanceIcon,
-	SuccessIcon
+	SuccessIcon,
+	DeleteIcon
 } from './base';
 import { MeetingIcon, ScheduledIcon } from './modules';
 
@@ -36,5 +37,6 @@ export {
 	CampusIcon,
 	DownloadIcon,
 	AttendanceIcon,
-	SuccessIcon
+	SuccessIcon,
+	DeleteIcon
 };

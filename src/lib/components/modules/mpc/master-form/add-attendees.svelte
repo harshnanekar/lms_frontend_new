@@ -16,7 +16,7 @@
 	};
 
 	$: {
-		if (dependsOn.length > 0 && dependsOn.every(({ value }) => value)) {
+		if (userList.length === 0 && dependsOn.length > 0 && dependsOn.every(({ value }) => value)) {
 			const _url = new URL(PUBLIC_API_BASE_URL + '/faculty/getAttendees');
 
 			dependsOn
@@ -59,6 +59,8 @@
 	$: count = userList.filter((u) => u.isSelected).length;
 
 	function handleSearch(e: Event) {
+		console.log("INSIDE SEARCH ATTENDEES>", userList);
+		
 		const target = e.target as HTMLInputElement;
 		const value = target.value.toLowerCase().trim();
 		userList = userList.map((user) => {

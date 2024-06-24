@@ -18,7 +18,7 @@
 	};
 
 	$: {
-		if (dependsOn.length > 0 && dependsOn.every(({ value }) => value)) {
+		if (userList.length === 0 && dependsOn.length > 0 && dependsOn.every(({ value }) => value)) {
 			const _url = new URL(PUBLIC_API_BASE_URL + '/' + url);
 
 			dependsOn

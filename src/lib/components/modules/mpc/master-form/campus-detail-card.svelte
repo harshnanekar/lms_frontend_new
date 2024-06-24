@@ -6,6 +6,9 @@
 	import { masterFormStore } from '$lib/stores/modules/mpc/master.store';
 
 	export let campusJson: MeetingSubjectStore;
+	export let isModalOpen: boolean;
+	export let dataToPopulate: MeetingSubjectStore | undefined;
+	
     function handlePrimaryClick() {
         if(campusJson.isParent) return;
         masterFormStore.update((form) => {
@@ -20,9 +23,18 @@
             return form;
         })
     }
+
+	function handleCardClick() {
+		isModalOpen = true;
+		dataToPopulate = campusJson
+	}
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
+	on:click={handleCardClick}
 	transition:fade
 	class="shadow-card relative mt-6 space-y-5 overflow-hidden rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-3 sm:p-6"
 >

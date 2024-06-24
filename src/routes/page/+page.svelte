@@ -14,7 +14,8 @@
 	import { meetingSchema, type MasterFormReq } from '$lib/schemas/modules/mpc/master-form';
 	import { fetchApi } from '$lib/utils/fetcher';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
-
+	import type { MeetingSubjectStore } from '$lib/types/modules/mpc/master-form';
+	
 	let meetingName: string = ''
 	let meetingDescription: string = ''
 	let meetingDate: Date | null = new Date();
@@ -31,16 +32,20 @@
 				description: 'Please select an academic year',
 			});
 			return;
-		} 
+		}
+		campusDataToPopulate = undefined;
 		$isModalOpen = !$isModalOpen;
 	}
 
-	function clearForm() {
-		masterFormStore.update((form) => {
-			return  defaultMasterStoreValue
-		})
+	async function clearForm() {
+		console.log("Clear form is loaded");
+		
+		$masterFormStore = defaultMasterStoreValue;
+		$masterFormStore.meetingDate  = []
+		$masterFormStore.meetingSubject  = []
 		meetingName = ''
 		meetingDescription = ''
+		console.log("$masterFormStore>>>>>>>>", $masterFormStore);
 	}
 
 	async function handlePublishMeeting() {
@@ -91,9 +96,13 @@
 			return;
 		}
 
+		
+
 		toast.success('Meeting Published Successfully');
-		// clearForm();
+		clearForm();
 	}
+
+	let campusDataToPopulate: MeetingSubjectStore | undefined = undefined;
 </script>
 
 <h2 class="text-heading-2.5 font-medium">Create New Meeting</h2>
@@ -115,7 +124,7 @@
 			<DatePicker 
 				on:change={handleDateChange} bind:selectedDateTime={meetingDate}
 				disabled={(date) =>
-					date > new Date() || date < new Date("1900-01-01")
+					date.getTime() < new Date().setHours(0, 0, 0, 0)
 				}	
 			>
 				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
@@ -152,7 +161,7 @@
 
 <Card title="Campus Details">
 	{#each $masterFormStore.meetingSubject as sub}
-		<CampusDetailCard campusJson={sub} />
+		<CampusDetailCard bind:campusJson={sub} bind:isModalOpen={$isModalOpen} bind:dataToPopulate={campusDataToPopulate} />
 	{/each}
 	<div class="my-3"></div>
 	<button
@@ -169,4 +178,7 @@
 	<button class="lms-btn lms-primary-btn px-12 py-3" on:click={handlePublishMeeting}>Publish</button>
 </div>
 
-<AddCampusModal bind:isModalOpen={$isModalOpen} />
+{#if $isModalOpen}
+	<AddCampusModal bind:isModalOpen={$isModalOpen} bind:dataToPopulate={campusDataToPopulate} />
+{/if}
+

@@ -3,10 +3,16 @@
 	import { DynamicSelect, Modal } from '$lib/components/ui';
 	import type { CustomOptions } from '$lib/components/ui/select/helper.select';
 	import { masterFormStore } from '$lib/stores/modules/mpc/master.store';
-	import type { AnchorWithSelection, MeetingSubjectStore } from '$lib/types/modules/mpc/master-form';
+	import type {
+		AnchorWithSelection,
+		MeetingSubjectStore
+	} from '$lib/types/modules/mpc/master-form';
 	import { generateRandomUUID } from '$lib/utils/helper';
+	import { DeleteIcon } from '$lib/components/icons';
+	import { onMount } from 'svelte';
 
 	export let isModalOpen = false;
+	export let dataToPopulate: MeetingSubjectStore | undefined;
 
 	let campusOption: CustomOptions | undefined;
 	let programOption: CustomOptions | undefined;
@@ -17,10 +23,17 @@
 	let attendees: AnchorWithSelection[] | undefined;
 
 	function add() {
-
-		if(!campusOption || !sessionOption || !programOption || !subjectOption || !programAnchor || !courseAnchor || !attendees) {
+		if (
+			!campusOption ||
+			!sessionOption ||
+			!programOption ||
+			!subjectOption ||
+			!programAnchor ||
+			!courseAnchor ||
+			!attendees
+		) {
 			// TODO: add zod validations
-			return
+			return;
 		}
 
 		const obj: MeetingSubjectStore = {
@@ -36,10 +49,10 @@
 		};
 
 		console.log(obj);
-		$masterFormStore.meetingSubject = [...$masterFormStore.meetingSubject, obj]
+		$masterFormStore.meetingSubject = [...$masterFormStore.meetingSubject, obj];
 
 		campusOption = undefined;
-		programOption  = undefined;
+		programOption = undefined;
 		sessionOption = undefined;
 		subjectOption = undefined;
 		programAnchor = undefined;
@@ -47,6 +60,54 @@
 		attendees = undefined;
 		isModalOpen = false;
 	}
+
+	async function deleteCampus() {
+		if(!dataToPopulate) return;
+
+		const uid = dataToPopulate.uid
+		masterFormStore.update((data) => {
+			return {
+				...data,
+				meetingSubject: data.meetingSubject.filter((sub) => sub.uid !== uid)
+			}
+		})
+		isModalOpen = false;
+		dataToPopulate = undefined;
+	}
+
+	let isprePopulate = false;
+
+	onMount(() => {
+		isprePopulate = false;
+		if(dataToPopulate) {
+			isprePopulate = true;
+			campusOption = dataToPopulate.campusOption;
+			programOption = dataToPopulate.programOption;
+			sessionOption = dataToPopulate.sessionOption;
+			subjectOption = dataToPopulate.subjectOption;
+			programAnchor = dataToPopulate.programAnchor.map((anc) => {
+				return {
+					...anc,
+					isSelected: true,
+					isHidden: false,
+				}
+			});
+			courseAnchor = dataToPopulate.courseAnchor.map((anc) => {
+				return {
+					...anc,
+					isSelected: true,
+				}
+			});
+			attendees = dataToPopulate.attendees.map((anc) => {
+				return {
+					...anc,
+					isSelected: true,
+					isHidden: false,
+				}
+			});
+		}
+	})
+
 </script>
 
 <Modal isOpen={isModalOpen} closeOnOutsideClick={false} size="xl" position="top-bottom">
@@ -59,11 +120,19 @@
 						placeholder="Campus"
 						url="faculty/campus"
 						bind:selectedOption={campusOption}
+						bind:isprePopulate={isprePopulate}
+						dependsOn={[
+							{
+								key: 'acadYear',
+								value: $masterFormStore.acadYear?.value
+							}
+						]}
 					/>
 					<DynamicSelect
 						placeholder="Program"
 						url="faculty/programs"
 						bind:selectedOption={programOption}
+						bind:isprePopulate={isprePopulate}
 						dependsOn={[
 							{
 								key: 'campusLid',
@@ -75,6 +144,7 @@
 						placeholder="Academic Session"
 						url="faculty/acad-session"
 						bind:selectedOption={sessionOption}
+						bind:isprePopulate={isprePopulate}
 						dependsOn={[
 							{
 								key: 'campusLid',
@@ -90,6 +160,7 @@
 						placeholder="Course"
 						url="faculty/subject"
 						bind:selectedOption={subjectOption}
+						bind:isprePopulate={isprePopulate}
 						dependsOn={[
 							{
 								key: 'acadYear',
@@ -109,6 +180,15 @@
 							}
 						]}
 					/>
+					{#if dataToPopulate}					   
+						<button
+							on:click={deleteCampus}
+							class="lms-btn text-primary text-label-lg flex w-44 items-center gap-x-2 rounded-2xl px-2 py-4 font-semibold hover:bg-slate-50"
+						>
+							<DeleteIcon />
+							Delete Campus
+						</button>
+					{/if}
 				</div>
 				<div class="hidden w-full justify-evenly xl:flex">
 					<button

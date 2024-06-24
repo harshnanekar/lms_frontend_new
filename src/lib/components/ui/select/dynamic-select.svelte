@@ -15,7 +15,8 @@
 	export let url = '';
 	export let dependsOn: Filter[] = [];
 	export let selectedOption: CustomOptions | null = null;
-
+	export let isprePopulate = false;
+	
 	let dropdownRef: HTMLElement;
 	let buttonRef: HTMLElement;
 	let searchInputRef: HTMLInputElement;
@@ -173,7 +174,7 @@
 
 	$: {
 		// clear options when dependant filters change
-		if (dependsOn.some((filter) => filter.value)) {
+		if (dependsOn.some((filter) => filter.value) && !isprePopulate) {
 			options = [];
 			selectedOption = null;
 		}
