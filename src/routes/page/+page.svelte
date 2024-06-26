@@ -72,6 +72,7 @@
 
 		console.log('objectToSend>>>>>', meetingObject);
 		const result = validateWithZod(meetingSchema, meetingObject);
+		
     if (result.errors) {
 			const [firstPath, firstMessage] = Object.entries(result.errors)[0];
 			toast.error("ALERT!", {

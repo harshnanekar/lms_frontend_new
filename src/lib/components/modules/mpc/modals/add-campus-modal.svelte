@@ -21,6 +21,7 @@
 	let programAnchor: AnchorWithSelection[] | undefined;
 	let courseAnchor: AnchorWithSelection[] | undefined;
 	let attendees: AnchorWithSelection[] | undefined;
+	let meetingChildId: number | undefined;
 
 	function add() {
 		if (
@@ -32,11 +33,12 @@
 			!courseAnchor ||
 			!attendees
 		) {
-			// TODO: add zod validations
+			//! TODO: add zod validations
 			return;
 		}
 
 		const obj: MeetingSubjectStore = {
+			meetingChildId,
 			uid: generateRandomUUID(),
 			campusOption,
 			programOption,
@@ -49,6 +51,10 @@
 		};
 
 		console.log(obj);
+		if(meetingChildId != undefined){
+			const result = $masterFormStore.meetingSubject.map(item => item.meetingChildId === meetingChildId)
+			console.log("result: " + result);
+		}
 		$masterFormStore.meetingSubject = [...$masterFormStore.meetingSubject, obj];
 
 		campusOption = undefined;
@@ -81,6 +87,7 @@
 		isprePopulate = false;
 		if(dataToPopulate) {
 			isprePopulate = true;
+			meetingChildId = dataToPopulate.meetingChildId
 			campusOption = dataToPopulate.campusOption;
 			programOption = dataToPopulate.programOption;
 			sessionOption = dataToPopulate.sessionOption;
@@ -197,7 +204,7 @@
 					>
 						Cancel
 					</button>
-					<button class="lms-btn lms-primary-btn rounded-xl px-16" on:click={add}> ADD </button>
+					<button class="lms-btn lms-primary-btn rounded-xl px-16" on:click={add}> {meetingChildId == undefined ? 'ADD' : 'Update'} </button>
 				</div>
 			</div>
 			<div>
@@ -266,7 +273,7 @@
 					>
 						Cancel
 					</button>
-					<button class="lms-btn lms-primary-btn px-16" on:click={add}> ADD </button>
+					<button class="lms-btn lms-primary-btn px-16" on:click={add}>{meetingChildId == undefined ? 'ADD' : 'Update'}</button>
 				</div>
 			</div>
 		</div>

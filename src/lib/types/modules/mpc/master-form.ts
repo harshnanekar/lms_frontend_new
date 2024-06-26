@@ -23,6 +23,7 @@ export type AnchorWithSelection = Anchor & {
 };
 
 export type MeetingSubjectStore = {
+	meetingChildId : number;
 	uid: string;
 	campusOption: CustomOptions;
 	programOption: CustomOptions;
@@ -59,3 +60,5 @@ export type SubjectMeetingDetail = {
 	subject_name: string;
 	subject_meeting_details: SubjectMeetingDetail[];
  };
+
+ 

@@ -8,7 +8,7 @@
 	export let error: string = '';
 	export let disabled = false;
 	export let type: HTMLInputTypeAttribute = 'text';
-	export let inputClass = '';
+	export let inputClass : string = '';
 
 	const id = generateRandomUUID();
 	const typeWorkaround = (node: HTMLInputElement) => {

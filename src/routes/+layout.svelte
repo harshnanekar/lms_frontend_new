@@ -7,7 +7,7 @@
 </script>
 
 <head>
-	<title>LMS</title>
+	<title>Research</title>
 </head>
 
 {#if $navigating}

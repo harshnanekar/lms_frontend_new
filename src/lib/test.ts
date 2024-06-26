@@ -12,7 +12,14 @@ export const SIDEBAR_URL = [
 	{
 		url: '/test',
 		icon: 'test',
-		label: 'Test',
+		label: 'Research',
+		module: null,
+		child: []
+	},
+	{
+		url: '/journal-paper',
+		icon: 'test',
+		label: 'Journal Articles Published',
 		module: null,
 		child: []
 	},

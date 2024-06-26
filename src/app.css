@@ -257,6 +257,32 @@
 		display: none;
 	}
 
+		.lms-radio-button {
+			/* display: flex; */
+			align-items: center;
+			gap:20px;
+		}
+	
+		.lms-input-radio {
+			accent-color: var(--lms--color-primary);
+			margin-right: 8px;
+			width: 18px;
+			height: 18px;
+			gap:20px;
+		}
+	
+	
+		.lms-label {
+			color: var(--lms--color-black);
+			font-family: var(--lms--font-family);
+			font-size: var(--lms-fs-body-14);
+			font-weight: var(--lms-fw-400);
+			line-height: var(--lms-lh-20);
+		}
+	
+		.lms-input-radio {
+			accent-color: var(--lms--color-primary);
+		}
 	/* .dropdown-content {
     @apply bg-white shadow-lg rounded-lg;
     z-index: 10000;
