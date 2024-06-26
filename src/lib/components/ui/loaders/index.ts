@@ -1,0 +1,1 @@
+export { default as skeletonLoader } from './skeleton-loader.svelte';

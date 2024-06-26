@@ -5,6 +5,7 @@ import { Card } from './card';
 import { Input, Textarea, Toggle } from './input';
 import Image from './image.svelte';
 import DatePicker from './date-picker.svelte';
+import { skeletonLoader } from './loaders';
 
 export {
 	Accordion,
@@ -16,5 +17,6 @@ export {
 	Input,
 	Textarea,
 	DatePicker,
-	Toggle
+	Toggle,
+	skeletonLoader
 };

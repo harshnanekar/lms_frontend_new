@@ -35,6 +35,7 @@ export type MeetingSubjectStore = {
 };
 
 export type MasterMeetingStore = {
+	MeetingId: number;
 	meetingName: string;
 	acadYear: CustomOptions;
 	linkPassword: string;

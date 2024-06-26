@@ -36,7 +36,7 @@
 	class="no-scrollbar fixed bottom-0 left-0 top-0 h-screen w-[260px] transition-all md:w-[62px] lg:w-[260px]"
 >
 	<div class="logo-wrapper hidden pl-[60px] pt-[13px] lg:block">
-		<img src="images/layout/logo.png" alt="Logo" class="h-[44px] w-[122px]" />
+		<img src="/images/layout/logo.png" alt="Logo" class="h-[44px] w-[122px]" />
 	</div>
 	<button
 		on:click|stopPropagation={() => ($isSidebarOverlayOpen = !$isSidebarOverlayOpen)}
