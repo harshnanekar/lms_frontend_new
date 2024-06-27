@@ -1,10 +1,11 @@
 <script lang="ts">
+	// import { JournalView } from '$lib/types/modules/research/research-types.ts';
 	import { ActionIcon } from '$lib/components/icons';
-	import type { SubjectMeetingDetail } from '$lib/types/modules/mpc/master-form';
+	// import type { SubjectMeetingDetail } from '$lib/types/modules/mpc/master-form';
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 
-	export let actionData: SubjectMeetingDetail;
+	// export let actionData: SubjectMeetingDetail;
 	const showMenu = writable<boolean>(false);
 	const menuPosition = writable<{ top: number; left: number }>({ top: 0, left: 0 });
 
@@ -75,8 +76,11 @@
 				<button class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
 					>Edit</button
 				>
-				<button class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+				<!-- <button class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
 					>Delete ({actionData.meeting_name})</button
+				> -->
+					<button class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+					>Delete</button
 				>
 			</div>
 		</div>

@@ -1,42 +1,34 @@
 <script lang="ts">
 	import { Accordion, AccordionItem } from '$lib/components/ui';
-	import { MPCMeetingCard, MpcTable } from '.';
+	import { MPCMeetingCard, MpcTable, ResearchTable } from '.';
 	import { obj } from '$lib/test';
 	import { tooltip } from '$lib/utils/tooltip';
-	import type { MeetingListItem } from '$lib/types/modules/mpc/master-form';
+	// import type { MeetingListItem } from '$lib/types/modules/mpc/master-form';
+    import type { JournalView } from '$lib/types/modules/research/research-types';
 
-	export let masterFormList: MeetingListItem[] | null;
+	// export let masterFormList: MeetingListItem[] | null;
+	export let researchFormList: JournalView[] | null;
+    researchFormList = [
+   {
+	 nmims_school : ["KPMSOL"],
+	 nmims_campus : ["MPSTME"],
+	 publish_year :  2024,
+	 policy_cadre : ["Policy"],
+	 total_authors : 1,
+	 journal_name : "journal",
+	 publisher : "Publisher",
+	 impact_factor : 24 
+   }
+   ]
 </script>
 
-{#if masterFormList}
-	<Accordion collapse spaceBetween>
-		{#each masterFormList as item}
+{#if researchFormList}
+   	<ResearchTable tableData={researchFormList} />
+	
+	<!-- <Accordion collapse spaceBetween>
+		{#each researchFormList as item}
 			<AccordionItem>
-				<svelte:fragment slot="title">
-					<div class="md:flex md:items-center md:justify-between">
-						<div class="lg:flex lg:items-center lg:space-x-2">
-							<!-- use:tooltip={{ content: item.title }} -->
-							<div
-								use:tooltip={{ content: item.program_name }}
-								class="bold text-body-2 2xl:text-body-1 max-w-[250px] flex-shrink-0 truncate text-left lg:max-w-[350px] xl:max-w-[400px] 2xl:max-w-[450px]"
-							>
-								{item.program_name}
-							</div>
-							<!-- use:tooltip={{ content: item.title }} -->
-							<div
-								use:tooltip={{ content: item.subject_name }}
-								class="semi-bold text-small-label 2xl:text-label-md max-w-[250px] flex-shrink-0 truncate text-left xl:max-w-[350px] 2xl:max-w-[450px]"
-							>
-								{item.subject_name}
-							</div>
-						</div>
-						<div
-							class="bold text-small-label 2xl:text-body-2 text-start text-slate-100 sm:text-inherit"
-						>
-							{item.subject_meeting_details.length} Meetings
-						</div>
-					</div></svelte:fragment
-				>
+				
 				<svelte:fragment slot="content" let:open>
 					{#if open}
 						<div class="hidden md:block">
@@ -52,7 +44,7 @@
 				</svelte:fragment>
 			</AccordionItem>
 		{/each}
-	</Accordion>
+	</Accordion> -->
 {:else}
-	<p>No meetings found</p>
+	<p>No Data found</p>
 {/if}

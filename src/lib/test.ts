@@ -1,5 +1,7 @@
 import type { TableHeaders } from './types/layout/table';
 import type { SubjectMeetingDetail } from './types/modules/mpc/master-form';
+import type { JournalPaper, JournalView } from './types/modules/research/research-types';
+
 
 export const SIDEBAR_URL = [
 	{
@@ -193,3 +195,64 @@ export const headers: TableHeaders<SubjectMeetingDetail>[] = [
 		showTooltip: false
 	}
 ];
+
+
+export const paginationHeaders : TableHeaders<JournalView>[] = [
+  
+ 	{
+		label: 'Publishing Year',
+		key: 'publish_year',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Nmims School',
+		key: 'nmims_school',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Nmims Campus',
+		key: 'nmims_campus',
+		sortable: false,
+		classes: 'whitespace-nowrap',
+		showTooltip: false
+	},
+	{
+		label: 'Policy Cadre',
+		key: 'policy_cadre',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Impact Factor By Clarivate Analytics',
+		key: 'impact_factor',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Publisher',
+		key: 'publisher',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+    {
+		label: 'Total No. Of Authors',
+		key: 'total_authors',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+    {
+		label: 'Journal Name',
+		key: 'journal_name',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	}
+]; 

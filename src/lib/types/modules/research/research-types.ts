@@ -31,3 +31,15 @@ export type JournalPaper = {
 	 scopus_indexed : boolean,
 	 supporting_documents : string[]
  }
+
+ export type JournalView = {
+	 nmims_school : string[],
+	 nmims_campus : string[],
+	 publish_year :  number,
+	 policy_cadre : string[],
+	 total_authors : number,
+	 journal_name : string,
+	 publisher : string,
+	 impact_factor : number,
+ }
+

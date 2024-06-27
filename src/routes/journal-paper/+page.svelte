@@ -1,4 +1,6 @@
 <script lang="ts">
+import { goto } from '$app/navigation';
+import ResearchTable from '$lib/components/modules/mpc/main-table/research-table.svelte';
 import { activeSidebarModule } from "$lib/components/layout/sidebar/store";
 import { Input } from '$lib/components/ui';
 import { Header } from "$lib/components/researchHeader";
@@ -6,7 +8,7 @@ import { PlusIcon } from '$lib/components/icons';
 import { Card, DynamicSelect, Modal } from '$lib/components/ui';
 import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
 import { writable } from 'svelte/store';
-
+import type { JournalView } from '$lib/types/modules/research/research-types';
 
 const label = 'Journal Articles Published';
 const isOpen = writable(false);
@@ -33,18 +35,35 @@ function insertForm(){
     console.log('title ',title)
 }
 
+	// export let masterFormList: MeetingListItem[] | null;
+	export let researchFormList: JournalView[] | null;
+    researchFormList = [
+   {
+	 nmims_school : ["KPMSOL"],
+	 nmims_campus : ["MPSTME","Shirpur"],
+	 publish_year :  2024,
+	 policy_cadre : ["Policy"],
+	 total_authors : 1,
+	 journal_name : "journal",
+	 publisher : "Publisher",
+	 impact_factor : 24 
+   }
+   ]
+
+   function navigateToCreate(){
+     goto('/journal-paper/create');
+   }
 </script>
 
 <div class="flex items-center justify-between">
    <Header header={label} />
-    <button on:click={() => openModal('xl')} class="lms-btn lms-primary-btn fixed bottom-16 right-5 z-10 py-4 md:static md:py-2.5">
+    <button on:click={navigateToCreate} class="lms-btn lms-primary-btn fixed bottom-16 right-5 z-10 py-4 md:static md:py-2.5">
         <PlusIcon />
         <span class="hidden md:block">Add</span>
     </button>
 </div>
 
-
-<Modal bind:isOpen={$isOpen} size={modalwidthPercent} on:close={closeModal} position="top-bottom">
+<!-- <Modal bind:isOpen={$isOpen} size={modalwidthPercent} on:close={closeModal} position="top-bottom">
 	<div slot="header">
 		<div class="border-b p-4">
 			<h2 class="text-lg font-semibold">{optFlag}</h2>
@@ -109,20 +128,6 @@ function insertForm(){
         </div>
 		</div>
 
-        <!-- <div class="flex flex-row gap-[20px] p-4">
-		<Input type="number" placeholder="No. Of Student Authors" bind:value ={title}/>
-        <Input type="text" placeholder="Names Of Student Authors" bind:value ={campus}/>
-        
-
-        <div class="lms-radio-button">
-             <div class="lms-radio-button">
-                <label for="html" class="lms-label">Scopus Indexed</label>
-            <input type="radio" id="html" class="lms-input-radio" name="radio-button-text">
-            <input type="radio" id="html" class="lms-input-radio" name="radio-button-text">
-        </div>
-        </div> -->
-
-        <!-- </div> -->
         <div class="flex flex-row gap-[20px] p-4">
 	
 		</div>
@@ -134,4 +139,12 @@ function insertForm(){
             <button class="lms-btn lms-primary-btn" on:click = {insertForm} >Submit</button>
 		</div>
 	</div>
-</Modal>
+</Modal> -->
+
+<div class="rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 shadow-card sm:p-6 mt-[5%]">
+{#if researchFormList}
+<!-- <ResearchTable /> -->
+{:else}
+<p>No Data found</p>
+{/if}
+</div>
