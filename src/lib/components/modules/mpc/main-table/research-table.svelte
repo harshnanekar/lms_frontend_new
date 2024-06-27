@@ -12,7 +12,7 @@
 	// let tableHeaders: TableHeaders<SubjectMeetingDetail>[] = headers;
     let tableHeaders: TableHeaders<JournalView>[] = paginationHeaders;
 
-    const url  =  new URL("")
+    const url  =  new URL("http://localhost:9090/research/journal-paginate");
 </script>
 
 <PaginateDynamic url={url} header={paginationHeaders}  />

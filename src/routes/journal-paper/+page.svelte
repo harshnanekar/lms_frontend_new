@@ -143,7 +143,7 @@ function insertForm(){
 
 <div class="rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 shadow-card sm:p-6 mt-[5%]">
 {#if researchFormList}
-<!-- <ResearchTable /> -->
+<ResearchTable />
 {:else}
 <p>No Data found</p>
 {/if}
