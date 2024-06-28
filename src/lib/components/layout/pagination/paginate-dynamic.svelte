@@ -4,6 +4,7 @@
 	import type { TableHeaders } from '$lib/types/layout/table';
 	import { debounce } from '$lib/utils/debounce';
 	import { writable } from 'svelte/store';
+    import ResearchAction  from '$lib/components/modules/mpc/research-action.svelte';
 
 	interface FilterOption {
 		name: string;
@@ -66,10 +67,10 @@
 			// 	total: result.totat
 			// });
 			data.set({
-				items: result,
-				total: 1000
+				items: result.data,
+				total: result.total
 			});
-			tableData = result;
+			tableData = result.data;
 		} catch (err) {
 			error.set(err instanceof Error && err.message ? err.message : 'An unknown error occurred');
 		} finally {
@@ -181,14 +182,18 @@
 								{/if}
 							</th>
 						{/each}
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					{#each $data.items as item (item.id)}
 						<tr>
 							{#each header as column}
-								<td class={column.classes}>{item[column.label]}</td>
+								<td class={column.classes}>{item[column.key]}</td>
 							{/each}
+						    <td>
+								<slot actionData={item} />
+							</td>
 						</tr>
 					{/each}
 				</tbody>

@@ -1,6 +1,6 @@
 export type JournalPaper = {
-	 nmims_school : number[],
-	 nmims_campus : number[],
+	 nmims_school : string[],
+	 nmims_campus : string[],
 	 publish_year : number,
 	 policy_cadre : number[],
 	 all_authors : number[],
@@ -16,20 +16,22 @@ export type JournalPaper = {
 	 scopus_site_score : number,
 	 impact_factor : number,
      doi_no : string,
-	 publication_date : string,
+	 publication_date : Date,
 	 title : string,
 	 gs_indexed : string,
 	 paper_type : number,
 	 nationality_type : number,
 	 wos_indexed : boolean,
 	 abdc_indexed : number,
-	 ugc_indexed : number,
-	 foreign_author_count : number,
+	 ugc_indexed : boolean,
+	 scs_indexed:boolean,
+	 foreign_authors_count : number,
 	 foreign_authors : number[],
-	 student_author_count : number,
+	 student_authors_count : number,
 	 student_authors : number[],
 	 scopus_indexed : boolean,
-	 supporting_documents : string[]
+	 supporting_documents : string[],
+	 journal_type : number
  }
 
  export type JournalView = {

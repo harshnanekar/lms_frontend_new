@@ -177,12 +177,32 @@
 	border-radius: 8px;
 }
 
+lms-view-input{
+     background-color: var(--lms--color-white);
+	color: #000000;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 20.3px;
+	letter-spacing: 0.30000001192092896px;
+	box-sizing: border-box;
+	height: 100%;
+	width: 100%;
+	outline: 0;
+	padding: 12px 16px;
+	border: 1px solid #e5e9f1;
+	border-radius: 8px;
+}
+
 .lms-input.error {
 	border: 1px solid var(--lms--color-primary);
 }
 
-.lms-input:disabled {
+/* .lms-input:disabled {
 	background-color: var(--lms--color-base);
+} */
+
+.lms-input:disabled {
+	background-color: white;
 }
 
 .lms-input.error ~ .lms-placeholder {

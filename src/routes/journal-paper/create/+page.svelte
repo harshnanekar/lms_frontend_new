@@ -18,7 +18,7 @@ $: publicationFormattedDate = publicationDate;
 	}
 </script>
 
-<div class="rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 shadow-card sm:p-6">
+<div class="rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 shadow-card sm:p-6">
   <div class="min-h-[50vh] overflow-auto scroll modal-content max-h-[70vh]"> <!-- Adjust max-height as needed -->
     <div class="grid grid-cols-3 gap-[40px] p-4">
       <Input type="text" placeholder="Nmims School" bind:value ={title}/>
@@ -195,4 +195,4 @@ $: publicationFormattedDate = publicationDate;
     <button class="lms-btn lms-secondary-btn">Clear Form</button>
     <button class="lms-btn lms-primary-btn">Submit</button>
   </div>
-</div>
+  </div> 
