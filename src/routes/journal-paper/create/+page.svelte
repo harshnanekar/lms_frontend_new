@@ -9,6 +9,7 @@ let title : string = '';
 let campus : string = '';
 
 let publicationDate: Date | null = new Date();
+publicationDate = null;
 $: publicationFormattedDate = publicationDate;
 	function handleDateChange(e: CustomEvent<any>) {
 		if (!publicationDate) return;
@@ -18,7 +19,7 @@ $: publicationFormattedDate = publicationDate;
 </script>
 
 <div class="rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 shadow-card sm:p-6">
-  <div class="min-h-[50vh] overflow-auto no-scrollbar modal-content max-h-[70vh]"> <!-- Adjust max-height as needed -->
+  <div class="min-h-[50vh] overflow-auto scroll modal-content max-h-[70vh]"> <!-- Adjust max-height as needed -->
     <div class="grid grid-cols-3 gap-[40px] p-4">
       <Input type="text" placeholder="Nmims School" bind:value ={title}/>
       <Input type="text" placeholder="Nmims Campus" bind:value ={campus}/>
@@ -53,7 +54,7 @@ $: publicationFormattedDate = publicationDate;
       <Input type="text" placeholder="GS Indexed" bind:value ={title}/>
       <div class="ml-2">
         <label class="text-[#888888] text-sm">International/National Journal<span class="text-danger text-sm">*</span></label>
-        <div class="flex flex-row gap-[20px] mt-2">
+        <div class="flex flex-row gap-[20px] mt-2.5">
           <div class="flex flex-row">
             <input type="radio" id="html" class="lms-input-radio w-4" name="radio-button-text" checked>
             <span class="text-[#888888] text-sm">International</span>
@@ -118,9 +119,45 @@ $: publicationFormattedDate = publicationDate;
         </div>
       </div>
     </div>
+
+    <div class="flex flex-row gap-[40px] p-4">
+      <DatePicker
+     on:change={handleDateChange}
+     bind:selectedDateTime={publicationDate}
+    disabled={(publicationDate) => publicationDate.getTime() < new Date().setHours(0, 0, 0, 0)}
+     >
+    <div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+    <SelectDateIcon />
+    <span class="text-body-2 font-bold">Add Publication Date</span>
+      </div>
+      </DatePicker>
+      {#if publicationFormattedDate}
+      {@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
+            <div
+              class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+              in:fly={{ x: -100, duration: 300 }}
+              out:fly={{ x: 100, duration: 300 }}
+            >
+              <p class="m-0 p-0">{formattedDate}</p>
+              <button
+                use:tooltip={{
+                  content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+                }}
+              on:click={() => {
+                  // remove the current date
+                  publicationFormattedDate = null;
+                }}
+              >
+                <XIcon />
+              </button>
+            </div>
+     {/if}                 
+    </div>
+  
+
   </div>
 
-  <div class="grid grid-cols-3 gap-[40px] p-4">
+  <!-- <div class="flex flex-row gap-[40px] p-4">
     <DatePicker
 	 on:change={handleDateChange}
 	 bind:selectedDateTime={publicationDate}
@@ -145,14 +182,14 @@ $: publicationFormattedDate = publicationDate;
 							}}
 						on:click={() => {
 								// remove the current date
-								publicationFormattedDate = '';
+								publicationFormattedDate = null;
 							}}
 						>
 							<XIcon />
 						</button>
 					</div>
    {/if}                 
-  </div>
+  </div> -->
 
   <div class="flex flex-row gap-[20px] p-4">
     <button class="lms-btn lms-secondary-btn">Clear Form</button>
