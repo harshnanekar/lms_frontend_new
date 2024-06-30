@@ -18,3 +18,93 @@ export function getAcadYear(): CustomOptions[] {
 		}
 	];
 }
+
+export function getAbdcIndexed(data : any) : CustomOptions[] {
+  let adbcArr : any[] = [];
+  data.forEach((item : any) => {
+	adbcArr.push({value: item.id, label: item.abdc_type});
+  });
+
+  return adbcArr;
+}
+
+export function getPaperType(data : any) :CustomOptions[] {
+	let paperArr : any[] = [];
+	data.forEach((item : any) => {
+		paperArr.push({value: item.id, label: item.paper_name});
+	});
+  
+	return paperArr;
+}
+
+export function getSchool(data : any) :CustomOptions[] {
+	let schoolArr : any[] = [];
+	data.forEach((item : any) => {
+		schoolArr.push({value: item.school_name, label: item.school_name});
+	});
+  
+	return schoolArr;
+}
+
+export function getCampus(data : any) :CustomOptions[] {
+	let campusArr : any[] = [];
+	data.forEach((item : any) => {
+		campusArr.push({value: item.campus_name, label: item.campus_name});
+	});
+  
+	return campusArr;
+}
+
+export function getPolicyCadre(data : any) :CustomOptions[] {
+	let policyArr : any[] = [];
+	data.forEach((item : any) => {
+		policyArr.push({value: item.id, label: item.policy_name});
+	});
+  
+	return policyArr;
+}
+
+export function getAllAuthor(data : any) :CustomOptions[] {
+	let authArr : any[] = [];
+	data.forEach((item : any) => {
+		authArr.push({value: item.id, label: item.faculty_name});
+	});
+  
+	return authArr;
+}
+
+export function getNmimsAuthor(data : any) :CustomOptions[] {
+	let nmimsAuthArr : any[] = [];
+	data.forEach((item : any) => {
+		nmimsAuthArr.push({value: item.id, label: item.faculty_name});
+	});
+  
+	return nmimsAuthArr;
+}
+
+export function getOtherAuthor(data : any) :CustomOptions[] {
+	let otherAuthArr : any[] = [];
+	data.forEach((item : any) => {
+		otherAuthArr.push({value: item.id, label: item.name});
+	});
+  
+	return otherAuthArr;
+}
+
+export function getForeignAuthor(data : any) :CustomOptions[] {
+	let foreignAuthArr : any[] = [];
+	data.forEach((item : any) => {
+		foreignAuthArr.push({value: item.id, label: item.name});
+	});
+  
+	return foreignAuthArr;
+}
+
+export function getStudentAuthor(data : any) :CustomOptions[] {
+	let studentAuthArr : any[] = [];
+	data.forEach((item : any) => {
+		studentAuthArr.push({value: item.id, label: item.name});
+	});
+  
+	return studentAuthArr;
+}
