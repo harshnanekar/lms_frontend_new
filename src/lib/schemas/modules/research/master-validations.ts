@@ -33,10 +33,10 @@ export const journalPaper = z.object({
 	foreign_authors: z.array(z.number()),
 	student_authors_count: z.number(),
 	student_authors: z.array(z.number()),
-	supporting_documents : z.array(z.object({
-		name : z.string(),
-		content:z.string()
-	})),
+	// supporting_documents : z.array(z.object({
+	// 	name : z.string(),
+	// 	content:z.string()
+	// })),
 	publication_date: z.date().nullable().refine((date) => date!= null, 'Publication date is required')
 });
 
