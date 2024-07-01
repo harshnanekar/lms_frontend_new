@@ -61,7 +61,6 @@ export const fetchFormApi = async <T>({
 	try {
 		const requestOptions: RequestInit = {
 			method,
-			// Do not set Content-Type header manually; FormData handles it
 			credentials: 'include',
 			...customOptions
 		};
