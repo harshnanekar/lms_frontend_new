@@ -462,7 +462,7 @@
                     {#if Array.isArray(selectedOptions)}
                         {#each selectedOptions as option (option.value)}
                             <div class="selected-option">
-                                {option.label}
+                                {option.label} 
                                 <button class="remove-btn" on:click={() => removeOption(option)}>✕</button>
                             </div>
                         {/each}
@@ -546,33 +546,5 @@
 </div>
 
 <style>
-    .selected-options {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
-    }
-    .selected-option {
-        display: flex;
-        align-items: center;
-        background: #e2e2e2;
-        border-radius: 5px;
-        padding: 2px 5px;
-        font-size: 12px;
-        margin-right: 5px;
-    }
-    .remove-btn {
-        background: none;
-        border: none;
-        font-size: 12px;
-        margin-left: 5px;
-        cursor: pointer;
-    }
-    .dropdown-content {
-        max-height: 300px;
-        overflow-y: auto;
-    }
-    .scroll-anchor {
-        height: 1px;
-        width: 100%;
-    }
+ 
 </style>
