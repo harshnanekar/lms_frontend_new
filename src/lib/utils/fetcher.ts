@@ -61,6 +61,9 @@ export const fetchFormApi = async <T>({
 	try {
 		const requestOptions: RequestInit = {
 			method,
+			// headers:{
+			// 	'Accept':'application/json',
+			// },
 			credentials: 'include',
 			...customOptions
 		};

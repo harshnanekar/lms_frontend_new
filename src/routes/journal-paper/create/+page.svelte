@@ -143,26 +143,26 @@
 	};
 
 	let files: any = [];
-	let documentsArr: object[] = [];
-	const fileToBase64 = (file: File): Promise<string> => {
-		return new Promise((resolve, reject) => {
-			const reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader.onload = () => resolve(reader.result as string);
-			reader.onerror = (error) => reject(error);
-		});
-	};
+	// let documentsArr: object[] = [];
+	// const fileToBase64 = (file: File): Promise<string> => {
+	// 	return new Promise((resolve, reject) => {
+	// 		const reader = new FileReader();
+	// 		reader.readAsDataURL(file);
+	// 		reader.onload = () => resolve(reader.result as string);
+	// 		reader.onerror = (error) => reject(error);
+	// 	});
+	// };
 
-	$: if (files.length > 0) {
-		documentsArr = [];
-		(async () => {
-			for (const file of files) {
-				const base64String = await fileToBase64(file);
-				documentsArr.push({ name: file.name, content: base64String });
-				console.log(`${file.name}: ${file.size} bytes`);
-			}
-		})();
-	}
+	// $: if (files.length > 0) {
+	// 	documentsArr = [];
+	// 	(async () => {
+	// 		for (const file of files) {
+	// 			const base64String = await fileToBase64(file);
+	// 			documentsArr.push({ name: file.name, content: base64String });
+	// 			console.log(`${file.name}: ${file.size} bytes`);
+	// 		}
+	// 	})();
+	// }
 	async function handleSubmit() {
 		const journalObject: JournalPaperReq = {
 			nmims_school: obj.nmims_school.map((data) => data.value),
@@ -194,21 +194,23 @@
 			foreign_authors: obj.foreign_authors.map((data) => Number(data.value)),
 			student_authors_count: Number(obj.student_authors_count),
 			student_authors: obj.student_authors.map((data) => Number(data.value)),
-			supporting_documents: documentsArr,
+			// supporting_documents: documentsArr,
 			journal_type: Number(obj.journal_type)
 		};
 
-		// const formData = new FormData();
+		const formData = new FormData();
 
-		// formData.append('journal_paper', JSON.stringify(journalObject));
+		formData.append('journal_paper', JSON.stringify(journalObject));
 
-		// // Append each file to the FormData
-		// Array.from(files).forEach((file) => {
-		// 	formData.append('supporting_documents', file);
-		// });
+		// Append each file to the FormData
+		Array.from(files).forEach((file) => {
+			formData.append('supporting_documents', file);
+		});
 
-		// console.log('Form Data:', JSON.stringify(formData));
-
+		for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+        }
+		
 		console.log(JSON.stringify(journalObject));
 		const result = validateWithZod(journalPaper, journalObject);
 
@@ -223,12 +225,10 @@
 
 		console.log('validated data', JSON.stringify(result.data));
 
-		const { error, json } = await fetchApi({
+		const { error, json } = await fetchFormApi({
 			url: `${PUBLIC_API_BASE_URL}/journal-article-insert`,
 			method: 'POST',
-			body: {
-				journal_paper: result.data
-			}
+			body: formData
 		});
 
 		if (error) {
