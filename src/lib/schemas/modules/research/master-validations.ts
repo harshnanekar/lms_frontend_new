@@ -32,13 +32,22 @@ export const journalPaper = z.object({
 	foreign_authors_count: z.number(),
 	foreign_authors: z.array(z.number()),
 	student_authors_count: z.number(),
-	student_authors: z.array(z.number()),
-	// supporting_documents : z.array(z.object({
-	// 	name : z.string(),
-	// 	content:z.string()
-	// })),
+	student_authors: z.array(z.number()),	
+	// supporting_documents: z.array(z.instanceof(File)).nonempty({message:'File is required'})
+	// .max(5, { message: 'A maximum of 5 files can be uploaded' })
+    // .refine((files) => files.every((file) => ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(file.type)), 'Only .pdf, .docx formats are supported'),
+    journal_type: z.number().min(1, 'Journal type is required'),
 	publication_date: z.date().nullable().refine((date) => date!= null, 'Publication date is required')
 });
 
 
   export type JournalPaperReq = z.infer<typeof journalPaper>;
+
+
+  export const fileSchema = z.object({ 
+   documents: z.array(z.instanceof(File)).nonempty({message:'File is required'})
+	.max(5, { message: 'A maximum of 5 files can be uploaded' })
+    .refine((files) => files.every((file) => ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(file.type)), 'Only .pdf, .docx formats are supported'),
+  })
+
+    export type FileReq = z.infer<typeof fileSchema>;

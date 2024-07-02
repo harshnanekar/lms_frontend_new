@@ -4,6 +4,8 @@
 	import { formatDateTimeShort } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
 	import { fly } from 'svelte/transition';
+	import { Card } from '$lib/components/ui';
+
 	import {
 		getAbdcIndexed,
 		getPaperType,
@@ -21,6 +23,7 @@
 		journalPaper,
 		type JournalPaperReq
 	} from '$lib/schemas/modules/research/master-validations';
+	import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
 	import { toast } from 'svelte-sonner';
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
@@ -28,6 +31,7 @@
 
 	export let data;
 	let isRequired = false;
+	let title = 'Journal Articles Published';
 
 	let foreignAuthors = data?.journalData?.foreignAuthors?.message;
 	let studentAuthors = data?.journalData?.StudentAuthors?.message;
@@ -64,48 +68,48 @@
 		console.log('publication date ', publicationDate);
 	}
 
-	const obj = {
+	let obj = {
 		nmims_school: [
-			{
-				value: nmimsSchool[0].school_name,
-				label: nmimsSchool[0].school_name
-			}
+			// {
+			// 	value: nmimsSchool[0].school_name,
+			// 	label: nmimsSchool[0].school_name
+			// }
 		],
 		nmims_campus: [
-			{
-				value: nmimsCampus[0].campus_name,
-				label: nmimsCampus[0].campus_name
-			}
+			// {
+			// 	value: nmimsCampus[0].campus_name,
+			// 	label: nmimsCampus[0].campus_name
+			// }
 		],
 		publish_year: null,
 		policy_cadre: [
-			{
-				value: policyCadre[0].id,
-				label: policyCadre[0].policy_name
-			}
+			// {
+			// 	value: policyCadre[0].id,
+			// 	label: policyCadre[0].policy_name
+			// }
 		],
 		all_authors: [
-			{
-				value: allAuthors[0].id,
-				label: allAuthors[0].faculty_name
-			}
+			// {
+			// 	value: allAuthors[0].id,
+			// 	label: allAuthors[0].faculty_name
+			// }
 		],
 		total_authors: null,
 		nmims_authors: [
-			{
-				value: nmimsAuthors[0].id,
-				label: nmimsAuthors[0].faculty_name
-			}
+			// {
+			// 	value: nmimsAuthors[0].id,
+			// 	label: nmimsAuthors[0].faculty_name
+			// }
 		],
 		nmims_author_count: null,
 		journal_name: '',
 		uid: '',
 		publisher: '',
 		other_authors: [
-			{
-				value: otherAuthors[0].id,
-				label: otherAuthors[0].name
-			}
+			// {
+			// 	value: otherAuthors[0].id,
+			// 	label: otherAuthors[0].name
+			// }
 		],
 		page_no: '',
 		issn_no: '',
@@ -127,42 +131,23 @@
 		scs_indexed: true,
 		foreign_authors_count: null,
 		foreign_authors: [
-			{
-				value: foreignAuthors[0].id,
-				label: foreignAuthors[0].name
-			}
+			// {
+			// 	value: foreignAuthors[0].id,
+			// 	label: foreignAuthors[0].name
+			// }
 		],
 		student_authors_count: null,
 		student_authors: [
-			{
-				value: studentAuthors[0].id,
-				label: studentAuthors[0].name
-			}
+			// {
+			// 	value: studentAuthors[0].id,
+			// 	label: studentAuthors[0].name
+			// }
 		],
 		journal_type: 1
 	};
 
 	let files: any = [];
-	// let documentsArr: object[] = [];
-	// const fileToBase64 = (file: File): Promise<string> => {
-	// 	return new Promise((resolve, reject) => {
-	// 		const reader = new FileReader();
-	// 		reader.readAsDataURL(file);
-	// 		reader.onload = () => resolve(reader.result as string);
-	// 		reader.onerror = (error) => reject(error);
-	// 	});
-	// };
 
-	// $: if (files.length > 0) {
-	// 	documentsArr = [];
-	// 	(async () => {
-	// 		for (const file of files) {
-	// 			const base64String = await fileToBase64(file);
-	// 			documentsArr.push({ name: file.name, content: base64String });
-	// 			console.log(`${file.name}: ${file.size} bytes`);
-	// 		}
-	// 	})();
-	// }
 	async function handleSubmit() {
 		const journalObject: JournalPaperReq = {
 			nmims_school: obj.nmims_school.map((data) => data.value),
@@ -194,9 +179,22 @@
 			foreign_authors: obj.foreign_authors.map((data) => Number(data.value)),
 			student_authors_count: Number(obj.student_authors_count),
 			student_authors: obj.student_authors.map((data) => Number(data.value)),
-			// supporting_documents: documentsArr,
+			// supporting_documents: Array.from(files),
 			journal_type: Number(obj.journal_type)
 		};
+
+		const fileObject: FileReq = {
+			documents: Array.from(files)
+		};
+		const fileresult = validateWithZod(fileSchema, fileObject);
+		if (fileresult.errors) {
+			console.log(fileresult.errors);
+			const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
+			toast.error('ALERT!', {
+				description: firstMessage
+			});
+			return;
+		}
 
 		const formData = new FormData();
 
@@ -208,9 +206,9 @@
 		});
 
 		for (let [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
-        }
-		
+			console.log(`${key}: ${value}`);
+		}
+
 		console.log(JSON.stringify(journalObject));
 		const result = validateWithZod(journalPaper, journalObject);
 
@@ -238,12 +236,100 @@
 			return;
 		}
 
-		toast.success('Inserted Successfully');
+		if (json[0].insert_journal_article.status == 403) {
+			toast.error('ALERT!', {
+				description: json[0].insert_journal_article.message
+			});
+		} else {
+			toast.success('Inserted Successfully');
+			clearForm();
+		}
+	}
+
+	function clearForm() {
+		obj = {
+			nmims_school: [
+				// {
+				// 	value: nmimsSchool[0].school_name,
+				// 	label: nmimsSchool[0].school_name
+				// }
+			],
+			nmims_campus: [
+				// {
+				// 	value: nmimsCampus[0].campus_name,
+				// 	label: nmimsCampus[0].campus_name
+				// }
+			],
+			publish_year: null,
+			policy_cadre: [
+				// {
+				// 	value: policyCadre[0].id,
+				// 	label: policyCadre[0].policy_name
+				// }
+			],
+			all_authors: [
+				// {
+				// 	value: allAuthors[0].id,
+				// 	label: allAuthors[0].faculty_name
+				// }
+			],
+			total_authors: null,
+			nmims_authors: [
+				// {
+				// 	value: nmimsAuthors[0].id,
+				// 	label: nmimsAuthors[0].faculty_name
+				// }
+			],
+			nmims_author_count: null,
+			journal_name: '',
+			uid: '',
+			publisher: '',
+			other_authors: [
+				// {
+				// 	value: otherAuthors[0].id,
+				// 	label: otherAuthors[0].name
+				// }
+			],
+			page_no: '',
+			issn_no: '',
+			scopus_site_score: null,
+			impact_factor: null,
+			doi_no: '',
+			title: '',
+			gs_indexed: '',
+			paper_type: {
+				value: paperType[0].id,
+				label: paperType[0].paper_name
+			},
+			wos_indexed: true,
+			abdc_indexed: {
+				value: abdcIndexed[0].id,
+				label: abdcIndexed[0].abdc_type
+			},
+			ugc_indexed: true,
+			scs_indexed: true,
+			foreign_authors_count: null,
+			foreign_authors: [
+				// {
+				// 	value: foreignAuthors[0].id,
+				// 	label: foreignAuthors[0].name
+				// }
+			],
+			student_authors_count: null,
+			student_authors: [
+				// {
+				// 	value: studentAuthors[0].id,
+				// 	label: studentAuthors[0].name
+				// }
+			],
+			journal_type: 1
+		};
 	}
 </script>
 
-<div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6">
-	<div class="scroll modal-content max-h-[70vh] min-h-[50vh] overflow-auto">
+<!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
+<Card {title}>
+	<div class="no-scrollbar modal-content max-h-[70vh] min-h-[50vh] overflow-auto p-4">
 		<!-- Adjust max-height as needed -->
 		<div class="grid grid-cols-3 gap-[40px] p-4">
 			<DynamicSelect
@@ -533,9 +619,8 @@
 			{/if}
 		</div>
 	</div>
-
 	<div class="flex flex-row gap-[20px] p-4">
-		<button class="lms-btn lms-secondary-btn">Clear Form</button>
+		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
 		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
 	</div>
-</div>
+</Card>
