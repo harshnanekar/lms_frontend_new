@@ -6,12 +6,17 @@
 	import { formatDateTimeShort } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
 	import { fly } from 'svelte/transition';
+	import { fetchApi } from '$lib/utils/fetcher';
+	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { toast } from 'svelte-sonner';
+
 
 	let campus: string = '';
 	let disabled: boolean = true;
 	export let data;
 
 	let obj = {
+		journal_paper_id:data.journalData[0].journal_paper_id,
 		journal_name: data.journalData[0].journal_name,
 		title: data.journalData[0].title,
 		publish_year: data.journalData[0].publish_year,
@@ -42,7 +47,8 @@
 		foreign_authors: data.journalData[0].foreign_authors,
 		other_authors: data.journalData[0].other_authors,
 		student_authors: data.journalData[0].student_authors,
-		supporting_documents: data.journalData[0].supporting_documents
+		supporting_documents: data.journalData[0].supporting_documents,
+		filename : data.journalData[0].filename
 	};
 
 	let publicationDate: Date | null = new Date();
@@ -52,34 +58,50 @@
 	let title = 'Journal Articles Published';
 
 	console.log('journal json ', JSON.stringify(obj), data.journalData[0].paper_name);
+
+	async function downLoadFiles(){
+		console.log('inside files')
+		const { error, json } = await fetchApi({
+			url: `${PUBLIC_API_BASE_URL}/journal-download-files`,
+			method: 'POST',
+			body : {id:obj.journal_paper_id}
+		});
+
+		if (error) {
+			toast.error(error.message || 'Something went wrong!', {
+				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+			});
+			return;
+		}
+	}
 </script>
 
 <Card {title}>
 	<div class="p-4">
-		<div class="no-scrollbar modal-content max-h-[70vh] min-h-[50vh] overflow-auto">
+		<div class="scroll modal-content max-h-[70vh] min-h-[50vh] overflow-auto">
 			<!-- Adjust max-height as needed -->
 			<div class="grid grid-cols-3 gap-[40px] p-4">
-				<Input type="text" placeholder="Nmims Campus" bind:value={obj.nmims_school} {disabled} />
-				<Input type="text" placeholder="Nmims Campus" bind:value={obj.nmims_campus} {disabled} />
+				<Input type="text" placeholder="Nmims Campus" value={obj.nmims_school} {disabled} />
+				<Input type="text" placeholder="Nmims Campus" value={obj.nmims_campus} {disabled} />
 				<Input
 					type="number"
 					placeholder="Publishing Year"
-					bind:value={obj.publish_year}
+					value={obj.publish_year}
 					{disabled}
 				/>
 			</div>
 			<div class="grid grid-cols-3 gap-[40px] p-4">
-				<Input type="text" placeholder="Policy Cadre" bind:value={obj.policy_cadre} {disabled} />
+				<Input type="text" placeholder="Policy Cadre" value={obj.policy_cadre} {disabled} />
 				<Input
 					type="text"
 					placeholder="Name Of All Authors"
-					bind:value={obj.all_authors}
+					value={obj.all_authors}
 					{disabled}
 				/>
 				<Input
 					type="number"
 					placeholder="Total No. Of Authors"
-					bind:value={obj.total_authors}
+					value={obj.total_authors}
 					{disabled}
 				/>
 			</div>
@@ -87,34 +109,34 @@
 				<Input
 					type="text"
 					placeholder="Name Of Nmims Authors"
-					bind:value={obj.nmims_authors}
+					value={obj.nmims_authors}
 					{disabled}
 				/>
 				<Input
 					type="text"
 					placeholder="No. Of Nmims Authors"
-					bind:value={obj.nmims_author_count}
+					value={obj.nmims_author_count}
 					{disabled}
 				/>
-				<Input type="text" placeholder="Journal Name" bind:value={obj.journal_name} {disabled} />
+				<Input type="text" placeholder="Journal Name" value={obj.journal_name} {disabled} />
 			</div>
 			<div class="grid grid-cols-3 gap-[40px] p-4">
-				<Input type="text" placeholder="UID" bind:value={obj.uid} {disabled} />
-				<Input type="text" placeholder="Publisher" bind:value={obj.publisher} {disabled} />
+				<Input type="text" placeholder="UID" value={obj.uid} {disabled} />
+				<Input type="text" placeholder="Publisher" value={obj.publisher} {disabled} />
 				<Input
 					type="text"
 					placeholder="Names Of Other-Authors"
-					bind:value={obj.other_authors}
+					value={obj.other_authors}
 					{disabled}
 				/>
 			</div>
 			<div class="grid grid-cols-3 gap-[40px] p-4">
-				<Input type="text" placeholder="Vol,Issue,Page No." bind:value={obj.page_no} {disabled} />
-				<Input type="text" placeholder="ISSN No." bind:value={obj.issn_no} {disabled} />
+				<Input type="text" placeholder="Vol,Issue,Page No." value={obj.page_no} {disabled} />
+				<Input type="text" placeholder="ISSN No." value={obj.issn_no} {disabled} />
 				<Input
 					type="number"
 					placeholder="Scopus Site Score"
-					bind:value={obj.scopus_site_score}
+					value={obj.scopus_site_score}
 					{disabled}
 				/>
 			</div>
@@ -122,15 +144,15 @@
 				<Input
 					type="number"
 					placeholder="Impact factor by Clarivate Analytics"
-					bind:value={obj.impact_factor}
+					value={obj.impact_factor}
 					{disabled}
 				/>
-				<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} {disabled} />
-				<Input type="text" placeholder="Title Of Paper" bind:value={obj.title} {disabled} />
+				<Input type="text" placeholder="WebLink /DOI No." value={obj.doi_no} {disabled} />
+				<Input type="text" placeholder="Title Of Paper" value={obj.title} {disabled} />
 			</div>
 
 			<div class="grid grid-cols-3 gap-[40px] p-4">
-				<Input type="text" placeholder="GS Indexed" bind:value={obj.gs_indexed} {disabled} />
+				<Input type="text" placeholder="GS Indexed" value={obj.gs_indexed} {disabled} />
 				<div class="ml-2">
 					<label class="text-sm text-[#888888]"
 						>International/National Journal<span class="text-danger text-sm">*</span></label
@@ -142,7 +164,6 @@
 								id="international"
 								class="lms-input-radio w-4"
 								name="nationality"
-								bind:group={obj.journal_type}
 								value={1}
 								checked={obj.journal_type === 1}
 							/>
@@ -154,7 +175,6 @@
 								id="national"
 								class="lms-input-radio w-4"
 								name="nationality"
-								bind:group={obj.journal_type}
 								value={2}
 								checked={obj.journal_type === 2}
 							/>
@@ -173,7 +193,6 @@
 								id="wosYes"
 								class="lms-input-radio w-4"
 								name="wosIndexed"
-								bind:group={obj.wos_indexed}
 								value={true}
 								checked={obj.wos_indexed === true}
 								{disabled}
@@ -186,7 +205,6 @@
 								id="wosNo"
 								class="lms-input-radio w-4"
 								name="wosIndexed"
-								bind:group={obj.wos_indexed}
 								value={false}
 								checked={obj.wos_indexed === false}
 								{disabled}
@@ -198,7 +216,7 @@
 			</div>
 
 			<div class="grid grid-cols-3 gap-[40px] p-4">
-				<Input type="text" placeholder="Abdc Indexed" bind:value={obj.abdc_indexed} />
+				<Input type="text" placeholder="Abdc Indexed" value={obj.abdc_indexed} />
 				<div class="ml-2">
 					<label class="text-sm text-[#888888]"
 						>UGC Indexed<span class="text-danger text-sm">*</span></label
@@ -210,7 +228,6 @@
 								id="ugcYes"
 								class="lms-input-radio w-4"
 								name="ugcIndexed"
-								bind:group={obj.ugc_indexed}
 								value={true}
 								checked={obj.ugc_indexed === true}
 							/>
@@ -222,7 +239,6 @@
 								id="ugcNo"
 								class="lms-input-radio w-4"
 								name="ugcIndexed"
-								bind:group={obj.ugc_indexed}
 								value={false}
 								checked={obj.ugc_indexed === false}
 							/>
@@ -230,24 +246,24 @@
 						</div>
 					</div>
 				</div>
-				<Input type="text" placeholder="Paper Type" bind:value={obj.paper_type} />
+				<Input type="text" placeholder="Paper Type" value={obj.paper_type} />
 			</div>
 
 			<div class="grid grid-cols-3 gap-[40px] p-4">
-				<Input type="text" placeholder="Foreign Authors" bind:value={obj.foreign_authors} />
+				<Input type="text" placeholder="Foreign Authors" value={obj.foreign_authors} />
 				<Input
 					type="number"
 					placeholder="No. Of Foreign Authors"
-					bind:value={obj.foreign_authors_count}
+					value={obj.foreign_authors_count}
 				/>
-				<Input type="text" placeholder="Student Authors" bind:value={obj.student_authors} />
+				<Input type="text" placeholder="Student Authors" value={obj.student_authors} />
 			</div>
 
 			<div class="grid grid-cols-3 gap-[40px] p-4">
 				<Input
 					type="text"
 					placeholder="No. Of Student Authors"
-					bind:value={obj.student_authors_count}
+					value={obj.student_authors_count}
 				/>
 
 				<!---scopus-->
@@ -262,7 +278,6 @@
 								id="scsYes"
 								class="lms-input-radio w-4"
 								name="scsIndexed"
-								bind:group={obj.scs_indexed}
 								value={true}
 								checked={obj.scs_indexed === true}
 							/>
@@ -274,7 +289,6 @@
 								id="scsNo"
 								class="lms-input-radio w-4"
 								name="scsIndexed"
-								bind:group={obj.scs_indexed}
 								value={false}
 								checked={obj.scs_indexed === false}
 							/>
@@ -282,7 +296,21 @@
 						</div>
 					</div>
 				</div>
-				<button class="lms-btn lms-primary-btn">Download</button>
+
+				<div class="lms-input-container flex flex-row gap-2">
+					<input
+					    id="documents"
+						class="lms-input"
+						placeholder=""
+						value = {obj.filename}
+						{disabled}
+					/>
+					<label for="documents" class="lms-placeholder"
+						>Supporting Documents
+							<span>*</span>
+					</label>
+					<button class="lms-btn lms-primary-btn" on:click={downLoadFiles}><i class="fa-solid fa-download text-lg"></i></button>
+				</div>
 			</div>
 
 			<div class="flex flex-row gap-[40px] p-4">
