@@ -19,5 +19,5 @@ export {
 	AddAttendees,
 	userList,
 	ResearchTable,
-	
+	ResearchAction
 };

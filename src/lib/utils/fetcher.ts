@@ -94,6 +94,10 @@ export const fetchFormApi = async <T>({
 };
 
 
+export async function downloadFile(id : any){
+	
+}
+
 
 // import type { ApiResponse } from '$lib/types/request.types';
 // import type { HttpMethod } from '@sveltejs/kit';

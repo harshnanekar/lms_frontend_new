@@ -5,6 +5,8 @@
 	// import type { SubjectMeetingDetail } from '$lib/types/modules/mpc/master-form';
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
+	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
+	import { Modal } from '$lib/components/ui';
 
 	export let actionData: JournalView;
 	const showMenu = writable<boolean>(false);
@@ -51,7 +53,6 @@
 		}
 	};
 
-
 	onMount(() => {
 		document.addEventListener('click', handleClickOutside);
 		return () => {
@@ -59,11 +60,22 @@
 		};
 	});
 
-    $: console.log("ACTIONDATA>>>>>>>>>>>", actionData);
+	$: console.log('ACTIONDATA>>>>>>>>>>>', actionData);
+
+	const isOpen = writable(false);
+	let modalwidthPercent: ModalSizes = 'md';
+
+	const openModal = (size: ModalSizes) => {
+		modalwidthPercent = size;
+		isOpen.set(true);
+	};
+
+	const closeModal = () => {
+		isOpen.set(false);
+	};
 </script>
 
 <div>
-   
 	<button class="action-button" bind:this={buttonElement} on:click={toggleMenu}>
 		<ActionIcon />
 	</button>
@@ -75,18 +87,28 @@
 			style="top: {$menuPosition.top}px; left: {$menuPosition.left}px;"
 		>
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-				<a href="/journal-paper/view/{actionData.id}" class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
-			    >View</a
+				<a
+					href="/journal-paper/view/{actionData.id}"
+					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+					role="menuitem">View</a
 				>
-				<a href="/journal-paper/edit/{actionData.id}" class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
-					>Edit</a
+				<a
+					href="/journal-paper/edit/{actionData.id}"
+					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+					role="menuitem">Edit</a
 				>
-				<button class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
-				>Delete</button
+				<button
+					on:click={() => openModal('lg')}
+					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+					role="menuitem">Delete</button
 				>
 			</div>
 		</div>
 	{/if}
+
+	<Modal bind:isOpen={$isOpen} size={modalwidthPercent} on:close={closeModal}>
+		<h1>Modal</h1>
+	</Modal>
 </div>
 
 <style>
