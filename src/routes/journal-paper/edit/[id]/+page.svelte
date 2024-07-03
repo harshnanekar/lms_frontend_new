@@ -45,6 +45,9 @@
 	let nmimsCampus = data?.journalData?.campus?.message;
 
 	// let isRequired = false;
+	let isChecked: boolean = false;
+	$: checkVal = isChecked;
+	console.log('checkbox check ',checkVal)
 
 	$: abdcTypes = abdcIndexed;
 	$: foreignAuth = foreignAuthors;
@@ -60,7 +63,7 @@
 	console.log(JSON.stringify(otherAuthors));
 
 	let publicationDate: Date | null = new Date();
-	publicationDate = null;
+	publicationDate = new Date(data.journalData.journalData[0].publishing_date);
 	$: publicationFormattedDate = publicationDate;
 	function handleDateChange(e: CustomEvent<any>) {
 		if (!publicationDate) return;
@@ -68,85 +71,67 @@
 		console.log('publication date ', publicationDate);
 	}
 
+
 	let obj = {
-		nmims_school: [
-			// {
-			// 	value: nmimsSchool[0].school_name,
-			// 	label: nmimsSchool[0].school_name
-			// }
-		],
-		nmims_campus: [
-			// {
-			// 	value: nmimsCampus[0].campus_name,
-			// 	label: nmimsCampus[0].campus_name
-			// }
-		],
-		publish_year: null,
-		policy_cadre: [
-			// {
-			// 	value: policyCadre[0].id,
-			// 	label: policyCadre[0].policy_name
-			// }
-		],
-		all_authors: [
-			// {
-			// 	value: allAuthors[0].id,
-			// 	label: allAuthors[0].faculty_name
-			// }
-		],
-		total_authors: null,
-		nmims_authors: [
-			// {
-			// 	value: nmimsAuthors[0].id,
-			// 	label: nmimsAuthors[0].faculty_name
-			// }
-		],
-		nmims_author_count: null,
-		journal_name: '',
-		uid: '',
-		publisher: '',
-		other_authors: [
-			// {
-			// 	value: otherAuthors[0].id,
-			// 	label: otherAuthors[0].name
-			// }
-		],
-		page_no: '',
-		issn_no: '',
-		scopus_site_score: null,
-		impact_factor: null,
-		doi_no: '',
-		title: '',
-		gs_indexed: '',
+		journal_paper_id : parseInt(data.journalData.journalData[0].journal_paper_id),
+		nmims_school: data.journalData.journalData[0].nmims_school.map((dt: any) => {
+          return { value: dt, label: dt };
+        }),
+		nmims_campus: data.journalData.journalData[0].nmims_campus.map((dt: any) => {
+          return { value: dt, label: dt };
+        }),
+		publish_year: data.journalData.journalData[0].publish_year,
+		policy_cadre: data.journalData.journalData[0].policy_names.map((dt: any) => {
+          return { value: dt.id, label: dt.policy_name };
+        }),
+		all_authors: data.journalData.journalData[0].all_authors.map((dt: any) => {
+          return { value: dt.id, label: dt.faculty_name };
+        }),
+		total_authors: data.journalData.journalData[0].total_authors,
+		nmims_authors: data.journalData.journalData[0].nmims_authors.map((dt: any) => {
+          return { value: dt.id, label: dt.faculty_name };
+        }),
+		nmims_author_count: data.journalData.journalData[0].nmims_authors_count,
+		journal_name:  data.journalData.journalData[0].journal_name,
+		uid:  data.journalData.journalData[0].uid,
+		publisher:  data.journalData.journalData[0].publisher,
+		other_authors: data.journalData.journalData[0].other_authors.map((dt: any) => {
+          return { value: dt.id, label: dt.name };
+        }),
+		page_no: data.journalData.journalData[0].page_no,
+		issn_no: data.journalData.journalData[0].issn_no,
+		scopus_site_score: data.journalData.journalData[0].scopus_site_score,
+		impact_factor: data.journalData.journalData[0].impact_factor,
+		doi_no: data.journalData.journalData[0].doi_no,
+		title: data.journalData.journalData[0].title,
+		gs_indexed: data.journalData.journalData[0].gs_indexed,
 		paper_type: {
-			value: paperType[0].id,
-			label: paperType[0].paper_name
+			value: data.journalData.journalData[0].paper_type[0].id,
+			label: data.journalData.journalData[0].paper_type[0].paper_name
 		},
-		wos_indexed: true,
+		wos_indexed: data.journalData.journalData[0].wos_indexed,
 		abdc_indexed: {
-			value: abdcIndexed[0].id,
-			label: abdcIndexed[0].abdc_type
+			value: data.journalData.journalData[0].abdc_indexed[0].id,
+			label: data.journalData.journalData[0].abdc_indexed[0].abdc_type
 		},
-		ugc_indexed: true,
-		scs_indexed: true,
-		foreign_authors_count: null,
-		foreign_authors: [
-			// {
-			// 	value: foreignAuthors[0].id,
-			// 	label: foreignAuthors[0].name
-			// }
-		],
-		student_authors_count: null,
-		student_authors: [
-			// {
-			// 	value: studentAuthors[0].id,
-			// 	label: studentAuthors[0].name
-			// }
-		],
-		journal_type: 1
+		ugc_indexed: data.journalData.journalData[0].ugc_indexed,
+		scs_indexed: data.journalData.journalData[0].scs_indexed,
+		foreign_authors_count: data.journalData.journalData[0].foreign_authors_count,
+		foreign_authors: data.journalData.journalData[0].foreign_authors.map((dt: any) => {
+          return { value: dt.id, label: dt.name };
+        }),
+		student_authors_count: data.journalData.journalData[0].student_authors_count,
+		student_authors: data.journalData.journalData[0].student_authors.map((dt: any) => {
+          return { value: dt.id, label: dt.name };
+        }),
+		journal_type: data.journalData.journalData[0].journal_type
 	};
 
 	let files: any = [];
+   
+	if(checkVal){
+		files = [];
+	}
 
 	async function handleSubmit() {
 		const journalObject: JournalPaperReq = {
@@ -183,6 +168,8 @@
 			journal_type: Number(obj.journal_type)
 		};
 
+
+	  if(files.length > 0){	
 		const fileObject: FileReq = {
 			documents: Array.from(files)
 		};
@@ -195,10 +182,12 @@
 			});
 			return;
 		}
+	  }	
 
 		const formData = new FormData();
 
 		formData.append('journal_paper', JSON.stringify(journalObject));
+		formData.append('journal_id',obj.journal_paper_id);
 
 		// Append each file to the FormData
 		Array.from(files).forEach((file) => {
@@ -224,7 +213,7 @@
 		console.log('validated data', JSON.stringify(result.data));
 
 		const { error, json } = await fetchFormApi({
-			url: `${PUBLIC_API_BASE_URL}/journal-article-insert`,
+			url: `${PUBLIC_API_BASE_URL}/journal-article-update`,
 			method: 'POST',
 			body: formData
 		});
@@ -236,94 +225,40 @@
 			return;
 		}
 
-		if (json[0].insert_journal_article.status == 403) {
+		if (json[0].upsert_journal_article.status == 403) {
 			toast.error('ALERT!', {
-				description: json[0].insert_journal_article.message
+				description: json[0].upsert_journal_article.message
 			});
 		} else {
-			toast.success('Inserted Successfully');
-			clearForm();
+			toast.success('Updated Successfully');
+			checkVal = false
 		}
 	}
 
-	function clearForm() {
-		obj = {
-			nmims_school: [
-				// {
-				// 	value: nmimsSchool[0].school_name,
-				// 	label: nmimsSchool[0].school_name
-				// }
-			],
-			nmims_campus: [
-				// {
-				// 	value: nmimsCampus[0].campus_name,
-				// 	label: nmimsCampus[0].campus_name
-				// }
-			],
-			publish_year: null,
-			policy_cadre: [
-				// {
-				// 	value: policyCadre[0].id,
-				// 	label: policyCadre[0].policy_name
-				// }
-			],
-			all_authors: [
-				// {
-				// 	value: allAuthors[0].id,
-				// 	label: allAuthors[0].faculty_name
-				// }
-			],
-			total_authors: null,
-			nmims_authors: [
-				// {
-				// 	value: nmimsAuthors[0].id,
-				// 	label: nmimsAuthors[0].faculty_name
-				// }
-			],
-			nmims_author_count: null,
-			journal_name: '',
-			uid: '',
-			publisher: '',
-			other_authors: [
-				// {
-				// 	value: otherAuthors[0].id,
-				// 	label: otherAuthors[0].name
-				// }
-			],
-			page_no: '',
-			issn_no: '',
-			scopus_site_score: null,
-			impact_factor: null,
-			doi_no: '',
-			title: '',
-			gs_indexed: '',
-			paper_type: {
-				value: paperType[0].id,
-				label: paperType[0].paper_name
-			},
-			wos_indexed: true,
-			abdc_indexed: {
-				value: abdcIndexed[0].id,
-				label: abdcIndexed[0].abdc_type
-			},
-			ugc_indexed: true,
-			scs_indexed: true,
-			foreign_authors_count: null,
-			foreign_authors: [
-				// {
-				// 	value: foreignAuthors[0].id,
-				// 	label: foreignAuthors[0].name
-				// }
-			],
-			student_authors_count: null,
-			student_authors: [
-				// {
-				// 	value: studentAuthors[0].id,
-				// 	label: studentAuthors[0].name
-				// }
-			],
-			journal_type: 1
-		};
+	
+	async function downLoadFiles() {
+		fetch(`${PUBLIC_API_BASE_URL}/journal-download-files?id=${obj.journal_paper_id}`)
+			.then((response) => {
+				if (response.ok) {
+					return response.blob();
+				}
+				throw new Error('Network response was not ok.');
+			})
+			.then((blob) => {
+				const url = window.URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.style.display = 'none';
+				a.href = url;
+				a.download = 'research_documents.zip';
+				document.body.appendChild(a);
+				a.click();
+				window.URL.revokeObjectURL(url);
+			})
+			.catch((error) => {
+				toast.error(error.message || 'Something went wrong!', {
+					description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+				});
+			});
 	}
 </script>
 
@@ -582,7 +517,17 @@
 					</div>
 				</div>
 			</div>
-			<input type="file" bind:files multiple />
+
+			<div>
+				<label for="supporting-documents">Upload Supporting Documents <i style="color: red;">*</i><br/></label>
+			    <label>Click To Upload New File <input type="checkbox" bind:checked={isChecked}></label>
+				{#if checkVal}
+				<input type="file" bind:files multiple />
+				{:else}
+				<button class="lms-primary-btn mt-2" on:click={downLoadFiles}>Download</button>
+				{/if}
+			</div>	
+			
 		</div>
 
 		<div class="flex flex-row gap-[40px] p-4">
@@ -620,7 +565,7 @@
 		</div>
 	</div>
 	<div class="flex flex-row gap-[20px] p-4">
-		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
 		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
 	</div>
 </Card>
+
