@@ -424,6 +424,7 @@
             // Check if the option is already selected to avoid duplicates
             if (!selectedOptions.find(opt => opt.value === selected.value)) {
                 selectedOptions = [...selectedOptions, selected];
+                closeDropdown();
             }
         } else {
             selectedOptions = selected;
