@@ -10,13 +10,12 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import { toast } from 'svelte-sonner';
 
-
 	let campus: string = '';
 	let disabled: boolean = true;
 	export let data;
 
 	let obj = {
-		journal_paper_id:data.journalData[0].journal_paper_id,
+		journal_paper_id: data.journalData[0].journal_paper_id,
 		journal_name: data.journalData[0].journal_name,
 		title: data.journalData[0].title,
 		publish_year: data.journalData[0].publish_year,
@@ -39,7 +38,7 @@
 		page_no: data.journalData[0].page_no,
 		paper_type: data.journalData[0].paper_name,
 		nmims_school: data.journalData[0].nmims_school,
-		nmims_campus: data.journalData[0].nmims_school,
+		nmims_campus: data.journalData[0].nmims_campus,
 		abdc_indexed: data.journalData[0].abdc_type,
 		policy_cadre: data.journalData[0].policy_names,
 		all_authors: data.journalData[0].all_authors,
@@ -48,7 +47,7 @@
 		other_authors: data.journalData[0].other_authors,
 		student_authors: data.journalData[0].student_authors,
 		supporting_documents: data.journalData[0].supporting_documents,
-		filename : data.journalData[0].filename
+		filename: data.journalData[0].filename
 	};
 
 	let publicationDate: Date | null = new Date();
@@ -59,20 +58,29 @@
 
 	console.log('journal json ', JSON.stringify(obj), data.journalData[0].paper_name);
 
-	async function downLoadFiles(){
-		console.log('inside files')
-		const { error, json } = await fetchApi({
-			url: `${PUBLIC_API_BASE_URL}/journal-download-files`,
-			method: 'POST',
-			body : {id:obj.journal_paper_id}
-		});
-
-		if (error) {
-			toast.error(error.message || 'Something went wrong!', {
-				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+	async function downLoadFiles() {
+		fetch(`${PUBLIC_API_BASE_URL}/journal-download-files?id=${obj.journal_paper_id}`)
+			.then((response) => {
+				if (response.ok) {
+					return response.blob();
+				}
+				throw new Error('Network response was not ok.');
+			})
+			.then((blob) => {
+				const url = window.URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.style.display = 'none';
+				a.href = url;
+				a.download = 'research_documents.zip';
+				document.body.appendChild(a);
+				a.click();
+				window.URL.revokeObjectURL(url);
+			})
+			.catch((error) => {
+				toast.error(error.message || 'Something went wrong!', {
+					description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+				});
 			});
-			return;
-		}
 	}
 </script>
 
@@ -81,23 +89,13 @@
 		<div class="scroll modal-content max-h-[70vh] min-h-[50vh] overflow-auto">
 			<!-- Adjust max-height as needed -->
 			<div class="grid grid-cols-3 gap-[40px] p-4">
-				<Input type="text" placeholder="Nmims Campus" value={obj.nmims_school} {disabled} />
+				<Input type="text" placeholder="Nmims School" value={obj.nmims_school} {disabled} />
 				<Input type="text" placeholder="Nmims Campus" value={obj.nmims_campus} {disabled} />
-				<Input
-					type="number"
-					placeholder="Publishing Year"
-					value={obj.publish_year}
-					{disabled}
-				/>
+				<Input type="number" placeholder="Publishing Year" value={obj.publish_year} {disabled} />
 			</div>
 			<div class="grid grid-cols-3 gap-[40px] p-4">
 				<Input type="text" placeholder="Policy Cadre" value={obj.policy_cadre} {disabled} />
-				<Input
-					type="text"
-					placeholder="Name Of All Authors"
-					value={obj.all_authors}
-					{disabled}
-				/>
+				<Input type="text" placeholder="Name Of All Authors" value={obj.all_authors} {disabled} />
 				<Input
 					type="number"
 					placeholder="Total No. Of Authors"
@@ -260,11 +258,7 @@
 			</div>
 
 			<div class="grid grid-cols-3 gap-[40px] p-4">
-				<Input
-					type="text"
-					placeholder="No. Of Student Authors"
-					value={obj.student_authors_count}
-				/>
+				<Input type="text" placeholder="No. Of Student Authors" value={obj.student_authors_count} />
 
 				<!---scopus-->
 				<div class="ml-2">
@@ -298,18 +292,14 @@
 				</div>
 
 				<div class="lms-input-container flex flex-row gap-2">
-					<input
-					    id="documents"
-						class="lms-input"
-						placeholder=""
-						value = {obj.filename}
-						{disabled}
-					/>
+					<input id="documents" class="lms-input" placeholder="" value={obj.filename} {disabled} />
 					<label for="documents" class="lms-placeholder"
 						>Supporting Documents
-							<span>*</span>
+						<span>*</span>
 					</label>
-					<button class="lms-btn lms-primary-btn" on:click={downLoadFiles}><i class="fa-solid fa-download text-lg"></i></button>
+					<button class="lms-btn lms-primary-btn" on:click={downLoadFiles}
+						><i class="fa-solid fa-download text-lg"></i></button
+					>
 				</div>
 			</div>
 
