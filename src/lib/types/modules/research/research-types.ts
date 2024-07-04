@@ -43,5 +43,37 @@ export type JournalPaper = {
 	 journal_name : string,
 	 publisher : string,
 	 impact_factor : number,
- }
+ } 
+
+
+
+export type BookPublicationRender = {
+	all_authors: string[],
+	nmims_school: string[],
+    nmims_campus: string[],
+	publish_year: number,
+	title: string,
+	isbn_no: string,
+	publisher: string,
+}
+
+
+export type BookPublicationDetails = {
+	nmims_school: string[],
+    nmims_campus: string[],
+	all_authors: number[],
+	title: string,
+    edition: string,
+    volume_no: string,
+    publisher: string,
+	publisher_category: number,
+	publish_year: number,
+    web_link: string,
+	isbn_no: string,
+    doi_no: string,
+    publication_place: string,
+    nmims_authors_count: number,
+    nmims_authors: number[],
+    supporting_documents: string[],
+}
 

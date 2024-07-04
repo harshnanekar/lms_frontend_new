@@ -41,8 +41,33 @@ export const journalPaper = z.object({
 });
 
 
+
   export type JournalPaperReq = z.infer<typeof journalPaper>;
 
+  export const bookPublication = z.object({
+
+	nmims_school : z.array(z.string()).min(1,{message:'School Is Required'}),
+    nmims_campus : z.array(z.string()).min(1,{message:'Campus Is Required'}),
+	publish_year: z.number().refine((data) => {
+	  return data >= 1900 && data <= 3000;
+	}, {
+	  message: 'Invalid Year'
+	}),
+	all_authors: z.array(z.number()).min(1, {message:'All authors are required'}),
+	nmims_authors: z.array(z.number()).min(1, {message:'NMIMS authors are required'}),
+	nmims_authors_count: z.number().min(1, { message: 'Author count is required' }),
+	publisher: z.string().min(1, 'Publisher is required'),
+	volume_no: z.string().min(1, 'Volume number is required'),
+	edition: z.string().min(1, 'Edition  is required'),
+	web_link: z.string().min(1, 'Website link is required'),
+	isbn_no: z.string().min(1, 'ISBN Number  is required'),
+	doi_no: z.string().min(1, 'DOI number is required'),
+	publication_place: z.string().min(1, 'Place Of Publication'),
+    publisher_category: z.number().min(1, 'Publisher category is required')
+
+  })
+
+  export type bookPublicationReq = z.infer<typeof bookPublication>;
 
   export const fileSchema = z.object({ 
    documents: z.array(z.instanceof(File)).nonempty({message:'File is required'})
@@ -51,3 +76,5 @@ export const journalPaper = z.object({
   })
 
     export type FileReq = z.infer<typeof fileSchema>;
+
+

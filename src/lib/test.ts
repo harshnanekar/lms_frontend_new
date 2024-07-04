@@ -1,6 +1,7 @@
 import type { TableHeaders } from './types/layout/table';
 import type { SubjectMeetingDetail } from './types/modules/mpc/master-form';
-import type { JournalPaper, JournalView } from './types/modules/research/research-types';
+import type { JournalPaper, JournalView, BookPublicationRender } from './types/modules/research/research-types';
+
 
 
 export const SIDEBAR_URL = [
@@ -25,6 +26,17 @@ export const SIDEBAR_URL = [
 		module: null,
 		child: []
 	},
+
+	{
+		url: '/book-publication',
+		icon: 'test',
+		label: 'Book Publication',
+		module: null,
+		child: []
+	},
+
+
+
 	{
 		url: '/page',
 		icon: 'Mpc',
@@ -256,3 +268,64 @@ export const paginationHeaders : TableHeaders<JournalView>[] = [
 		showTooltip: false
 	}
 ]; 
+
+
+
+export const BookPublicationHeaders :  TableHeaders<BookPublicationRender>[] = [
+
+	{
+		label: 'All Authors Names',
+		key: 'all_authors',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'Nmims School',
+		key: 'nmims_school',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Nmims Campus',
+		key: 'nmims_campus',
+		sortable: false,
+		classes: 'whitespace-nowrap',
+		showTooltip: false
+	},
+
+	{
+		label: 'Publishing Year',
+		key: 'publish_year',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'Title Of Book',
+		key: 'title',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'ISBN Number',
+		key: 'isbn_no',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'Publisher Name',
+		key: 'publisher',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	}
+
+]
