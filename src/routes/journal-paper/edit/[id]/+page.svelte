@@ -260,6 +260,7 @@
 				});
 			});
 	}
+  
 </script>
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->

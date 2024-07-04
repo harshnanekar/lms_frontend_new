@@ -1,10 +1,17 @@
 <script lang="ts">
     import type { BookPublicationDetails } from '$lib/types/modules/research/research-types.ts';
-    import { Input,DatePicker  } from '$lib/components/ui';
+    import { Input,DatePicker,DynamicSelect } from '$lib/components/ui';
     import { SelectDateIcon, XIcon } from '$lib/components/icons';
     import { formatDateTimeShort } from '$lib/utils/date-formatter';
     import { tooltip } from '$lib/utils/tooltip';
     import { fly } from 'svelte/transition';
+
+    import {
+		getSchool,
+		getCampus,
+		getAllAuthor,
+		getNmimsAuthor
+	} from '$lib/utils/select.helper';
     
     let campus : string = '';
     let title = 'Book Publication';
@@ -14,21 +21,47 @@
     console.log('journal title ');
 
     }
+
+    export let data;
+
+    console.log('data in side edit view ===>>>', data);
+    console.log('data in side edit view ankit mishra ===>>>', data.bookPublicationData[0]);
+
+   
+
+    
+
+
+    let nmimsSchool = data?.bookPublicationData?.school?.message;
+	let nmimsCampus = data?.bookPublicationData?.campus?.message;
+    let nmimsAuthors = data?.bookPublicationData?.nmimsAuthors?.message;
+    let allAuthors = data?.bookPublicationData?.allAuthors?.message;
+
+    $: nmimsAuth = nmimsAuthors;
+	$: allAuth = allAuthors;
+	$: school = nmimsSchool;
+	$: campus = nmimsCampus;
+
+    let isChecked: boolean = false;
+	$: checkVal = isChecked;
+	console.log('checkbox check ',checkVal);
  
 
-    let obj : BookPublicationDetails = {
-    title: "A Comprehensive Guide to Testing",
-    edition: "1st",
-    publish_year: 2023,
-    volume_no: "Vol. 1",
-    publisher: "Quality Testing Publisher",
-    web_link: "https://example.com/testing-book",
-    doi_no: "10.1234/testing.book.2023",
-    publication_place: "New York",
-    isbn_no: "978-3-16-148410-0",
-    nmims_authors_count: 2,
+    let obj = {
+    title: data.bookPublicationData[0].title,
+    edition: data.bookPublicationData[0].edition,
+    publish_year: data.bookPublicationData[0].publish_year,
+    volume_no: data.bookPublicationData[0].volume_no,
+    publisher: data.bookPublicationData[0].publisher,
+    web_link: data.bookPublicationData[0].web_link,
+    doi_no: data.bookPublicationData[0].doi_no,
+    publication_place: data.bookPublicationData[0].publication_place,
+    isbn_no: data.bookPublicationData[0].isbn_no,
+    nmims_authors_count: data.bookPublicationData[0].nmims_authors_count,
     publisher_category: 1,
-    nmims_school: ["School of Science", "School of Engineering"],
+    nmims_school: data.bookPublicationData[0].nmims_school.map((dt: any) => {
+          return { value: dt, label: dt };
+        }),
     nmims_campus: ["Mumbai", "Bangalore"],
     all_authors: [1, 2],
     nmims_authors: [1, 2]
@@ -40,9 +73,15 @@
     </script>
     
     <div class="rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 shadow-card sm:p-6">
-      <div class="min-h-[50vh] overflow-auto scroll modal-content max-h-[70vh]"> <!-- Adjust max-height as needed -->
+      <div class="min-h-[50vh] overflow-auto scroll modal-content max-h-[70vh]">
         <div class="grid grid-cols-3 gap-[40px] p-4">
-          <Input type="text" placeholder="Nmims School" bind:value ={obj.nmims_school}/>
+            <DynamicSelect
+            isRequired={true}
+            placeholder="Nmims School"
+            options={getSchool(school)}
+            bind:selectedOptions={obj.nmims_school}
+            isMultiSelect={true}
+           />          
           <Input type="text" placeholder="Nmims Campus" bind:value ={obj.nmims_campus}/>
           <Input type="text" placeholder="All Authors Names" bind:value ={obj.all_authors}/>
         </div>
