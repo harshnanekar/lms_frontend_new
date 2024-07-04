@@ -395,7 +395,6 @@
         const spaceBelow = viewportHeight - buttonRect.bottom;
         const spaceAbove = buttonRect.top;
 
-        // Calculate total space needed for dropdown (dropdown height + button height)
         const dropdownSpaceNeeded = dropdownRef.clientHeight + buttonRef.clientHeight;
 
         // Determine the position based on available space
@@ -460,12 +459,16 @@
             {#if isMultiSelect}
                 <div class="selected-options">
                     {#if Array.isArray(selectedOptions)}
+                       {#if selectedOptions.length > 0}
                         {#each selectedOptions as option (option.value)}
                             <div class="selected-option">
                                 {option.label} 
                                 <button class="remove-btn" on:click={() => removeOption(option)}>✕</button>
                             </div>
                         {/each}
+                       <!-- {:else}
+                       {placeholder} -->
+                       {/if}
                     {/if}
                 </div>
             {:else}
