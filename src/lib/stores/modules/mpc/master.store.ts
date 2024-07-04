@@ -51,3 +51,6 @@ export const defaultJournalStore = {
 
 export const journalStore = writable<JournalPaper>(defaultJournalStore);
 export const masterFormStore = writable<MasterMeetingStore>(defaultMasterStoreValue);
+
+let url =new URL("http://localhost:9090/research");
+export const paginateUrl = writable<URL>(url);

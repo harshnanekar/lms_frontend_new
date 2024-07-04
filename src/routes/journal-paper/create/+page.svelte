@@ -29,7 +29,7 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 
-	export let data;
+	export let data: any;
 	let isRequired = false;
 	let title = 'Journal Articles Published';
 

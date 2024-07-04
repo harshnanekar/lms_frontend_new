@@ -29,7 +29,7 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 
-	export let data;
+	export let data: any;
 	let isRequired = false;
 	let title = 'Journal Articles Published';
 
@@ -71,7 +71,7 @@
 		console.log('publication date ', publicationFormattedDate);
 	}
 
-	let obj = {
+	let obj: any = {
 		journal_paper_id: parseInt(data.journalData.journalData[0].journal_paper_id),
 		nmims_school:
 			data.journalData.journalData[0].nmims_school.length > 0
