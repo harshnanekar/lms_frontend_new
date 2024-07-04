@@ -29,3 +29,13 @@ export function formatDateTimeShort(date: Date): string {
 	// Replace placeholders with dashes and a dot
 	return formatted.replace(/-/g, ' ').replace('.', ':'); // Replace hyphens with spaces, dot with separator
 }
+
+export  function formatDate(date:Date) {
+    const dateObject = new Date(date);
+  
+    const year = dateObject.getFullYear();
+    const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+    const day = dateObject.getDate().toString().padStart(2, '0');
+  
+    return `${year}-${month}-${day}`;
+  }
