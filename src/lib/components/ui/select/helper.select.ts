@@ -3,8 +3,8 @@ import type { ApiResponse, Filter } from '$lib/types/request.types';
 import { fetchApi } from '$lib/utils/fetcher';
 
 export type CustomOptions = {
-	value: string | number;
-	label: string;
+	value: string | number | null;
+	label: string | null;
 	isHidden?: boolean;
 };
 

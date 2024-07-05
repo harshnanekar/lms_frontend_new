@@ -29,7 +29,7 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 
-	export let data;
+	export let data: any;
 	let isRequired = false;
 	let title = 'Journal Articles Published';
 
@@ -299,8 +299,10 @@
 			title: '',
 			gs_indexed: '',
 			paper_type: {
-				value: paperType[0].id,
-				label: paperType[0].paper_name
+				value : null,
+				label : null
+				// value: paperType[0].id,
+				// label: paperType[0].paper_name
 			},
 			wos_indexed: true,
 			abdc_indexed: {

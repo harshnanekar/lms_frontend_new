@@ -29,7 +29,7 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 
-	export let data;
+	export let data: any;
 	let isRequired = false;
 	let title = 'Journal Articles Published';
 
@@ -71,7 +71,7 @@
 		console.log('publication date ', publicationFormattedDate);
 	}
 
-	let obj = {
+	let obj: any = {
 		journal_paper_id: parseInt(data.journalData.journalData[0].journal_paper_id),
 		nmims_school:
 			data.journalData.journalData[0].nmims_school.length > 0
@@ -262,15 +262,103 @@
 			return;
 		}
 
-		if (json[0].upsert_journal_article.status == 403) {
+		console.log(' data', JSON.stringify(json));
+
+		if (json.data[0].upsert_journal_article.status == 403) {
 			toast.error('ALERT!', {
-				description: json[0].upsert_journal_article.message
+				description: json.data[0].upsert_journal_article.message
 			});
 		} else {
 			toast.success('Updated Successfully');
 			files = [];
 			isChecked = false;
 		}
+
+		obj = {
+			journal_paper_id: parseInt(json.viewData[0].journal_paper_id),
+			nmims_school:
+				json.viewData[0].nmims_school.length > 0
+					? json.viewData[0].nmims_school.map((dt: any) => {
+							return { value: dt, label: dt };
+						})
+					: [],
+			nmims_campus:
+				json.viewData[0].nmims_campus.length > 0
+					? json.viewData[0].nmims_campus.map((dt: any) => {
+							return { value: dt, label: dt };
+						})
+					: [],
+			publish_year: json.viewData[0].publish_year ? json.viewData[0].publish_year : null,
+			policy_cadre: json.viewData[0].policy_names
+				? json.viewData[0].policy_names.map((dt: any) => {
+						return { value: dt.id, label: dt.policy_name };
+					})
+				: [],
+			all_authors: json.viewData[0].all_authors
+				? json.viewData[0].all_authors.map((dt: any) => {
+						return { value: dt.id, label: dt.faculty_name };
+					})
+				: [],
+			total_authors: json.viewData[0].total_authors ? json.viewData[0].total_authors : null,
+			nmims_authors: json.viewData[0].nmims_authors
+				? json.viewData[0].nmims_authors.map((dt: any) => {
+						return { value: dt.id, label: dt.faculty_name };
+					})
+				: [],
+			nmims_author_count: json.viewData[0].nmims_authors_count
+				? json.viewData[0].nmims_authors_count
+				: null,
+			journal_name: json.viewData[0].journal_name ? json.viewData[0].journal_name : '',
+			uid: json.viewData[0].uid ? json.viewData[0].uid : '',
+			publisher: json.viewData[0].publisher ? json.viewData[0].publisher : '',
+			other_authors: json.viewData[0].other_authors
+				? json.viewData[0].other_authors.map((dt: any) => {
+						return { value: dt.id, label: dt.name };
+					})
+				: [],
+			page_no: json.viewData[0].page_no ? json.viewData[0].page_no : '',
+			issn_no: json.viewData[0].issn_no ? json.viewData[0].issn_no : '',
+			scopus_site_score: json.viewData[0].scopus_site_score
+				? json.viewData[0].scopus_site_score
+				: null,
+			impact_factor: json.viewData[0].impact_factor ? json.viewData[0].impact_factor : null,
+			doi_no: json.viewData[0].doi_no ? json.viewData[0].doi_no : null,
+			title: json.viewData[0].title ? json.viewData[0].title : '',
+			gs_indexed: json.viewData[0].gs_indexed,
+			paper_type: {
+				value: json.viewData[0].paper_type[0].id,
+				label: json.viewData[0].paper_type[0].paper_name
+			},
+			wos_indexed: json.viewData[0].wos_indexed,
+			abdc_indexed: json.viewData[0].abdc_indexed[0]
+				? {
+						value: json.viewData[0].abdc_indexed[0].id,
+						label: json.viewData[0].abdc_indexed[0].abdc_type
+					}
+				: {
+						value: '',
+						label: ''
+					},
+			ugc_indexed: json.viewData[0].ugc_indexed,
+			scs_indexed: json.viewData[0].scs_indexed,
+			foreign_authors_count: json.viewData[0].foreign_authors_count
+				? json.viewData[0].foreign_authors_count
+				: null,
+			foreign_authors: json.viewData[0].foreign_authors
+				? json.viewData[0].foreign_authors.map((dt: any) => {
+						return { value: dt.id, label: dt.name };
+					})
+				: [],
+			student_authors_count: json.viewData[0].student_authors_count
+				? json.viewData[0].student_authors_count
+				: null,
+			student_authors: json.viewData[0].student_authors
+				? json.viewData[0].student_authors.map((dt: any) => {
+						return { value: dt.id, label: dt.name };
+					})
+				: [],
+			journal_type: json.viewData[0].journal_type ? parseInt(json.viewData[0].journal_type) : null
+		};
 	}
 
 	async function downLoadFiles() {

@@ -93,7 +93,7 @@
 		@apply rounded-lg bg-base;
 	}
 
-	.lms-table tbody tr:hover *:not(.no-bold) {
+	.lms-table tbody tr:hover > td:not(.no-bold) {
 		-webkit-text-stroke: 0.6px black;
 	}
 
@@ -262,6 +262,10 @@
 			align-items: center;
 			gap:20px;
 		}
+
+		.lms-input-radio[disabled]{
+			accent-color: var(--lms--color-primary);
+		}
 	
 		.lms-input-radio {
 			accent-color: var(--lms--color-primary);
@@ -313,6 +317,7 @@
 			height: 1px;
 			width: 100%;
 		}
+
 
 		
 	/* .dropdown-content {
