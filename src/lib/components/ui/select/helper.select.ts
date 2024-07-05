@@ -6,7 +6,7 @@ export type CustomOptions = {
 	value: string | number | null;
 	label: string | null;
 	isHidden?: boolean;
-};
+} | null;
 
 export type GojoInfinity = {
 	data: CustomOptions[];

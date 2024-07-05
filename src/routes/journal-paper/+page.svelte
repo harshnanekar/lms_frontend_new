@@ -44,7 +44,8 @@
 
 	let actionData: JournalView;
 	let researchUrl: string = 'url';
-	$: console.log('researchUrl ', researchUrl);
+	$: research = researchUrl;
+	console.log('research url ', research);
 </script>
 
 <div class="flex items-center justify-between">
