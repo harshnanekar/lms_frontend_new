@@ -262,6 +262,10 @@
 			align-items: center;
 			gap:20px;
 		}
+
+		.lms-input-radio[disabled]{
+			accent-color: var(--lms--color-primary);
+		}
 	
 		.lms-input-radio {
 			accent-color: var(--lms--color-primary);
@@ -313,6 +317,7 @@
 			height: 1px;
 			width: 100%;
 		}
+
 
 		
 	/* .dropdown-content {

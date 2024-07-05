@@ -299,8 +299,10 @@
 			title: '',
 			gs_indexed: '',
 			paper_type: {
-				value: paperType[0].id,
-				label: paperType[0].paper_name
+				value : null,
+				label : null
+				// value: paperType[0].id,
+				// label: paperType[0].paper_name
 			},
 			wos_indexed: true,
 			abdc_indexed: {
