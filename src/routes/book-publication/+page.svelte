@@ -12,7 +12,7 @@
     import type { TableHeaders } from '$lib/types/layout/table';
     import { PaginateDynamic } from '$lib/components/layout/pagination';
     import {BookPublicationHeaders} from "$lib/test";
-    import ResearchAction from '$lib/components/modules/mpc/book-publication-action.svelte';
+    import BookPublicationAction from '$lib/components/modules/mpc/book-publication-action.svelte';
     
     const url  =  new URL("http://localhost:9090/research/book-publication-paginate");
     
@@ -23,16 +23,6 @@
     
     
     // export let masterFormList: MeetingListItem[] | null;
-    export let researchFormList: BookPublicationRender[] | null;
-        researchFormList = [
-       { all_authors : ['Ankit Mishra'],
-         nmims_school : ["KPMSOL"],
-         nmims_campus : ["MPSTME","Shirpur"],
-         publish_year :  2024,
-         title : "Data Structure",
-         isbn_no : "isbn_no-123",
-         publisher : "Publisher"    }
-       ]
     
        function navigateToCreate(){
          goto('/book-publication/create');
@@ -51,12 +41,9 @@
     
     
     <div class="rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 shadow-card sm:p-6 mt-[5%]">
-    {#if researchFormList}
     <!-- <ResearchTable /> -->
      <PaginateDynamic url={url} header={BookPublicationHeaders} let:actionData  >
-        <ResearchAction actionData={actionData}  />
+        <BookPublicationAction actionData={actionData}  />
      </PaginateDynamic>
-    {:else}
-    <p>No Data found</p>
-    {/if}
+    
     </div>

@@ -61,6 +61,7 @@ export const journalPaper = z.object({
 	all_authors: z.array(z.number()).min(1, {message:'All authors are required'}),
 	nmims_authors: z.array(z.number()).min(1, {message:'NMIMS authors are required'}),
 	nmims_authors_count: z.number().min(1, { message: 'Author count is required' }),
+	title: z.string().min(1, 'Title is required'),
 	publisher: z.string().min(1, 'Publisher is required'),
 	volume_no: z.string().min(1, 'Volume number is required'),
 	edition: z.string().min(1, 'Edition  is required'),

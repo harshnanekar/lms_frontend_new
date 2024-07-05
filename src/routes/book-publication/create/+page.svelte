@@ -10,8 +10,7 @@
 		getSchool,
 		getCampus,
 		getAllAuthor,
-		getNmimsAuthor,
-		getStudentAuthor
+		getNmimsAuthor
 	} from '$lib/utils/select.helper';
 	import { validateWithZod } from '$lib/utils/validations';
 	import {
@@ -29,16 +28,21 @@
 	let title = 'Book Publication';
 
 
-	let nmimsAuthors = data?.bookPublicationData?.nmimsAuthors?.message;
-	let allAuthors = data?.bookPublicationData?.allAuthors?.message;
+	
 	let nmimsSchool = data?.bookPublicationData?.school?.message;
 	let nmimsCampus = data?.bookPublicationData?.campus?.message;
+    let nmimsAuthors = data?.bookPublicationData?.nmimsAuthors?.message;
+    let allAuthors = data?.bookPublicationData?.allAuthors?.message;
+	
+    console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool)
 
-
-	$: nmimsAuth = nmimsAuthors;
+    $: school = nmimsSchool;
+    $: nmimsAuth = nmimsAuthors;
 	$: allAuth = allAuthors;
-	$: school = nmimsSchool;
 	$: campus = nmimsCampus;
+
+    
+	console.log("JSON.stringify(school)", JSON.stringify(school));
 
 	let obj = {
 		nmims_school: [
@@ -136,7 +140,7 @@
 			const [firstPath, firstMessage] = Object.entries(result.errors)[0];
 			toast.error('ALERT!', {
 				description: firstMessage
-			});
+			})
 			return;
 		}
 

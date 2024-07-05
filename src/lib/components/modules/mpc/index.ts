@@ -6,6 +6,7 @@ import MpcTable from './main-table/mpc-table.svelte';
 import ResearchAction from './research-action.svelte';
 import AddCampusModal from './modals/add-campus-modal.svelte';
 import ResearchTable from './main-table/research-table.svelte';
+import BookPublicationAction from './book-publication-action.svelte'
 import { userList, AddAnchor, AddAttendees } from './master-form';
 
 export {
@@ -19,5 +20,6 @@ export {
 	AddAttendees,
 	userList,
 	ResearchTable,
-	ResearchAction
+	ResearchAction,
+	BookPublicationAction
 };
