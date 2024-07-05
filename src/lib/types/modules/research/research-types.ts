@@ -45,3 +45,13 @@ export type JournalPaper = {
 	 impact_factor : number,
  }
 
+ export type EditedBookPublicationView = {
+	edit_book_publication_authors: string[],
+	campus_name : string[],
+	school_name: string[],
+	publish_year: number,
+	title: string,
+	isbn_no: number,
+	publisher: string
+ }
+
