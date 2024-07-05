@@ -85,7 +85,7 @@
 				const a = document.createElement('a');
 				a.style.display = 'none';
 				a.href = url;
-				a.download = 'journal_documents.zip';
+				a.download = 'journal_article_documents.zip';
 				document.body.appendChild(a);
 				a.click();
 				window.URL.revokeObjectURL(url);

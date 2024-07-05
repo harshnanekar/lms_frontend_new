@@ -102,6 +102,7 @@
 	};
 
 	let files: any = [];
+	console.log('indexes type ', obj.ugc_indexed, obj.gs_indexed, obj.wos_indexed);
 
 	async function handleSubmit() {
 		const journalObject: JournalPaperReq = {
@@ -352,7 +353,7 @@
 							class="lms-input-radio w-4"
 							name="radio-button-national"
 							bind:group={obj.journal_type}
-							checked={obj.journal_type == 1}
+							checked
 							value={1}
 						/>
 						<span class="text-sm text-[#888888]">International</span>
@@ -364,7 +365,6 @@
 							class="lms-input-radio w-4"
 							name="radio-button-national"
 							bind:group={obj.journal_type}
-							checked={obj.journal_type == 1}
 							value={2}
 						/>
 						<span class="text-sm text-[#888888]">National</span>
@@ -383,7 +383,7 @@
 							class="lms-input-radio w-4"
 							name="radio-button-wos"
 							bind:group={obj.wos_indexed}
-							checked={obj.wos_indexed == true}
+							checked
 							value={true}
 						/>
 						<span class="text-sm text-[#888888]">Yes</span>
@@ -395,7 +395,6 @@
 							class="lms-input-radio w-4"
 							name="radio-button-wos"
 							bind:group={obj.wos_indexed}
-							checked={obj.wos_indexed == true}
 							value={false}
 						/>
 						<span class="text-sm text-[#888888]">No</span>
@@ -423,7 +422,7 @@
 							class="lms-input-radio w-4"
 							name="radio-button-ugc"
 							bind:group={obj.ugc_indexed}
-							checked={obj.ugc_indexed == true}
+							checked
 							value={true}
 						/>
 						<span class="text-sm text-[#888888]">Yes</span>
@@ -435,7 +434,6 @@
 							class="lms-input-radio w-4"
 							name="radio-button-ugc"
 							bind:group={obj.ugc_indexed}
-							checked={obj.ugc_indexed == true}
 							value={false}
 						/>
 						<span class="text-sm text-[#888888]">No</span>
@@ -493,7 +491,7 @@
 							class="lms-input-radio w-4"
 							name="radio-button-scs"
 							bind:group={obj.scs_indexed}
-							checked={obj.scs_indexed == true}
+							checked
 							value={true}
 						/>
 						<span class="text-sm text-[#888888]">Yes</span>
@@ -505,7 +503,6 @@
 							class="lms-input-radio w-4"
 							name="radio-button-scs"
 							bind:group={obj.scs_indexed}
-							checked={obj.scs_indexed == true}
 							value={false}
 						/>
 						<span class="text-sm text-[#888888]">No</span>

@@ -4,7 +4,7 @@
 	import { Modal } from '$lib/components/ui';
 	import type { JournalView } from '$lib/types/modules/research/research-types';
 	// import type { SubjectMeetingDetail } from '$lib/types/modules/mpc/master-form';
-	import { onMount } from 'svelte';
+	import {createEventDispatcher,onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
 	import { Popup } from '$lib/components/ui/popup';
@@ -17,8 +17,7 @@
 	// import { Modal } from '$lib/components/ui';
 
 	export let actionData: JournalView;
-	export let researchUrl: string;
-	researchUrl = 'modified url';
+
 	const showMenu = writable<boolean>(false);
 	const menuPosition = writable<{ top: number; left: number }>({ top: 0, left: 0 });
 
