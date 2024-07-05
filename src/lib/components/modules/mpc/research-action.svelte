@@ -17,6 +17,8 @@
 	// import { Modal } from '$lib/components/ui';
 
 	export let actionData: JournalView;
+	export let researchUrl: string;
+	researchUrl = 'modified url';
 	const showMenu = writable<boolean>(false);
 	const menuPosition = writable<{ top: number; left: number }>({ top: 0, left: 0 });
 

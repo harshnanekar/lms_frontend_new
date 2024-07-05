@@ -39,9 +39,9 @@
 		journal_type: data.journalData[0].journal_type
 			? Number(data.journalData[0].journal_type)
 			: null,
-		ugc_indexed: data.journalData[0].ugc_indexed ? data.journalData[0].ugc_indexed : null,
-		scs_indexed: data.journalData[0].scs_indexed ? data.journalData[0].scs_indexed : null,
-		wos_indexed: data.journalData[0].wos_indexed ? data.journalData[0].wos_indexed : null,
+		ugc_indexed: data.journalData[0].ugc_indexed,
+		scs_indexed: data.journalData[0].scs_indexed,
+		wos_indexed: data.journalData[0].wos_indexed,
 		foreign_authors_count: data.journalData[0].foreign_authors_count
 			? data.journalData[0].foreign_authors_count
 			: null,
@@ -70,7 +70,7 @@
 
 	let title = 'Journal Articles Published';
 
-	console.log('journal json ', JSON.stringify(obj), data.journalData[0].paper_name);
+	console.log('journal json ', JSON.stringify(data.journalData[0].scs_indexed));
 
 	async function downLoadFiles() {
 		fetch(`${PUBLIC_API_BASE_URL}/journal-download-files?id=${obj.journal_paper_id}`)
@@ -101,7 +101,7 @@
 {#if checkData}
 	<Card {title}>
 		<div class="p-4">
-			<div class="scroll modal-content max-h-[70vh] min-h-[50vh] overflow-auto">
+			<div class="no-scrollbar modal-content max-h-[70vh] min-h-[50vh] overflow-auto">
 				<!-- Adjust max-height as needed -->
 				<div class="grid grid-cols-3 gap-[40px] p-4">
 					<Input type="text" placeholder="Nmims School" value={obj.nmims_school} {disabled} />
@@ -362,4 +362,3 @@
 {:else}
 	<p>No Data Found</p>
 {/if}
-

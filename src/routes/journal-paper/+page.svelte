@@ -43,6 +43,8 @@
 	}
 
 	let actionData: JournalView;
+	let researchUrl: string = 'url';
+	$: console.log('researchUrl ', researchUrl);
 </script>
 
 <div class="flex items-center justify-between">
@@ -60,7 +62,7 @@
 	{#if researchFormList}
 		<!-- <ResearchTable /> -->
 		<PaginateDynamic url={$paginateUrl} header={paginationHeaders} let:actionData>
-			<ResearchAction {actionData} />
+			<ResearchAction {actionData} {researchUrl} />
 		</PaginateDynamic>
 	{:else}
 		<p>No Data found</p>
