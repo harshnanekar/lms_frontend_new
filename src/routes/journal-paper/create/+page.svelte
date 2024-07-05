@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
-	import { formatDateTimeShort } from '$lib/utils/date-formatter';
+	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
 	import { fly } from 'svelte/transition';
 	import { Card } from '$lib/components/ui';
@@ -29,7 +29,7 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 
-	export let data;
+	export let data: any;
 	let isRequired = false;
 	let title = 'Journal Articles Published';
 
@@ -167,7 +167,7 @@
 			scopus_site_score: Number(obj.scopus_site_score),
 			impact_factor: Number(obj.impact_factor),
 			doi_no: obj.doi_no,
-			publication_date: publicationFormattedDate,
+			publication_date: formatDate(publicationFormattedDate),
 			title: obj.title,
 			gs_indexed: obj.gs_indexed,
 			paper_type: Number(obj.paper_type.value),
@@ -242,6 +242,7 @@
 			});
 		} else {
 			toast.success('Inserted Successfully');
+			publicationFormattedDate = null;
 			clearForm();
 		}
 	}
@@ -324,6 +325,8 @@
 			],
 			journal_type: 1
 		};
+
+		publicationFormattedDate = null;
 	}
 </script>
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
-	import { formatDateTimeShort } from '$lib/utils/date-formatter';
+	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
 	import { fly } from 'svelte/transition';
 	import { Card } from '$lib/components/ui';
@@ -29,7 +29,7 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 
-	export let data;
+	export let data: any;
 	let isRequired = false;
 	let title = 'Journal Articles Published';
 
@@ -47,7 +47,7 @@
 	// let isRequired = false;
 	let isChecked: boolean = false;
 	$: checkVal = isChecked;
-	console.log('checkbox check ',checkVal)
+	console.log('checkbox check ', checkVal);
 
 	$: abdcTypes = abdcIndexed;
 	$: foreignAuth = foreignAuthors;
@@ -68,91 +68,129 @@
 	function handleDateChange(e: CustomEvent<any>) {
 		if (!publicationDate) return;
 		publicationFormattedDate = publicationDate;
-		console.log('publication date ', publicationDate);
+		console.log('publication date ', publicationFormattedDate);
 	}
 
-
-	let obj = {
-		journal_paper_id : parseInt(data.journalData.journalData[0].journal_paper_id),
-		nmims_school: data.journalData.journalData[0].nmims_school.map((dt: any) => {
-          return { value: dt, label: dt };
-        }),
-		nmims_campus: data.journalData.journalData[0].nmims_campus.map((dt: any) => {
-          return { value: dt, label: dt };
-        }),
-		publish_year: data.journalData.journalData[0].publish_year,
-		policy_cadre: data.journalData.journalData[0].policy_names.map((dt: any) => {
-          return { value: dt.id, label: dt.policy_name };
-        }),
-		all_authors: data.journalData.journalData[0].all_authors.map((dt: any) => {
-          return { value: dt.id, label: dt.faculty_name };
-        }),
-		total_authors: data.journalData.journalData[0].total_authors,
-		nmims_authors: data.journalData.journalData[0].nmims_authors.map((dt: any) => {
-          return { value: dt.id, label: dt.faculty_name };
-        }),
-		nmims_author_count: data.journalData.journalData[0].nmims_authors_count,
-		journal_name:  data.journalData.journalData[0].journal_name,
-		uid:  data.journalData.journalData[0].uid,
-		publisher:  data.journalData.journalData[0].publisher,
-		other_authors: data.journalData.journalData[0].other_authors.map((dt: any) => {
-          return { value: dt.id, label: dt.name };
-        }),
-		page_no: data.journalData.journalData[0].page_no,
-		issn_no: data.journalData.journalData[0].issn_no,
-		scopus_site_score: data.journalData.journalData[0].scopus_site_score,
-		impact_factor: data.journalData.journalData[0].impact_factor,
-		doi_no: data.journalData.journalData[0].doi_no,
-		title: data.journalData.journalData[0].title,
+	let obj: any = {
+		journal_paper_id: parseInt(data.journalData.journalData[0].journal_paper_id),
+		nmims_school:
+			data.journalData.journalData[0].nmims_school.length > 0
+				? data.journalData.journalData[0].nmims_school.map((dt: any) => {
+						return { value: dt, label: dt };
+					})
+				: [],
+		nmims_campus:
+			data.journalData.journalData[0].nmims_campus.length > 0
+				? data.journalData.journalData[0].nmims_campus.map((dt: any) => {
+						return { value: dt, label: dt };
+					})
+				: [],
+		publish_year: data.journalData.journalData[0].publish_year
+			? data.journalData.journalData[0].publish_year
+			: null,
+		policy_cadre: data.journalData.journalData[0].policy_names
+			? data.journalData.journalData[0].policy_names.map((dt: any) => {
+					return { value: dt.id, label: dt.policy_name };
+				})
+			: [],
+		all_authors: data.journalData.journalData[0].all_authors
+			? data.journalData.journalData[0].all_authors.map((dt: any) => {
+					return { value: dt.id, label: dt.faculty_name };
+				})
+			: [],
+		total_authors: data.journalData.journalData[0].total_authors
+			? data.journalData.journalData[0].total_authors
+			: null,
+		nmims_authors: data.journalData.journalData[0].nmims_authors
+			? data.journalData.journalData[0].nmims_authors.map((dt: any) => {
+					return { value: dt.id, label: dt.faculty_name };
+				})
+			: [],
+		nmims_author_count: data.journalData.journalData[0].nmims_authors_count
+			? data.journalData.journalData[0].nmims_authors_count
+			: null,
+		journal_name: data.journalData.journalData[0].journal_name
+			? data.journalData.journalData[0].journal_name
+			: '',
+		uid: data.journalData.journalData[0].uid ? data.journalData.journalData[0].uid : '',
+		publisher: data.journalData.journalData[0].publisher
+			? data.journalData.journalData[0].publisher
+			: '',
+		other_authors: data.journalData.journalData[0].other_authors
+			? data.journalData.journalData[0].other_authors.map((dt: any) => {
+					return { value: dt.id, label: dt.name };
+				})
+			: [],
+		page_no: data.journalData.journalData[0].page_no ? data.journalData.journalData[0].page_no : '',
+		issn_no: data.journalData.journalData[0].issn_no ? data.journalData.journalData[0].issn_no : '',
+		scopus_site_score: data.journalData.journalData[0].scopus_site_score
+			? data.journalData.journalData[0].scopus_site_score
+			: null,
+		impact_factor: data.journalData.journalData[0].impact_factor
+			? data.journalData.journalData[0].impact_factor
+			: null,
+		doi_no: data.journalData.journalData[0].doi_no ? data.journalData.journalData[0].doi_no : null,
+		title: data.journalData.journalData[0].title ? data.journalData.journalData[0].title : '',
 		gs_indexed: data.journalData.journalData[0].gs_indexed,
 		paper_type: {
 			value: data.journalData.journalData[0].paper_type[0].id,
 			label: data.journalData.journalData[0].paper_type[0].paper_name
 		},
 		wos_indexed: data.journalData.journalData[0].wos_indexed,
-		abdc_indexed: {
-			value: data.journalData.journalData[0].abdc_indexed[0].id,
-			label: data.journalData.journalData[0].abdc_indexed[0].abdc_type
-		},
+		abdc_indexed: data.journalData.journalData[0].abdc_indexed[0]
+			? {
+					value: data.journalData.journalData[0].abdc_indexed[0].id,
+					label: data.journalData.journalData[0].abdc_indexed[0].abdc_type
+				}
+			: {
+					value: '',
+					label: ''
+				},
 		ugc_indexed: data.journalData.journalData[0].ugc_indexed,
 		scs_indexed: data.journalData.journalData[0].scs_indexed,
-		foreign_authors_count: data.journalData.journalData[0].foreign_authors_count,
-		foreign_authors: data.journalData.journalData[0].foreign_authors.map((dt: any) => {
-          return { value: dt.id, label: dt.name };
-        }),
-		student_authors_count: data.journalData.journalData[0].student_authors_count,
-		student_authors: data.journalData.journalData[0].student_authors.map((dt: any) => {
-          return { value: dt.id, label: dt.name };
-        }),
+		foreign_authors_count: data.journalData.journalData[0].foreign_authors_count
+			? data.journalData.journalData[0].foreign_authors_count
+			: null,
+		foreign_authors: data.journalData.journalData[0].foreign_authors
+			? data.journalData.journalData[0].foreign_authors.map((dt: any) => {
+					return { value: dt.id, label: dt.name };
+				})
+			: [],
+		student_authors_count: data.journalData.journalData[0].student_authors_count
+			? data.journalData.journalData[0].student_authors_count
+			: null,
+		student_authors: data.journalData.journalData[0].student_authors
+			? data.journalData.journalData[0].student_authors.map((dt: any) => {
+					return { value: dt.id, label: dt.name };
+				})
+			: [],
 		journal_type: data.journalData.journalData[0].journal_type
+			? parseInt(data.journalData.journalData[0].journal_type)
+			: null
 	};
 
 	let files: any = [];
-   
-	if(checkVal){
-		files = [];
-	}
 
 	async function handleSubmit() {
 		const journalObject: JournalPaperReq = {
-			nmims_school: obj.nmims_school.map((data) => data.value),
-			nmims_campus: obj.nmims_campus.map((data) => data.value),
+			nmims_school: obj.nmims_school.map((data: { value: any }) => data.value),
+			nmims_campus: obj.nmims_campus.map((data: { value: any }) => data.value),
 			publish_year: Number(obj.publish_year),
-			policy_cadre: obj.policy_cadre.map((data) => Number(data.value)),
-			all_authors: obj.all_authors.map((data) => Number(data.value)),
+			policy_cadre: obj.policy_cadre.map((data: { value: any }) => Number(data.value)),
+			all_authors: obj.all_authors.map((data: { value: any }) => Number(data.value)),
 			total_authors: Number(obj.total_authors),
-			nmims_authors: obj.nmims_authors.map((data) => Number(data.value)),
+			nmims_authors: obj.nmims_authors.map((data: { value: any }) => Number(data.value)),
 			nmims_author_count: Number(obj.nmims_author_count),
 			journal_name: obj.journal_name,
 			uid: obj.uid,
 			publisher: obj.publisher,
-			other_authors: obj.other_authors.map((data) => Number(data.value)),
+			other_authors: obj.other_authors.map((data: { value: any }) => Number(data.value)),
 			page_no: obj.page_no,
 			issn_no: obj.issn_no,
 			scopus_site_score: Number(obj.scopus_site_score),
 			impact_factor: Number(obj.impact_factor),
 			doi_no: obj.doi_no,
-			publication_date: publicationFormattedDate,
+			publication_date: formatDate(publicationFormattedDate),
 			title: obj.title,
 			gs_indexed: obj.gs_indexed,
 			paper_type: Number(obj.paper_type.value),
@@ -161,33 +199,32 @@
 			ugc_indexed: obj.ugc_indexed,
 			scs_indexed: obj.scs_indexed,
 			foreign_authors_count: Number(obj.foreign_authors_count),
-			foreign_authors: obj.foreign_authors.map((data) => Number(data.value)),
+			foreign_authors: obj.foreign_authors.map((data: { value: any }) => Number(data.value)),
 			student_authors_count: Number(obj.student_authors_count),
-			student_authors: obj.student_authors.map((data) => Number(data.value)),
+			student_authors: obj.student_authors.map((data: { value: any }) => Number(data.value)),
 			// supporting_documents: Array.from(files),
 			journal_type: Number(obj.journal_type)
 		};
 
-
-	  if(files.length > 0){	
-		const fileObject: FileReq = {
-			documents: Array.from(files)
-		};
-		const fileresult = validateWithZod(fileSchema, fileObject);
-		if (fileresult.errors) {
-			console.log(fileresult.errors);
-			const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
-			toast.error('ALERT!', {
-				description: firstMessage
-			});
-			return;
+		if (files.length > 0) {
+			const fileObject: FileReq = {
+				documents: Array.from(files)
+			};
+			const fileresult = validateWithZod(fileSchema, fileObject);
+			if (fileresult.errors) {
+				console.log(fileresult.errors);
+				const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
+				toast.error('ALERT!', {
+					description: firstMessage
+				});
+				return;
+			}
 		}
-	  }	
 
 		const formData = new FormData();
 
 		formData.append('journal_paper', JSON.stringify(journalObject));
-		formData.append('journal_id',obj.journal_paper_id);
+		formData.append('journal_id', obj.journal_paper_id);
 
 		// Append each file to the FormData
 		Array.from(files).forEach((file) => {
@@ -231,11 +268,11 @@
 			});
 		} else {
 			toast.success('Updated Successfully');
-			checkVal = false
+			files = [];
+			isChecked = false;
 		}
 	}
 
-	
 	async function downLoadFiles() {
 		fetch(`${PUBLIC_API_BASE_URL}/journal-download-files?id=${obj.journal_paper_id}`)
 			.then((response) => {
@@ -357,7 +394,7 @@
 							class="lms-input-radio w-4"
 							name="radio-button-national"
 							bind:group={obj.journal_type}
-							checked={obj.journal_type == 1}
+							checked={obj.journal_type === 1}
 							value={1}
 						/>
 						<span class="text-sm text-[#888888]">International</span>
@@ -369,7 +406,7 @@
 							class="lms-input-radio w-4"
 							name="radio-button-national"
 							bind:group={obj.journal_type}
-							checked={obj.journal_type == 1}
+							checked={obj.journal_type === 2}
 							value={2}
 						/>
 						<span class="text-sm text-[#888888]">National</span>
@@ -400,7 +437,7 @@
 							class="lms-input-radio w-4"
 							name="radio-button-wos"
 							bind:group={obj.wos_indexed}
-							checked={obj.wos_indexed == true}
+							checked={obj.wos_indexed == false}
 							value={false}
 						/>
 						<span class="text-sm text-[#888888]">No</span>
@@ -440,7 +477,7 @@
 							class="lms-input-radio w-4"
 							name="radio-button-ugc"
 							bind:group={obj.ugc_indexed}
-							checked={obj.ugc_indexed == true}
+							checked={obj.ugc_indexed == false}
 							value={false}
 						/>
 						<span class="text-sm text-[#888888]">No</span>
@@ -510,7 +547,7 @@
 							class="lms-input-radio w-4"
 							name="radio-button-scs"
 							bind:group={obj.scs_indexed}
-							checked={obj.scs_indexed == true}
+							checked={obj.scs_indexed == false}
 							value={false}
 						/>
 						<span class="text-sm text-[#888888]">No</span>
@@ -519,15 +556,16 @@
 			</div>
 
 			<div>
-				<label for="supporting-documents">Upload Supporting Documents <i style="color: red;">*</i><br/></label>
-			    <label>Click To Upload New File <input type="checkbox" bind:checked={isChecked}></label>
+				<label for="supporting-documents"
+					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
+				>
+				<label>Click To Upload New File <input type="checkbox" bind:checked={isChecked} /></label>
 				{#if checkVal}
-				<input type="file" bind:files multiple />
+					<input type="file" bind:files multiple />
 				{:else}
-				<button class="lms-primary-btn mt-2" on:click={downLoadFiles}>Download</button>
+					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}>Download</button>
 				{/if}
-			</div>	
-			
+			</div>
 		</div>
 
 		<div class="flex flex-row gap-[40px] p-4">
@@ -565,7 +603,6 @@
 		</div>
 	</div>
 	<div class="flex flex-row gap-[20px] p-4">
-		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
+		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Update</button>
 	</div>
 </Card>
-
