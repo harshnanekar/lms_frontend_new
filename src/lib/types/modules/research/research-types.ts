@@ -46,9 +46,9 @@ export type JournalPaper = {
  }
 
  export type EditedBookPublicationView = {
-	edit_book_publication_authors: string[],
-	campus_name : string[],
-	school_name: string[],
+	authors: string[],
+	campuses : string[],
+	schools: string[],
 	publish_year: number,
 	title: string,
 	isbn_no: number,

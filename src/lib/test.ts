@@ -264,24 +264,26 @@ export const paginationHeaders : TableHeaders<JournalView>[] = [
 	}
 ]; 
 
+
+
 export const EditedBookPublicationHeader : TableHeaders<EditedBookPublicationView>[] = [ 
 	{
 		label: 'Author Name',
-        key: 'edit_book_publication_authors',
+        key: 'authors',
         sortable: false,
         classes: '',
         showTooltip: false
 	},
 	{
 		label: 'NMIMS Campus - Author',
-        key: 'campus_name',
+        key: 'campuses',
         sortable: false,
         classes: '',
         showTooltip: false
 	},
 	{
 		label: 'NMIMS School - Author',
-        key: 'school_name',
+        key: 'schools',
         sortable: false,
         classes: '',
         showTooltip: false

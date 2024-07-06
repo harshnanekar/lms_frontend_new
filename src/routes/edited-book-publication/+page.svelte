@@ -5,18 +5,17 @@ import { PlusIcon } from '$lib/components/icons';
 import type { EditedBookPublicationView } from '$lib/types/modules/research/research-types';
 import type { TableHeaders } from '$lib/types/layout/table';
 import { PaginateDynamic } from '$lib/components/layout/pagination';
-import {paginationHeaders} from "$lib/test";
+import {EditedBookPublicationHeader} from "$lib/test";
 import ResearchAction from '$lib/components/modules/mpc/research-action.svelte';
 
 const url  =  new URL("http://localhost:9090/research/edited-book-paginate");
 const label = 'Edited Book Publication';
 
 
+
 function navigateToCreate(){
      goto('/edited-book-publication/create');
    }
-
-   let actionData: EditedBookPublicationView;
 
 </script>
 
@@ -29,12 +28,8 @@ function navigateToCreate(){
  </div>
 
  <div class="rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 shadow-card sm:p-6 mt-[5%]">
-    {#if url}
     <!-- <ResearchTable /> -->
-     <PaginateDynamic url={url} header={paginationHeaders} let:actionData  >
+     <PaginateDynamic url={url} header={EditedBookPublicationHeader} let:actionData  >
         <ResearchAction actionData={actionData}  />
      </PaginateDynamic>
-    {:else}
-    <p>No Data found</p>
-    {/if}
     </div>
