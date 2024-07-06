@@ -13,9 +13,8 @@
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
 	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
-
-	// import { Modal } from '$lib/components/ui';
-
+	import {confirmStore,actionStore} from "$lib/stores/modules/mpc/master.store"
+	import {showConfirmation} from '$lib/components/ui/popup'
 	export let actionData: JournalView;
 
 	const showMenu = writable<boolean>(false);
@@ -75,11 +74,19 @@
 	let modalwidthPercent: ModalSizes = 'md';
 	let journalId: number;
 
-	const openModal = (size: ModalSizes) => {
+	const openModal = async () => {
 		journalId = actionData.id;
-		modalwidthPercent = size;
-		isOpen.set(true);
-		showMenu.set(false);
+		console.log('click called')
+	
+     const message = 'Are you sure you want to delete this?';
+     confirmStore.set({
+		isVisible:true,
+		confirmText:message
+	 })
+
+	 actionStore.set({
+            callback: handleDelete
+     });
 	};
 
 	const closeModal = () => {
@@ -87,6 +94,7 @@
 	};
 
 	async function handleDelete() {
+
 		console.log('delete', journalId);
 		isOpen.set(false);
 		const { error, json } = await fetchApi({
@@ -104,6 +112,8 @@
 		let url: URL = new URL('http://localhost:9090/research/journal-paginate');
 		paginateUrl.set(url);
 	}
+
+  
 </script>
 
 <div>
@@ -129,7 +139,7 @@
 					role="menuitem">Edit</a
 				>
 				<button
-					on:click={() => openModal('sm')}
+					on:click={openModal}
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">Delete</button
 				>
