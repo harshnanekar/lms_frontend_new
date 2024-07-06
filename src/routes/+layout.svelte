@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+	import { Popup } from '$lib/components/ui/popup';
 	import { navigating } from '$app/stores';
 	import { Header, Sidebar } from '$lib/components/layout';
 	import { Toaster } from '$lib/components/ui/sonner';
@@ -17,6 +18,9 @@
 		<Circle3 size="100" unit="px" />
 	</div>
 {/if}
+
+
+<Popup />
 
 <Toaster
 	richColors

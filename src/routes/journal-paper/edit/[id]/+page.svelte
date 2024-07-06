@@ -61,7 +61,7 @@
 	$: school = nmimsSchool;
 	$: campus = nmimsCampus;
 
-	console.log(JSON.stringify(data.journalData.journalData[0]));
+	// console.log(JSON.stringify(data.journalData.journalData[0]));
 
 	let publicationDate: Date | null = new Date();
 	publicationDate = new Date(data.journalData.journalData[0].publishing_date);

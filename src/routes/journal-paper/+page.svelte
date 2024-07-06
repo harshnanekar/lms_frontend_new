@@ -61,7 +61,7 @@
 	{#if researchFormList}
 		<!-- <ResearchTable /> -->
 		<PaginateDynamic url={$paginateUrl} header={paginationHeaders} let:actionData>
-			<ResearchAction {actionData} on:customEvent={(e) => console.log('Event in slot:', e.detail)} />
+			<ResearchAction {actionData}  />
 		</PaginateDynamic>
 	{:else}
 		<p>No Data found</p>

@@ -58,7 +58,6 @@
 	$: school = nmimsSchool;
 	$: campus = nmimsCampus;
 
-	console.log(JSON.stringify(otherAuthors));
 
 	let publicationDate: Date | null = new Date();
 	publicationDate = null;

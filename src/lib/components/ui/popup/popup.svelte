@@ -1,50 +1,55 @@
-   <script lang="ts">
-   import { writable } from 'svelte/store';
+<script lang="ts">
+	import { Header } from '$lib/components/researchHeader';
+	import { writable } from 'svelte/store';
+	import { Modal } from '$lib/components/ui';
+	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
+	import { confirmStore,actionStore } from '$lib/stores/modules/mpc/master.store';
+	const isOpen = writable(true);
+	let modalwidthPercent: ModalSizes = 'sm';
 
-	let resolveFunc: (value: boolean) => void;
 
-	export const confirmStore = writable({
-		isVisible: false,
-		confirmText: 'Are you sure?'
-	});
-
-	export function showConfirmation(confirmText = 'Are you sure?'): Promise<boolean> {
-		confirmStore.set({
-			isVisible: true,
-			confirmText
-		});
-
-		return new Promise<boolean>((resolve) => {
-			resolveFunc = resolve;
-		});
-	}
 
 	function handleYesClick() {
-		confirmStore.set({
-			isVisible: false,
-			confirmText: 'Are you sure?'
-		});
-		resolveFunc(true);
-	}
 
+	  confirmStore.set({
+		isVisible: false,
+		confirmText: 'Are you sure?'
+	  });
+	  isOpen.set(false);
+
+	  actionStore.update(store => {
+            if (store.callback) {
+                store.callback();
+            }
+            return store;
+        });
+	}
+  
 	function handleNoClick() {
-		confirmStore.set({
-			isVisible: false,
-			confirmText: 'Are you sure?'
-		});
-		resolveFunc(false);
+	  confirmStore.set({
+		isVisible: false,
+		confirmText: 'Are you sure?'
+	  });
+	  isOpen.set(false);
 	}
-</script>
 
-{#if $confirmStore.isVisible}
-	<Modal bind:open={$confirmStore.isVisible} size="xs" autoclose={false} on:close={handleNoClick} class="border-[0.5px] border-black">
-		<div class="text-center">
-         <i class="fa-solid fa-trash text-red"></i>
-			<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-				{@html $confirmStore.confirmText ?? 'Are you Sure?'}
-			</h3>
-			<button class="lms-btn lms-primary-btn" on:click={handleYesClick}>Yes, I'm sure</Button>
-			<button class="lms-btn lms-secondary-btn" on:click={handleNoClick}>No, cancel</Button>
-		</div>
-	</Modal>
-{/if}
+	let value = $confirmStore;
+	console.log(value)
+  </script>
+  
+  {#if $confirmStore.isVisible}
+  <Modal bind:isOpen={$isOpen} size={modalwidthPercent} on:close={handleNoClick}>
+	<div class="text-center p-6" slot="body">
+	  <i class="fa-solid fa-trash text-primary text-[30px]"></i>
+	  <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400 mt-2">
+		{@html $confirmStore.confirmText ?? 'Are you Sure?'}
+		</h3>
+	<div class="flex flex-row justify-center mt-4 gap-4">
+	  <button class="lms-btn lms-primary-btn" on:click={handleYesClick}>Yes, I'm sure</button>
+	  <button class="lms-btn lms-secondary-btn" on:click={handleNoClick}>No, cancel</button>
+	</div>	
+	</div>
+
+  </Modal>
+  {/if}
+  
