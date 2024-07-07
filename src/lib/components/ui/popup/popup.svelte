@@ -41,7 +41,7 @@
   <Modal bind:isOpen={$isOpen} size={modalwidthPercent} on:close={handleNoClick}>
 	<div class="text-center p-6" slot="body">
 	  <i class="fa-solid fa-trash text-primary text-[30px]"></i>
-	  <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400 mt-2">
+	  <h3 class="mb-5 text-lg font-normal font-semibold text-gray-500 dark:text-gray-400 mt-2">
 		{@html $confirmStore.confirmText ?? 'Are you Sure?'}
 		</h3>
 	<div class="flex flex-row justify-center mt-4 gap-4">

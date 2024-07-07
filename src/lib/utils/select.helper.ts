@@ -108,3 +108,39 @@ export function getStudentAuthor(data : any) :CustomOptions[] {
   
 	return studentAuthArr;
 }
+
+export function getInputFields(data:any) : CustomOptions[] {
+	let inputFieldsArr : any[] = [];
+	data.forEach((item : any) => {
+		inputFieldsArr.push({value: item.url, label: item.name});
+	});
+  
+	return inputFieldsArr;
+}
+
+export function getTeachingDropdown(data:any) : CustomOptions[] {
+	let inputFieldsArr : any[] = [];
+	data.forEach((item : any) => {
+		inputFieldsArr.push({value: item.abbr, label: item.input});
+	});
+  
+	return inputFieldsArr;
+}
+
+export function getMeetingDropdown(data:any) : CustomOptions[] {
+	let inputFieldsArr : any[] = [];
+	data.forEach((item : any) => {
+		inputFieldsArr.push({value: item.abbr, label: item.input});
+	});
+  
+	return inputFieldsArr;
+}
+
+export function getBrandingDropdown(data:any) : CustomOptions[] {
+	let inputFieldsArr : any[] = [];
+	data.forEach((item : any) => {
+		inputFieldsArr.push({value: item.abbr, label: item.input});
+	});
+  
+	return inputFieldsArr;
+}

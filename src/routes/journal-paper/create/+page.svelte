@@ -158,6 +158,8 @@
 		const fileObject: FileReq = {
 			documents: Array.from(files)
 		};
+
+		console.log('files object ',files)
 		const fileresult = validateWithZod(fileSchema, fileObject);
 		if (fileresult.errors) {
 			console.log(fileresult.errors);
