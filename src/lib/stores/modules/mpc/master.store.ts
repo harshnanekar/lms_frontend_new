@@ -54,3 +54,15 @@ export const masterFormStore = writable<MasterMeetingStore>(defaultMasterStoreVa
 
 let url =new URL("http://localhost:9090/research");
 export const paginateUrl = writable<URL>(url);
+
+export const confirmStore = writable<{ isVisible: boolean, confirmText: string }>({
+	isVisible: false,
+	confirmText: 'Are you sure?'
+});
+
+
+export type ActionStore = {
+    callback?: () => void;
+}
+
+export const actionStore = writable<ActionStore>({});

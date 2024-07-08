@@ -28,6 +28,7 @@
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
+	import { goto } from '$app/navigation';
 
 	export let data: any;
 	let isRequired = false;
@@ -60,7 +61,7 @@
 	$: school = nmimsSchool;
 	$: campus = nmimsCampus;
 
-	console.log(JSON.stringify(otherAuthors));
+	// console.log(JSON.stringify(data.journalData.journalData[0]));
 
 	let publicationDate: Date | null = new Date();
 	publicationDate = new Date(data.journalData.journalData[0].publishing_date);
@@ -78,34 +79,37 @@
 				? data.journalData.journalData[0].nmims_school.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
-				: [],
+				: null,
 		nmims_campus:
 			data.journalData.journalData[0].nmims_campus.length > 0
 				? data.journalData.journalData[0].nmims_campus.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
-				: [],
+				: null,
 		publish_year: data.journalData.journalData[0].publish_year
 			? data.journalData.journalData[0].publish_year
 			: null,
-		policy_cadre: data.journalData.journalData[0].policy_names
-			? data.journalData.journalData[0].policy_names.map((dt: any) => {
-					return { value: dt.id, label: dt.policy_name };
-				})
-			: [],
-		all_authors: data.journalData.journalData[0].all_authors
-			? data.journalData.journalData[0].all_authors.map((dt: any) => {
-					return { value: dt.id, label: dt.faculty_name };
-				})
-			: [],
+		policy_cadre:
+			data.journalData.journalData[0].policy_names.length > 0
+				? data.journalData.journalData[0].policy_names.map((dt: any) => {
+						return { value: dt.id, label: dt.policy_name };
+					})
+				: null,
+		all_authors:
+			data.journalData.journalData[0].all_authors.length > 0
+				? data.journalData.journalData[0].all_authors.map((dt: any) => {
+						return { value: dt.id, label: dt.faculty_name };
+					})
+				: null,
 		total_authors: data.journalData.journalData[0].total_authors
 			? data.journalData.journalData[0].total_authors
 			: null,
-		nmims_authors: data.journalData.journalData[0].nmims_authors
-			? data.journalData.journalData[0].nmims_authors.map((dt: any) => {
-					return { value: dt.id, label: dt.faculty_name };
-				})
-			: [],
+		nmims_authors:
+			data.journalData.journalData[0].nmims_authors.length > 0
+				? data.journalData.journalData[0].nmims_authors.map((dt: any) => {
+						return { value: dt.id, label: dt.faculty_name };
+					})
+				: null,
 		nmims_author_count: data.journalData.journalData[0].nmims_authors_count
 			? data.journalData.journalData[0].nmims_authors_count
 			: null,
@@ -116,11 +120,12 @@
 		publisher: data.journalData.journalData[0].publisher
 			? data.journalData.journalData[0].publisher
 			: '',
-		other_authors: data.journalData.journalData[0].other_authors
-			? data.journalData.journalData[0].other_authors.map((dt: any) => {
-					return { value: dt.id, label: dt.name };
-				})
-			: [],
+		other_authors:
+			data.journalData.journalData[0].other_authors.length > 0
+				? data.journalData.journalData[0].other_authors.map((dt: any) => {
+						return { value: dt.id, label: dt.name };
+					})
+				: null,
 		page_no: data.journalData.journalData[0].page_no ? data.journalData.journalData[0].page_no : '',
 		issn_no: data.journalData.journalData[0].issn_no ? data.journalData.journalData[0].issn_no : '',
 		scopus_site_score: data.journalData.journalData[0].scopus_site_score
@@ -132,38 +137,39 @@
 		doi_no: data.journalData.journalData[0].doi_no ? data.journalData.journalData[0].doi_no : null,
 		title: data.journalData.journalData[0].title ? data.journalData.journalData[0].title : '',
 		gs_indexed: data.journalData.journalData[0].gs_indexed,
-		paper_type: {
-			value: data.journalData.journalData[0].paper_type[0].id,
-			label: data.journalData.journalData[0].paper_type[0].paper_name
-		},
+		paper_type: data.journalData.journalData[0].paper_type[0]
+			? {
+					value: data.journalData.journalData[0].paper_type[0].id,
+					label: data.journalData.journalData[0].paper_type[0].paper_name
+				}
+			: null,
 		wos_indexed: data.journalData.journalData[0].wos_indexed,
 		abdc_indexed: data.journalData.journalData[0].abdc_indexed[0]
 			? {
 					value: data.journalData.journalData[0].abdc_indexed[0].id,
 					label: data.journalData.journalData[0].abdc_indexed[0].abdc_type
 				}
-			: {
-					value: '',
-					label: ''
-				},
+			: null,
 		ugc_indexed: data.journalData.journalData[0].ugc_indexed,
 		scs_indexed: data.journalData.journalData[0].scs_indexed,
 		foreign_authors_count: data.journalData.journalData[0].foreign_authors_count
 			? data.journalData.journalData[0].foreign_authors_count
 			: null,
-		foreign_authors: data.journalData.journalData[0].foreign_authors
-			? data.journalData.journalData[0].foreign_authors.map((dt: any) => {
-					return { value: dt.id, label: dt.name };
-				})
-			: [],
+		foreign_authors:
+			data.journalData.journalData[0].foreign_authors.length > 0
+				? data.journalData.journalData[0].foreign_authors.map((dt: any) => {
+						return { value: dt.id, label: dt.name };
+					})
+				: null,
 		student_authors_count: data.journalData.journalData[0].student_authors_count
 			? data.journalData.journalData[0].student_authors_count
 			: null,
-		student_authors: data.journalData.journalData[0].student_authors
-			? data.journalData.journalData[0].student_authors.map((dt: any) => {
-					return { value: dt.id, label: dt.name };
-				})
-			: [],
+		student_authors:
+			data.journalData.journalData[0].student_authors.length > 0
+				? data.journalData.journalData[0].student_authors.map((dt: any) => {
+						return { value: dt.id, label: dt.name };
+					})
+				: null,
 		journal_type: data.journalData.journalData[0].journal_type
 			? parseInt(data.journalData.journalData[0].journal_type)
 			: null
@@ -173,35 +179,51 @@
 
 	async function handleSubmit() {
 		const journalObject: JournalPaperReq = {
-			nmims_school: obj.nmims_school.map((data: { value: any }) => data.value),
-			nmims_campus: obj.nmims_campus.map((data: { value: any }) => data.value),
+			nmims_school:
+				obj.nmims_school != null ? obj.nmims_school.map((data: { value: any }) => data.value) : [],
+			nmims_campus:
+				obj.nmims_campus != null ? obj.nmims_campus.map((data: { value: any }) => data.value) : [],
 			publish_year: Number(obj.publish_year),
-			policy_cadre: obj.policy_cadre.map((data: { value: any }) => Number(data.value)),
-			all_authors: obj.all_authors.map((data: { value: any }) => Number(data.value)),
+			policy_cadre:
+				obj.policy_cadre != null
+					? obj.policy_cadre.map((data: { value: any }) => Number(data.value))
+					: [],
+			all_authors: obj.all_authors
+				? obj.all_authors.map((data: { value: any }) => Number(data.value))
+				: [],
 			total_authors: Number(obj.total_authors),
 			nmims_authors: obj.nmims_authors.map((data: { value: any }) => Number(data.value)),
 			nmims_author_count: Number(obj.nmims_author_count),
 			journal_name: obj.journal_name,
 			uid: obj.uid,
 			publisher: obj.publisher,
-			other_authors: obj.other_authors.map((data: { value: any }) => Number(data.value)),
+			other_authors: obj.other_authors
+				? obj.other_authors.map((data: { value: any }) => Number(data.value))
+				: [],
 			page_no: obj.page_no,
 			issn_no: obj.issn_no,
 			scopus_site_score: Number(obj.scopus_site_score),
 			impact_factor: Number(obj.impact_factor),
 			doi_no: obj.doi_no,
-			publication_date: formatDate(publicationFormattedDate),
+			publication_date:
+				publicationFormattedDate != null ? formatDate(publicationFormattedDate) : '',
 			title: obj.title,
 			gs_indexed: obj.gs_indexed,
-			paper_type: Number(obj.paper_type.value),
+			paper_type: obj.paper_type != null ? Number(obj.paper_type.value) : 0,
 			wos_indexed: obj.wos_indexed,
-			abdc_indexed: Number(obj.abdc_indexed.value),
+			abdc_indexed: obj.abdc_indexed != null ? Number(obj.abdc_indexed.value) : 0,
 			ugc_indexed: obj.ugc_indexed,
 			scs_indexed: obj.scs_indexed,
 			foreign_authors_count: Number(obj.foreign_authors_count),
-			foreign_authors: obj.foreign_authors.map((data: { value: any }) => Number(data.value)),
+			foreign_authors:
+				obj.foreign_authors != null
+					? obj.foreign_authors.map((data: { value: any }) => Number(data.value))
+					: [],
 			student_authors_count: Number(obj.student_authors_count),
-			student_authors: obj.student_authors.map((data: { value: any }) => Number(data.value)),
+			student_authors:
+				obj.student_authors != null
+					? obj.student_authors.map((data: { value: any }) => Number(data.value))
+					: [],
 			// supporting_documents: Array.from(files),
 			journal_type: Number(obj.journal_type)
 		};
@@ -274,91 +296,93 @@
 			isChecked = false;
 		}
 
-		obj = {
-			journal_paper_id: parseInt(json.viewData[0].journal_paper_id),
-			nmims_school:
-				json.viewData[0].nmims_school.length > 0
-					? json.viewData[0].nmims_school.map((dt: any) => {
-							return { value: dt, label: dt };
-						})
-					: [],
-			nmims_campus:
-				json.viewData[0].nmims_campus.length > 0
-					? json.viewData[0].nmims_campus.map((dt: any) => {
-							return { value: dt, label: dt };
-						})
-					: [],
-			publish_year: json.viewData[0].publish_year ? json.viewData[0].publish_year : null,
-			policy_cadre: json.viewData[0].policy_names
-				? json.viewData[0].policy_names.map((dt: any) => {
-						return { value: dt.id, label: dt.policy_name };
-					})
-				: [],
-			all_authors: json.viewData[0].all_authors
-				? json.viewData[0].all_authors.map((dt: any) => {
-						return { value: dt.id, label: dt.faculty_name };
-					})
-				: [],
-			total_authors: json.viewData[0].total_authors ? json.viewData[0].total_authors : null,
-			nmims_authors: json.viewData[0].nmims_authors
-				? json.viewData[0].nmims_authors.map((dt: any) => {
-						return { value: dt.id, label: dt.faculty_name };
-					})
-				: [],
-			nmims_author_count: json.viewData[0].nmims_authors_count
-				? json.viewData[0].nmims_authors_count
-				: null,
-			journal_name: json.viewData[0].journal_name ? json.viewData[0].journal_name : '',
-			uid: json.viewData[0].uid ? json.viewData[0].uid : '',
-			publisher: json.viewData[0].publisher ? json.viewData[0].publisher : '',
-			other_authors: json.viewData[0].other_authors
-				? json.viewData[0].other_authors.map((dt: any) => {
-						return { value: dt.id, label: dt.name };
-					})
-				: [],
-			page_no: json.viewData[0].page_no ? json.viewData[0].page_no : '',
-			issn_no: json.viewData[0].issn_no ? json.viewData[0].issn_no : '',
-			scopus_site_score: json.viewData[0].scopus_site_score
-				? json.viewData[0].scopus_site_score
-				: null,
-			impact_factor: json.viewData[0].impact_factor ? json.viewData[0].impact_factor : null,
-			doi_no: json.viewData[0].doi_no ? json.viewData[0].doi_no : null,
-			title: json.viewData[0].title ? json.viewData[0].title : '',
-			gs_indexed: json.viewData[0].gs_indexed,
-			paper_type: {
-				value: json.viewData[0].paper_type[0].id,
-				label: json.viewData[0].paper_type[0].paper_name
-			},
-			wos_indexed: json.viewData[0].wos_indexed,
-			abdc_indexed: json.viewData[0].abdc_indexed[0]
-				? {
-						value: json.viewData[0].abdc_indexed[0].id,
-						label: json.viewData[0].abdc_indexed[0].abdc_type
-					}
-				: {
-						value: '',
-						label: ''
-					},
-			ugc_indexed: json.viewData[0].ugc_indexed,
-			scs_indexed: json.viewData[0].scs_indexed,
-			foreign_authors_count: json.viewData[0].foreign_authors_count
-				? json.viewData[0].foreign_authors_count
-				: null,
-			foreign_authors: json.viewData[0].foreign_authors
-				? json.viewData[0].foreign_authors.map((dt: any) => {
-						return { value: dt.id, label: dt.name };
-					})
-				: [],
-			student_authors_count: json.viewData[0].student_authors_count
-				? json.viewData[0].student_authors_count
-				: null,
-			student_authors: json.viewData[0].student_authors
-				? json.viewData[0].student_authors.map((dt: any) => {
-						return { value: dt.id, label: dt.name };
-					})
-				: [],
-			journal_type: json.viewData[0].journal_type ? parseInt(json.viewData[0].journal_type) : null
-		};
+		// obj = {
+		// 	journal_paper_id: parseInt(json.viewData[0].journal_paper_id),
+		// 	nmims_school:
+		// 		json.viewData[0].nmims_school.length > 0
+		// 			? json.viewData[0].nmims_school.map((dt: any) => {
+		// 					return { value: dt, label: dt };
+		// 				})
+		// 			: [],
+		// 	nmims_campus:
+		// 		json.viewData[0].nmims_campus.length > 0
+		// 			? json.viewData[0].nmims_campus.map((dt: any) => {
+		// 					return { value: dt, label: dt };
+		// 				})
+		// 			: [],
+		// 	publish_year: json.viewData[0].publish_year ? json.viewData[0].publish_year : null,
+		// 	policy_cadre: json.viewData[0].policy_names
+		// 		? json.viewData[0].policy_names.map((dt: any) => {
+		// 				return { value: dt.id, label: dt.policy_name };
+		// 			})
+		// 		: [],
+		// 	all_authors: json.viewData[0].all_authors
+		// 		? json.viewData[0].all_authors.map((dt: any) => {
+		// 				return { value: dt.id, label: dt.faculty_name };
+		// 			})
+		// 		: [],
+		// 	total_authors: json.viewData[0].total_authors ? json.viewData[0].total_authors : null,
+		// 	nmims_authors: json.viewData[0].nmims_authors
+		// 		? json.viewData[0].nmims_authors.map((dt: any) => {
+		// 				return { value: dt.id, label: dt.faculty_name };
+		// 			})
+		// 		: [],
+		// 	nmims_author_count: json.viewData[0].nmims_authors_count
+		// 		? json.viewData[0].nmims_authors_count
+		// 		: null,
+		// 	journal_name: json.viewData[0].journal_name ? json.viewData[0].journal_name : '',
+		// 	uid: json.viewData[0].uid ? json.viewData[0].uid : '',
+		// 	publisher: json.viewData[0].publisher ? json.viewData[0].publisher : '',
+		// 	other_authors: json.viewData[0].other_authors
+		// 		? json.viewData[0].other_authors.map((dt: any) => {
+		// 				return { value: dt.id, label: dt.name };
+		// 			})
+		// 		: [],
+		// 	page_no: json.viewData[0].page_no ? json.viewData[0].page_no : '',
+		// 	issn_no: json.viewData[0].issn_no ? json.viewData[0].issn_no : '',
+		// 	scopus_site_score: json.viewData[0].scopus_site_score
+		// 		? json.viewData[0].scopus_site_score
+		// 		: null,
+		// 	impact_factor: json.viewData[0].impact_factor ? json.viewData[0].impact_factor : null,
+		// 	doi_no: json.viewData[0].doi_no ? json.viewData[0].doi_no : null,
+		// 	title: json.viewData[0].title ? json.viewData[0].title : '',
+		// 	gs_indexed: json.viewData[0].gs_indexed,
+		// 	paper_type: {
+		// 		value: json.viewData[0].paper_type[0].id,
+		// 		label: json.viewData[0].paper_type[0].paper_name
+		// 	},
+		// 	wos_indexed: json.viewData[0].wos_indexed,
+		// 	abdc_indexed: json.viewData[0].abdc_indexed[0]
+		// 		? {
+		// 				value: json.viewData[0].abdc_indexed[0].id,
+		// 				label: json.viewData[0].abdc_indexed[0].abdc_type
+		// 			}
+		// 		: {
+		// 				value: '',
+		// 				label: ''
+		// 			},
+		// 	ugc_indexed: json.viewData[0].ugc_indexed,
+		// 	scs_indexed: json.viewData[0].scs_indexed,
+		// 	foreign_authors_count: json.viewData[0].foreign_authors_count
+		// 		? json.viewData[0].foreign_authors_count
+		// 		: null,
+		// 	foreign_authors: json.viewData[0].foreign_authors
+		// 		? json.viewData[0].foreign_authors.map((dt: any) => {
+		// 				return { value: dt.id, label: dt.name };
+		// 			})
+		// 		: [],
+		// 	student_authors_count: json.viewData[0].student_authors_count
+		// 		? json.viewData[0].student_authors_count
+		// 		: null,
+		// 	student_authors: json.viewData[0].student_authors
+		// 		? json.viewData[0].student_authors.map((dt: any) => {
+		// 				return { value: dt.id, label: dt.name };
+		// 			})
+		// 		: [],
+		// 	journal_type: json.viewData[0].journal_type ? parseInt(json.viewData[0].journal_type) : null
+		// };
+
+		goto('/journal-paper');
 	}
 
 	async function downLoadFiles() {
@@ -374,7 +398,7 @@
 				const a = document.createElement('a');
 				a.style.display = 'none';
 				a.href = url;
-				a.download = 'research_documents.zip';
+				a.download = 'journal_article_documents.zip';
 				document.body.appendChild(a);
 				a.click();
 				window.URL.revokeObjectURL(url);
@@ -390,7 +414,7 @@
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
 <Card {title}>
-	<div class="scroll modal-content max-h-[70vh] min-h-[50vh] overflow-auto p-4">
+	<div class="scroll small-scrollbar modal-content max-h-[70vh] min-h-[50vh] overflow-auto p-4">
 		<!-- Adjust max-height as needed -->
 		<div class="grid grid-cols-3 gap-[40px] p-4">
 			<DynamicSelect

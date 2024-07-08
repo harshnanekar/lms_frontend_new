@@ -28,6 +28,7 @@
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
+	import { goto } from '$app/navigation';
 
 	export let data: any;
 	let isRequired = false;
@@ -57,7 +58,6 @@
 	$: school = nmimsSchool;
 	$: campus = nmimsCampus;
 
-	console.log(JSON.stringify(otherAuthors));
 
 	let publicationDate: Date | null = new Date();
 	publicationDate = null;
@@ -69,48 +69,18 @@
 	}
 
 	let obj = {
-		nmims_school: [
-			// {
-			// 	value: nmimsSchool[0].school_name,
-			// 	label: nmimsSchool[0].school_name
-			// }
-		],
-		nmims_campus: [
-			// {
-			// 	value: nmimsCampus[0].campus_name,
-			// 	label: nmimsCampus[0].campus_name
-			// }
-		],
+		nmims_school: null,
+		nmims_campus: null,
 		publish_year: null,
-		policy_cadre: [
-			// {
-			// 	value: policyCadre[0].id,
-			// 	label: policyCadre[0].policy_name
-			// }
-		],
-		all_authors: [
-			// {
-			// 	value: allAuthors[0].id,
-			// 	label: allAuthors[0].faculty_name
-			// }
-		],
+		policy_cadre: null,
+		all_authors: null,
 		total_authors: null,
-		nmims_authors: [
-			// {
-			// 	value: nmimsAuthors[0].id,
-			// 	label: nmimsAuthors[0].faculty_name
-			// }
-		],
+		nmims_authors: null,
 		nmims_author_count: null,
 		journal_name: '',
 		uid: '',
 		publisher: '',
-		other_authors: [
-			// {
-			// 	value: otherAuthors[0].id,
-			// 	label: otherAuthors[0].name
-			// }
-		],
+		other_authors: null,
 		page_no: '',
 		issn_no: '',
 		scopus_site_score: null,
@@ -118,67 +88,69 @@
 		doi_no: '',
 		title: '',
 		gs_indexed: '',
-		paper_type: {
-			value: paperType[0].id,
-			label: paperType[0].paper_name
-		},
+		paper_type: null,
 		wos_indexed: true,
-		abdc_indexed: {
-			value: abdcIndexed[0].id,
-			label: abdcIndexed[0].abdc_type
-		},
+		abdc_indexed: null,
 		ugc_indexed: true,
 		scs_indexed: true,
 		foreign_authors_count: null,
-		foreign_authors: [
-			// {
-			// 	value: foreignAuthors[0].id,
-			// 	label: foreignAuthors[0].name
-			// }
-		],
+		foreign_authors: null,
 		student_authors_count: null,
-		student_authors: [
-			// {
-			// 	value: studentAuthors[0].id,
-			// 	label: studentAuthors[0].name
-			// }
-		],
+		student_authors: null,
 		journal_type: 1
 	};
 
 	let files: any = [];
+	console.log('indexes type ', obj.ugc_indexed, obj.gs_indexed, obj.wos_indexed);
 
 	async function handleSubmit() {
 		const journalObject: JournalPaperReq = {
-			nmims_school: obj.nmims_school.map((data) => data.value),
-			nmims_campus: obj.nmims_campus.map((data) => data.value),
+			nmims_school:
+				obj.nmims_school != null ? obj.nmims_school.map((data: { value: any }) => data.value) : [],
+			nmims_campus:
+				obj.nmims_campus != null ? obj.nmims_campus.map((data: { value: any }) => data.value) : [],
 			publish_year: Number(obj.publish_year),
-			policy_cadre: obj.policy_cadre.map((data) => Number(data.value)),
-			all_authors: obj.all_authors.map((data) => Number(data.value)),
+			policy_cadre:
+				obj.policy_cadre != null
+					? obj.policy_cadre.map((data: { value: any }) => Number(data.value))
+					: [],
+			all_authors:
+				obj.all_authors != null
+					? obj.all_authors.map((data: { value: any }) => Number(data.value))
+					: [],
 			total_authors: Number(obj.total_authors),
-			nmims_authors: obj.nmims_authors.map((data) => Number(data.value)),
+			nmims_authors: obj.nmims_authors
+				? obj.nmims_authors.map((data: { value: any }) => Number(data.value))
+				: [],
 			nmims_author_count: Number(obj.nmims_author_count),
 			journal_name: obj.journal_name,
 			uid: obj.uid,
 			publisher: obj.publisher,
-			other_authors: obj.other_authors.map((data) => Number(data.value)),
+			other_authors:
+				obj.other_authors != null
+					? obj.other_authors.map((data: { value: any }) => Number(data.value))
+					: [],
 			page_no: obj.page_no,
 			issn_no: obj.issn_no,
 			scopus_site_score: Number(obj.scopus_site_score),
 			impact_factor: Number(obj.impact_factor),
 			doi_no: obj.doi_no,
-			publication_date: formatDate(publicationFormattedDate),
+			publication_date:
+				publicationFormattedDate != null ? formatDate(publicationFormattedDate) : '',
 			title: obj.title,
 			gs_indexed: obj.gs_indexed,
-			paper_type: Number(obj.paper_type.value),
+			paper_type: obj.paper_type != null ? Number(obj.paper_type.value) : 0,
 			wos_indexed: obj.wos_indexed,
-			abdc_indexed: Number(obj.abdc_indexed.value),
+			abdc_indexed: obj.abdc_indexed != null ? Number(obj.abdc_indexed.value) : 0,
 			ugc_indexed: obj.ugc_indexed,
 			scs_indexed: obj.scs_indexed,
 			foreign_authors_count: Number(obj.foreign_authors_count),
-			foreign_authors: obj.foreign_authors.map((data) => Number(data.value)),
+			foreign_authors:
+				obj.foreign_authors != null ? obj.foreign_authors.map((data) => Number(data.value)) : [],
 			student_authors_count: Number(obj.student_authors_count),
-			student_authors: obj.student_authors.map((data) => Number(data.value)),
+			student_authors:
+				obj.student_authors != null ? obj.student_authors.map((data) => Number(data.value)) : [],
+
 			// supporting_documents: Array.from(files),
 			journal_type: Number(obj.journal_type)
 		};
@@ -186,6 +158,8 @@
 		const fileObject: FileReq = {
 			documents: Array.from(files)
 		};
+
+		console.log('files object ',files)
 		const fileresult = validateWithZod(fileSchema, fileObject);
 		if (fileresult.errors) {
 			console.log(fileresult.errors);
@@ -244,53 +218,24 @@
 			toast.success('Inserted Successfully');
 			publicationFormattedDate = null;
 			clearForm();
+			goto('/journal-paper');
 		}
 	}
 
 	function clearForm() {
 		obj = {
-			nmims_school: [
-				// {
-				// 	value: nmimsSchool[0].school_name,
-				// 	label: nmimsSchool[0].school_name
-				// }
-			],
-			nmims_campus: [
-				// {
-				// 	value: nmimsCampus[0].campus_name,
-				// 	label: nmimsCampus[0].campus_name
-				// }
-			],
+			nmims_school: null,
+			nmims_campus: null,
 			publish_year: null,
-			policy_cadre: [
-				// {
-				// 	value: policyCadre[0].id,
-				// 	label: policyCadre[0].policy_name
-				// }
-			],
-			all_authors: [
-				// {
-				// 	value: allAuthors[0].id,
-				// 	label: allAuthors[0].faculty_name
-				// }
-			],
+			policy_cadre: null,
+			all_authors: null,
 			total_authors: null,
-			nmims_authors: [
-				// {
-				// 	value: nmimsAuthors[0].id,
-				// 	label: nmimsAuthors[0].faculty_name
-				// }
-			],
+			nmims_authors: null,
 			nmims_author_count: null,
 			journal_name: '',
 			uid: '',
 			publisher: '',
-			other_authors: [
-				// {
-				// 	value: otherAuthors[0].id,
-				// 	label: otherAuthors[0].name
-				// }
-			],
+			other_authors: null,
 			page_no: '',
 			issn_no: '',
 			scopus_site_score: null,
@@ -298,33 +243,15 @@
 			doi_no: '',
 			title: '',
 			gs_indexed: '',
-			paper_type: {
-				value : null,
-				label : null
-				// value: paperType[0].id,
-				// label: paperType[0].paper_name
-			},
+			paper_type: null,
 			wos_indexed: true,
-			abdc_indexed: {
-				value: abdcIndexed[0].id,
-				label: abdcIndexed[0].abdc_type
-			},
+			abdc_indexed: null,
 			ugc_indexed: true,
 			scs_indexed: true,
 			foreign_authors_count: null,
-			foreign_authors: [
-				// {
-				// 	value: foreignAuthors[0].id,
-				// 	label: foreignAuthors[0].name
-				// }
-			],
+			foreign_authors: null,
 			student_authors_count: null,
-			student_authors: [
-				// {
-				// 	value: studentAuthors[0].id,
-				// 	label: studentAuthors[0].name
-				// }
-			],
+			student_authors: null,
 			journal_type: 1
 		};
 
@@ -334,7 +261,7 @@
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
 <Card {title}>
-	<div class="scroll modal-content max-h-[70vh] min-h-[50vh] overflow-auto p-4">
+	<div class="scroll small-scrollbar modal-content max-h-[70vh] min-h-[50vh] overflow-auto p-4">
 		<!-- Adjust max-height as needed -->
 		<div class="grid grid-cols-3 gap-[40px] p-4">
 			<DynamicSelect
@@ -427,7 +354,7 @@
 							class="lms-input-radio w-4"
 							name="radio-button-national"
 							bind:group={obj.journal_type}
-							checked={obj.journal_type == 1}
+							checked
 							value={1}
 						/>
 						<span class="text-sm text-[#888888]">International</span>
@@ -439,7 +366,6 @@
 							class="lms-input-radio w-4"
 							name="radio-button-national"
 							bind:group={obj.journal_type}
-							checked={obj.journal_type == 1}
 							value={2}
 						/>
 						<span class="text-sm text-[#888888]">National</span>
@@ -458,7 +384,7 @@
 							class="lms-input-radio w-4"
 							name="radio-button-wos"
 							bind:group={obj.wos_indexed}
-							checked={obj.wos_indexed == true}
+							checked
 							value={true}
 						/>
 						<span class="text-sm text-[#888888]">Yes</span>
@@ -470,7 +396,6 @@
 							class="lms-input-radio w-4"
 							name="radio-button-wos"
 							bind:group={obj.wos_indexed}
-							checked={obj.wos_indexed == true}
 							value={false}
 						/>
 						<span class="text-sm text-[#888888]">No</span>
@@ -498,7 +423,7 @@
 							class="lms-input-radio w-4"
 							name="radio-button-ugc"
 							bind:group={obj.ugc_indexed}
-							checked={obj.ugc_indexed == true}
+							checked
 							value={true}
 						/>
 						<span class="text-sm text-[#888888]">Yes</span>
@@ -510,7 +435,6 @@
 							class="lms-input-radio w-4"
 							name="radio-button-ugc"
 							bind:group={obj.ugc_indexed}
-							checked={obj.ugc_indexed == true}
 							value={false}
 						/>
 						<span class="text-sm text-[#888888]">No</span>
@@ -537,7 +461,7 @@
 			<Input
 				{isRequired}
 				type="number"
-				placeholder="No. Of Foreign Authors"
+				placeholder="No.Of Foreign Authors"
 				bind:value={obj.foreign_authors_count}
 			/>
 			<DynamicSelect
@@ -568,7 +492,7 @@
 							class="lms-input-radio w-4"
 							name="radio-button-scs"
 							bind:group={obj.scs_indexed}
-							checked={obj.scs_indexed == true}
+							checked
 							value={true}
 						/>
 						<span class="text-sm text-[#888888]">Yes</span>
@@ -580,7 +504,6 @@
 							class="lms-input-radio w-4"
 							name="radio-button-scs"
 							bind:group={obj.scs_indexed}
-							checked={obj.scs_indexed == true}
 							value={false}
 						/>
 						<span class="text-sm text-[#888888]">No</span>
