@@ -1,8 +1,9 @@
 import type { TableHeaders } from './types/layout/table';
 import type { SubjectMeetingDetail } from './types/modules/mpc/master-form';
-import type { JournalPaper, JournalView,
-	TeachingView,MeetingView,brandingView
+import type { JournalPaper, JournalView, BookPublicationRender,
+	BookChapterRender, BookChapterDetails
  } from './types/modules/research/research-types';
+
 
 
 export const SIDEBAR_URL = [
@@ -27,6 +28,25 @@ export const SIDEBAR_URL = [
 		module: null,
 		child: []
 	},
+
+	{
+		url: '/book-publication',
+		icon: 'test',
+		label: 'Book Publication',
+		module: null,
+		child: []
+	},
+
+	{
+		url: '/book-chapter-publication',
+		icon: 'test',
+		label: 'Book Chapter Publication',
+		module: null,
+		child: []
+	},
+
+
+
 	{
 		url: '/teaching-meeting-branding',
 		icon: 'test',
@@ -267,183 +287,125 @@ export const paginationHeaders : TableHeaders<JournalView>[] = [
 ]; 
 
 
-export const teachingHeaders : TableHeaders<TeachingView>[] = [
-  
-	{
-	   label: 'Peadagogy Innovation',
-	   key: 'pedagogy_innovation',
-	   sortable: false,
-	   classes: 'id',
-	   showTooltip: false
-   },
-   {
-	   label: 'FDP Program On Academic',
-	   key: 'fdp_program',
-	   sortable: false,
-	   classes: '',
-	   showTooltip: false
-   },
-   {
-	   label: 'Workshop For Students',
-	   key: 'student_workshops',
-	   sortable: false,
-	   classes: 'whitespace-nowrap',
-	   showTooltip: false
-   },
-   {
-	   label: 'Inviting Visiting Faculty From The Industry To Handle Niche Workshops',
-	   key: 'niche',
-	   sortable: false,
-	   classes: '',
-	   showTooltip: false
-   },
-   {
-	   label: 'Program Orientation',
-	   key: 'program_orientation',
-	   sortable: false,
-	   classes: '',
-	   showTooltip: false
-   },
-]; 
 
+export const BookPublicationHeaders :  TableHeaders<BookPublicationRender>[] = [
 
- export const meetingHeaders : TableHeaders<MeetingView>[]=[
-    
 	{
-		label: 'Ranking Description',
-		key: 'ranking',
+		label: 'All Authors Names',
+		key: 'all_authors',
 		sortable: false,
 		classes: '',
 		showTooltip: false
 	},
 
 	{
-		label: 'Accreditation',
-		key: 'accreditation',
+		label: 'Nmims School',
+		key: 'nmims_school',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Nmims Campus',
+		key: 'nmims_campus',
+		sortable: false,
+		classes: 'whitespace-nowrap',
+		showTooltip: false
+	},
+
+	{
+		label: 'Publishing Year',
+		key: 'publish_year',
 		sortable: false,
 		classes: '',
 		showTooltip: false
 	},
 
 	{
-		label: 'School/Campus Achievements',
-		key: 'achievements',
+		label: 'Title Of Book',
+		key: 'title',
 		sortable: false,
 		classes: '',
 		showTooltip: false
 	},
 
 	{
-		label: 'Convocation At NMIMS',
-		key: 'convocation',
+		label: 'ISBN Number',
+		key: 'isbn_no',
 		sortable: false,
 		classes: '',
 		showTooltip: false
 	},
 
 	{
-		label: 'Inaugral Program At NMIMS',
-		key: 'inaugral_program',
+		label: 'Publisher Name',
+		key: 'publisher',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	}
+
+]
+
+
+
+export const BookChapterHeaders :  TableHeaders<BookChapterRender>[] = [
+
+	{
+		label: 'All Authors Names',
+		key: 'all_authors',
 		sortable: false,
 		classes: '',
 		showTooltip: false
 	},
 
 	{
-		label: 'Events At NMIMS',
-		key: 'events',
+		label: 'Nmims School',
+		key: 'nmims_school',
 		sortable: false,
 		classes: '',
 		showTooltip: false
 	},
-
-
-
- ];
-
-
- export const brandingHeaders : TableHeaders<brandingView>[]=[
-    
 	{
-		label: 'Faculty Recognition',
-		key: 'faculty_recognition',
+		label: 'Nmims Campus',
+		key: 'nmims_campus',
 		sortable: false,
-		classes: '',
+		classes: 'whitespace-nowrap',
 		showTooltip: false
 	},
 
 	{
-		label: 'Faculty Awards',
-		key: 'faculty_awards',
+		label: 'Publishing Year',
+		key: 'publish_year',
 		sortable: false,
 		classes: '',
 		showTooltip: false
 	},
 
 	{
-		label: 'Staff Awards',
-		key: 'staff_awards',
+		label: 'Book title',
+		key: 'book_title',
 		sortable: false,
 		classes: '',
 		showTooltip: false
 	},
 
 	{
-		label: 'Alumini Awards',
-		key: 'alumni_awards',
+		label: 'ISBN Number',
+		key: 'isbn_no',
 		sortable: false,
 		classes: '',
 		showTooltip: false
 	},
 
 	{
-		label: 'Student Awards',
-		key: 'student_awards',
+		label: 'Publisher Name',
+		key: 'publisher',
 		sortable: false,
 		classes: '',
 		showTooltip: false
-	},
+	}
 
-	{
-		label: 'International Linkage Ventures',
-		key: 'international_ventures',
-		sortable: false,
-		classes: '',
-		showTooltip: false
-	},
-
-	{
-		label: 'Conference Participation',
-		key: 'conference_participation',
-		sortable: false,
-		classes: '',
-		showTooltip: false
-	},
-
-	{
-		label: 'Organizing Conference At NMIMS',
-		key: 'organizing_conference',
-		sortable: false,
-		classes: '',
-		showTooltip: false
-	},
-
-	{
-		label: 'Student Event Participation',
-		key: 'student_event',
-		sortable: false,
-		classes: '',
-		showTooltip: false
-	},
-
-    {
-		label: 'Newspaper Article',
-		key: 'newspaper_article',
-		sortable: false,
-		classes: '',
-		showTooltip: false
-	},
+]
 
 
-
- ];

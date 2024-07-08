@@ -82,6 +82,17 @@ export function getNmimsAuthor(data : any) :CustomOptions[] {
 	return nmimsAuthArr;
 }
 
+
+export function getEditors(data: any) :CustomOptions[]{
+	let editors : any[] = [];
+	data.forEach((item : any) => {
+		editors.push({value: item.id, label: item.name});
+	});
+  
+	return editors;
+
+}
+
 export function getOtherAuthor(data : any) :CustomOptions[] {
 	let otherAuthArr : any[] = [];
 	data.forEach((item : any) => {
