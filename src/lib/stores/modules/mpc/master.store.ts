@@ -1,3 +1,4 @@
+import type { CustomOptions } from '$lib/components/ui/select/helper.select';
 import type { MasterMeetingStore } from '$lib/types/modules/mpc/master-form';
 import type { JournalPaper } from '$lib/types/modules/research/research-types';
 
@@ -58,6 +59,11 @@ export const paginateUrl = writable<URL>(url);
 export const confirmStore = writable<{ isVisible: boolean, confirmText: string }>({
 	isVisible: false,
 	confirmText: 'Are you sure?'
+});
+
+export const optionStore = writable<CustomOptions>({
+	value : null,
+	label : null
 });
 
 

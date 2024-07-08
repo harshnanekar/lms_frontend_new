@@ -2,7 +2,7 @@
 	// import { JournalView } from '$lib/types/modules/research/research-types.ts';
 	import { ActionIcon } from '$lib/components/icons';
 	import { Modal } from '$lib/components/ui';
-	import type { JournalView } from '$lib/types/modules/research/research-types';
+	import type { brandingView } from '$lib/types/modules/research/research-types';
 	// import type { SubjectMeetingDetail } from '$lib/types/modules/mpc/master-form';
 	import {createEventDispatcher,onMount } from 'svelte';
 	import { writable } from 'svelte/store';
@@ -15,7 +15,7 @@
 	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
 	import {confirmStore,actionStore} from "$lib/stores/modules/mpc/master.store"
 	import {showConfirmation} from '$lib/components/ui/popup'
-	export let actionData: JournalView;
+	export let actionData: brandingView;
 
 	const showMenu = writable<boolean>(false);
 	const menuPosition = writable<{ top: number; left: number }>({ top: 0, left: 0 });
@@ -72,10 +72,10 @@
 
 	const isOpen = writable(false);
 	let modalwidthPercent: ModalSizes = 'md';
-	let journalId: number;
+	let brandingId: number;
 
 	const openModal = async () => {
-		journalId = actionData.id;
+		brandingId = actionData.id;
 		console.log('click called')
 	
      const message = 'Are you sure you want to delete this?';
@@ -95,10 +95,10 @@
 
 	async function handleDelete() {
 
-		console.log('delete', journalId);
+		console.log('delete', brandingId);
 		isOpen.set(false);
 		const { error, json } = await fetchApi({
-			url: `${PUBLIC_API_BASE_URL}/journal-article-delete?id=${journalId}`,
+			url: `${PUBLIC_API_BASE_URL}/branding-advertisement-delete?id=${brandingId}`,
 			method: 'GET'
 		});
 
@@ -108,16 +108,13 @@
 			});
 			return;
 		}
-
-		if(json.status == 200){
-			
+        if(json.status == 200){
 		toast.success('Deleted Successfully !');
-		let url: URL = new URL('http://localhost:9090/research/journal-paginate');
+		let url: URL = new URL('http://localhost:9090/research/branding-paginate');
 		paginateUrl.set(url);
-
-		}else{
-			toast.error(json.message);
-		}
+        }else{
+            toast.error(json.message);
+        }
 	}
 
   
@@ -136,12 +133,12 @@
 		>
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 				<a
-					href="/journal-paper/view/{actionData.id}"
+					href="/teaching-meeting-branding/view/ba/{actionData.id}"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">View</a
 				>
 				<a
-					href="/journal-paper/edit/{actionData.id}"
+					href="/teaching-meeting-branding/edit/ba/{actionData.id}"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">Edit</a
 				>

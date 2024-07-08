@@ -280,6 +280,7 @@
 	export let selectedOptions: CustomOptions | CustomOptions[] = [];
 	export let isprePopulate = false;
 	export let isMultiSelect = false;
+	
 
 	let dropdownRef: HTMLElement;
 	let buttonRef: HTMLElement;
