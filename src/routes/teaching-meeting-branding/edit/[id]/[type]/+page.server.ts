@@ -6,9 +6,10 @@ import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async ({ cookies, fetch,params }) => {
     
     const {id,type} = params;
+	console.log('type ',type)
 	
-    const moduleUrl = type === 'te' ? '/update-teach-view-data' : type === 'ms' ? '/update-meeting-view-data' 
-    : '/update-branding-view-data'
+    const moduleUrl = type === 'te' ? `/update-teach-view-data?id=${id}` : type === 'ms' ? `/update-meeting-view-data?id=${id}` 
+    : `/update-branding-view-data?id=${id}`
 
 	console.log('id and type ',id,type,moduleUrl);
 
@@ -26,7 +27,7 @@ export const load: PageServerLoad = async ({ cookies, fetch,params }) => {
 		});
 	}
 
-    console.log('json ',json);
+    console.log('json ',JSON.stringify(json));
 	return {
 		inputData: json
 	};

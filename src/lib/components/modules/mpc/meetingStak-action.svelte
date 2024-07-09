@@ -134,12 +134,12 @@
 		>
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 				<a
-					href="/teaching-meeting-branding/view/ms/{actionData.id}"
+					href="/teaching-meeting-branding/view/{actionData.id}/ms"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">View</a
 				>
 				<a
-					href="/teaching-meeting-branding/edit/ms/{actionData.id}"
+					href="/teaching-meeting-branding/edit/{actionData.id}/ms"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">Edit</a
 				>
