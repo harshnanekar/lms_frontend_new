@@ -4,8 +4,8 @@
 	import { PlusIcon } from '$lib/components/icons';
     import { PaginateDynamic } from '$lib/components/layout/pagination';
 	import { teachingHeaders,meetingHeaders,brandingHeaders } from '$lib/test';
-	import ResearchAction from '$lib/components/modules/mpc/research-action.svelte';
-	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
+	import {ResearchAction,MeetingStakHolderAction,BrandingAction,TeachingAction} from '$lib/components/modules/mpc';
+	import { paginateUrl,optionStore } from '$lib/stores/modules/mpc/master.store';
     import { DynamicSelect } from '$lib/components/ui';
     import {
 		getInputFields
@@ -20,9 +20,15 @@
       label : inputArr[0].name
     };
 
+	// $: optionStore.set(inputSelected)
+
     $: dynamicLabel = inputSelected.label;
     $: dynamicHeaders = inputSelected.label === 'Teaching Excellance' ? teachingHeaders :
     inputSelected.label === 'Meeting Stakeholders' ? meetingHeaders : brandingHeaders;
+
+	// $: dynamicLabel = $optionStore?.label;
+    // $: dynamicHeaders =  $optionStore?.label === 'Teaching Excellance' ? teachingHeaders :
+    // inputSelected.label === 'Meeting Stakeholders' ? meetingHeaders : brandingHeaders;
 
 
     $: dynamicUrl = new URL(`http://localhost:9090/research${inputSelected.value}`);
@@ -60,7 +66,13 @@
 <div class="shadow-card mt-[5%] rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 sm:p-6">
 
 		<PaginateDynamic url={$paginateUrl} header={dynamicHeaders} let:actionData>
-			<ResearchAction {actionData}  />
+         {#if dynamicLabel === 'Teaching Excellance'}
+          <TeachingAction {actionData} />
+		 {:else if  dynamicLabel === 'Meeting Stakeholders'}
+          <MeetingStakHolderAction {actionData} />
+		 {:else}
+          <BrandingAction {actionData} />
+		 {/if}
 		</PaginateDynamic>
 
 </div>

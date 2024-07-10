@@ -6,6 +6,9 @@ import MpcTable from './main-table/mpc-table.svelte';
 import ResearchAction from './research-action.svelte';
 import AddCampusModal from './modals/add-campus-modal.svelte';
 import ResearchTable from './main-table/research-table.svelte';
+import TeachingAction from './teaching-action.svelte';
+import MeetingStakHolderAction from './meetingStak-action.svelte';
+import BrandingAction from './branding-action.svelte'
 import { userList, AddAnchor, AddAttendees } from './master-form';
 
 export {
@@ -19,5 +22,8 @@ export {
 	AddAttendees,
 	userList,
 	ResearchTable,
-	ResearchAction
+	ResearchAction,
+	TeachingAction,
+	MeetingStakHolderAction,
+	BrandingAction
 };
