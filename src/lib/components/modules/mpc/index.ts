@@ -7,6 +7,9 @@ import ResearchAction from './research-action.svelte';
 import AddCampusModal from './modals/add-campus-modal.svelte';
 import ResearchTable from './main-table/research-table.svelte';
 import BookPublicationAction from './book-publication-action.svelte'
+import TeachingAction from './teaching-action.svelte';
+import MeetingStakHolderAction from './meetingStak-action.svelte';
+import BrandingAction from './branding-action.svelte'
 import { userList, AddAnchor, AddAttendees } from './master-form';
 
 export {
@@ -21,5 +24,8 @@ export {
 	userList,
 	ResearchTable,
 	ResearchAction,
-	BookPublicationAction
+	BookPublicationAction,
+	TeachingAction,
+	MeetingStakHolderAction,
+	BrandingAction
 };
