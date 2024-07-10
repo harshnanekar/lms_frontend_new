@@ -375,13 +375,84 @@
 		);
 	}
 
-	function downLoadFiles() {
-		console.log('files');
+	async function downLoadTeachingFiles(abbr: any) {
+		fetch(`${PUBLIC_API_BASE_URL}/teaching-download-files?id=${teachingId}&abbr=${abbr}`)
+			.then((response) => {
+				if (response.ok) {
+					return response.blob();
+				}
+				throw new Error('Network response was not ok.');
+			})
+			.then((blob) => {
+				const url = window.URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.style.display = 'none';
+				a.href = url;
+				a.download = 'teaching_excellance_documents.zip';
+				document.body.appendChild(a);
+				a.click();
+				window.URL.revokeObjectURL(url);
+			})
+			.catch((error) => {
+				toast.error(error.message || 'Something went wrong!', {
+					description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+				});
+			});
+	}
+
+	async function downLoadMeetingFiles(abbr: any) {
+		fetch(`${PUBLIC_API_BASE_URL}/meeting-download-files?id=${meetingId}&abbr=${abbr}`)
+			.then((response) => {
+				if (response.ok) {
+					return response.blob();
+				}
+				throw new Error('Network response was not ok.');
+			})
+			.then((blob) => {
+				const url = window.URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.style.display = 'none';
+				a.href = url;
+				a.download = 'meeting_stakeholders_documents.zip';
+				document.body.appendChild(a);
+				a.click();
+				window.URL.revokeObjectURL(url);
+			})
+			.catch((error) => {
+				toast.error(error.message || 'Something went wrong!', {
+					description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+				});
+			});
+	}
+
+	async function downLoadBrandingFiles(abbr: any) {
+		fetch(`${PUBLIC_API_BASE_URL}/branding-download-files?id=${brandingId}&abbr=${abbr}`)
+			.then((response) => {
+				if (response.ok) {
+					return response.blob();
+				}
+				throw new Error('Network response was not ok.');
+			})
+			.then((blob) => {
+				const url = window.URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.style.display = 'none';
+				a.href = url;
+				a.download = 'branding_advertisement_documents.zip';
+				document.body.appendChild(a);
+				a.click();
+				window.URL.revokeObjectURL(url);
+			})
+			.catch((error) => {
+				toast.error(error.message || 'Something went wrong!', {
+					description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+				});
+			});
 	}
 </script>
 
 <div class="space-y-6">
-	<div class="shadow-card flex items-center justify-between rounded-2xl border border-gray-200 p-6">
+	<div class=" flex items-center justify-between rounded-2xl border border-[#e5e9f1] p-6">
 		<div class="flex flex-row items-center gap-4">
 			<i class="fa-solid fa-graduation-cap text-[30px]"></i>
 			<h1 class="text-lg font-semibold">Teaching Excellence</h1>
@@ -397,7 +468,7 @@
 	</div>
 
 	{#if teachingItems.length > 0}
-		<div class="lms-table-wrapper shadow-card rounded-2xl border border-gray-200 p-6">
+		<div class="lms-table-wrapper shadow-card rounded-2xl border border-[#e5e9f1] p-6">
 			<table class="lms-table">
 				<thead>
 					<tr>
@@ -446,7 +517,9 @@
 													updateTeachingItem(item.id, 'file', [...e?.target?.files])}
 											/>
 										{:else}
-											<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
+											<button
+												class="lms-primary-btn mt-2"
+												on:click={() => downLoadTeachingFiles(item.type.value)}
 												><i class="fa-solid fa-download text-md"></i></button
 											>
 										{/if}
@@ -489,7 +562,7 @@
 		</div>
 	{/if}
 
-	<div class="shadow-card flex items-center justify-between rounded-2xl border border-gray-200 p-6">
+	<div class=" flex items-center justify-between rounded-2xl border border-[#e5e9f1] p-6">
 		<div class="flex flex-row items-center gap-4">
 			<i class="fa-solid fa-people-arrows text-[30px]"></i>
 			<h1 class="text-lg font-semibold">Meeting Stakeholders</h1>
@@ -505,7 +578,7 @@
 	</div>
 
 	{#if meetingItems.length > 0}
-		<div class="lms-table-wrapper shadow-card rounded-2xl border border-gray-200 p-6">
+		<div class="lms-table-wrapper shadow-card rounded-2xl border border-[#e5e9f1] p-6">
 			<table class="lms-table">
 				<thead>
 					<tr>
@@ -553,7 +626,9 @@
 												on:change={(e) => updateMeetingItem(item.id, 'file', [...e?.target?.files])}
 											/>
 										{:else}
-											<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
+											<button
+												class="lms-primary-btn mt-2"
+												on:click={() => downLoadMeetingFiles(item.type.value)}
 												><i class="fa-solid fa-download text-md"></i></button
 											>
 										{/if}
@@ -596,7 +671,7 @@
 		</div>
 	{/if}
 
-	<div class="shadow-card flex items-center justify-between rounded-2xl border border-gray-200 p-6">
+	<div class=" flex items-center justify-between rounded-2xl border border-[#e5e9f1] p-6">
 		<div class="flex flex-row items-center gap-4">
 			<i class="fa-solid fa-bullhorn text-[30px]"></i>
 			<h1 class="text-lg font-semibold">Branding & Advertisement</h1>
@@ -612,7 +687,7 @@
 	</div>
 
 	{#if brandingItems.length > 0}
-		<div class="lms-table-wrapper shadow-card rounded-2xl border border-gray-200 p-6">
+		<div class="lms-table-wrapper shadow-card rounded-2xl border border-[#e5e9f1] p-6">
 			<table class="lms-table">
 				<thead>
 					<tr>
@@ -661,7 +736,9 @@
 													updateBrandingItem(item.id, 'file', [...e?.target?.files])}
 											/>
 										{:else}
-											<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
+											<button
+												class="lms-primary-btn mt-2"
+												on:click={() => downLoadBrandingFiles(item.type.value)}
 												><i class="fa-solid fa-download text-md"></i></button
 											>
 										{/if}
