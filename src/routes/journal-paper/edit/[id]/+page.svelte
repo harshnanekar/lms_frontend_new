@@ -34,7 +34,7 @@
 	let isRequired = false;
 	let title = 'Journal Articles Published';
 
-	let foreignAuthors = data?.journalData?.foreignAuthors?.message;
+	// let foreignAuthors = data?.journalData?.foreignAuthors?.message;
 	let studentAuthors = data?.journalData?.StudentAuthors?.message;
 	let otherAuthors = data?.journalData?.otherAuthors?.message;
 	let policyCadre = data?.journalData?.policyCadre?.message;
@@ -51,7 +51,7 @@
 	console.log('checkbox check ', checkVal);
 
 	$: abdcTypes = abdcIndexed;
-	$: foreignAuth = foreignAuthors;
+	// $: foreignAuth = foreignAuthors;
 	$: studentAuth = studentAuthors;
 	$: otherAuth = otherAuthors;
 	$: policy = policyCadre;
@@ -75,13 +75,13 @@
 	let obj: any = {
 		journal_paper_id: parseInt(data.journalData.journalData[0].journal_paper_id),
 		nmims_school:
-			data.journalData.journalData[0].nmims_school.length > 0
+			data.journalData.journalData[0].nmims_school.length != null
 				? data.journalData.journalData[0].nmims_school.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
 				: null,
 		nmims_campus:
-			data.journalData.journalData[0].nmims_campus.length > 0
+			data.journalData.journalData[0].nmims_campus.length != null
 				? data.journalData.journalData[0].nmims_campus.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
@@ -90,13 +90,13 @@
 			? data.journalData.journalData[0].publish_year
 			: null,
 		policy_cadre:
-			data.journalData.journalData[0].policy_names.length > 0
+			data.journalData.journalData[0].policy_names.length !=null
 				? data.journalData.journalData[0].policy_names.map((dt: any) => {
 						return { value: dt.id, label: dt.policy_name };
 					})
 				: null,
 		all_authors:
-			data.journalData.journalData[0].all_authors.length > 0
+			data.journalData.journalData[0].all_authors.length != null
 				? data.journalData.journalData[0].all_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.faculty_name };
 					})
@@ -105,7 +105,7 @@
 			? data.journalData.journalData[0].total_authors
 			: null,
 		nmims_authors:
-			data.journalData.journalData[0].nmims_authors.length > 0
+			data.journalData.journalData[0].nmims_authors != null
 				? data.journalData.journalData[0].nmims_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.faculty_name };
 					})
@@ -176,6 +176,26 @@
 	};
 
 	let files: any = [];
+
+	let foreignAuthors = data?.journalData?.foreignAuthors?.message;
+	let filteredForeignAuth : any = [];
+
+	$: Array.from(obj.foreign_authors).forEach(faa  => {
+		Array.from(foreignAuthors).forEach(fa => {
+			if (faa.value != fa.id){
+				filteredForeignAuth.push(fa);
+			}
+		});
+	});
+	
+	// let foreign = foreignAuthors ? foreignAuthors.filter((fa: any) => {
+	// return !obj.foreign_authors.includes(fa.id);
+    // }) : [];
+
+
+	 console.log('foreign authors ',foreignAuthors,obj.foreign_authors,filteredForeignAuth)
+
+	$: foreignAuth = filteredForeignAuth
 
 	async function handleSubmit() {
 		const journalObject: JournalPaperReq = {
@@ -677,7 +697,7 @@
 				{#if checkVal}
 					<input type="file" bind:files multiple />
 				{:else}
-					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}>Download</button>
+					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}><i class="fa-solid fa-download text-md"></i></button>
 				{/if}
 			</div>
 		</div>

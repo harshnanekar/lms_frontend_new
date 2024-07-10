@@ -17,7 +17,7 @@ export const journalPaper = z.object({
 	uid: z.string().min(1, 'UID is required'),
 	publisher: z.string().min(1, 'Publisher is required'),
 	other_authors: z.array(z.number()).optional(),
-	chapter_page_no: z.string().optional(),
+	page_no: z.string().optional(),
 	issn_no:z.string().optional(),
 	scopus_site_score: z.number().optional(),
 	impact_factor: z.number().min(1, 'Impact factor is required'),
@@ -44,6 +44,7 @@ export const journalPaper = z.object({
     }),
 	// publication_date: z.date().nullable().refine((date) => date!= null || date != '1970-01-01T00:00:00.000Z', 'Publication date is required')
 });
+
 
 
 
@@ -143,20 +144,20 @@ const meetingItemSchema = z.object({
 
 
   export const fileSchema = z.object({
-  documents: z.array(z.instanceof(File)).nonempty({ message: 'File is required' })
-    .max(5, { message: 'A maximum of 5 files can be uploaded' })
-    .refine(
-      (files) => files.every((file) => [
-        'application/pdf',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'application/vnd.ms-excel',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      ].includes(file.type)),
-      { message: 'Only .pdf, .docx, .xls, .xlsx formats are supported' }
-    ),
-});
-
-    export type FileReq = z.infer<typeof fileSchema>;
+	documents: z.array(z.instanceof(File)).nonempty({ message: 'File is required' })
+	  .max(5, { message: 'A maximum of 5 files can be uploaded' })
+	  .refine(
+		(files) => files.every((file) => [
+		  'application/pdf',
+		  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+		  'application/vnd.ms-excel',
+		  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+		].includes(file.type)),
+		{ message: 'Only .pdf, .docx, .xls, .xlsx formats are supported' }
+	  ),
+  });
+  
+	  export type FileReq = z.infer<typeof fileSchema>;
 
 
 	const validFileExtensions = ['pdf', 'doc', 'docx', 'xls', 'xlsx'];
