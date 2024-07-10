@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({ cookies, fetch , params}) => {
 
     const id = params.id;
     const { error, json } = await fetchApiServer({
-		url: `${PRIVATE_API_BASE_URL}/book-chapter-publication-edit-view?id=${id}`,
+		url: `${PRIVATE_API_BASE_URL}/book-chapter-publication-view-form?id=${id}`,
 		_fetch: fetch,
 		cookies: cookies,
 		method: 'GET'

@@ -23,12 +23,14 @@
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
+	import { goto } from '$app/navigation';
     
     let campus : string = '';
     let title = 'Book Publication';
     let files: any = [];
 
-    export let data;
+	export let data : any;
+
 
     console.log('data in side edit view ===>>>', data);
     console.log('data in side edit view ankit mishra ===>>>', data.bookPublicationData.bookPublicationData[0]);
@@ -52,8 +54,8 @@
 	console.log('checkbox check ',checkVal);
  
 
-    let obj  = {
-        book_pulication_id: parseInt(data.bookPublicationData.bookPublicationData[0].book_pulication_id),
+    let obj : any   = {
+        book_publication_id: parseInt(data.bookPublicationData.bookPublicationData[0].book_pulication_id),
         nmims_school: data.bookPublicationData.bookPublicationData[0].nmims_school.length > 0
 				? data.bookPublicationData.bookPublicationData[0].nmims_school.map((dt: any) => {
 						return { value: dt, label: dt };
@@ -91,14 +93,23 @@
 };
 
 
-
+interface FileReq {
+    documents: File[];
+}
 async function handleSubmit() {
 		const bookPublicationObj: bookPublicationReq = {
-            nmims_school: obj.nmims_school.map((data: { value: any }) => data.value),
-			nmims_campus: obj.nmims_campus.map((data: { value: any }) => data.value),
+			nmims_school:
+				obj.nmims_school != null ? obj.nmims_school.map((data: { value: any }) => data.value) : [],
+			nmims_campus:
+				obj.nmims_campus != null ? obj.nmims_campus.map((data: { value: any }) => data.value) : [],
+			all_authors: obj.all_authors != null
+					? obj.all_authors.map((data: { value: any }) => Number(data.value))
+					: [],
+			nmims_authors: obj.nmims_authors != null
+				? obj.nmims_authors.map((data: { value: any }) => Number(data.value))
+				: [],
+            
 			publish_year: Number(obj.publish_year),
-			all_authors: obj.all_authors.map((data: { value: any }) => Number(data.value)),
-			nmims_authors: obj.nmims_authors.map((data: { value: any }) => Number(data.value)),
 			title: obj.title,
             edition: obj.edition,
             web_link: obj.web_link,
@@ -113,7 +124,7 @@ async function handleSubmit() {
 			
 		};
 
-		if (files.length > 0) {
+		if (checkVal) {
 			const fileObject: FileReq = {
 				documents: Array.from(files)
 			};
@@ -130,12 +141,12 @@ async function handleSubmit() {
 
 		const formData = new FormData();
 
-        console.log('obj.book_pulication_id ===>>>>', obj.book_pulication_id)
+        console.log('obj.book_publication_id ===>>>>', obj.book_publication_id)
 		formData.append('update_book_publication', JSON.stringify(bookPublicationObj));
-		formData.append('book_pulication_id', JSON.stringify(obj.book_pulication_id));
+		formData.append('book_publication_id', JSON.stringify(obj.book_publication_id));
 
 		// Append each file to the FormData
-		Array.from(files).forEach((file) => {
+		Array.from(files).forEach((file : any) => {
 			formData.append('supporting_documents', file);
 		});
 
@@ -178,51 +189,57 @@ async function handleSubmit() {
 			toast.success('Updated Successfully');
 			files = [];
 			isChecked = false;
+			goto('/book-publication')
 		}
 	}
 
 	function clearForm() {
-		obj = {
-			nmims_school: [
-			// {
-			// 	value: nmimsSchool[0].school_name,
-			// 	label: nmimsSchool[0].school_name
-			// }
-		],
-		nmims_campus: [
-			// {
-			// 	value: nmimsCampus[0].campus_name,
-			// 	label: nmimsCampus[0].campus_name
-			// }
-		],
-        all_authors: [
-			// {
-			// 	value: allAuthors[0].id,
-			// 	label: allAuthors[0].faculty_name
-			// }
-		],
-	
-		nmims_authors: [
-			// {
-			// 	value: nmimsAuthors[0].id,
-			// 	label: nmimsAuthors[0].faculty_name
-			// }
-		],
-	
-		title: '',
-        edition: '',
-		volume_no: '',
-        publisher: '',
-        publisher_category: 1,
-        publish_year: null,
-        web_link: '',
-        isbn_no: '',
-		doi_no: '',
-        publication_place: '',
-        nmims_authors_count: '' 
-		};
-		files = [];
+		obj =  {
+			nmims_school: null,
+			nmims_campus: null,
+			all_authors: null,
+			nmims_authors: null,
+			title: '',
+			edition: '',
+			volume_no: '',
+			publisher: '',
+			publisher_category: 1,
+			publish_year: null,
+			web_link: '',
+			isbn_no: '',
+			doi_no: '',
+			publication_place: '',
+			nmims_authors_count: '' 
+			};
+			files = [];
 	}
+
+	async function downLoadFiles() {
+		fetch(`${PUBLIC_API_BASE_URL}/book-publication-download-file?id=${obj.book_publication_id}`)
+			.then((response) => {
+				if (response.ok) {
+					return response.blob();
+				}
+				throw new Error('Network response was not ok.');
+			})
+			.then((blob) => {
+				const url = window.URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.style.display = 'none';
+				a.href = url;
+				a.download = 'book_publication_documents.zip';
+				document.body.appendChild(a);
+				a.click();
+				window.URL.revokeObjectURL(url);
+			})
+			.catch((error) => {
+				toast.error(error.message || 'Something went wrong!', {
+					description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+				});
+			});
+	}
+	
+	
     
 
     </script>
@@ -284,7 +301,7 @@ async function handleSubmit() {
         </div>
         <div class="grid grid-cols-3 gap-[40px] p-4">
             
-          <Input type="number" placeholder="Publication Year" bind:value ={obj.publish_year}/>
+          <Input type="number" placeholder="Publication Year" bind:value={obj.publish_year} />
           <Input type="text" placeholder="Publisher Name" bind:value ={obj.publisher}/>
           <Input type="text" placeholder="Website link" bind:value ={obj.web_link}/>
 
@@ -297,8 +314,18 @@ async function handleSubmit() {
         </div>
 
         <div class="grid grid-cols-3 gap-[40px] p-4">
-          <input type="file" bind:files multiple />       
-        </div>
+			<div>
+				<label for="supporting-documents"
+					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
+				>
+				<label>Click To Upload New File <input type="checkbox" bind:checked={isChecked} /></label>
+				{#if checkVal}
+					<input type="file" bind:files multiple />
+				{:else}
+					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}><i class="fa-solid fa-download text-lg"></i></button>
+				{/if}
+			</div>        
+		</div>
       </div>
     
 

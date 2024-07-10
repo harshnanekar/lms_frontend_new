@@ -13,10 +13,15 @@
     import { PaginateDynamic } from '$lib/components/layout/pagination';
     import {BookPublicationHeaders} from "$lib/test";
     import BookPublicationAction from '$lib/components/modules/mpc/book-publication-action.svelte';
+    import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
+
+	let dynamicUrl = 'http://localhost:9090/research/book-publication-paginate';
+	const url = new URL(dynamicUrl);
+	paginateUrl.set(url);
     
-    const url  =  new URL("http://localhost:9090/research/book-publication-paginate");
+   
     
-    const label = 'Book Publications';
+    const label = 'Book Publication';
     
     
     let title : string = '';
@@ -42,7 +47,7 @@
     
     <div class="rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 shadow-card sm:p-6 mt-[5%]">
     <!-- <ResearchTable /> -->
-     <PaginateDynamic url={url} header={BookPublicationHeaders} let:actionData  >
+     <PaginateDynamic url={$paginateUrl} header={BookPublicationHeaders} let:actionData  >
         <BookPublicationAction actionData={actionData}  />
      </PaginateDynamic>
     

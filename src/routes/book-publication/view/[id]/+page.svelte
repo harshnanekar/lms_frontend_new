@@ -25,18 +25,18 @@
             nmims_campus: data.bookPublicationData[0].nmims_campus ? data.bookPublicationData[0].nmims_campus : '',
             all_authors: data.bookPublicationData[0].all_authors ? data.bookPublicationData[0].all_authors : '',
             nmims_authors: data.bookPublicationData[0].nmims_authors ? data.bookPublicationData[0].nmims_authors : '',
-            title: data.bookPublicationData[0].title,
-            edition: data.bookPublicationData[0].edition,
-            publish_year: data.bookPublicationData[0].publish_year,
-            volume_no: data.bookPublicationData[0].volume_no,
-            publisher: data.bookPublicationData[0].publisher,
-            web_link: data.bookPublicationData[0].web_link,
-            doi_no: data.bookPublicationData[0].doi_no,
-            publication_place: data.bookPublicationData[0].publication_place,
-            isbn_no: data.bookPublicationData[0].isbn_no,
-            nmims_authors_count: data.bookPublicationData[0].nmims_authors_count,
+            title: data.bookPublicationData[0].title ?  data.bookPublicationData[0].title : '',
+            edition: data.bookPublicationData[0].edition ? data.bookPublicationData[0].edition : '',
+            publish_year: data.bookPublicationData[0].publish_year ? data.bookPublicationData[0].publish_year : '',
+            volume_no: data.bookPublicationData[0].volume_no ? data.bookPublicationData[0].volume_no : '',
+            publisher: data.bookPublicationData[0].publisher ? data.bookPublicationData[0].publisher : '',
+            web_link: data.bookPublicationData[0].web_link ? data.bookPublicationData[0].web_link : '',
+            doi_no: data.bookPublicationData[0].doi_no ? data.bookPublicationData[0].doi_no : '',
+            publication_place: data.bookPublicationData[0].publication_place ? data.bookPublicationData[0].publication_place : '',
+            isbn_no: data.bookPublicationData[0].isbn_no ? data.bookPublicationData[0].isbn_no : '',
+            nmims_authors_count: data.bookPublicationData[0].nmims_authors_count ? data.bookPublicationData[0].nmims_authors_count : '',
             publisher_category:  Number(data.bookPublicationData[0].publisher_category),
-            filename : data.bookPublicationData[0].supporting_documents
+            filename : data.bookPublicationData[0].supporting_documents ? data.bookPublicationData[0].supporting_documents : ''
  
    
 };
@@ -100,11 +100,11 @@
           <label class="text-[#888888] text-sm">Publisher Category<span class="text-danger text-sm">*</span></label>
           <div class="flex flex-row gap-[20px] mt-2.5">
             <div class="flex flex-row">
-              <input type="radio" id="html" class="lms-input-radio w-4" name="radio-button-text" bind:group={obj.publisher_category} value={1} checked={obj.publisher_category === 1}>
+              <input type="radio" id="html" class="lms-input-radio w-4" name="radio-button-text" bind:group={obj.publisher_category} value={1} checked={obj.publisher_category === 1} {disabled}>
               <span class="text-[#888888] text-sm">International</span>
             </div>
             <div class="flex flex-row">
-              <input type="radio" id="html" class="lms-input-radio w-4" bind:group={obj.publisher_category} value={2} checked={obj.publisher_category === 2} name="radio-button-text">
+              <input type="radio" id="html" class="lms-input-radio w-4" bind:group={obj.publisher_category} value={2} checked={obj.publisher_category === 2} name="radio-button-text" {disabled}>
               <span class="text-[#888888] text-sm">National</span>
             </div>
           </div>

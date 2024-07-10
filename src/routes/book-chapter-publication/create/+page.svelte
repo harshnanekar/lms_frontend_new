@@ -23,8 +23,9 @@
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
+	import { goto } from '$app/navigation';
 
-	export let data;
+	export let data : any;
 	let isRequired = false;
 	let title = 'Book Chapter Publication';
 
@@ -49,60 +50,44 @@
 	console.log("JSON.stringify(school)", JSON.stringify(school));
     console.log("JSON.stringify(editors)", JSON.stringify(editors));
 
-	let obj = {
-		nmims_school: [
-			// {
-			// 	value: nmimsSchool[0].school_name,
-			// 	label: nmimsSchool[0].school_name
-			// }
-		],
-		nmims_campus: [
-			// {
-			// 	value: nmimsCampus[0].campus_name,
-			// 	label: nmimsCampus[0].campus_name
-			// }
-		],
-        all_authors: [
-			// {
-			// 	value: allAuthors[0].id,
-			// 	label: allAuthors[0].faculty_name
-			// }
-		],
-	
-		nmims_authors: [
-			// {
-			// 	value: nmimsAuthors[0].id,
-			// 	label: nmimsAuthors[0].faculty_name
-			// }
-		],
-
-        book_editors:[],
-	
-		book_title: '',
-        chapter_title: '',
-        publisher: '',
-        edition: '',
-		volume_no: '',
-        chapter_page_no: '',
-        publisher_category: 1,
-        publish_year: null,
-        web_link: '',
-        isbn_no: '',
-		doi_no: '',
-        publication_place: '',
-        nmims_authors_count: '' 
-    
-	};
+	let obj: any = {
+		    nmims_school: null,
+			nmims_campus: null,
+			all_authors: null,
+			nmims_authors: null,
+            book_editors: null,
+            book_title: '',
+            chapter_title: '',
+            edition: '',
+            chapter_page_no: '',
+            volume_no: '',
+            publisher: '',
+            publisher_category: 1,
+            publish_year: null,
+            web_link: '',
+            isbn_no: '',
+            doi_no: '',
+            publication_place: '',
+            nmims_authors_count: '' 
+            };
+            
 
 	let files: any = [];
 
 	async function handleSubmit() {
 		const bookChapterObj: bookChapterPublicationReq = {
-			nmims_school: obj.nmims_school.map((data) => data.value),
-			nmims_campus: obj.nmims_campus.map((data) => data.value),
-			all_authors: obj.all_authors.map((data) => Number(data.value)),
-			nmims_authors: obj.nmims_authors.map((data) => Number(data.value)),
-            book_editors: obj.book_editors.map((data) => Number(data.value)),
+			nmims_school:
+				obj.nmims_school != null ? obj.nmims_school.map((data: { value: any }) => data.value) : [],
+			nmims_campus:
+				obj.nmims_campus != null ? obj.nmims_campus.map((data: { value: any }) => data.value) : [],
+			all_authors: obj.all_authors != null
+					? obj.all_authors.map((data: { value: any }) => Number(data.value))
+					: [],
+			nmims_authors: obj.nmims_authors != null
+				? obj.nmims_authors.map((data: { value: any }) => Number(data.value))
+				: [],
+            book_editors: obj.book_editors != null ? obj.book_editors.map((data: { value: any; }) => Number(data.value))
+            :[],
 			book_title: obj.book_title,
             chapter_title: obj.chapter_title,
 			edition: obj.edition,
@@ -178,53 +163,32 @@
 		} else {
 			toast.success('Inserted Successfully');
 			clearForm();
+            goto('/book-chapter-publication');
 		}
 	}
 
 	function clearForm() {
 		obj = {
-			nmims_school: [
-			// {
-			// 	value: nmimsSchool[0].school_name,
-			// 	label: nmimsSchool[0].school_name
-			// }
-		],
-		nmims_campus: [
-			// {
-			// 	value: nmimsCampus[0].campus_name,
-			// 	label: nmimsCampus[0].campus_name
-			// }
-		],
-        all_authors: [
-			// {
-			// 	value: allAuthors[0].id,
-			// 	label: allAuthors[0].faculty_name
-			// }
-		],
-	
-		nmims_authors: [
-			// {
-			// 	value: nmimsAuthors[0].id,
-			// 	label: nmimsAuthors[0].faculty_name
-			// }
-		], 
-
-        all_editors: [],
-	
-		title: '',
-        edition: '',
-        chapter_page_no: '',
-		volume_no: '',
-        publisher: '',
-        publisher_category: 1,
-        publish_year: null,
-        web_link: '',
-        isbn_no: '',
-		doi_no: '',
-        publication_place: '',
-        nmims_authors_count: '' 
-		};
-		files = [];
+            nmims_school: null,
+			nmims_campus: null,
+			all_authors: null,
+			nmims_authors: null,
+            book_editors : null,
+            book_title: '',
+            chapter_title: '',
+            edition: '',
+            chapter_page_no: '',
+            volume_no: '',
+            publisher: '',
+            publisher_category: 1,
+            publish_year: null,
+            web_link: '',
+            isbn_no: '',
+            doi_no: '',
+            publication_place: '',
+            nmims_authors_count: '' 
+            };
+            files = [];
 	}
 </script>
 
@@ -315,7 +279,7 @@
 					</div>
 				</div>
 			</div>
-            <Input type="text" placeholder="Publication Year" bind:value={obj.publish_year} />
+            <Input type="number" placeholder="Publication Year" bind:value={obj.publish_year} />
 		
 		</div>
 		<div class="grid grid-cols-3 gap-[40px] p-4">

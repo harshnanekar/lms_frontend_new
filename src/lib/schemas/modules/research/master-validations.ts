@@ -53,23 +53,23 @@ export const journalPaper = z.object({
 
 	nmims_school : z.array(z.string()).min(1,{message:'School Is Required'}),
     nmims_campus : z.array(z.string()).min(1,{message:'Campus Is Required'}),
+	all_authors: z.array(z.number()).min(1, {message:'All authors are required'}),
+	nmims_authors: z.array(z.number()).min(1, {message:'NMIMS authors are required'}),
+	title: z.string().min(1, 'Title is required'),
+	edition: z.string().min(1, 'Edition  is required'),
+	volume_no: z.string().min(1, 'Volume number is required'),
+	publisher_category: z.number().min(1, 'Publisher category is required'),
 	publish_year: z.number().refine((data) => {
 	  return data >= 1900 && data <= 3000;
 	}, {
 	  message: 'Invalid Year'
 	}),
-	all_authors: z.array(z.number()).min(1, {message:'All authors are required'}),
-	nmims_authors: z.array(z.number()).min(1, {message:'NMIMS authors are required'}),
-	nmims_authors_count: z.number().min(1, { message: 'Author count is required' }),
-	title: z.string().min(1, 'Title is required'),
 	publisher: z.string().min(1, 'Publisher is required'),
-	volume_no: z.string().min(1, 'Volume number is required'),
-	edition: z.string().min(1, 'Edition  is required'),
 	web_link: z.string().min(1, 'Website link is required'),
 	isbn_no: z.string().min(1, 'ISBN Number  is required'),
 	doi_no: z.string().min(1, 'DOI number is required'),
 	publication_place: z.string().min(1, 'Place Of Publication'),
-    publisher_category: z.number().min(1, 'Publisher category is required')
+	nmims_authors_count: z.number().min(1, { message: 'Author count is required' })
 
   })
 
@@ -80,26 +80,27 @@ export const journalPaper = z.object({
 
 	nmims_school : z.array(z.string()).min(1,{message:'School Is Required'}),
     nmims_campus : z.array(z.string()).min(1,{message:'Campus Is Required'}),
+	all_authors: z.array(z.number()).min(1, {message:'All authors are required'}),
+	nmims_authors: z.array(z.number()).min(1, {message:'NMIMS authors are required'}),
+	book_editors: z.array(z.number()).min(1, {message:'Book editors are required'}),
+	book_title: z.string().min(1, ' Book Title is required'),
+	chapter_title: z.string().min(1, 'Chapter Title is required'),
+	edition: z.string().min(1, 'Edition  is required'),
+	chapter_page_no: z.string().min(1, 'Page number is required'),
+	volume_no: z.string().min(1, 'Volume number is required'),
+	publisher_category: z.number().min(1, 'Publisher category is required'),
 	publish_year: z.number().refine((data) => {
 	  return data >= 1900 && data <= 3000;
 	}, {
 	  message: 'Invalid Year'
 	}),
-	all_authors: z.array(z.number()).min(1, {message:'All authors are required'}),
-	nmims_authors: z.array(z.number()).min(1, {message:'NMIMS authors are required'}),
-	book_editors: z.array(z.number()).min(1, {message:'Book editors are required'}),
-	nmims_authors_count: z.number().min(1, { message: 'Author count is required' }),
-	book_title: z.string().min(1, ' Book Title is required'),
-	chapter_title: z.string().min(1, 'Chapter Title is required'),
 	publisher: z.string().min(1, 'Publisher is required'),
-	volume_no: z.string().min(1, 'Volume number is required'),
-	chapter_page_no: z.string().min(1, 'Page number is required'),
-	edition: z.string().min(1, 'Edition  is required'),
 	web_link: z.string().min(1, 'Website link is required'),
 	isbn_no: z.string().min(1, 'ISBN Number  is required'),
 	doi_no: z.string().min(1, 'DOI number is required'),
 	publication_place: z.string().min(1, 'Place Of Publication'),
-    publisher_category: z.number().min(1, 'Publisher category is required')
+	nmims_authors_count: z.number().min(1, { message: 'Author count is required' })
+	
 
   });
 

@@ -11,10 +11,12 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
-	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
-    
+    import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
+	import {confirmStore,actionStore} from "$lib/stores/modules/mpc/master.store"
+	import {showConfirmation} from '$lib/components/ui/popup'    
 
 	export let actionData: BookChapterRender;
+    // $: console.log("ACTIONDATA Ankit Mishra >>>>>>>>>>>", actionData);
 	
 	const showMenu = writable<boolean>(false);
 	const menuPosition = writable<{ top: number; left: number }>({ top: 0, left: 0 });
@@ -73,11 +75,19 @@
 	let modalwidthPercent: ModalSizes = 'md';
 	let chapterPublicationId: number;
 
-	const openModal = (size: ModalSizes) => {
+	const openModal = async () => {
 		chapterPublicationId = actionData.id;
-		modalwidthPercent = size;
-		isOpen.set(true);
-		showMenu.set(false);
+		console.log('click called')
+	
+     const message = 'Are you sure you want to delete this?';
+     confirmStore.set({
+		isVisible:true,
+		confirmText:message
+	 })
+
+	 actionStore.set({
+            callback: handleDelete
+     });
 	};
 
 	const closeModal = () => {
@@ -102,7 +112,7 @@
     }
 
     toast.success('Deleted Successfully!');
-	let url = new URL('http://localhost:9090/research/book-chapter-publication');
+	let url = new URL('http://localhost:9090/research/book-chapter-publication-paginate');
     paginateUrl.set(url);
     
    
@@ -131,7 +141,7 @@
 					>Edit</a
 				>
 				<button
-					on:click={() => openModal('sm')}
+					on:click={openModal}
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">Delete</button
 				>
@@ -198,7 +208,7 @@
 		width: 100%;
 		height: 100%;
 		background: rgba(0, 0, 0, 0.5);
-		z-index: 9000000;
+		z-index: 1500;
 		transition: background 5000ms ease;
 	}
 </style>

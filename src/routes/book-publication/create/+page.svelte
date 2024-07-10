@@ -22,8 +22,9 @@
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
+	import { goto } from '$app/navigation';
 
-	export let data;
+	export let data : any;
 	let isRequired = false;
 	let title = 'Book Publication';
 
@@ -41,36 +42,13 @@
 	$: allAuth = allAuthors;
 	$: campus = nmimsCampus;
 
-    
 	console.log("JSON.stringify(school)", JSON.stringify(school));
 
-	let obj = {
-		nmims_school: [
-			// {
-			// 	value: nmimsSchool[0].school_name,
-			// 	label: nmimsSchool[0].school_name
-			// }
-		],
-		nmims_campus: [
-			// {
-			// 	value: nmimsCampus[0].campus_name,
-			// 	label: nmimsCampus[0].campus_name
-			// }
-		],
-        all_authors: [
-			// {
-			// 	value: allAuthors[0].id,
-			// 	label: allAuthors[0].faculty_name
-			// }
-		],
-	
-		nmims_authors: [
-			// {
-			// 	value: nmimsAuthors[0].id,
-			// 	label: nmimsAuthors[0].faculty_name
-			// }
-		],
-	
+	let obj: any  =  {
+		nmims_school: null,
+		nmims_campus: null,
+		all_authors: null,
+		nmims_authors: null,
 		title: '',
         publisher: '',
         edition: '',
@@ -89,10 +67,16 @@
 
 	async function handleSubmit() {
 		const bookPublicationObj: bookPublicationReq = {
-			nmims_school: obj.nmims_school.map((data) => data.value),
-			nmims_campus: obj.nmims_campus.map((data) => data.value),
-			all_authors: obj.all_authors.map((data) => Number(data.value)),
-			nmims_authors: obj.nmims_authors.map((data) => Number(data.value)),
+			nmims_school:
+				obj.nmims_school != null ? obj.nmims_school.map((data: { value: any }) => data.value) : [],
+			nmims_campus:
+				obj.nmims_campus != null ? obj.nmims_campus.map((data: { value: any }) => data.value) : [],
+			all_authors: obj.all_authors != null
+					? obj.all_authors.map((data: { value: any }) => Number(data.value))
+					: [],
+			nmims_authors: obj.nmims_authors != null
+				? obj.nmims_authors.map((data: { value: any }) => Number(data.value))
+				: [],
 			title: obj.title,
 			edition: obj.edition,
 			volume_no: obj.volume_no,
@@ -107,7 +91,7 @@
 		};
 
 		const fileObject: FileReq = {
-			documents: Array.from(files)
+			documents : Array.from(files)
 		};
 		const fileresult = validateWithZod(fileSchema, fileObject);
 		if (fileresult.errors) {
@@ -124,7 +108,7 @@
 		formData.append('book_publication', JSON.stringify(bookPublicationObj));
 
 		// Append each file to the FormData
-		Array.from(files).forEach((file) => {
+		Array.from(files).forEach((file : any) => {
 			formData.append('supporting_documents', file);
 		});
 
@@ -166,51 +150,30 @@
 		} else {
 			toast.success('Inserted Successfully');
 			clearForm();
+			goto('/book-publication');
 		}
 	}
 
 	function clearForm() {
 		obj = {
-			nmims_school: [
-			// {
-			// 	value: nmimsSchool[0].school_name,
-			// 	label: nmimsSchool[0].school_name
-			// }
-		],
-		nmims_campus: [
-			// {
-			// 	value: nmimsCampus[0].campus_name,
-			// 	label: nmimsCampus[0].campus_name
-			// }
-		],
-        all_authors: [
-			// {
-			// 	value: allAuthors[0].id,
-			// 	label: allAuthors[0].faculty_name
-			// }
-		],
-	
-		nmims_authors: [
-			// {
-			// 	value: nmimsAuthors[0].id,
-			// 	label: nmimsAuthors[0].faculty_name
-			// }
-		],
-	
-		title: '',
-        edition: '',
-		volume_no: '',
-        publisher: '',
-        publisher_category: 1,
-        publish_year: null,
-        web_link: '',
-        isbn_no: '',
-		doi_no: '',
-        publication_place: '',
-        nmims_authors_count: '' 
+			nmims_school: null,
+			nmims_campus: null,
+			all_authors: null,
+			nmims_authors: null,
+			title: '',
+			publisher: '',
+			edition: '',
+			volume_no: '',
+			publisher_category: 1,
+			publish_year: null,
+			web_link: '',
+			isbn_no: '',
+			doi_no: '',
+			publication_place: '',
+			nmims_authors_count: '' ,
 		};
-		files = [];
-	}
+		files = []; 
+}
 </script>
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
@@ -286,7 +249,7 @@
 					</div>
 				</div>
 			</div>
-            <Input type="text" placeholder="Publication Year" bind:value={obj.publish_year} />
+            <Input type="number" placeholder="Publication Year" bind:value={obj.publish_year} />
             
 
 

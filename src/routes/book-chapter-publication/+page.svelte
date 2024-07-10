@@ -21,7 +21,7 @@
 	const url = new URL(dynamicUrl);
 	paginateUrl.set(url);
     
-    const label = 'Book Chapter Publications';
+    const label = 'Book Chapter Publication';
     console.log('label ==>>>>>', label)
     
     
@@ -48,7 +48,7 @@
     
     <div class="rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 shadow-card sm:p-6 mt-[5%]">
     <!-- <ResearchTable /> -->
-     <PaginateDynamic url={url} header={BookChapterHeaders} let:actionData  >
+     <PaginateDynamic url={$paginateUrl} header={BookChapterHeaders} let:actionData  >
         <BookChapterAction actionData={actionData}  />
      </PaginateDynamic>
     

@@ -14,6 +14,8 @@
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
 	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
+	import {confirmStore,actionStore} from "$lib/stores/modules/mpc/master.store"
+	import {showConfirmation} from '$lib/components/ui/popup'
 
 	export let actionData: BookPublicationRender;
 	
@@ -74,16 +76,25 @@
 	let modalwidthPercent: ModalSizes = 'md';
 	let bookPublicationId: number;
 
-	const openModal = (size: ModalSizes) => {
+	const openModal = async () => {
 		bookPublicationId = actionData.id;
-		modalwidthPercent = size;
-		isOpen.set(true);
-		showMenu.set(false);
+		console.log('click called')
+	
+     const message = 'Are you sure you want to delete this?';
+     confirmStore.set({
+		isVisible:true,
+		confirmText:message
+	 })
+
+	 actionStore.set({
+            callback: handleDelete
+     });
 	};
 
 	const closeModal = () => {
 		isOpen.set(false);
 	};
+
 
 	async function handleDelete() {
     console.log('delete button clicked', bookPublicationId);
@@ -131,7 +142,7 @@
 					>Edit</a
 				>
 				<button
-					on:click={() => openModal('sm')}
+					on:click={openModal}
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">Delete</button
 				>
@@ -198,7 +209,7 @@
 		width: 100%;
 		height: 100%;
 		background: rgba(0, 0, 0, 0.5);
-		z-index: 9000000;
+		z-index: 1500;
 		transition: background 5000ms ease;
 	}
 </style>
