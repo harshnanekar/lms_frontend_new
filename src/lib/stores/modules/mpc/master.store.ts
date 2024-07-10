@@ -56,6 +56,12 @@ export const masterFormStore = writable<MasterMeetingStore>(defaultMasterStoreVa
 let url =new URL("http://localhost:9090/research");
 export const paginateUrl = writable<URL>(url);
 
+let meeturl =new URL("http://localhost:9090/research");
+export const meetPaginateUrl = writable<URL>(meeturl);
+
+let brandurl = new URL("http://localhost:9090/research");
+export const brandPaginateUrl = writable<URL>(brandurl);
+
 export const confirmStore = writable<{ isVisible: boolean, confirmText: string }>({
 	isVisible: false,
 	confirmText: 'Are you sure?'

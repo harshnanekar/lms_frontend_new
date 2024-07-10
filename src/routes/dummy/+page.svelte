@@ -1,62 +1,98 @@
 <script lang="ts">
-	import { writable } from 'svelte/store';
-	import { Modal } from '$lib/components/ui';
-	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
-	import {confirmStore} from "$lib/stores/modules/mpc/master.store"
- 
-	 let resolveFunc: (value: boolean) => void;
-	 const isOpen = writable(false);
-	 let modalwidthPercent: ModalSizes = 'sm';
-	 let journalId: number;
+	import { goto } from '$app/navigation';
+	import { Header } from '$lib/components/researchHeader';
+	import { PlusIcon } from '$lib/components/icons';
+	import { PaginateDynamic } from '$lib/components/layout/pagination';
+	import { teachingHeaders, meetingHeaders, brandingHeaders } from '$lib/test';
+	import {
+		ResearchAction,
+		MeetingStakHolderAction,
+		BrandingAction,
+		TeachingAction
+	} from '$lib/components/modules/mpc';
+	import {
+		paginateUrl,
+		optionStore,
+		meetPaginateUrl,
+		brandPaginateUrl
+	} from '$lib/stores/modules/mpc/master.store';
+	import { Accordion, AccordionItem, DynamicSelect } from '$lib/components/ui';
+	import { Card } from '$lib/components/ui';
 
-	//  confirmStore.set({
-	// 		 isVisible: true,
-	// 		 confirmText: 'Are you sure?'
-	// 	 });
- 
-	// console.log($confirmStore)
- 
-	 function handleYesClick() {
-		 confirmStore.set({
-			 isVisible: false,
-			 confirmText: 'Are you sure?'
-		 });
-		 isOpen.set(true);
-		 resolveFunc(true);
-	 }
- 
-	 function handleNoClick() {
-		 confirmStore.set({
-			 isVisible: false,
-			 confirmText: 'Are you sure?'
-		 });
-		 resolveFunc(false);
-		 isOpen.set(false);
- 
-	 }
- 
- 
-	 
- 
- </script>
- 
- {#if $confirmStore.isVisible}
- <Modal bind:isOpen={$isOpen} size={modalwidthPercent} on:close={handleNoClick}>
-	
-	<svalte:fragment slot="body">
-		<div class=" flex min-h-[10vh] flex-col justify-center p-4">
-			<i class="fa-solid fa-trash text-red"></i>
-			<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-				{@html $confirmStore.confirmText ?? 'Are you Sure?'}
-			</h3>
-		</div>
-	</svalte:fragment>
-	<div slot="footer">
-		<div class="flex flex-row justify-center gap-4 border-t p-4">
-			<button class="lms-btn lms-primary-btn" on:click={handleYesClick}>Yes, I'm sure</button>
-			<button class="lms-btn lms-secondary-btn" on:click={handleNoClick}>No, cancel</button>
-		</div>
-	</div>
-</Modal>
- {/if}
- 
+	import { getInputFields } from '$lib/utils/select.helper';
+
+	export let data: any;
+
+
+	$: dynamicUrl = new URL(`http://localhost:9090/research/teaching-paginate`);
+	$: paginateUrl.set(dynamicUrl);
+
+	$: meetUrl = new URL(`http://localhost:9090/research/meeting-paginate`);
+	$: meetPaginateUrl.set(meetUrl);
+
+	$: brandUrl = new URL(`http://localhost:9090/research/branding-paginate`);
+	$: brandPaginateUrl.set(brandUrl);
+
+	function navigateToCreate() {
+		goto('/teaching-meeting-branding/create');
+	}
+</script>
+
+<button
+	on:click={navigateToCreate}
+	class="lms-btn lms-primary-btn fixed bottom-16 right-5 z-10 float-right mb-[50px] py-4 md:static md:py-2.5"
+>
+	<PlusIcon />
+	<span class="hidden md:block">Add</span>
+</button>
+
+<div class="space-y-8">
+	<!-- svelte-ignore missing-declaration -->
+	<Accordion collapse spaceBetween>
+		<AccordionItem>
+			<svelte:fragment slot="title">
+				<div class="flex flex-row gap-4 p-2.5">
+					<i class="fa-solid fa-graduation-cap text-[30px]"></i>
+					<h1 class="text-lg font-semibold">Teaching Excellance</h1>
+				</div>
+			</svelte:fragment>
+			<svelte:fragment slot="content" let:open>
+				<PaginateDynamic url={$paginateUrl} header={teachingHeaders} let:actionData>
+					<TeachingAction {actionData} />
+				</PaginateDynamic>
+			</svelte:fragment>
+		</AccordionItem>
+	</Accordion>
+
+	<Accordion collapse spaceBetween>
+		<AccordionItem>
+			<svelte:fragment slot="title">
+				<div class="flex flex-row gap-4 p-2.5">
+					<i class="fa-solid fa-people-arrows text-[30px]"></i>
+					<h1 class="text-lg font-semibold">Meeting Stakeholders</h1>
+				</div>
+			</svelte:fragment>
+			<svelte:fragment slot="content" let:open>
+				<PaginateDynamic url={$meetPaginateUrl} header={meetingHeaders} let:actionData>
+					<MeetingStakHolderAction {actionData} />
+				</PaginateDynamic>
+			</svelte:fragment>
+		</AccordionItem>
+	</Accordion>
+
+	<Accordion collapse spaceBetween>
+		<AccordionItem>
+			<svelte:fragment slot="title">
+				<div class="flex flex-row gap-4 p-2.5">
+					<i class="fa-solid fa-bullhorn text-[30px]"></i>
+					<h1 class="text-lg font-semibold">Branding & Advertisement</h1>
+				</div>
+			</svelte:fragment>
+			<svelte:fragment slot="content" let:open>
+				<PaginateDynamic url={$brandPaginateUrl} header={brandingHeaders} let:actionData>
+					<BrandingAction {actionData} />
+				</PaginateDynamic>
+			</svelte:fragment>
+		</AccordionItem>
+	</Accordion>
+</div>
