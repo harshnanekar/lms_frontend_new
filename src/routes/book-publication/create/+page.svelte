@@ -242,7 +242,6 @@
 							class="lms-input-radio w-4"
 							name="radio-button-national"
 							bind:group={obj.publisher_category}
-							checked={obj.publisher_category == 1}
 							value={2}
 						/>
 						<span class="text-sm text-[#888888]">National</span>
