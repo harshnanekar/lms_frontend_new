@@ -114,6 +114,35 @@ const teachingItemSchema = z.object({
 
 
 
+export const conferenceData =  z.object({
+	nmims_school : z.array(z.string()).min(1,{message:'School Is Required'}),
+    nmims_campus : z.array(z.string()).min(1,{message:'Campus Is Required'}),
+	paper_title: z.string().min(1, 'Title Of The Paper is required'),
+	conference_name: z.string().min(1, 'Name of Conference is required'),
+	all_authors: z.array(z.number()).min(1, {message:'All authors are required'}),
+	place: z.string().min(1, 'Place of Conference '),
+	proceeding_published: z.boolean({ required_error: 'Proceedings published' }),
+	conference_type: z.number().min(1, 'Type Of Conference is required'),
+	presenting_author: z.string().min(1, 'Presenting Author'),
+	organizing_body: z.string().min(1, 'Organizing Body'),
+	volume_no:z.string().optional(),
+	issn_no:z.string().optional(),
+	doi_no: z.string().min(1, 'DOI number is required'),
+	sponsored: z.number().min(1, 'Sponsored By NMIMS/Other'),
+	amount: z.string().min(1, 'Amount Spent In RS. By NMIMS'),
+	publication_date: z.string().refine(date => {
+        return date !== '1970-01-01';
+    }, {
+        message: 'Publication date is required',
+    }),
+	faculty_id: z.array(z.number()).min(1, {message:'Name Of Co-Authors'})
+
+})
+
+export type conferenceReq = z.infer<typeof conferenceData>;
+
+
+
 export const teachingItemsSchema = z.array(teachingItemSchema);
 
 export type TeachingItemsReq = z.infer<typeof teachingItemsSchema>;

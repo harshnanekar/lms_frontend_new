@@ -88,6 +88,7 @@ export type BookChapterRender = {
 }
 
 
+
 export type BookChapterDetails = {
 	nmims_school: string[],
     nmims_campus: string[],
@@ -140,3 +141,36 @@ export type BookChapterDetails = {
 	newspaper_article : string,
 	student_event : string
  }
+
+
+ export type ConferenceRender = {
+	paper_title: string,
+	nmims_school: string[],
+    nmims_campus: string[],
+	conference_name: string,
+	proceeding_published: string,
+	issn_no: string 
+} 
+
+
+export type conferenceDetails = {
+   paper_title: string;
+   conference_name: string;
+   place: string;
+   presenting_author: string;
+   proceeding_published: string;
+   conference_type: number;
+   issn_no: string;
+   publication_date: string;
+   sponsored: number;
+   doi_no: string;
+   publication_place: string;
+   amount: number;
+   nmims_authors_count: number;
+   volume_no: string;
+   organizing_body: string;
+   all_authors: number[];
+   faculty_id: number[];
+   nmims_school: string[];
+   nmims_campus: string[];
+}

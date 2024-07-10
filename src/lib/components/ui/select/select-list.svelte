@@ -155,14 +155,14 @@
         <div class="spinner"></div>
     {:else}
         {#if !errorMsg && errorMsg.length === 0}
-            {#each options as option (option.value)}
+            {#each options as option (option?.value)}
                 {#if !isMultiSelect || !isSelected(option)}
                     <li
                         class:selected={isSelected(option)}
                         class="block w-[98%] cursor-pointer break-words rounded-lg text-label-md text-gray-700 hover:bg-warning-300"
                     >
                         <button on:click={() => handleSelectClick(option)} class="w-full px-4 py-2 text-left">
-                            {option.label}
+                            {option?.label}
                         </button>
                     </li>
                 {/if}

@@ -22,7 +22,7 @@
 	import { toast } from 'svelte-sonner';
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
-	import type { any } from 'zod';
+	import { any } from 'zod';
 	import { goto } from '$app/navigation';
 
 	export let data : any;

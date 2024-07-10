@@ -228,7 +228,8 @@
 			journal_type: Number(obj.journal_type)
 		};
 
-		if (checkVal) {
+		// if (files.length > 0) {
+		if(checkVal){
 			const fileObject: FileReq = {
 				documents: Array.from(files)
 			};

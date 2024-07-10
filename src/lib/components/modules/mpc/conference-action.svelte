@@ -1,10 +1,12 @@
 <script lang="ts">
-	// import { JournalView } from '$lib/types/modules/research/research-types.ts';
+	// import { conferenceDetails } from 'types/research.types';
 	import { ActionIcon } from '$lib/components/icons';
 	import { Modal } from '$lib/components/ui';
-	import type { JournalView } from '$lib/types/modules/research/research-types';
+
+	// import { bookPublication } from '$lib/schemas/modules/research/master-validations';
+	import type { ConferenceRender } from '$lib/types/modules/research/research-types';
 	// import type { SubjectMeetingDetail } from '$lib/types/modules/mpc/master-form';
-	import {createEventDispatcher,onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
 	import { Popup } from '$lib/components/ui/popup';
@@ -15,8 +17,9 @@
 	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
 	import {confirmStore,actionStore} from "$lib/stores/modules/mpc/master.store"
 	import {showConfirmation} from '$lib/components/ui/popup'
-	export let actionData: JournalView;
 
+	export let actionData: ConferenceRender;
+	
 	const showMenu = writable<boolean>(false);
 	const menuPosition = writable<{ top: number; left: number }>({ top: 0, left: 0 });
 
@@ -61,6 +64,7 @@
 		}
 	};
 
+
 	onMount(() => {
 		document.addEventListener('click', handleClickOutside);
 		return () => {
@@ -68,14 +72,13 @@
 		};
 	});
 
-	$: console.log('ACTIONDATA>>>>>>>>>>>', actionData);
-
+    $: console.log("ACTIONDATA Conference Details >>>>>>>>>>>", actionData);
 	const isOpen = writable(false);
 	let modalwidthPercent: ModalSizes = 'md';
-	let journalId: number;
+	let conferenceId: number;
 
 	const openModal = async () => {
-		journalId = actionData.id;
+		conferenceId = actionData.id;
 		console.log('click called')
 	
      const message = 'Are you sure you want to delete this?';
@@ -93,37 +96,35 @@
 		isOpen.set(false);
 	};
 
+
 	async function handleDelete() {
+    console.log('delete button clicked', conferenceId);
+    isOpen.set(false);
 
-		console.log('delete', journalId);
-		isOpen.set(false);
-		const { error, json } = await fetchApi({
-			url: `${PUBLIC_API_BASE_URL}/journal-article-delete?id=${journalId}`,
-			method: 'GET'
-		});
+    const response = await fetch(`${PUBLIC_API_BASE_URL}/conference-delete?id=${conferenceId}`, {
+        method: 'POST'
+    });
 
-		if (error) {
-			toast.error(error.message || 'Something went wrong!', {
-				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
-			});
-			return;
-		}
+    const { error, json } = await response.json();
 
-		if(json.status == 200){
-			
-		toast.success('Deleted Successfully !');
-		let url: URL = new URL('http://localhost:9090/research/journal-paginate');
-		paginateUrl.set(url);
+    if (error) {
+        toast.error(error.message || 'Something went wrong!', {
+            description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+        });
+        return;
+    }
 
-		}else{
-			toast.error(json.message);
-		}
-	}
+    toast.success('Deleted Successfully!');
+	let url = new URL('http://localhost:9090/research/conference-paginate');
+    paginateUrl.set(url);
+    
+   
+}
 
-  
 </script>
 
 <div>
+   
 	<button class="action-button" bind:this={buttonElement} on:click={toggleMenu}>
 		<ActionIcon />
 	</button>
@@ -135,15 +136,11 @@
 			style="top: {$menuPosition.top}px; left: {$menuPosition.left}px;"
 		>
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-				<a
-					href="/journal-paper/view/{actionData.id}"
-					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
-					role="menuitem">View</a
+				<a href="/conference/view/{actionData.id}" class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+			    >View</a
 				>
-				<a
-					href="/journal-paper/edit/{actionData.id}"
-					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
-					role="menuitem">Edit</a
+				<a href="/conference/edit/{actionData.id}" class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+					>Edit</a
 				>
 				<button
 					on:click={openModal}
@@ -154,7 +151,6 @@
 		</div>
 	{/if}
 </div>
-
 <!-- <Popup /> -->
 
 <Modal bind:isOpen={$isOpen} size={modalwidthPercent} on:close={closeModal}>
@@ -207,7 +203,7 @@
 		position: fixed;
 		z-index: 90000000;
 	}
-	 .backdrop {
+	.backdrop {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -216,16 +212,5 @@
 		background: rgba(0, 0, 0, 0.5);
 		z-index: 1500;
 		transition: background 5000ms ease;
-	} 
-
-	/*.backdrop {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: rgba(0, 0, 0, 0.5);
-		z-index: 1500;
-		 transition: background 5000ms ease;
-	} */
+	}
 </style>
