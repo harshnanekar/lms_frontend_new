@@ -94,8 +94,6 @@
 
 	import { getInputFields } from '$lib/utils/select.helper';
 
-	export let data: any;
-
 	$: dynamicUrl = new URL(`http://localhost:9090/research/teaching-paginate`);
 	$: paginateUrl.set(dynamicUrl);
 
