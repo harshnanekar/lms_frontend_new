@@ -56,23 +56,23 @@
 
     let obj : any   = {
         book_publication_id: parseInt(data.bookPublicationData.bookPublicationData[0].book_pulication_id),
-        nmims_school: data.bookPublicationData.bookPublicationData[0].nmims_school.length > 0
+        nmims_school: data.bookPublicationData.bookPublicationData[0].nmims_school!=null
 				? data.bookPublicationData.bookPublicationData[0].nmims_school.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
 				: [],
-        nmims_campus: data.bookPublicationData.bookPublicationData[0].nmims_campus.length > 0
+        nmims_campus: data.bookPublicationData.bookPublicationData[0].nmims_campus!=null
 				? data.bookPublicationData.bookPublicationData[0].nmims_campus.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
 				: [],
-        all_authors: data.bookPublicationData.bookPublicationData[0].all_authors.length > 0
+        all_authors: data.bookPublicationData.bookPublicationData[0].all_authors!=null
 				? data.bookPublicationData.bookPublicationData[0].all_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.faculty_name };
 					})
 				: [],
 
-        nmims_authors: data.bookPublicationData.bookPublicationData[0].nmims_authors.length > 0
+        nmims_authors: data.bookPublicationData.bookPublicationData[0].nmims_authors!=null
 				? data.bookPublicationData.bookPublicationData[0].nmims_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.faculty_name };
 					})

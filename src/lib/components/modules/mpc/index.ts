@@ -10,6 +10,7 @@ import BookPublicationAction from './book-publication-action.svelte'
 import TeachingAction from './teaching-action.svelte';
 import MeetingStakHolderAction from './meetingStak-action.svelte';
 import BrandingAction from './branding-action.svelte'
+import BookChapterAction from './book-chapter-action.svelte'
 import { userList, AddAnchor, AddAttendees } from './master-form';
 
 export {
@@ -25,6 +26,7 @@ export {
 	ResearchTable,
 	ResearchAction,
 	BookPublicationAction,
+	BookChapterAction,
 	TeachingAction,
 	MeetingStakHolderAction,
 	BrandingAction

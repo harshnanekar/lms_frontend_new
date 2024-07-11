@@ -46,10 +46,7 @@
 </script>
 
 <div class="flex items-center justify-between">
-	<div class="flex flex-row items-center gap-4">
-		<i class="fa-solid fa-book text-[30px]"></i>
 		<Header header={label} />
-	</div>
 	<button
 		on:click={navigateToCreate}
 		class="lms-btn lms-primary-btn fixed bottom-16 right-5 z-10 py-4 md:static md:py-2.5"

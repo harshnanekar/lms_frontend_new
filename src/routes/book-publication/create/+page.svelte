@@ -178,7 +178,7 @@
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
 <Card {title}>
-	<div class="scroll modal-content max-h-[70vh] min-h-[50vh] overflow-auto p-4">
+	<div class="scroll small-scrollbar modal-content max-h-[70vh] min-h-[50vh] overflow-auto p-4">
 		<!-- Adjust max-height as needed -->
 		<div class="grid grid-cols-3 gap-[40px] p-4">
 			<DynamicSelect
