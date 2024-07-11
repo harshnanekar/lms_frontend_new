@@ -17,7 +17,7 @@
 	let disabled: boolean = true;
 	let checkData = data.bookPublicationData.length > 0 ? true : false;
 
-    console.log('data in view comming from backend ===>>>>', JSON.stringify(data.bookPublicationData[0]));
+    console.log('data in view comming from backend ===>>>>', JSON.stringify(data));
 
     let obj  = {
             book_pulication_id: parseInt(data.bookPublicationData[0].book_publication_id),

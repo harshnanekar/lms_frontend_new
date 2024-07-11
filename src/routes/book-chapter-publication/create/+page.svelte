@@ -9,7 +9,7 @@
 	import {
 		getSchool,
 		getCampus,
-		getAllAuthor,
+		getMasterAllAuthors,
 		getNmimsAuthor,
         getEditors
 	} from '$lib/utils/select.helper';
@@ -34,7 +34,7 @@
 	let nmimsSchool = data?.bookChapterData?.school?.message;
 	let nmimsCampus = data?.bookChapterData?.campus?.message;
     let nmimsAuthors = data?.bookChapterData?.nmimsAuthors?.message;
-    let allAuthors = data?.bookChapterData?.allAuthors?.message;
+    let masterAllAuthors = data?.bookChapterData?.masterAllAuthors?.message;
     let allEditors = data?.bookChapterData?.editor?.message;
 	
     console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool)
@@ -42,7 +42,7 @@
 
     $: school = nmimsSchool;
     $: nmimsAuth = nmimsAuthors;
-	$: allAuth = allAuthors;
+	$: allAuth = masterAllAuthors;
 	$: campus = nmimsCampus;
     $: editors = allEditors;
 
@@ -215,7 +215,7 @@
             <DynamicSelect
 				isRequired={true}
 				placeholder="All Authors Names"
-				options={getAllAuthor(allAuth)}
+				options={getMasterAllAuthors(allAuth)}
 				bind:selectedOptions={obj.all_authors}
 				isMultiSelect={true}
 			/>

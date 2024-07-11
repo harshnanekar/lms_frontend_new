@@ -1,6 +1,6 @@
 <script lang="ts">
     import { goto } from '$app/navigation';
-    import ResearchTable from '$lib/components/modules/mpc/main-table/research-table.svelte';
+    import ConferenceTable from '$lib/components/modules/mpc/main-table/conference-table.svelte';
     import { activeSidebarModule } from "$lib/components/layout/sidebar/store";
     import { Input } from '$lib/components/ui';
     import { Header } from "$lib/components/researchHeader";
@@ -46,7 +46,6 @@
     
     
     <div class="rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 shadow-card sm:p-6 mt-[5%]">
-    <!-- <ResearchTable /> -->
      <PaginateDynamic url={$paginateUrl} header={ConferenceHeaders} let:actionData  >
         <ConferenceAction actionData={actionData}  />
      </PaginateDynamic>

@@ -9,7 +9,8 @@
     import {
         getSchool,
         getCampus,
-        getAllAuthor,
+        getMasterAllAuthors,
+        getExternalAuthors,
         getNmimsAuthor
     } from '$lib/utils/select.helper';
     import { validateWithZod } from '$lib/utils/validations';
@@ -31,14 +32,16 @@
     let nmimsSchool = data?.conferenceDetails?.school?.message;
     let nmimsCampus = data?.conferenceDetails?.campus?.message;
     let nmimsAuthors = data?.conferenceDetails?.nmimsAuthors?.message;
-    let allAuthors = data?.conferenceDetails?.allAuthors?.message;
+    let masterAllAuthors = data?.conferenceDetails?.masterAllAuthors?.message;
+    let externalAuthors = data?.conferenceDetails?.externalAuthors?.message;
 
     console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool)
 
     $: school = nmimsSchool;
     $: nmimsAuth = nmimsAuthors;
-    $: allAuth = allAuthors;
+    $: allAuth = masterAllAuthors;
     $: campus = nmimsCampus;
+    $: external = externalAuthors;
 
     let publicationDate: Date | null = new Date();
     publicationDate = null;
@@ -217,7 +220,7 @@
             <DynamicSelect
                 isRequired={true}
                 placeholder="All Authors Names"
-                options={getAllAuthor(allAuth)}
+                options={masterAllAuthors(allAuth)}
                 bind:selectedOptions={obj.all_authors}
                 isMultiSelect={true}
             />

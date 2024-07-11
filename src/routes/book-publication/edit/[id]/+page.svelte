@@ -9,7 +9,7 @@
     import {
 		getSchool,
 		getCampus,
-		getAllAuthor,
+		getMasterAllAuthors,
 		getNmimsAuthor
 	} from '$lib/utils/select.helper';
 
@@ -39,12 +39,12 @@
 	let nmimsSchool = data?.bookPublicationData?.school?.message;
 	let nmimsCampus = data?.bookPublicationData?.campus?.message;
     let nmimsAuthors = data?.bookPublicationData?.nmimsAuthors?.message;
-    let allAuthors = data?.bookPublicationData?.allAuthors?.message;
+    let masterAllAuthors = data?.bookPublicationData?.masterAllAuthors?.message;
     console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool)
 
     $: school = nmimsSchool;
     $: nmimsAuth = nmimsAuthors;
-	$: allAuth = allAuthors;
+	$: allAuth = masterAllAuthors;
 	$: campus = nmimsCampus;
 
     
@@ -66,7 +66,7 @@
 						return { value: dt, label: dt };
 					})
 				: [],
-        all_authors: data.bookPublicationData.bookPublicationData[0].all_authors.length > 0
+        all_authors: data.bookPublicationData.bookPublicationData[0].all_authors
 				? data.bookPublicationData.bookPublicationData[0].all_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.faculty_name };
 					})
@@ -265,7 +265,7 @@ async function handleSubmit() {
         <DynamicSelect
         isRequired={true}
         placeholder="All Authors"
-        options={getAllAuthor(allAuth)}
+        options={getMasterAllAuthors(allAuth)}
         bind:selectedOptions={obj.all_authors}
         isMultiSelect={true}
     /> 

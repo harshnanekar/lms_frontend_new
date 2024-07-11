@@ -1,7 +1,7 @@
 <script lang="ts">
 	import BookChapterAction from '$lib/components/modules/mpc/book-chapter-action.svelte';
     import { goto } from '$app/navigation';
-    import ResearchTable from '$lib/components/modules/mpc/main-table/research-table.svelte';
+    import BookChapterTable from '$lib/components/modules/mpc/main-table/book-chapter.svelte';
     import { activeSidebarModule } from "$lib/components/layout/sidebar/store";
     import { Input } from '$lib/components/ui';
     import { Header } from "$lib/components/researchHeader";

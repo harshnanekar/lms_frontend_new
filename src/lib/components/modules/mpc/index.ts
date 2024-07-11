@@ -8,7 +8,13 @@ import AddCampusModal from './modals/add-campus-modal.svelte';
 import ResearchTable from './main-table/research-table.svelte';
 import TeachingAction from './teaching-action.svelte';
 import MeetingStakHolderAction from './meetingStak-action.svelte';
-import BrandingAction from './branding-action.svelte'
+import BrandingAction from './branding-action.svelte';
+import ConferenceAction from '$lib/components/modules/mpc/conference-action.svelte';
+import BookPublicationAction from '$lib/components/modules/mpc/book-publication-action.svelte';
+import BookChapterAction from '$lib/components/modules/mpc/book-chapter-action.svelte';
+
+
+
 import { userList, AddAnchor, AddAttendees } from './master-form';
 
 export {
@@ -25,5 +31,10 @@ export {
 	ResearchAction,
 	TeachingAction,
 	MeetingStakHolderAction,
-	BrandingAction
+	BrandingAction,
+	ConferenceAction,
+	BookPublicationAction,
+	BookChapterAction
+
+
 };

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { goto } from '$app/navigation';
-    import ResearchTable from '$lib/components/modules/mpc/main-table/research-table.svelte';
+    import BookPublicationTable from '$lib/components/modules/mpc/main-table/book-publication-table.svelte';
     import { activeSidebarModule } from "$lib/components/layout/sidebar/store";
     import { Input } from '$lib/components/ui';
     import { Header } from "$lib/components/researchHeader";
