@@ -34,7 +34,7 @@
 	let isRequired = false;
 	let title = 'Journal Articles Published';
 
-	// let foreignAuthors = data?.journalData?.foreignAuthors?.message;
+	let foreignAuthors = data?.journalData?.foreignAuthors?.message;
 	let studentAuthors = data?.journalData?.StudentAuthors?.message;
 	let otherAuthors = data?.journalData?.otherAuthors?.message;
 	let policyCadre = data?.journalData?.policyCadre?.message;
@@ -51,7 +51,7 @@
 	console.log('checkbox check ', checkVal);
 
 	$: abdcTypes = abdcIndexed;
-	// $: foreignAuth = foreignAuthors;
+	$: foreignAuth = foreignAuthors;
 	$: studentAuth = studentAuthors;
 	$: otherAuth = otherAuthors;
 	$: policy = policyCadre;
@@ -90,7 +90,7 @@
 			? data.journalData.journalData[0].publish_year
 			: null,
 		policy_cadre:
-			data.journalData.journalData[0].policy_names.length !=null
+			data.journalData.journalData[0].policy_names.length != null
 				? data.journalData.journalData[0].policy_names.map((dt: any) => {
 						return { value: dt.id, label: dt.policy_name };
 					})
@@ -177,25 +177,20 @@
 
 	let files: any = [];
 
-	let foreignAuthors = data?.journalData?.foreignAuthors?.message;
-	let filteredForeignAuth : any = [];
+	// let foreignAuthors = data?.journalData?.foreignAuthors?.message;
+	// let filteredForeignAuth: any = [];
 
-	$: Array.from(obj.foreign_authors).forEach(faa  => {
-		Array.from(foreignAuthors).forEach(fa => {
-			if (faa.value != fa.id){
-				filteredForeignAuth.push(fa);
-			}
-		});
-	});
-	
-	// let foreign = foreignAuthors ? foreignAuthors.filter((fa: any) => {
-	// return !obj.foreign_authors.includes(fa.id);
-    // }) : [];
+	// $: Array.from(obj.foreign_authors).forEach((faa) => {
+	// 	Array.from(foreignAuthors).forEach((fa) => {
+	// 		if (faa.value !== fa.id) {
+	// 			filteredForeignAuth.push(fa);
+	// 		}
+	// 	});
+	// });
 
+	// console.log('foreign authors ', foreignAuthors, obj.foreign_authors, filteredForeignAuth);
 
-	 console.log('foreign authors ',foreignAuthors,obj.foreign_authors,filteredForeignAuth)
-
-	$: foreignAuth = filteredForeignAuth
+	// $: foreignAuth = filteredForeignAuth;
 
 	async function handleSubmit() {
 		const journalObject: JournalPaperReq = {
@@ -249,7 +244,7 @@
 		};
 
 		// if (files.length > 0) {
-		if(checkVal){
+		if (checkVal) {
 			const fileObject: FileReq = {
 				documents: Array.from(files)
 			};
@@ -430,7 +425,6 @@
 				});
 			});
 	}
-  
 </script>
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
@@ -697,7 +691,9 @@
 				{#if checkVal}
 					<input type="file" bind:files multiple />
 				{:else}
-					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}><i class="fa-solid fa-download text-md"></i></button>
+					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
+						><i class="fa-solid fa-download text-md"></i></button
+					>
 				{/if}
 			</div>
 		</div>

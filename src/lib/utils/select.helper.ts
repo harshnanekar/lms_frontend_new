@@ -155,3 +155,21 @@ export function getBrandingDropdown(data:any) : CustomOptions[] {
   
 	return inputFieldsArr;
 }
+
+export function getMasterAllAuthors(data:any) : CustomOptions[] {
+	let inputFieldsArr : any[] = [];
+	data.forEach((item : any) => {
+		inputFieldsArr.push({value: item.id, label: item.name});
+	});
+  
+	return inputFieldsArr;
+}
+
+export function getMasterNmimsAuthors(data:any) : CustomOptions[] {
+	let inputFieldsArr : any[] = [];
+	data.forEach((item : any) => {
+		inputFieldsArr.push({value: item.id, label: item.name});
+	});
+  
+	return inputFieldsArr;
+}

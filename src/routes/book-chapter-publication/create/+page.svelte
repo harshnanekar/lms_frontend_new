@@ -11,7 +11,9 @@
 		getCampus,
 		getAllAuthor,
 		getNmimsAuthor,
-        getEditors
+		getMasterAllAuthors,
+		getMasterNmimsAuthors,
+		getEditors
 	} from '$lib/utils/select.helper';
 	import { validateWithZod } from '$lib/utils/validations';
 	import {
@@ -25,52 +27,50 @@
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
 
-	export let data : any;
+	export let data: any;
 	let isRequired = false;
 	let title = 'Book Chapter Publication';
 
-    console.log('data ===>>>>>', data)
-	
+	console.log('data ===>>>>>', data);
+
 	let nmimsSchool = data?.bookChapterData?.school?.message;
 	let nmimsCampus = data?.bookChapterData?.campus?.message;
-    let nmimsAuthors = data?.bookChapterData?.nmimsAuthors?.message;
-    let allAuthors = data?.bookChapterData?.allAuthors?.message;
-    let allEditors = data?.bookChapterData?.editor?.message;
-	
-    console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool)
-    console.log('allEditors ankit mishra ===>>>>>', allEditors)
+	let nmimsAuthors = data?.bookChapterData?.nmimsAuthors?.message;
+	let allAuthors = data?.bookChapterData?.allAuthors?.message;
+	let allEditors = data?.bookChapterData?.editor?.message;
 
-    $: school = nmimsSchool;
-    $: nmimsAuth = nmimsAuthors;
+	console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool);
+	console.log('allEditors ankit mishra ===>>>>>', allEditors);
+
+	$: school = nmimsSchool;
+	$: nmimsAuth = nmimsAuthors;
 	$: allAuth = allAuthors;
 	$: campus = nmimsCampus;
-    $: editors = allEditors;
+	$: editors = allEditors;
 
-    
-	console.log("JSON.stringify(school)", JSON.stringify(school));
-    console.log("JSON.stringify(editors)", JSON.stringify(editors));
+	console.log('JSON.stringify(school)', JSON.stringify(school));
+	console.log('JSON.stringify(editors)', JSON.stringify(editors));
 
 	let obj: any = {
-		    nmims_school: null,
-			nmims_campus: null,
-			all_authors: null,
-			nmims_authors: null,
-            book_editors: null,
-            book_title: '',
-            chapter_title: '',
-            edition: '',
-            chapter_page_no: '',
-            volume_no: '',
-            publisher: '',
-            publisher_category: 1,
-            publish_year: null,
-            web_link: '',
-            isbn_no: '',
-            doi_no: '',
-            publication_place: '',
-            nmims_authors_count: '' 
-            };
-            
+		nmims_school: null,
+		nmims_campus: null,
+		all_authors: null,
+		nmims_authors: null,
+		book_editors: null,
+		book_title: '',
+		chapter_title: '',
+		edition: '',
+		chapter_page_no: '',
+		volume_no: '',
+		publisher: '',
+		publisher_category: 1,
+		publish_year: null,
+		web_link: '',
+		isbn_no: '',
+		doi_no: '',
+		publication_place: '',
+		nmims_authors_count: ''
+	};
 
 	let files: any = [];
 
@@ -80,27 +80,31 @@
 				obj.nmims_school != null ? obj.nmims_school.map((data: { value: any }) => data.value) : [],
 			nmims_campus:
 				obj.nmims_campus != null ? obj.nmims_campus.map((data: { value: any }) => data.value) : [],
-			all_authors: obj.all_authors != null
+			all_authors:
+				obj.all_authors != null
 					? obj.all_authors.map((data: { value: any }) => Number(data.value))
 					: [],
-			nmims_authors: obj.nmims_authors != null
-				? obj.nmims_authors.map((data: { value: any }) => Number(data.value))
-				: [],
-            book_editors: obj.book_editors != null ? obj.book_editors.map((data: { value: any; }) => Number(data.value))
-            :[],
+			nmims_authors:
+				obj.nmims_authors != null
+					? obj.nmims_authors.map((data: { value: any }) => Number(data.value))
+					: [],
+			book_editors:
+				obj.book_editors != null
+					? obj.book_editors.map((data: { value: any }) => Number(data.value))
+					: [],
 			book_title: obj.book_title,
-            chapter_title: obj.chapter_title,
+			chapter_title: obj.chapter_title,
 			edition: obj.edition,
-            chapter_page_no: obj.chapter_page_no,
+			chapter_page_no: obj.chapter_page_no,
 			volume_no: obj.volume_no,
-            publisher_category: Number(obj.publisher_category),
-            publish_year: Number(obj.publish_year),
+			publisher_category: Number(obj.publisher_category),
+			publish_year: Number(obj.publish_year),
 			web_link: obj.web_link,
-            publisher: obj.publisher,
+			publisher: obj.publisher,
 			isbn_no: obj.isbn_no,
 			doi_no: obj.doi_no,
 			publication_place: obj.publication_place,
-            nmims_authors_count: Number(obj.nmims_authors_count)
+			nmims_authors_count: Number(obj.nmims_authors_count)
 		};
 
 		const fileObject: FileReq = {
@@ -129,7 +133,7 @@
 			console.log(`${key}: ${value}`);
 		}
 
-		console.log("JSON.stringify(bookChapterObj)", JSON.stringify(bookChapterObj));
+		console.log('JSON.stringify(bookChapterObj)', JSON.stringify(bookChapterObj));
 		const result = validateWithZod(bookChapterPublication, bookChapterObj);
 
 		if (result.errors) {
@@ -137,7 +141,7 @@
 			const [firstPath, firstMessage] = Object.entries(result.errors)[0];
 			toast.error('ALERT!', {
 				description: firstMessage
-			})
+			});
 			return;
 		}
 
@@ -163,32 +167,32 @@
 		} else {
 			toast.success('Inserted Successfully');
 			clearForm();
-            goto('/book-chapter-publication');
+			goto('/book-chapter-publication');
 		}
 	}
 
 	function clearForm() {
 		obj = {
-            nmims_school: null,
+			nmims_school: null,
 			nmims_campus: null,
 			all_authors: null,
 			nmims_authors: null,
-            book_editors : null,
-            book_title: '',
-            chapter_title: '',
-            edition: '',
-            chapter_page_no: '',
-            volume_no: '',
-            publisher: '',
-            publisher_category: 1,
-            publish_year: null,
-            web_link: '',
-            isbn_no: '',
-            doi_no: '',
-            publication_place: '',
-            nmims_authors_count: '' 
-            };
-            files = [];
+			book_editors: null,
+			book_title: '',
+			chapter_title: '',
+			edition: '',
+			chapter_page_no: '',
+			volume_no: '',
+			publisher: '',
+			publisher_category: 1,
+			publish_year: null,
+			web_link: '',
+			isbn_no: '',
+			doi_no: '',
+			publication_place: '',
+			nmims_authors_count: ''
+		};
+		files = [];
 	}
 </script>
 
@@ -212,46 +216,47 @@
 				isMultiSelect={true}
 			/>
 
-            <DynamicSelect
+			<DynamicSelect
 				isRequired={true}
 				placeholder="All Authors Names"
-				options={getAllAuthor(allAuth)}
+				options={getMasterAllAuthors(allAuth)}
 				bind:selectedOptions={obj.all_authors}
 				isMultiSelect={true}
 			/>
-
 		</div>
 
 		<div class="grid grid-cols-3 gap-[40px] p-4">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Name Of NMIMS Authors"
-				options={getNmimsAuthor(nmimsAuth)}
+				options={getMasterNmimsAuthors(nmimsAuth)}
 				bind:selectedOptions={obj.nmims_authors}
 				isMultiSelect={true}
 			/>
-            <DynamicSelect
-            isRequired={true}
-            placeholder="Editor(s) Of The Book"
-            options={getEditors(editors)}
-            bind:selectedOptions={obj.book_editors}
-            isMultiSelect={true}
-        />
+			<DynamicSelect
+				isRequired={true}
+				placeholder="Editor(s) Of The Book"
+				options={getEditors(editors)}
+				bind:selectedOptions={obj.book_editors}
+				isMultiSelect={true}
+			/>
 			<Input type="text" placeholder="Title Of Chapter" bind:value={obj.chapter_title} />
-       
 		</div>
 		<div class="grid grid-cols-3 gap-[40px] p-4">
-            <Input type="text" placeholder="Title Of The Book" bind:value={obj.book_title} />
+			<Input type="text" placeholder="Title Of The Book" bind:value={obj.book_title} />
 			<Input type="text" placeholder="Edition (if it isn't the first) " bind:value={obj.edition} />
-			<Input type="text" placeholder="Page Numbers Of The Chapter " bind:value={obj.chapter_page_no} />
-		
-
+			<Input
+				type="text"
+				placeholder="Page Numbers Of The Chapter "
+				bind:value={obj.chapter_page_no}
+			/>
 		</div>
 		<div class="grid grid-cols-3 gap-[40px] p-4">
-            <Input type="text" placeholder="Volume Number" bind:value={obj.volume_no} />
-            <div class="ml-2">
-				<label class="text-sm text-[#888888]">Publisher Category<span class="text-danger text-sm">*</span>
-                </label>
+			<Input type="text" placeholder="Volume Number" bind:value={obj.volume_no} />
+			<div class="ml-2">
+				<label class="text-sm text-[#888888]"
+					>Publisher Category<span class="text-danger text-sm">*</span>
+				</label>
 				<div class="mt-2.5 flex flex-row gap-[20px]">
 					<div class="flex flex-row">
 						<input
@@ -262,7 +267,7 @@
 							bind:group={obj.publisher_category}
 							checked={obj.publisher_category == 1}
 							value={1}
-						 />
+						/>
 						<span class="text-sm text-[#888888]">International</span>
 					</div>
 					<div class="flex flex-row">
@@ -272,35 +277,30 @@
 							class="lms-input-radio w-4"
 							name="radio-button-national"
 							bind:group={obj.publisher_category}
-							
 							value={2}
 						/>
 						<span class="text-sm text-[#888888]">National</span>
 					</div>
 				</div>
 			</div>
-            <Input type="number" placeholder="Publication Year" bind:value={obj.publish_year} />
-		
+			<Input type="number" placeholder="Publication Year" bind:value={obj.publish_year} />
 		</div>
 		<div class="grid grid-cols-3 gap-[40px] p-4">
-            <Input type="text" placeholder="Publisher Name " bind:value={obj.publisher} />
+			<Input type="text" placeholder="Publisher Name " bind:value={obj.publisher} />
 			<Input type="text" placeholder="Weblink Of the Book" bind:value={obj.web_link} />
 			<Input type="text" placeholder="ISBN Number" bind:value={obj.isbn_no} />
-            
 		</div>
-        <div class="grid grid-cols-3 gap-[40px] p-4">
-            <Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} />
+		<div class="grid grid-cols-3 gap-[40px] p-4">
+			<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} />
 
+			<Input type="text" placeholder="Place Of Publication" bind:value={obj.publication_place} />
 			<Input
-				type="text"
-				placeholder="Place Of Publication"
-				bind:value={obj.publication_place}
+				type="number"
+				placeholder="No. Of NMIMS Authors"
+				bind:value={obj.nmims_authors_count}
 			/>
-			<Input type="number" placeholder="No. Of NMIMS Authors" bind:value={obj.nmims_authors_count} />
-            <input type="file" bind:files multiple />
-        </div>
-
-
+			<input type="file" bind:files multiple />
+		</div>
 	</div>
 	<div class="flex flex-row gap-[20px] p-4">
 		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
