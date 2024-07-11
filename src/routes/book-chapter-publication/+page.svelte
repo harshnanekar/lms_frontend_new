@@ -1,16 +1,9 @@
 <script lang="ts">
 	import { BookChapterAction } from '$lib/components/modules/mpc';
 	import { goto } from '$app/navigation';
-	import ResearchTable from '$lib/components/modules/mpc/main-table/research-table.svelte';
-	import { activeSidebarModule } from '$lib/components/layout/sidebar/store';
-	import { Input } from '$lib/components/ui';
 	import { Header } from '$lib/components/researchHeader';
 	import { PlusIcon } from '$lib/components/icons';
-	import { Card, DynamicSelect, Modal } from '$lib/components/ui';
-	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
-	import { writable } from 'svelte/store';
 	import type { BookChapterRender } from '$lib/types/modules/research/research-types';
-	import type { TableHeaders } from '$lib/types/layout/table';
 	import { PaginateDynamic } from '$lib/components/layout/pagination';
 	import { BookChapterHeaders } from '$lib/test';
 	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
