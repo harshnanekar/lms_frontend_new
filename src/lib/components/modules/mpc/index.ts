@@ -11,6 +11,7 @@ import BookChapterAction from './book-chapter-action.svelte'
 import TeachingAction from './teaching-action.svelte';
 import MeetingStakHolderAction from './meetingStak-action.svelte';
 import BrandingAction from './branding-action.svelte'
+import CaseStudyAction from './case-study-action.svelte'
 import { userList, AddAnchor, AddAttendees } from './master-form';
 
 export {
@@ -29,5 +30,6 @@ export {
 	BookChapterAction,
 	TeachingAction,
 	MeetingStakHolderAction,
-	BrandingAction
+	BrandingAction,
+	CaseStudyAction
 };

@@ -4,7 +4,8 @@ import type { JournalPaper, JournalView, BookPublicationRender,
 	BookChapterRender, BookChapterDetails,
 	brandingView,
 	MeetingView,
-	TeachingView
+	TeachingView,
+	CaseStudyView
  } from './types/modules/research/research-types';
 
 
@@ -47,13 +48,17 @@ export const SIDEBAR_URL = [
 		module: null,
 		child: []
 	},
-
-
-
 	{
 		url: '/teaching-meeting-branding',
 		icon: 'test',
 		label: 'Teaching-Meeting-Branding',
+		module: null,
+		child: []
+	},
+	{
+		url: '/case-study',
+		icon: 'test',
+		label: 'Case Study',
 		module: null,
 		child: []
 	},
@@ -595,3 +600,48 @@ export const teachingHeaders : TableHeaders<TeachingView>[] = [
 
 
 
+export const CaseStudyHeaders : TableHeaders<CaseStudyView>[] = [
+  
+	{
+	   label: 'All Authors Names',
+	   key: 'all_authors',
+	   sortable: false,
+	   classes: 'id',
+	   showTooltip: false
+   },
+   {
+	   label: 'Title',
+	   key: 'title',
+	   sortable: false,
+	   classes: '',
+	   showTooltip: false
+   },
+   {
+	   label: 'Edition',
+	   key: 'edition',
+	   sortable: false,
+	   classes: 'whitespace-nowrap',
+	   showTooltip: false
+   },
+   {
+	   label: 'Publisher',
+	   key: 'publisher',
+	   sortable: false,
+	   classes: '',
+	   showTooltip: false
+   },
+   {
+	   label: 'Publication Year',
+	   key: 'publish_year',
+	   sortable: false,
+	   classes: '',
+	   showTooltip: false
+   },
+    {
+	   label: 'Volume No',
+	   key: 'volume_no',
+	   sortable: false,
+	   classes: '',
+	   showTooltip: false
+   },
+]; 

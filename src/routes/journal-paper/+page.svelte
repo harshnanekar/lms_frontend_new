@@ -12,7 +12,7 @@
 	import type { TableHeaders } from '$lib/types/layout/table';
 	import { PaginateDynamic } from '$lib/components/layout/pagination';
 	import { paginationHeaders } from '$lib/test';
-	import ResearchAction from '$lib/components/modules/mpc/research-action.svelte';
+	import { ResearchAction } from '$lib/components/modules/mpc';
 	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
 
 	let dynamicUrl = 'http://localhost:9090/research/journal-paginate';
@@ -46,7 +46,7 @@
 </script>
 
 <div class="flex items-center justify-between">
-		<Header header={label} />
+	<Header header={label} />
 	<button
 		on:click={navigateToCreate}
 		class="lms-btn lms-primary-btn fixed bottom-16 right-5 z-10 py-4 md:static md:py-2.5"

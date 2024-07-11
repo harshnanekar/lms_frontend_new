@@ -140,3 +140,12 @@ export type BookChapterDetails = {
 	newspaper_article : string,
 	student_event : string
  }
+
+ export type CaseStudyView = {
+   title:string,
+   all_authors :string,
+   edition :string,
+   publisher :string,
+   publish_year:number,
+   volume_no : string
+ }

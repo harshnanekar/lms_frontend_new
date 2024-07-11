@@ -194,3 +194,27 @@ const meetingItemSchema = z.object({
 	  }
 	};
 	
+
+	export const caseStudy = z.object({
+
+	nmims_school : z.array(z.string()).min(1,{message:'School Is Required'}),
+    nmims_campus : z.array(z.string()).min(1,{message:'Campus Is Required'}),
+	all_authors: z.array(z.number()).min(1, {message:'All authors are required'}),
+	nmims_authors: z.array(z.number()).min(1, {message:'NMIMS authors are required'}),
+	title: z.string().min(1, 'Title is required'),
+	edition: z.string().optional(),
+	page_no: z.string().optional(),
+	volume_no: z.string().min(1, 'Volume number is required'),
+	publisher: z.string().min(1, 'Publisher is required'),
+	publish_year: z.number().refine((data) => {
+	  return data >= 1900 && data <= 3000;
+	}, {
+	  message: 'Invalid Year'
+	}),
+	publisher_category: z.number().min(1, 'Publisher category is required'),
+	url: z.string().min(1, 'Url is required'),
+	nmims_authors_count: z.number().min(1, { message: 'Author count is required' })
+	
+  });
+
+  export type caseStudyReq = z.infer<typeof caseStudy>;

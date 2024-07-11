@@ -75,13 +75,13 @@
 	let obj: any = {
 		journal_paper_id: parseInt(data.journalData.journalData[0].journal_paper_id),
 		nmims_school:
-			data.journalData.journalData[0].nmims_school.length != null
+			data.journalData.journalData[0].nmims_school != null
 				? data.journalData.journalData[0].nmims_school.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
 				: null,
 		nmims_campus:
-			data.journalData.journalData[0].nmims_campus.length != null
+			data.journalData.journalData[0].nmims_campus != null
 				? data.journalData.journalData[0].nmims_campus.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
@@ -90,13 +90,13 @@
 			? data.journalData.journalData[0].publish_year
 			: null,
 		policy_cadre:
-			data.journalData.journalData[0].policy_names.length != null
+			data.journalData.journalData[0].policy_names != null
 				? data.journalData.journalData[0].policy_names.map((dt: any) => {
 						return { value: dt.id, label: dt.policy_name };
 					})
 				: null,
 		all_authors:
-			data.journalData.journalData[0].all_authors.length != null
+			data.journalData.journalData[0].all_authors != null
 				? data.journalData.journalData[0].all_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.faculty_name };
 					})
@@ -121,7 +121,7 @@
 			? data.journalData.journalData[0].publisher
 			: '',
 		other_authors:
-			data.journalData.journalData[0].other_authors.length > 0
+			data.journalData.journalData[0].other_authors != null
 				? data.journalData.journalData[0].other_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.name };
 					})

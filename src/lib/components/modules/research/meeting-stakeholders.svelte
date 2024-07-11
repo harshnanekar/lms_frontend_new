@@ -6,6 +6,7 @@
 	let disabled: boolean = true;
 	export let meetingData;
 	export let meetingId: any;
+	let count = 0;
 
 	async function downLoadFiles(abbr: any) {
 		fetch(`${PUBLIC_API_BASE_URL}/meeting-download-files?id=${meetingId}&abbr=${abbr}`)
@@ -38,18 +39,20 @@
 		<div class="lms-table-wrapper rounded-2xl p-4">
 			<table class="lms-table">
 				<thead>
-					<th>Meeting Stakeholders Type</th>
-					<th>Description</th>
-					<th>Link</th>
-					<th>Documents</th>
+					<th class="!text-[15px]">Sr.No</th>
+					<th class="!text-[15px]">Meeting Stakeholders Type</th>
+					<th class="!text-[15px]">Description</th>
+					<th class="!text-[15px]">Link</th>
+					<th class="!text-[15px]">Documents</th>
 				</thead>
 				<tbody>
 					{#if meetingData.length > 0}
 						{#each meetingData as meet}
 							<tr>
-								<td><Input isRequired={false} value={meet.type.label} {disabled} /></td>
-								<td><Input isRequired={false} value={meet.description} {disabled} /></td>
-								<td><Input isRequired={false} value={meet.link} {disabled} /></td>
+								<td class="!text-[15px]">{count + 1}.</td>
+								<td class="!text-[15px]">{meet.type.label}</td>
+								<td class="!text-[15px]">{meet.description}</td>
+								<td class="!text-[15px]">{meet.link} {disabled}</td>
 								<td
 									><button
 										class="lms-btn lms-primary-btn"

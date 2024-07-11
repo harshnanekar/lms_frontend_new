@@ -12,7 +12,7 @@
     import type { TableHeaders } from '$lib/types/layout/table';
     import { PaginateDynamic } from '$lib/components/layout/pagination';
     import {BookPublicationHeaders} from "$lib/test";
-    import BookPublicationAction from '$lib/components/modules/mpc/book-publication-action.svelte';
+    import { BookPublicationAction } from '$lib/components/modules/mpc';
     import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
 
 	let dynamicUrl = 'http://localhost:9090/research/book-publication-paginate';

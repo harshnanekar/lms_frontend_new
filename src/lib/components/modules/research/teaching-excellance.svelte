@@ -4,6 +4,7 @@
 	import { toast } from 'svelte-sonner';
 	let title = 'Teaching Excellance';
 	let disabled: boolean = true;
+	let count = 0;
 	export let teachingData;
 	export let teachingId: any;
 
@@ -38,18 +39,20 @@
 		<div class="lms-table-wrapper rounded-2xl p-4">
 			<table class="lms-table">
 				<thead>
-					<th>Teaching Excellance Type</th>
-					<th>Description</th>
-					<th>Link</th>
-					<th>Documents</th>
+					<th class="!text-[15px]">Sr.No</th>
+					<th class="!text-[15px]">Teaching Excellance Type</th>
+					<th class="!text-[15px]">Description</th>
+					<th class="!text-[15px]">Link</th>
+					<th class="!text-[15px]">Documents</th>
 				</thead>
 				<tbody>
 					{#if teachingData.length > 0}
 						{#each teachingData as teach}
 							<tr>
-								<td><Input isRequired={false} value={teach.type.label} {disabled} /></td>
-								<td><Input isRequired={false} value={teach.description} {disabled} /></td>
-								<td><Input isRequired={false} value={teach.link} {disabled} /></td>
+								<td class="!text-[15px]">{count + 1}.</td>
+								<td class="!text-[15px]">{teach.type.label}</td>
+								<td class="!text-[15px]">{teach.description}</td>
+								<td class="!text-[15px]">{teach.link}</td>
 								<td
 									><button
 										class="lms-btn lms-primary-btn"
