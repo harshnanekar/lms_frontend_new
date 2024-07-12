@@ -104,6 +104,7 @@
 	function navigateToCreate() {
 		goto('/teaching-meeting-branding/create');
 	}
+	let open = true;
 </script>
 
 <button

@@ -27,6 +27,13 @@
 
 	export let data: any;
 
+	let teachingHeader = 'Teaching Excellance';
+	let meetingHeader = 'Meeting Stakeholders';
+	let brandingHeader = 'Branding & Advertisement';
+
+	$: dynamicHeader =
+		data.type === 'te' ? teachingHeader : data.type === 'ms' ? meetingHeader : brandingHeader;
+
 	let teachingItems: {
 		id: number;
 		type: any;
@@ -452,7 +459,11 @@
 </script>
 
 <div class="space-y-6">
-	<div class=" flex items-center justify-between rounded-2xl border border-[#e5e9f1] p-6">
+	<div class="flex items-center gap-4 rounded-2xl border border-[#e5e9f1] p-4 md:flex-row">
+		<i class="fa-solid fa-graduation-cap text-[30px]"></i>
+		<h1 class="text-lg font-semibold">{dynamicHeader}</h1>
+	</div>
+	<!-- <div class=" flex items-center justify-between rounded-2xl border border-[#e5e9f1] p-6">
 		<div class="flex flex-row items-center gap-4">
 			<i class="fa-solid fa-graduation-cap text-[30px]"></i>
 			<h1 class="text-lg font-semibold">Teaching Excellence</h1>
@@ -560,9 +571,9 @@
 				<button class="lms-btn lms-primary-btn mr-8" on:click={submitTeachingItems}>Update</button>
 			</div>
 		</div>
-	{/if}
+	{/if} -->
 
-	<div class=" flex items-center justify-between rounded-2xl border border-[#e5e9f1] p-6">
+	<!-- <div class=" flex items-center justify-between rounded-2xl border border-[#e5e9f1] p-6">
 		<div class="flex flex-row items-center gap-4">
 			<i class="fa-solid fa-people-arrows text-[30px]"></i>
 			<h1 class="text-lg font-semibold">Meeting Stakeholders</h1>
@@ -669,9 +680,9 @@
 				<button class="lms-btn lms-primary-btn mr-8" on:click={submitMeetingItems}>Update</button>
 			</div>
 		</div>
-	{/if}
+	{/if} -->
 
-	<div class=" flex items-center justify-between rounded-2xl border border-[#e5e9f1] p-6">
+	<!-- <div class=" flex items-center justify-between rounded-2xl border border-[#e5e9f1] p-6">
 		<div class="flex flex-row items-center gap-4">
 			<i class="fa-solid fa-bullhorn text-[30px]"></i>
 			<h1 class="text-lg font-semibold">Branding & Advertisement</h1>
@@ -779,5 +790,5 @@
 				<button class="lms-btn lms-primary-btn mr-8" on:click={submitBrandingItems}>Update</button>
 			</div>
 		</div>
-	{/if}
+	{/if} -->
 </div>
