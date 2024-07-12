@@ -924,9 +924,9 @@
 <div class="space-y-8">
 	<!-- Teaching Excellence Card -->
 	<div class=" flex items-center justify-between rounded-2xl border border-[#e5e9f1] p-6">
-		<div class="flex flex-row items-center gap-4">
-			<i class="fa-solid fa-graduation-cap text-[30px]"></i>
-			<h1 class="text-lg font-semibold">Teaching Excellence</h1>
+		<div class="flex items-center gap-4 md:flex-row">
+			<i class="fa-solid fa-graduation-cap xs:text-[30px] sm:text-[30px] md:text-[30px]"></i>
+			<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Teaching Excellence</h1>
 		</div>
 		<button class="lms-btn lms-primary-btn flex items-center py-2.5" on:click={addTeachingRow}>
 			<PlusIcon />
@@ -982,9 +982,12 @@
 								/>
 							</td>
 							<td>
-								<button class="lms-btn lms-primary-btn" on:click={() => removeTeachingRow(item.id)}>
+								<button
+									class="lms-btn lms-secondary-btn"
+									on:click={() => removeTeachingRow(item.id)}
+								>
 									<MinusIcon />
-									Remove
+									<span class="ml-2 hidden md:block">Remove</span>
 								</button>
 							</td>
 						</tr>
@@ -992,18 +995,20 @@
 				</tbody>
 			</table>
 			<hr class="mt-2" />
-			<div class="float-right mt-4 flex flex-row">
+			<div class="mt-4 flex md:float-right md:flex-row">
 				<!-- <button class="lms-btn lms-secondary-btn mr-8" on:click={() => clearTeachingItems(teachingItems)}>Clear</button> -->
-				<button class="lms-btn lms-primary-btn mr-8" on:click={submitTeachingItems}>Submit</button>
+				<button class="lms-btn lms-primary-btn mr-[100px]" on:click={submitTeachingItems}
+					>Submit</button
+				>
 			</div>
 		</div>
 	{/if}
 
 	<!-- Meeting Stakeholders Card -->
 	<div class="flex items-center justify-between rounded-2xl border border-[#e5e9f1] p-6">
-		<div class="flex flex-row items-center gap-4">
-			<i class="fa-solid fa-people-arrows text-[30px]"></i>
-			<h1 class="text-lg font-semibold">Meeting Stakeholders</h1>
+		<div class="flex items-center gap-4 md:flex-row">
+			<i class="fa-solid fa-people-arrows xs:text-[30px] sm:text-[30px] md:text-[30px]"></i>
+			<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Meeting Stakeholders</h1>
 		</div>
 		<button class="lms-btn lms-primary-btn flex items-center py-2.5" on:click={addMeetingRow}>
 			<PlusIcon />
@@ -1059,9 +1064,12 @@
 								/>
 							</td>
 							<td>
-								<button class="lms-btn lms-primary-btn" on:click={() => removeMeetingRow(item.id)}>
+								<button
+									class="lms-btn lms-secondary-btn"
+									on:click={() => removeMeetingRow(item.id)}
+								>
 									<MinusIcon />
-									Remove
+									<span class="ml-2 hidden md:block">Remove</span>
 								</button>
 							</td>
 						</tr>
@@ -1069,18 +1077,20 @@
 				</tbody>
 			</table>
 			<hr class="mt-2" />
-			<div class="float-right mt-4 flex flex-row">
+			<div class="mt-4 flex md:float-right md:flex-row">
 				<!-- <button class="lms-btn lms-secondary-btn mr-8" on:click={() => meetingItems = []}>Clear</button> -->
-				<button class="lms-btn lms-primary-btn mr-8" on:click={submitMeetingItems}>Submit</button>
+				<button class="lms-btn lms-primary-btn mr-[100px]" on:click={submitMeetingItems}
+					>Submit</button
+				>
 			</div>
 		</div>
 	{/if}
 
 	<!-- Branding & Advertisement Card -->
 	<div class="flex items-center justify-between rounded-2xl border border-[#e5e9f1] p-6">
-		<div class="flex flex-row items-center gap-4">
-			<i class="fa-solid fa-bullhorn text-[30px]"></i>
-			<h1 class="text-lg font-semibold">Branding & Advertisement</h1>
+		<div class="flex items-center gap-4 md:flex-row">
+			<i class="fa-solid fa-bullhorn xs:text-[30px] sm:text-[30px] md:text-[30px]"></i>
+			<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Branding & Advertisement</h1>
 		</div>
 		<button class="lms-btn lms-primary-btn flex items-center py-2.5" on:click={addBrandingRow}>
 			<PlusIcon />
@@ -1136,9 +1146,12 @@
 								/>
 							</td>
 							<td>
-								<button class="lms-btn lms-primary-btn" on:click={() => removeBrandingRow(item.id)}>
+								<button
+									class="lms-btn lms-secondary-btn"
+									on:click={() => removeBrandingRow(item.id)}
+								>
 									<MinusIcon />
-									Remove
+									<span class="ml-2 hidden md:block">Remove</span>
 								</button>
 							</td>
 						</tr>
@@ -1146,9 +1159,11 @@
 				</tbody>
 			</table>
 			<hr class="mt-2" />
-			<div class="float-right mt-4 flex flex-row">
+			<div class="mt-4 flex md:float-right md:flex-row">
 				<!-- <button class="lms-btn lms-secondary-btn mr-8" on:click={() => brandingItems = []}>Clear</button> -->
-				<button class="lms-btn lms-primary-btn mr-8" on:click={submitBrandingItems}>Submit</button>
+				<button class="lms-btn lms-primary-btn mr-[100px]" on:click={submitBrandingItems}
+					>Submit</button
+				>
 			</div>
 		</div>
 	{/if}

@@ -5,7 +5,8 @@ import type { JournalPaper, JournalView, BookPublicationRender,
 	brandingView,
 	MeetingView,
 	TeachingView,
-	CaseStudyView
+	CaseStudyView,
+	ResearchSeminarView
  } from './types/modules/research/research-types';
 
 
@@ -59,6 +60,13 @@ export const SIDEBAR_URL = [
 		url: '/case-study',
 		icon: 'test',
 		label: 'Case Study',
+		module: null,
+		child: []
+	},
+	{
+		url: '/research-seminars',
+		icon: 'test',
+		label: 'Research Seminars',
 		module: null,
 		child: []
 	},
@@ -645,3 +653,60 @@ export const CaseStudyHeaders : TableHeaders<CaseStudyView>[] = [
 	   showTooltip: false
    },
 ]; 
+
+
+export const researchSeminarHeaders : TableHeaders<ResearchSeminarView>[] = [
+
+   {
+	   label: 'Nmims Campus',
+	   key: 'nmims_campus',
+	   sortable: false,
+	   classes: 'id',
+	   showTooltip: false
+   },
+  
+   
+   {
+	   label: 'Nmims School',
+	   key: 'nmims_school',
+	   sortable: false,
+	   classes: 'id',
+	   showTooltip: false
+   },
+
+   
+   {
+	   label: 'Research Date',
+	   key: 'research_date',
+	   sortable: false,
+	   classes: 'id',
+	   showTooltip: false
+   },
+
+   
+   {
+	   label: 'Publisher',
+	   key: 'publisher',
+	   sortable: false,
+	   classes: 'id',
+	   showTooltip: false
+   },
+
+   
+   {
+	   label: 'Journal Name',
+	   key: 'journal_name',
+	   sortable: false,
+	   classes: 'id',
+	   showTooltip: false
+   },
+
+      {
+	   label: 'NMIMS Authors',
+	   key: 'nmims_authors',
+	   sortable: false,
+	   classes: 'id',
+	   showTooltip: false
+   }
+
+];

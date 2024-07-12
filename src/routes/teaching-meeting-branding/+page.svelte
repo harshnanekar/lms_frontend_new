@@ -119,9 +119,9 @@
 	<Accordion collapse spaceBetween>
 		<AccordionItem>
 			<svelte:fragment slot="title">
-				<div class="flex flex-row gap-4 p-2.5">
-					<i class="fa-solid fa-graduation-cap text-[30px]"></i>
-					<h1 class="text-lg font-semibold">Teaching Excellance</h1>
+				<div class="flex gap-4 p-2.5 md:flex-row">
+					<i class="fa-solid fa-graduation-cap xs:text-[30px] sm:text-[30px] md:text-[30px]"></i>
+					<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Teaching Excellance</h1>
 				</div>
 			</svelte:fragment>
 			<svelte:fragment slot="content" let:open>
@@ -135,9 +135,9 @@
 	<Accordion collapse spaceBetween>
 		<AccordionItem>
 			<svelte:fragment slot="title">
-				<div class="flex flex-row gap-4 p-2.5">
-					<i class="fa-solid fa-people-arrows text-[30px]"></i>
-					<h1 class="text-lg font-semibold">Meeting Stakeholders</h1>
+				<div class="flex gap-4 p-2.5 md:flex-row">
+					<i class="fa-solid fa-people-arrows xs:text-[30px] sm:text-[30px] md:text-[30px]"></i>
+					<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Meeting Stakeholders</h1>
 				</div>
 			</svelte:fragment>
 			<svelte:fragment slot="content" let:open>
@@ -151,9 +151,9 @@
 	<Accordion collapse spaceBetween>
 		<AccordionItem>
 			<svelte:fragment slot="title">
-				<div class="flex flex-row gap-4 p-2.5">
-					<i class="fa-solid fa-bullhorn text-[30px]"></i>
-					<h1 class="text-lg font-semibold">Branding & Advertisement</h1>
+				<div class="flex gap-4 p-2.5 md:flex-row">
+					<i class="fa-solid fa-bullhorn xs:text-[30px] sm:text-[30px] md:text-[30px]"></i>
+					<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Branding & Advertisement</h1>
 				</div>
 			</svelte:fragment>
 			<svelte:fragment slot="content" let:open>

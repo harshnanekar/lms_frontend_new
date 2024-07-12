@@ -243,117 +243,111 @@
 </script>
 
 <Card {title}>
-	<div class="p-4">
-		<div class="scroll modal-content max-h-[70vh] min-h-[50vh] overflow-auto">
-			<!-- Adjust max-height as needed -->
-			<div class="grid grid-cols-3 gap-[40px] p-4">
-				<DynamicSelect
-					isRequired={true}
-					placeholder="Nmims School"
-					options={getSchool(school)}
-					bind:selectedOptions={obj.nmims_school}
-					isMultiSelect={true}
-				/>
-				<DynamicSelect
-					isRequired={true}
-					placeholder="Nmims Campus"
-					options={getCampus(campus)}
-					bind:selectedOptions={obj.nmims_campus}
-					isMultiSelect={true}
-				/>
+	<div class="modal-content p-4">
+		<!-- Adjust max-height as needed -->
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<DynamicSelect
+				isRequired={true}
+				placeholder="Nmims School"
+				options={getSchool(school)}
+				bind:selectedOptions={obj.nmims_school}
+				isMultiSelect={true}
+			/>
+			<DynamicSelect
+				isRequired={true}
+				placeholder="Nmims Campus"
+				options={getCampus(campus)}
+				bind:selectedOptions={obj.nmims_campus}
+				isMultiSelect={true}
+			/>
 
-				<DynamicSelect
-					isRequired={true}
-					placeholder="All Authors"
-					options={getMasterAllAuthors(allAuth)}
-					bind:selectedOptions={obj.all_authors}
-					isMultiSelect={true}
-				/>
-			</div>
-			<div class="grid grid-cols-3 gap-[40px] p-4">
-				<DynamicSelect
-					isRequired={true}
-					placeholder="Nmims Authors"
-					options={getMasterNmimsAuthors(nmimsAuth)}
-					bind:selectedOptions={obj.nmims_authors}
-					isMultiSelect={true}
-				/>
-				<Input type="text" placeholder="Title Of Book" bind:value={obj.title} />
-				<Input
-					type="text"
-					placeholder="Edition (if it isn't the first) "
-					bind:value={obj.edition}
-				/>
-			</div>
-			<div class="grid grid-cols-3 gap-[40px] p-4">
-				<Input
-					type="number"
-					placeholder="No. Of NMIMS Authors"
-					bind:value={obj.nmims_authors_count}
-				/>
-				<Input type="text" placeholder="Volume Number" bind:value={obj.volume_no} />
-				<div class="ml-2">
-					<label class="text-sm text-[#888888]"
-						>Publisher Category<span class="text-danger text-sm">*</span></label
-					>
-					<div class="mt-2.5 flex flex-row gap-[20px]">
-						<div class="flex flex-row">
-							<input
-								type="radio"
-								id="html"
-								class="lms-input-radio w-4"
-								name="radio-button-text"
-								bind:group={obj.publisher_category}
-								value={1}
-								checked={obj.publisher_category === 1}
-							/>
-							<span class="text-sm text-[#888888]">International</span>
-						</div>
-						<div class="flex flex-row">
-							<input
-								type="radio"
-								id="html"
-								class="lms-input-radio w-4"
-								bind:group={obj.publisher_category}
-								value={2}
-								checked={obj.publisher_category === 2}
-								name="radio-button-text"
-							/>
-							<span class="text-sm text-[#888888]">National</span>
-						</div>
+			<DynamicSelect
+				isRequired={true}
+				placeholder="All Authors"
+				options={getMasterAllAuthors(allAuth)}
+				bind:selectedOptions={obj.all_authors}
+				isMultiSelect={true}
+			/>
+		</div>
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<DynamicSelect
+				isRequired={true}
+				placeholder="Nmims Authors"
+				options={getMasterNmimsAuthors(nmimsAuth)}
+				bind:selectedOptions={obj.nmims_authors}
+				isMultiSelect={true}
+			/>
+			<Input type="text" placeholder="Title Of Book" bind:value={obj.title} />
+			<Input type="text" placeholder="Edition (if it isn't the first) " bind:value={obj.edition} />
+		</div>
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<Input
+				type="number"
+				placeholder="No. Of NMIMS Authors"
+				bind:value={obj.nmims_authors_count}
+			/>
+			<Input type="text" placeholder="Volume Number" bind:value={obj.volume_no} />
+			<div class="ml-2">
+				<label class="text-sm text-[#888888]"
+					>Publisher Category<span class="text-danger text-sm">*</span></label
+				>
+				<div class="mt-2.5 flex flex-row gap-[20px]">
+					<div class="flex flex-row">
+						<input
+							type="radio"
+							id="html"
+							class="lms-input-radio w-4"
+							name="radio-button-text"
+							bind:group={obj.publisher_category}
+							value={1}
+							checked={obj.publisher_category === 1}
+						/>
+						<span class="text-sm text-[#888888]">International</span>
+					</div>
+					<div class="flex flex-row">
+						<input
+							type="radio"
+							id="html"
+							class="lms-input-radio w-4"
+							bind:group={obj.publisher_category}
+							value={2}
+							checked={obj.publisher_category === 2}
+							name="radio-button-text"
+						/>
+						<span class="text-sm text-[#888888]">National</span>
 					</div>
 				</div>
 			</div>
-			<div class="grid grid-cols-3 gap-[40px] p-4">
-				<Input type="number" placeholder="Publication Year" bind:value={obj.publish_year} />
-				<Input type="text" placeholder="Publisher Name" bind:value={obj.publisher} />
-				<Input type="text" placeholder="Website link" bind:value={obj.web_link} />
-			</div>
-			<div class="grid grid-cols-3 gap-[40px] p-4">
-				<Input type="text" placeholder="ISBN Number" bind:value={obj.isbn_no} />
-				<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} />
-				<Input type="text" placeholder="Place Of Publication" bind:value={obj.publication_place} />
-			</div>
+		</div>
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<Input type="number" placeholder="Publication Year" bind:value={obj.publish_year} />
+			<Input type="text" placeholder="Publisher Name" bind:value={obj.publisher} />
+			<Input type="text" placeholder="Website link" bind:value={obj.web_link} />
+		</div>
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<Input type="text" placeholder="ISBN Number" bind:value={obj.isbn_no} />
+			<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} />
+			<Input type="text" placeholder="Place Of Publication" bind:value={obj.publication_place} />
+		</div>
 
-			<div class="grid grid-cols-3 gap-[40px] p-4">
-				<div>
-					<label for="supporting-documents"
-						>Upload Supporting Documents <i style="color: red;">*</i><br /></label
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<div>
+				<label for="supporting-documents"
+					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
+				>
+				<label>Click To Upload New File <input type="checkbox" bind:checked={isChecked} /></label>
+				{#if checkVal}
+					<input type="file" bind:files multiple />
+				{:else}
+					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
+						><i class="fa-solid fa-download text-lg"></i></button
 					>
-					<label>Click To Upload New File <input type="checkbox" bind:checked={isChecked} /></label>
-					{#if checkVal}
-						<input type="file" bind:files multiple />
-					{:else}
-						<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
-							><i class="fa-solid fa-download text-lg"></i></button
-						>
-					{/if}
-				</div>
+				{/if}
 			</div>
 		</div>
+	</div>
 
-		<div class="flex flex-row gap-[20px] p-4">
-			<button on:click={handleSubmit} class="lms-btn lms-primary-btn">Update</button>
-		</div>
+	<div class="flex flex-col gap-4 p-4 md:flex-row">
+		<button on:click={handleSubmit} class="lms-btn lms-primary-btn">Update</button>
 	</div>
 </Card>

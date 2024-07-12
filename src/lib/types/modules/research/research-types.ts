@@ -149,3 +149,12 @@ export type BookChapterDetails = {
    publish_year:number,
    volume_no : string
  }
+
+ export type ResearchSeminarView = {
+	nmims_school : string[],
+	nmims_campus : string[],
+	research_date : Date,
+	publisher : string,
+	journal_name : string
+	nmims_authors : string[],
+ }

@@ -203,9 +203,9 @@
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
 <Card {title}>
-	<div class="scroll small-scrollbar modal-content max-h-[70vh] min-h-[50vh] overflow-auto p-4">
+	<div class="modal-content p-4">
 		<!-- Adjust max-height as needed -->
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims School"
@@ -229,7 +229,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims Authors"
@@ -241,13 +241,13 @@
 			<Input type="text" {isRequired} placeholder="Edition" bind:value={obj.edition} />
 		</div>
 
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" {isRequired} placeholder="Page No." bind:value={obj.page_no} />
 			<Input type="text" placeholder="Volume No." bind:value={obj.volume_no} />
 			<Input type="text" placeholder="Publisher" bind:value={obj.publisher} />
 		</div>
 
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="number" placeholder="Publication Year" bind:value={obj.publish_year} />
 			<div class="ml-2">
 				<label class="text-sm text-[#888888]">
@@ -282,7 +282,7 @@
 			<Input type="text" placeholder="Url" bind:value={obj.url} />
 		</div>
 
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input
 				type="number"
 				placeholder="No. Of Nmims Authors"
@@ -302,7 +302,7 @@
 				{/if}
 			</div>
 		</div>
-		<div class="mt-4 flex flex-row gap-[20px] p-4">
+		<div class="flex flex-col gap-4 p-4 md:flex-row">
 			<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Update</button>
 		</div>
 	</div></Card

@@ -177,9 +177,9 @@
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
 <Card {title}>
-	<div class="scroll small-scrollbar modal-content max-h-[70vh] min-h-[50vh] overflow-auto p-4">
+	<div class="modal-content p-4">
 		<!-- Adjust max-height as needed -->
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims School"
@@ -204,7 +204,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Name Of NMIMS Authors"
@@ -215,7 +215,7 @@
 			<Input type="text" placeholder="Title Of Book" bind:value={obj.title} />
 			<Input type="text" placeholder="Edition (if it isn't the first) " bind:value={obj.edition} />
 		</div>
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="Volume Number" bind:value={obj.volume_no} />
 			<div class="ml-2">
 				<label class="text-sm text-[#888888]"
@@ -249,12 +249,12 @@
 			</div>
 			<Input type="number" placeholder="Publication Year" bind:value={obj.publish_year} />
 		</div>
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="Publisher Name " bind:value={obj.publisher} />
 			<Input type="text" placeholder="Website link " bind:value={obj.web_link} />
 			<Input type="text" placeholder="ISBN Number" bind:value={obj.isbn_no} />
 		</div>
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} />
 
 			<Input type="text" placeholder="Place Of Publication" bind:value={obj.publication_place} />
@@ -266,7 +266,7 @@
 			<input type="file" bind:files multiple />
 		</div>
 	</div>
-	<div class="flex flex-row gap-[20px] p-4">
+	<div class="flex flex-col gap-4 p-4 md:flex-row">
 		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
 		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
 	</div>

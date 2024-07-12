@@ -62,27 +62,27 @@
 
 {#if checkData}
 	<Card {title}>
-		<div class="scroll small-scrollbar modal-content max-h-[70vh] min-h-[50vh] overflow-auto p-4">
+		<div class="modal-content p-4">
 			<!-- Adjust max-height as needed -->
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input type="text" placeholder="Nmims School" value={obj.nmims_school} {disabled} />
 				<Input type="text" placeholder="Nmims Campus" value={obj.nmims_campus} {disabled} />
 				<Input type="text" placeholder="All Authors" value={obj.all_authors} {disabled} />
 			</div>
 
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input type="text" placeholder="Nmims Authors" value={obj.nmims_authors} {disabled} />
 				<Input type="text" placeholder="Title Of Case Study" value={obj.title} {disabled} />
 				<Input type="text" placeholder="Edition" value={obj.edition} {disabled} />
 			</div>
 
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input type="text" placeholder="Page Number" value={obj.page_no} {disabled} />
 				<Input type="text" placeholder="Volume No." value={obj.volume_no} {disabled} />
 				<Input type="text" placeholder="Publisher" value={obj.publisher} {disabled} />
 			</div>
 
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input type="number" placeholder="Publication Year" value={obj.publish_year} {disabled} />
 				<div class="ml-2">
 					<label class="text-sm text-[#888888]">
@@ -118,7 +118,7 @@
 				<Input type="text" placeholder="Url" value={obj.url} {disabled} />
 			</div>
 
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input
 					type="number"
 					placeholder="No. Of Nmims Authors"

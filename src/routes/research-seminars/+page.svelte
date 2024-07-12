@@ -3,23 +3,23 @@
 	import { Header } from '$lib/components/researchHeader';
 	import { PlusIcon } from '$lib/components/icons';
 	import { writable } from 'svelte/store';
-	import type { JournalView } from '$lib/types/modules/research/research-types';
+	import type { ResearchSeminarView } from '$lib/types/modules/research/research-types';
 	import { PaginateDynamic } from '$lib/components/layout/pagination';
-	import { paginationHeaders } from '$lib/test';
-    import { ResearchAction } from '$lib/components/modules/mpc';
+	import { researchSeminarHeaders } from '$lib/test';
+	import { ResearchAction } from '$lib/components/modules/mpc';
 	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
 
-	let dynamicUrl = 'http://localhost:9090/research/journal-paginate';
+	let dynamicUrl = 'http://localhost:9090/research/research-seminar-paginate';
 	const url = new URL(dynamicUrl);
 	paginateUrl.set(url);
 
-	const label = 'Journal Articles Published';
+	const label = 'Research Seminars';
 
 	function navigateToCreate() {
-		goto('/journal-paper/create');
+		goto('/research-seminars/create');
 	}
 
-	let actionData: JournalView;
+	let actionData: ResearchSeminarView;
 </script>
 
 <div class="flex items-center justify-between">
@@ -34,7 +34,7 @@
 </div>
 
 <div class="shadow-card mt-[5%] rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 sm:p-6">
-	<PaginateDynamic url={$paginateUrl} header={paginationHeaders} let:actionData>
+	<PaginateDynamic url={$paginateUrl} header={researchSeminarHeaders} let:actionData>
 		<ResearchAction {actionData} />
 	</PaginateDynamic>
 </div>
