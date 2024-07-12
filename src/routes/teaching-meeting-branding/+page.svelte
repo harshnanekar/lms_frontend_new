@@ -73,12 +73,10 @@
 
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Header } from '$lib/components/researchHeader';
 	import { PlusIcon } from '$lib/components/icons';
 	import { PaginateDynamic } from '$lib/components/layout/pagination';
 	import { teachingHeaders, meetingHeaders, brandingHeaders } from '$lib/test';
 	import {
-		ResearchAction,
 		MeetingStakHolderAction,
 		BrandingAction,
 		TeachingAction
