@@ -164,14 +164,33 @@ export function getMasterAllAuthors(data:any) : CustomOptions[] {
     });
   
     return inputFieldsArr;
-} 
+}  
 
 
-export function getExternalAuthors(data:any) : CustomOptions[] {
+export function getMasterNmimsAuthors(data:any) : CustomOptions[] {
     let inputFieldsArr : any[] = [];
     data.forEach((item : any) => {
         inputFieldsArr.push({value: item.id, label: item.name});
     });
   
     return inputFieldsArr;
-}
+} 
+
+
+export function getExternalAuthors(data:any) : CustomOptions[] {
+    let inputFieldsArr : any[] = [];
+    data.forEach((item : any) => {
+        inputFieldsArr.push({value: item.id, label: item.faculty_name});
+    });
+  
+    return inputFieldsArr;
+} 
+
+export function getEnternalAuthors(data:any) : CustomOptions[] {
+    let inputFieldsArr : any[] = [];
+    data.forEach((item : any) => {
+        inputFieldsArr.push({value: item.id, label: item.faculty_name});
+    });
+  
+    return inputFieldsArr;
+} 

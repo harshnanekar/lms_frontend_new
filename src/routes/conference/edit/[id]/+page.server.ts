@@ -3,11 +3,11 @@ import { PRIVATE_API_BASE_URL } from '$env/static/private';
 import { fetchApiServer } from '$lib/server/utils/fetcher';
 import { fail } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async ({ cookies, fetch  }) => {
+export const load: PageServerLoad = async ({ cookies, fetch , params}) => {
 
-
+    const id = params.id;
     const { error, json } = await fetchApiServer({
-		url: `${PRIVATE_API_BASE_URL}/input-render-data`,
+		url: `${PRIVATE_API_BASE_URL}/conference-edit-view-form?id=${id}`,
 		_fetch: fetch,
 		cookies: cookies,
 		method: 'GET'
@@ -18,9 +18,8 @@ export const load: PageServerLoad = async ({ cookies, fetch  }) => {
 			message: error.message
 		});
 	}
-
-    console.log('json ',json);
+    console.log('view json ',JSON.stringify(json));
 	return {
-		inputData: json
+		conferenceDetails: json
 	};
 };

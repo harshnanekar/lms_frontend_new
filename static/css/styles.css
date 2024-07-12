@@ -243,6 +243,8 @@ lms-view-input{
 	color: #888888;
 }
 
+
+
 .lms-error-msg {
 	font-family: var(--lms--font-family);
 	color: var(--lms--color-danger-400);

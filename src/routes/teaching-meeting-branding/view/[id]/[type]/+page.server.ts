@@ -7,8 +7,8 @@ export const load: PageServerLoad = async ({ cookies, fetch,params }) => {
     
     const {id,type} = params;
 	
-    const moduleUrl = type === 'te' ? '/view-teaching-data' : type === 'ms' ? '/view-meeting-data' 
-    : '/view-branding-data'
+    const moduleUrl = type === 'te' ? `/view-teaching-data?id=${id}` : type === 'ms' ? `/view-meeting-data?id=${id}` 
+    : `/view-branding-data?id=${id}`
 
 	console.log('id and type ',id,type,moduleUrl);
 
@@ -26,7 +26,7 @@ export const load: PageServerLoad = async ({ cookies, fetch,params }) => {
 		});
 	}
 
-    console.log('json ',json);
+    console.log('json viewed ',JSON.stringify(json));
 	return {
 		inputData: json
 	};

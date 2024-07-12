@@ -61,36 +61,64 @@
 	console.log('internal ===>>>>>>', internal);
 	console.log('campus ===>>>>>>', campus);
 
+    let isCheckedDoc: boolean = false;
+	let isCheckedaward: boolean = false;
+
+	$: checkDoc = isCheckedDoc;
+	$: checkAward = isCheckedaward
+	console.log('checkbox check ', checkDoc);
+
+	
 	let publicationDate: Date | null = new Date();
-	publicationDate = null;
+	publicationDate = new Date(data.conferenceDetails.conferenceDetails[0].publication_date);
 	$: publicationFormattedDate = publicationDate;
 	function handleDateChange(e: CustomEvent<any>) {
 		if (!publicationDate) return;
 		publicationFormattedDate = publicationDate;
-		console.log('publication date ', publicationDate);
+		console.log('publication date ', publicationFormattedDate);
 	}
 
+
 	console.log('JSON.stringify(school)', JSON.stringify(school));
+    console.log('conference details', JSON.stringify(data.conferenceDetails));
+    let facultyDetails = data.conferenceDetails.conferenceDetails[0].faculty_details || [];
+
+    console.log('facultyDetails ===>>>>>', facultyDetails);
+    
 
 	let obj: any = {
-		nmims_school: null,
-		nmims_campus: null,
-		paper_title: '',
-		conference_name: '',
-		all_authors: null,
-		place: '',
-		proceeding_published: true,
-		conference_type: 1,
-		presenting_author: '',
-		organizing_body: '',
-		volume_no: '',
-		issn_no: '',
-		publication_date: '',
-		sponsored: 1,
-		doi_no: '',
-		internal_authors: null,
-		external_authors: null
-	};
+    conference_id: parseInt(data.conferenceDetails.conferenceDetails[0].conference_id),
+    nmims_school: data.conferenceDetails.conferenceDetails[0].nmims_school != null
+        ? data.conferenceDetails.conferenceDetails[0].nmims_school.map((dt: any) => {
+            return { value: dt, label: dt };
+        })
+        : [],
+    nmims_campus: data.conferenceDetails.conferenceDetails[0].nmims_campus != null
+        ? data.conferenceDetails.conferenceDetails[0].nmims_campus.map((dt: any) => {
+            return { value: dt, label: dt };
+        })
+        : [],
+    paper_title: data.conferenceDetails.conferenceDetails[0].paper_title ? data.conferenceDetails.conferenceDetails[0].paper_title : '',
+    conference_name: data.conferenceDetails.conferenceDetails[0].conference_name ? data.conferenceDetails.conferenceDetails[0].conference_name : '',
+    all_authors: data.conferenceDetails.conferenceDetails[0].all_authors != null
+        ? data.conferenceDetails.conferenceDetails[0].all_authors.map((dt: any) => {
+            return { value: dt.id, label: dt.name };
+        })
+        : [],
+    place: data.conferenceDetails.conferenceDetails[0].place ? data.conferenceDetails.conferenceDetails[0].place : '',
+    proceeding_published: data.conferenceDetails.conferenceDetails[0].proceeding_published,
+    conference_type: Number(data.conferenceDetails.conferenceDetails[0].conference_type),
+    presenting_author: data.conferenceDetails.conferenceDetails[0].presenting_author ? data.conferenceDetails.conferenceDetails[0].presenting_author : '',
+    organizing_body: data.conferenceDetails.conferenceDetails[0].organizing_body ? data.conferenceDetails.conferenceDetails[0].organizing_body : '',
+    volume_no: data.conferenceDetails.conferenceDetails[0].volume_no ? data.conferenceDetails.conferenceDetails[0].volume_no : '',
+    issn_no: data.conferenceDetails.conferenceDetails[0].issn_no ? data.conferenceDetails.conferenceDetails[0].issn_no : '',
+    sponsored: Number(data.conferenceDetails.conferenceDetails[0].sponsored),
+    doi_no: data.conferenceDetails.conferenceDetails[0].doi_no ? data.conferenceDetails.conferenceDetails[0].doi_no : '',
+    amount: data.conferenceDetails.conferenceDetails[0].amount ? data.conferenceDetails.conferenceDetails[0].amount : '',
+    publication_date: publicationFormattedDate != null ? formatDate(publicationFormattedDate) : '',
+    internal_authors: facultyDetails.filter((author: any) => author.abbr === 'int').map((author: any) => ({ value: author.id, label: author.faculty_name })),
+    external_authors: facultyDetails.filter((author: any) => author.abbr === 'ext').map((author: any) => ({ value: author.id, label: author.faculty_name }))
+};
 
 	let conferenceFiles: any = [];
 	let awardFiles: any = [];
@@ -107,143 +135,185 @@
 	}
 
 	async function handleSubmit() {
-	const conferenceObj: conferenceReq = {
-		nmims_school: obj.nmims_school != null ? obj.nmims_school.map((data: { value: any }) => data.value) : [],
-		nmims_campus: obj.nmims_campus != null ? obj.nmims_campus.map((data: { value: any }) => data.value) : [],
-		paper_title: obj.paper_title,
-		conference_name: obj.conference_name,
-		all_authors: obj.all_authors != null ? obj.all_authors.map((data: { value: any }) => Number(data.value)) : [],
-		place: obj.place,
-		proceeding_published: obj.proceeding_published,
-		conference_type: Number(obj.conference_type),
-		presenting_author: obj.presenting_author,
-		organizing_body: obj.organizing_body,
-		volume_no: obj.volume_no,
-		issn_no: obj.issn_no,
-		doi_no: obj.doi_no,
-		publication_date: publicationFormattedDate != null ? formatDate(publicationFormattedDate) : '',
-		sponsored: obj.sponsored,
-		amount: obj.amount,
-		internal_authors: obj.internal_authors != null ? obj.internal_authors.map((data: { value: any }) => Number(data.value)) : [],
-		external_authors: obj.external_authors != null ? obj.external_authors.map((data: { value: any }) => Number(data.value)) : [],
-	};
+		
 
-	const result = validateWithZod(conferenceData, conferenceObj);
 
-	if (result.errors) {
-		console.log(result.errors);
-		const [firstPath, firstMessage] = Object.entries(result.errors)[0];
-		toast.error('ALERT!', {
-			description: firstMessage as string,
-		});
-		return;
-	}
+		const conferenceObj: conferenceReq = {
 
-	if (conferenceFiles.length === 0 || awardFiles.length === 0) {
-		if(conferenceFiles.length === 0){
+			nmims_school:
+				obj.nmims_school != null ? obj.nmims_school.map((data: { value: any }) => data.value) : [],
+			nmims_campus:
+				obj.nmims_campus != null ? obj.nmims_campus.map((data: { value: any }) => data.value) : [],
+			paper_title: obj.paper_title,
+			conference_name: obj.conference_name,
+			all_authors:
+				obj.all_authors != null
+					? obj.all_authors.map((data: { value: any }) => Number(data.value))
+					: [],
+			place: obj.place,
+			proceeding_published: obj.proceeding_published,
+			conference_type: Number(obj.conference_type),
+			presenting_author: obj.presenting_author,
+			organizing_body: obj.organizing_body,
+			volume_no: obj.volume_no,
+			issn_no: obj.issn_no,
+			doi_no: obj.doi_no,
+			publication_date:
+				publicationFormattedDate != null ? formatDate(publicationFormattedDate) : '',
+			sponsored: obj.sponsored,
+			amount: obj.amount,
+            internal_authors: obj.internal_authors != null ? obj.internal_authors.map((data: { value: any }) => Number(data.value)) : [],
+            external_authors: obj.external_authors != null ? obj.external_authors.map((data: { value: any }) => Number(data.value)) : [],
+        }
+		const result = validateWithZod(conferenceData, conferenceObj);
+
+		if (result.errors) {
+			console.log(result.errors);
+			const [firstPath, firstMessage] = Object.entries(result.errors)[0];
+			toast.error('ALERT!', {
+				description: firstMessage
+			});
+			return;
+		}
+
+		console.log('validated data', JSON.stringify(result.data));
+
+		const formData = new FormData();
+		formData.append('update_conference_publication', JSON.stringify(conferenceObj));
+		formData.append('conference_id', JSON.stringify(obj.conference_id));
+
+		// Append each file to the FormData with their respective keys
+        // Array.from(conferenceFiles).forEach((file: any) => {
+        //     formData.append(conference_abbr, file);
+        // });
+
+        if (checkDoc) {
+            if(conferenceFiles.length === 0){
 			toast.error('Conference documents  are required for submission');
 		}
-		if(awardFiles.length === 0){
-			toast.error('Conference award fils are required for submission');
+            Array.from(conferenceFiles).forEach((file: any) => {
+            const fileObject: FileReq = {
+                documents: [file] 
+            };
+            const fileresult = validateWithZod(fileSchema, fileObject);
+            if (fileresult.errors) {
+                console.log(fileresult.errors);
+                const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
+                toast.error('ALERT!', {
+                    description: firstMessage as string
+                });
+                return;
+        }
+        formData.append(conference_abbr, file);
+    });
+        } 
+
+        // Array.from(awardFiles).forEach((file: any) => {
+        //     formData.append(award_abbr, file);
+        // }); 
+
+        if (checkAward) {
+            if(awardFiles.length === 0){
+                toast.error('Conference award fils are required for submission');
+            }
+            Array.from(awardFiles).forEach((file: any) => {
+            const fileObject: FileReq = {
+                documents: [file] 
+            };
+            const fileresult = validateWithZod(fileSchema, fileObject);
+            if (fileresult.errors) {
+                console.log(fileresult.errors);
+                const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
+                toast.error('ALERT!', {
+                    description: firstMessage as string
+                });
+                return;
+        }
+        formData.append(award_abbr, file);
+    });
+        }
+	
+
+		for (let [key, value] of formData.entries()) {
+			console.log(`${key}: ${value}`);
 		}
-		return;
-	}
 
-	console.log('validated data', JSON.stringify(result.data));
+		const { error, json } = await fetchFormApi({
+			url: `${PUBLIC_API_BASE_URL}/conference-update`,
+			method: 'POST',
+			body: formData
+		});
 
-	const formData = new FormData();
-	formData.append('conference_publication', JSON.stringify(conferenceObj));
-
-	Array.from(conferenceFiles).forEach((file: any) => {
-		const fileObject: FileReq = {
-			documents: [file],
-		};
-
-		console.log('fileObject ===>>>>', fileObject);
-		const fileresult = validateWithZod(fileSchema, fileObject);
-		if (fileresult.errors) {
-			console.log(fileresult.errors);
-			const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
-			toast.error('ALERT!', {
-				description: firstMessage as string,
+		if (error) {
+			toast.error(error.message || 'Something went wrong!', {
+				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
 			});
 			return;
 		}
-		formData.append(conference_abbr, file);
-	});
 
-	Array.from(awardFiles).forEach((file: any) => {
-		const fileObject: FileReq = {
-			documents: [file],
-		};
-		const fileresult = validateWithZod(fileSchema, fileObject);
-		if (fileresult.errors) {
-			console.log(fileresult.errors);
-			const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
+		if (json[0].upsert_conference.status === 403) {
 			toast.error('ALERT!', {
-				description: firstMessage as string,
+				description: json[0].insert_conference.message
 			});
-			return;
+		} else {
+			toast.success('Inserted Successfully');
+			goto('/conference');
 		}
-		formData.append(award_abbr, file);
-	});
-
-	for (let [key, value] of formData.entries()) {
-		console.log(`${key}: ${value}`);
 	}
 
-	const { error, json } = await fetchFormApi({
-		url: `${PUBLIC_API_BASE_URL}/conference-insert`,
-		method: 'POST',
-		body: formData,
-	});
-
-	if (error) {
-		toast.error(error.message || 'Something went wrong!', {
-			description: error.errorId ? `ERROR-ID: ${error.errorId}` : '',
-		});
-		return;
-	}
-
-	if (json[0].insert_conference.status === 403) {
-		toast.error('ALERT!', {
-			description: json[0].insert_conference.message,
-		});
-	} else {
-		toast.success('Inserted Successfully');
-		clearForm();
-		goto('/conference');
-	}
-}
 
 
+	// function clearForm() {
+	// 	obj = {
+	// 		nmims_school: null,
+	// 		nmims_campus: null,
+	// 		paper_title: '',
+	// 		conference_name: '',
+	// 		all_authors: null,
+	// 		place: '',
+	// 		proceeding_published: true,
+	// 		conference_type: 1,
+	// 		presenting_author: '',
+	// 		organizing_body: '',
+	// 		volume_no: '',
+	// 		issn_no: '',
+	// 		publication_date: '',
+	// 		enternal: '',
+	// 		external: '',
+	// 		doi_no: '',
+	// 		sponsored: 1,
+	// 		amount: '',
+	// 		internal_authors: null,
+	// 		external_authors: null
+	// 	};
+	// 	conferenceFiles = [];
+	// 	awardFiles = [];
+	// } 
 
 
-	function clearForm() {
-		obj = {
-			nmims_school: null,
-			nmims_campus: null,
-			paper_title: '',
-			conference_name: '',
-			all_authors: null,
-			place: '',
-			proceeding_published: true,
-			conference_type: 1,
-			presenting_author: '',
-			organizing_body: '',
-			volume_no: '',
-			issn_no: '',
-			publication_date: '',
-			enternal: '',
-			external: '',
-			doi_no: '',
-			sponsored: 1,
-			amount: '',
-			internal_authors: null,
-			external_authors: null
-		};
-		conferenceFiles = [];
-		awardFiles = [];
+    async function downLoadFiles() {
+		fetch(`${PUBLIC_API_BASE_URL}/journal-download-files?id=${obj.journal_paper_id}`)
+			.then((response) => {
+				if (response.ok) {
+					return response.blob();
+				}
+				throw new Error('Network response was not ok.');
+			})
+			.then((blob) => {
+				const url = window.URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.style.display = 'none';
+				a.href = url;
+				a.download = 'journal_article_documents.zip';
+				document.body.appendChild(a);
+				a.click();
+				window.URL.revokeObjectURL(url);
+			})
+			.catch((error) => {
+				toast.error(error.message || 'Something went wrong!', {
+					description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+				});
+			});
 	}
 </script>
 
@@ -380,14 +450,16 @@
 			<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} />
 			<Input type="number" placeholder="Amount Spent In RS. By NMIMS" bind:value={obj.amount} />
 		</div>
+
+
 		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
 					>Name Of Co-Authors<span class="text-danger text-sm">*</span>
 				</label>
-				<div class="mt-2.5 flex gap-5">
-					<div class="flex items-center">
+				<div class="mt-2.5 flex md:flex-row gap-[20px]">
+					<div class="flex md:flex-row items-center">
 						<input
 							id="internal-checkbox"
 							type="checkbox"
@@ -398,7 +470,7 @@
 							>Internal</label
 						>
 					</div>
-					<div class="flex items-center">
+					<div class="flex md:flex-row items-center">
 						<input
 							id="external-checkbox"
 							type="checkbox"
@@ -410,7 +482,7 @@
 						>
 					</div>
 				</div>
-				<div class="flex items-center gap-x-3">
+				<div class="grid grid-row-2 items-center mt-2 gap-4">
 					{#if showInternal}
 						<DynamicSelect
 							isRequired={true}
@@ -431,22 +503,33 @@
 					{/if}
 				</div>
 			</div>
-			<div>
-				<!-- svelte-ignore a11y-label-has-associated-control -->
-				<label class="text-sm text-[#888888]"
-					>Upload Conference Documents<span class="text-danger text-sm">*</span>
-				</label>
+
+            <!-- Upload Conference Documents -->
+            <div>
+				<label>Click To Upload Conference Documents <input type="checkbox" bind:checked={isCheckedDoc} /></label>
+				{#if checkDoc}
 				<input type="file" bind:files={conferenceFiles} multiple />
+				{:else}
+					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
+						><i class="fa-solid fa-download text-md"></i></button
+					>
+				{/if}
 			</div>
 			<!-- svelte-ignore a11y-label-has-associated-control -->
-			<div>
-				<!-- svelte-ignore a11y-label-has-associated-control -->
-				<label class="text-sm text-[#888888]"
-					>Upload Conference Documents Any Award<span class="text-danger text-sm">*</span>
-				</label>
+             <!-- Upload Conference Documents Any Award -->
+            <div>
+				<label>Click To Upload Conference Award File <input type="checkbox" bind:checked={isCheckedaward} /></label>
+				{#if isCheckedaward}
 				<input type="file" bind:files={awardFiles} multiple />
+				{:else}
+					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
+						><i class="fa-solid fa-download text-md"></i></button
+					>
+				{/if}
 			</div>
+	
 		</div>
+
 		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<div class="flex flex-row gap-[40px] p-4">
 				<DatePicker
@@ -485,8 +568,7 @@
 		</div>
 	</div>
 	<div class="flex flex-col gap-4 p-4 md:flex-row">
-		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
-		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
+		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Update</button>
 	</div>
 </Card>
 

@@ -1,11 +1,13 @@
 import type { TableHeaders } from './types/layout/table';
 import type { SubjectMeetingDetail } from './types/modules/mpc/master-form';
 import type { JournalPaper, JournalView, BookPublicationRender,
-	BookChapterRender, BookChapterDetails, 
+	BookChapterRender, BookChapterDetails,
 	brandingView,
 	MeetingView,
 	TeachingView,
-	ConferenceRender, conferenceDetails
+	ConferenceRender,
+	conferenceDetails
+
  } from './types/modules/research/research-types';
 
 
@@ -421,8 +423,190 @@ export const BookChapterHeaders :  TableHeaders<BookChapterRender>[] = [
 
 ]
 
-export const ConferenceHeaders :  TableHeaders<ConferenceRender>[] = [
 
+export const teachingHeaders : TableHeaders<TeachingView>[] = [
+  
+	{
+	   label: 'Peadagogy Innovation',
+	   key: 'pedagogy_innovation',
+	   sortable: false,
+	   classes: 'id',
+	   showTooltip: false
+   },
+   {
+	   label: 'FDP Program On Academic',
+	   key: 'fdp_program',
+	   sortable: false,
+	   classes: '',
+	   showTooltip: false
+   },
+   {
+	   label: 'Workshop For Students',
+	   key: 'student_workshops',
+	   sortable: false,
+	   classes: 'whitespace-nowrap',
+	   showTooltip: false
+   },
+   {
+	   label: 'Inviting Visiting Faculty From The Industry To Handle Niche Workshops',
+	   key: 'niche',
+	   sortable: false,
+	   classes: '',
+	   showTooltip: false
+   },
+   {
+	   label: 'Program Orientation',
+	   key: 'program_orientation',
+	   sortable: false,
+	   classes: '',
+	   showTooltip: false
+   },
+]; 
+
+
+ export const meetingHeaders : TableHeaders<MeetingView>[]=[
+    
+	{
+		label: 'Ranking Description',
+		key: 'ranking',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'Accreditation',
+		key: 'accreditation',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'School/Campus Achievements',
+		key: 'achievements',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'Convocation At NMIMS',
+		key: 'convocation',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'Inaugral Program At NMIMS',
+		key: 'inaugral_program',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'Events At NMIMS',
+		key: 'events',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+
+
+ ];
+
+
+ export const brandingHeaders : TableHeaders<brandingView>[]=[
+    
+	{
+		label: 'Faculty Recognition',
+		key: 'faculty_recognition',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'Faculty Awards',
+		key: 'faculty_awards',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'Staff Awards',
+		key: 'staff_awards',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'Alumini Awards',
+		key: 'alumni_awards',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'Student Awards',
+		key: 'student_awards',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'International Linkage Ventures',
+		key: 'international_ventures',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'Conference Participation',
+		key: 'conference_participation',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'Organizing Conference At NMIMS',
+		key: 'organizing_conference',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'Student Event Participation',
+		key: 'student_event',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+    {
+		label: 'Newspaper Article',
+		key: 'newspaper_article',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+
+
+ ];
+
+
+ export const ConferenceHeaders :  TableHeaders<ConferenceRender>[] = [
 
 	{
 		label: 'Nmims School',
@@ -465,7 +649,7 @@ export const ConferenceHeaders :  TableHeaders<ConferenceRender>[] = [
 
 	{
 		label: 'ISBN Number',
-		key: 'isbn_no',
+		key: 'issn_no',
 		sortable: false,
 		classes: '',
 		showTooltip: false
@@ -474,209 +658,5 @@ export const ConferenceHeaders :  TableHeaders<ConferenceRender>[] = [
 ]
 
 
-export const teachingHeaders : TableHeaders<TeachingView>[] = [
-  
-    {
-       label: 'Peadagogy Innovation',
-       key: 'pedagogy_innovation',
-       sortable: false,
-       classes: 'id',
-       showTooltip: false
-   },
-   {
-       label: 'FDP Program On Academic',
-       key: 'fdp_program',
-       sortable: false,
-       classes: '',
-       showTooltip: false
-   },
-   {
-       label: 'Workshop For Students',
-       key: 'student_workshops',
-       sortable: false,
-       classes: 'whitespace-nowrap',
-       showTooltip: false
-   },
-   {
-       label: 'Inviting Visiting Faculty From The Industry To Handle Niche Workshops',
-       key: 'niche',
-       sortable: false,
-       classes: '',
-       showTooltip: false
-   },
-   {
-       label: 'Program Orientation',
-       key: 'program_orientation',
-       sortable: false,
-       classes: '',
-       showTooltip: false
-   },
-]; 
-
-
-
-
- export const meetingHeaders : TableHeaders<MeetingView>[]=[
-    
-    {
-        label: 'Ranking Description',
-        key: 'ranking',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-    },
-
-
-    {
-        label: 'Accreditation',
-        key: 'accreditation',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-    },
-
-
-    {
-        label: 'School/Campus Achievements',
-        key: 'achievements',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-    },
-
-
-    {
-        label: 'Convocation At NMIMS',
-        key: 'convocation',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-    },
-
-
-    {
-        label: 'Inaugral Program At NMIMS',
-        key: 'inaugral_program',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-    },
-
-
-    {
-        label: 'Events At NMIMS',
-        key: 'events',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-    },
-
-
-
-
-
-
- ];
-
-
-
-
- export const brandingHeaders : TableHeaders<brandingView>[]=[
-    
-    {
-        label: 'Faculty Recognition',
-        key: 'faculty_recognition',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-    },
-
-
-    {
-        label: 'Faculty Awards',
-        key: 'faculty_awards',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-    },
-
-
-    {
-        label: 'Staff Awards',
-        key: 'staff_awards',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-    },
-
-
-    {
-        label: 'Alumini Awards',
-        key: 'alumni_awards',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-    },
-
-
-    {
-        label: 'Student Awards',
-        key: 'student_awards',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-    },
-
-
-    {
-        label: 'International Linkage Ventures',
-        key: 'international_ventures',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-    },
-
-
-    {
-        label: 'Conference Participation',
-        key: 'conference_participation',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-    },
-
-
-    {
-        label: 'Organizing Conference At NMIMS',
-        key: 'organizing_conference',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-    },
-
-
-    {
-        label: 'Student Event Participation',
-        key: 'student_event',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-    },
-
-
-    {
-        label: 'Newspaper Article',
-        key: 'newspaper_article',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-    },
-
-
-
-
-
-
- ];
 
 

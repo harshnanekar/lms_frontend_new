@@ -17,7 +17,7 @@ export const journalPaper = z.object({
 	uid: z.string().min(1, 'UID is required'),
 	publisher: z.string().min(1, 'Publisher is required'),
 	other_authors: z.array(z.number()).optional(),
-	chapter_page_no: z.string().optional(),
+	page_no: z.string().optional(),
 	issn_no:z.string().optional(),
 	scopus_site_score: z.number().optional(),
 	impact_factor: z.number().min(1, 'Impact factor is required'),
@@ -44,6 +44,7 @@ export const journalPaper = z.object({
     }),
 	// publication_date: z.date().nullable().refine((date) => date!= null || date != '1970-01-01T00:00:00.000Z', 'Publication date is required')
 });
+
 
 
 
@@ -114,31 +115,36 @@ const teachingItemSchema = z.object({
 
 
 
-export const conferenceData =  z.object({
-	nmims_school : z.array(z.string()).min(1,{message:'School Is Required'}),
-    nmims_campus : z.array(z.string()).min(1,{message:'Campus Is Required'}),
-	paper_title: z.string().min(1, 'Title Of The Paper is required'),
-	conference_name: z.string().min(1, 'Name of Conference is required'),
-	all_authors: z.array(z.number()).min(1, {message:'All authors are required'}),
-	place: z.string().min(1, 'Place of Conference '),
-	proceeding_published: z.boolean({ required_error: 'Proceedings published' }),
-	conference_type: z.number().min(1, 'Type Of Conference is required'),
-	presenting_author: z.string().min(1, 'Presenting Author'),
-	organizing_body: z.string().min(1, 'Organizing Body'),
-	volume_no:z.string().optional(),
-	issn_no:z.string().optional(),
-	doi_no: z.string().min(1, 'DOI number is required'),
-	sponsored: z.number().min(1, 'Sponsored By NMIMS/Other'),
-	amount: z.string().min(1, 'Amount Spent In RS. By NMIMS'),
-	publication_date: z.string().refine(date => {
+export const conferenceData = z.object({
+    nmims_school: z.array(z.string()).min(1, { message: 'School is required' }),
+    nmims_campus: z.array(z.string()).min(1, { message: 'Campus is required' }),
+    paper_title: z.string().min(1, 'Title of the paper is required'),
+    conference_name: z.string().min(1, 'Name of conference is required'),
+    all_authors: z.array(z.number()).min(1, { message: 'All authors are required' }),
+    place: z.string().min(1, 'Place of conference is required'),
+    proceeding_published: z.boolean({ required_error: 'Proceedings published' }),
+    conference_type: z.number().min(1, 'Type of conference is required'),
+    presenting_author: z.string().min(1, 'Presenting author is required'),
+    organizing_body: z.string().min(1, 'Organizing body is required'),
+    volume_no: z.string().optional(),
+    issn_no: z.string().optional(),
+    doi_no: z.string().min(1, 'DOI number is required'),
+    sponsored: z.number().min(1, 'Sponsored by NMIMS/Other is required'),
+    amount: z.string().min(1, 'Amount spent in RS. by NMIMS is required'),
+    publication_date: z.string().refine(date => {
         return date !== '1970-01-01';
     }, {
         message: 'Publication date is required',
     }),
-	faculty_id: z.array(z.number()).min(1, {message:'Name Of Co-Authors'})
+	internal_authors: z.array(z.number()).optional(),
+	external_authors: z.array(z.number()).optional(),
+  }).refine(data => (data.internal_authors?.length || 0) > 0 || (data.external_authors?.length || 0) > 0, {
+	message: 'At least one internal or external author must be present',
+	path: ['internal_authors'],
+  });
 
-})
 
+  
 export type conferenceReq = z.infer<typeof conferenceData>;
 
 
@@ -172,20 +178,20 @@ const meetingItemSchema = z.object({
 
 
   export const fileSchema = z.object({
-  documents: z.array(z.instanceof(File)).nonempty({ message: 'File is required' })
-    .max(5, { message: 'A maximum of 5 files can be uploaded' })
-    .refine(
-      (files) => files.every((file) => [
-        'application/pdf',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'application/vnd.ms-excel',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      ].includes(file.type)),
-      { message: 'Only .pdf, .docx, .xls, .xlsx formats are supported' }
-    ),
-});
-
-    export type FileReq = z.infer<typeof fileSchema>;
+	documents: z.array(z.instanceof(File)).nonempty({ message: 'File is required' })
+	  .max(5, { message: 'A maximum of 5 files can be uploaded' })
+	  .refine(
+		(files) => files.every((file) => [
+		  'application/pdf',
+		  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+		  'application/vnd.ms-excel',
+		  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+		].includes(file.type)),
+		{ message: 'Only .pdf, .docx, .xls, .xlsx formats are supported' }
+	  ),
+  });
+  
+	  export type FileReq = z.infer<typeof fileSchema>;
 
 
 	const validFileExtensions = ['pdf', 'doc', 'docx', 'xls', 'xlsx'];

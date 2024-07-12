@@ -84,7 +84,7 @@ console.log('data in view comming from backend ===>>>>', JSON.stringify(data.boo
 				const a = document.createElement('a');
 				a.style.display = 'none';
 				a.href = url;
-				a.download = 'book_publication_documents.zip';
+				a.download = 'book_chapter_publication_documents.zip';
 				document.body.appendChild(a);
 				a.click();
 				window.URL.revokeObjectURL(url);

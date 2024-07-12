@@ -82,7 +82,7 @@
 	}
 
 	.lms-table thead th {
-		@apply whitespace-nowrap px-5 py-[14px] text-sm text-table-header leading-4 text-slate-100;
+		@apply whitespace-nowrap px-5 py-[14px] text-sm text-table-header leading-4 text-slate-100 text-black;
 	}
 
 	.lms-table tbody td {

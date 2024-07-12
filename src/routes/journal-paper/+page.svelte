@@ -43,11 +43,10 @@
 	}
 
 	let actionData: JournalView;
-	
 </script>
 
 <div class="flex items-center justify-between">
-	<Header header={label} />
+		<Header header={label} />
 	<button
 		on:click={navigateToCreate}
 		class="lms-btn lms-primary-btn fixed bottom-16 right-5 z-10 py-4 md:static md:py-2.5"
@@ -58,9 +57,7 @@
 </div>
 
 <div class="shadow-card mt-[5%] rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 sm:p-6">
-
-		<PaginateDynamic url={$paginateUrl} header={paginationHeaders} let:actionData>
-			<ResearchAction {actionData}  />
-		</PaginateDynamic>
-	
+	<PaginateDynamic url={$paginateUrl} header={paginationHeaders} let:actionData>
+		<ResearchAction {actionData} />
+	</PaginateDynamic>
 </div>
