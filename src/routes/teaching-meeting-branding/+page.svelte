@@ -86,7 +86,7 @@
 		optionStore,
 		meetPaginateUrl,
 		brandPaginateUrl
-	} from '$lib/stores/modules/mpc/master.store';
+	} from '$lib/stores/modules/research/master.store';
 	import { Accordion, AccordionItem, DynamicSelect } from '$lib/components/ui';
 	import { Card } from '$lib/components/ui';
 

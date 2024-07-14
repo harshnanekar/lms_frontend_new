@@ -15,9 +15,7 @@
 	import { validateWithZod } from '$lib/utils/validations';
 	import {
 		caseStudy,
-		journalPaper,
 		type caseStudyReq,
-		type JournalPaperReq
 	} from '$lib/schemas/modules/research/master-validations';
 	import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
 	import { toast } from 'svelte-sonner';

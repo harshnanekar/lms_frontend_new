@@ -39,7 +39,6 @@
 		<div class="lms-table-wrapper rounded-2xl p-4">
 			<table class="lms-table">
 				<thead>
-					<th class="!text-[15px]">Sr.No</th>
 					<th class="!text-[15px]">Teaching Excellance Type</th>
 					<th class="!text-[15px]">Description</th>
 					<th class="!text-[15px]">Link</th>
@@ -49,7 +48,6 @@
 					{#if teachingData.length > 0}
 						{#each teachingData as teach}
 							<tr>
-								<td class="!text-[15px]">{count + 1}.</td>
 								<td class="!text-[15px]">{teach.type.label}</td>
 								<td class="!text-[15px]">{teach.description}</td>
 								<td class="!text-[15px]">{teach.link}</td>

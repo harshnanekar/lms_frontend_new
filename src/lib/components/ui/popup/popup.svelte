@@ -3,7 +3,7 @@
 	import { get, writable } from 'svelte/store';
 	import { Modal } from '$lib/components/ui';
 	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
-	import { confirmStore,actionStore } from '$lib/stores/modules/mpc/master.store';
+	import { confirmStore,actionStore } from '$lib/stores/modules/research/master.store';
 	const isOpen = writable(true);
 	let modalwidthPercent: ModalSizes = 'sm';
 

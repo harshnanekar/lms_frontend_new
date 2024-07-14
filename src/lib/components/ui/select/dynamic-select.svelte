@@ -280,6 +280,7 @@
 	export let selectedOptions: CustomOptions | CustomOptions[] = [];
 	export let isprePopulate = false;
 	export let isMultiSelect = false;
+	export let disabled = false;
 	
 
 	let dropdownRef: HTMLElement;
@@ -459,6 +460,7 @@
 				(isMultiSelect && Array.isArray(selectedOptions) && selectedOptions.length === 0)}
 			on:click={() => toggleDropdown(() => setPosition())}
 			bind:this={buttonRef}
+			{disabled}
 		>
 			{#if checkOptions === null}
 				{placeholder}

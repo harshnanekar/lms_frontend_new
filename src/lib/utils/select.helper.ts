@@ -173,3 +173,12 @@ export function getMasterNmimsAuthors(data:any) : CustomOptions[] {
   
 	return inputFieldsArr;
 }
+
+export function getCommonDropdownData(data:any) : CustomOptions[] {
+	let inputFieldsArr : any[] = [];
+	data.forEach((item : any) => {
+		inputFieldsArr.push({value: item.abbr, label: item.input});
+	});
+  
+	return inputFieldsArr;
+}

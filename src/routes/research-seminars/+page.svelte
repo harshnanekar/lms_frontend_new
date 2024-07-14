@@ -6,8 +6,8 @@
 	import type { ResearchSeminarView } from '$lib/types/modules/research/research-types';
 	import { PaginateDynamic } from '$lib/components/layout/pagination';
 	import { researchSeminarHeaders } from '$lib/test';
-	import { ResearchAction } from '$lib/components/modules/mpc';
-	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
+	import { ResearchSeminarAction } from '$lib/components/modules/mpc';
+	import { paginateUrl } from '$lib/stores/modules/research/master.store';
 
 	let dynamicUrl = 'http://localhost:9090/research/research-seminar-paginate';
 	const url = new URL(dynamicUrl);
@@ -35,6 +35,6 @@
 
 <div class="shadow-card mt-[5%] rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 sm:p-6">
 	<PaginateDynamic url={$paginateUrl} header={researchSeminarHeaders} let:actionData>
-		<ResearchAction {actionData} />
+		<ResearchSeminarAction {actionData} />
 	</PaginateDynamic>
 </div>

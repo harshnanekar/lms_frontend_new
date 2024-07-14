@@ -12,6 +12,9 @@ import TeachingAction from './teaching-action.svelte';
 import MeetingStakHolderAction from './meetingStak-action.svelte';
 import BrandingAction from './branding-action.svelte'
 import CaseStudyAction from './case-study-action.svelte'
+import ResearchSeminarAction from './research-seminar-action.svelte'
+import EContent from './e-content-action.svelte'
+import ResearchAwardAction from './research-award-action.svelte'
 import { userList, AddAnchor, AddAttendees } from './master-form';
 
 export {
@@ -31,5 +34,8 @@ export {
 	TeachingAction,
 	MeetingStakHolderAction,
 	BrandingAction,
-	CaseStudyAction
+	CaseStudyAction,
+	ResearchSeminarAction,
+	EContent,
+	ResearchAwardAction
 };

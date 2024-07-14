@@ -5,7 +5,7 @@
 	import type { CaseStudyView } from '$lib/types/modules/research/research-types';
 	import { PaginateDynamic } from '$lib/components/layout/pagination';
 	import { CaseStudyHeaders } from '$lib/test';
-	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
+	import { paginateUrl } from '$lib/stores/modules/research/master.store';
 	import { CaseStudyAction } from '$lib/components/modules/mpc';
 
 	let dynamicUrl = 'http://localhost:9090/research/case-study-paginate';

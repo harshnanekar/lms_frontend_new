@@ -6,7 +6,7 @@
 	import type { BookChapterRender } from '$lib/types/modules/research/research-types';
 	import { PaginateDynamic } from '$lib/components/layout/pagination';
 	import { BookChapterHeaders } from '$lib/test';
-	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
+	import { paginateUrl } from '$lib/stores/modules/research/master.store';
 
 	let dynamicUrl = 'http://localhost:9090/research/book-chapter-publication-paginate';
 	const url = new URL(dynamicUrl);

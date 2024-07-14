@@ -6,7 +6,9 @@ import type { JournalPaper, JournalView, BookPublicationRender,
 	MeetingView,
 	TeachingView,
 	CaseStudyView,
-	ResearchSeminarView
+	ResearchSeminarView,
+	EContentView,
+	ResearchAwardView
  } from './types/modules/research/research-types';
 
 
@@ -67,6 +69,20 @@ export const SIDEBAR_URL = [
 		url: '/research-seminars',
 		icon: 'test',
 		label: 'Research Seminars',
+		module: null,
+		child: []
+	},
+	{
+		url: '/e-content',
+		icon: 'test',
+		label: 'E-Content Development',
+		module: null,
+		child: []
+	},
+	{
+		url: '/research-award',
+		icon: 'test',
+		label: 'Research Award',
 		module: null,
 		child: []
 	},
@@ -708,5 +724,96 @@ export const researchSeminarHeaders : TableHeaders<ResearchSeminarView>[] = [
 	   classes: 'id',
 	   showTooltip: false
    }
+
+];
+
+export const econtentHeaders : TableHeaders<EContentView>[] = [
+	{
+		label: 'Name of the Faculty',
+		key: 'faculty_name',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Name of the module developed',
+		key: 'module',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Platform on which module is developed',
+		key: 'module_platform',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Link to the relevant document and facility available in the institution',
+		key: 'document_link',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'List of the e-content development facility available',
+		key: 'facility_list',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Provide link to videos of the media centre and recording facility',
+		key: 'media_link',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	}
+];
+
+export const ResearchAwardHeaders : TableHeaders<ResearchAwardView>[] = [
+	{
+		label: 'Nmims School',
+		key: 'nmims_school',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Nmims Campus',
+		key: 'nmims_campus',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Faculty Name',
+		key: 'faculty_name',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Award Name',
+		key: 'award_name',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Award Details',
+		key: 'award_details',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Name Of Organization Conferring The Award',
+		key: 'award_organization',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	}
 
 ];

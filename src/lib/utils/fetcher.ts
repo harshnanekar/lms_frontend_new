@@ -94,9 +94,68 @@ export const fetchFormApi = async <T>({
 };
 
 
-export async function downloadFile(id : any){
-	
-}
+export const downloadFetch = async <T>({
+    url,
+    method,
+    body,
+    customOptions,
+    isDownload = false,
+    downloadFileName = 'file.zip'
+}: {
+    url: string;
+    method: HttpMethod;
+    body?: FormData | null;
+    customOptions?: RequestInit;
+    isDownload?: boolean;
+    downloadFileName?: string;
+}): Promise<ApiResponse<T>> => {
+    try {
+        const requestOptions: RequestInit = {
+            method,
+            credentials: 'include',
+            ...customOptions
+        };
+
+        if (method !== 'GET' && body) {
+            requestOptions.body = body;
+        }
+
+        console.log('Request URL:', url);
+        console.log('Request Options:', requestOptions);
+
+        const response = await fetch(url, requestOptions);
+
+        if (!response.ok) {
+            let errorData = null;
+            try {
+                errorData = await response.json();
+            } catch {
+                errorData = { message: 'Error' };
+            }
+            console.log('Response Error:', errorData);
+            return { json: null, error: errorData };
+        }
+
+        if (isDownload) {
+            const blob = await response.blob();
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = downloadUrl;
+            a.download = downloadFileName;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(downloadUrl);
+            return { json: null, error: null } as ApiResponse<T>;
+        } else {
+            const json = (await response.json()) as T;
+            return { json, error: null };
+        }
+    } catch (error: unknown) {
+        console.log('Network error:', error);
+        return { json: null, error: { message: 'Network error or something went wrong' } };
+    }
+};
 
 
 // import type { ApiResponse } from '$lib/types/request.types';

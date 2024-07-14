@@ -30,6 +30,7 @@ export const load: PageServerLoad = async ({ cookies, fetch,params }) => {
     console.log('json ',JSON.stringify(json));
 	return {
 		inputData: json,
-		type : type
+		type : type,
+		id :id
 	};
 };
