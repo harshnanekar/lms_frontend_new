@@ -37,7 +37,6 @@
             nmims_authors_count: data.bookPublicationData[0].nmims_authors_count ? data.bookPublicationData[0].nmims_authors_count : '',
             publisher_category:  Number(data.bookPublicationData[0].publisher_category),
             filename : data.bookPublicationData[0].supporting_documents ? data.bookPublicationData[0].supporting_documents : ''
- 
    
 };
 

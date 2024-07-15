@@ -199,7 +199,7 @@ export function getEnternalAuthors(data:any) : CustomOptions[] {
 export function getSdgGoals(data : any) :CustomOptions[] {
 	let sgdArr : any[] = [];
 	data.forEach((item : any) => {
-		sgdArr.push({value: item.id, label: item.name});
+		sgdArr.push({value: item.id, label: item.goals_name});
 	});
   
 	return sgdArr;
@@ -208,7 +208,7 @@ export function getSdgGoals(data : any) :CustomOptions[] {
 export function getPatentStatus(data : any) :CustomOptions[] {
 	let statusArr : any[] = [];
 	data.forEach((item : any) => {
-		statusArr.push({value: item.id, label: item.name});
+		statusArr.push({value: item.id, label: item.patent_status});
 	});
   
 	return statusArr;
@@ -218,8 +218,18 @@ export function getPatentStatus(data : any) :CustomOptions[] {
 export function getInventionType(data : any) :CustomOptions[] {
 	let inventionArr : any[] = [];
 	data.forEach((item : any) => {
-		inventionArr.push({value: item.id, label: item.name});
+		inventionArr.push({value: item.id, label: item.invention_type});
 	});
   
 	return inventionArr;
 }
+
+
+export function getApplicantNames(data : any) :CustomOptions[] {
+	let statusArr : any[] = [];
+	data.forEach((item : any) => {
+		statusArr.push({value: item.id, label: item.name});
+	});
+  
+	return statusArr;
+} 

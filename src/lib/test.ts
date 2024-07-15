@@ -6,7 +6,8 @@ import type { JournalPaper, JournalView, BookPublicationRender,
 	MeetingView,
 	TeachingView,
 	ConferenceRender,
-	conferenceDetails
+	conferenceDetails,
+	IPRRender
 
  } from './types/modules/research/research-types';
 
@@ -669,7 +670,122 @@ export const teachingHeaders : TableHeaders<TeachingView>[] = [
 		showTooltip: false
 	}
 
-]
+] 
+
+
+
+export const IPRHeaders : TableHeaders<IPRRender>[]=[
+
+    
+
+    {
+
+        label: 'Nmims School',
+
+        key: 'nmims_school',
+
+        sortable: false,
+
+        classes: '',
+
+        showTooltip: false
+
+    },
+
+
+
+
+    {
+
+        label: 'Nmims Campus',
+
+        key: 'nmims_campus',
+
+        sortable: false,
+
+        classes: '',
+
+        showTooltip: false
+
+    },
+
+
+
+
+    {
+
+        label: 'Title of Patent / Invention',
+
+        key: 'title',
+
+        sortable: false,
+
+        classes: '',
+
+        showTooltip: false
+
+    },
+
+
+
+
+    {
+
+        label: 'Patent/Invention Application Number',
+
+        key: 'appln_no',
+
+        sortable: false,
+
+        classes: '',
+
+        showTooltip: false
+
+    },
+
+
+
+
+    {
+
+        label: 'Institute Affiliation',
+
+        key: 'institute_affiliation',
+
+        sortable: false,
+
+        classes: '',
+
+        showTooltip: false
+
+    },
+
+
+
+
+    {
+
+        label: 'Patent Filed Date',
+
+        key: 'filed_date',
+
+        sortable: false,
+
+        classes: '',
+
+        showTooltip: false
+
+    },
+
+
+
+
+
+
+
+
+ ];
+
 
 
 

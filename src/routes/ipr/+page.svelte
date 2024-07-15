@@ -26,7 +26,7 @@
 
     import { IPRHeaders } from '$lib/test';
 
-    import IprActions from '$lib/components/modules/mpc/ipr-actions.svelte';
+    import IprActions from '$lib/components/modules/mpc/ipr-action.svelte';
 
 
 

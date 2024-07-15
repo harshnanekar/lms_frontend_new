@@ -63,6 +63,7 @@
 
     let isCheckedDoc: boolean = false;
 	let isCheckedaward: boolean = false;
+	
 
 	$: checkDoc = isCheckedDoc;
 	$: checkAward = isCheckedaward
@@ -291,8 +292,8 @@
 	// } 
 
 
-    async function downLoadFiles() {
-		fetch(`${PUBLIC_API_BASE_URL}/journal-download-files?id=${obj.journal_paper_id}`)
+    async function downLoadFiles(abbr: string) {
+		fetch(`${PUBLIC_API_BASE_URL}/conference-download-files?id=${obj.conference_id}&abbr=${abbr}`)
 			.then((response) => {
 				if (response.ok) {
 					return response.blob();
@@ -304,7 +305,7 @@
 				const a = document.createElement('a');
 				a.style.display = 'none';
 				a.href = url;
-				a.download = 'journal_article_documents.zip';
+				a.download = 'conference_documents.zip';
 				document.body.appendChild(a);
 				a.click();
 				window.URL.revokeObjectURL(url);
@@ -510,7 +511,7 @@
 				{#if checkDoc}
 				<input type="file" bind:files={conferenceFiles} multiple />
 				{:else}
-					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
+					<button class="lms-primary-btn mt-2" on:click={() => downLoadFiles('cd')}
 						><i class="fa-solid fa-download text-md"></i></button
 					>
 				{/if}
@@ -522,7 +523,7 @@
 				{#if isCheckedaward}
 				<input type="file" bind:files={awardFiles} multiple />
 				{:else}
-					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
+					<button class="lms-primary-btn mt-2" on:click={() => downLoadFiles('ad')}
 						><i class="fa-solid fa-download text-md"></i></button
 					>
 				{/if}

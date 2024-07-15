@@ -187,7 +187,7 @@ export type IPRRender = {
 
     appln_no :number,
 
-    institue_affiliation :string,
+    institute_affiliation :string,
 
     filed_date:string,
 
