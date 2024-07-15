@@ -16,8 +16,7 @@ export const load: PageServerLoad = async ({ cookies, fetch }) => {
 			message: error.message
 		});
 	}
-
-    console.log('json ',json);
+	
 	return {
 		editedBookData: json
 	};

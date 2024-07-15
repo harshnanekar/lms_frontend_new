@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { union, z } from 'zod';
 
 export const journalPaper = z.object({
     nmims_school : z.array(z.string()).min(1,{message:'School Is Required'}),
@@ -48,6 +48,31 @@ export const journalPaper = z.object({
 
   export type JournalPaperReq = z.infer<typeof journalPaper>;
 
+
+export const editedBookPublication = z.object({
+	nmims_school : z.array(z.string()).min(1,{message:'School Is Required'}),
+    nmims_campus : z.array(z.string()).min(1,{message:'Campus Is Required'}),
+    publish_year: z.number().refine((data) => {
+      return data >= 1900 && data <= 3000;
+    }, {
+      message: 'Invalid Year'
+    }),
+    all_authors: z.array(z.number()).min(1, {message:'All authors are required'}),
+    nmims_authors: z.array(z.number()).min(1, {message:'NMIMS authors are required'}),
+	nmims_author_count: z.number().min(1, { message: 'Author count is required' }),
+    book_title: z.string().min(1, 'Book title is required'),
+    publisher: z.string().min(1, 'Publisher is required'),
+	isbn_no: z.number().min(1, 'Isbn is required'),
+	web_link: z.string().min(1, 'Web link is required'),
+	doi_no: z.string().min(1, 'doi number is required'),
+	edition: z.string().min(1, 'Edition is required'),
+	book_editors: z.string().min(1, 'Editor\'s required'),
+	publication_place: z.string().min(1, 'Publication place is required'),
+	publisher_category: z.number().min(1, 'Publisher category is required').optional(),
+
+})
+
+export type editedBookPublicationReq = z.infer<typeof editedBookPublication>
 
 const teachingItemSchema = z.object({
   input_type: z.string().min(1,{message:'Teaching Excellance Type Is Required'}),
