@@ -174,3 +174,65 @@ export type conferenceDetails = {
    nmims_school: string[];
    nmims_campus: string[];
 }
+
+
+
+export type IPRRender = {
+
+    nmims_school : string[],
+
+    nmims_campus : string[],
+
+    title :string,
+
+    appln_no :number,
+
+    institue_affiliation :string,
+
+    filed_date:string,
+
+
+
+
+ } 
+
+
+
+
+
+
+ export type IPRData = {
+
+    title: string;
+
+    appln_no: number
+
+    filed_date:string;
+
+    grant_date:string;  
+
+    published_date: string;
+
+    publication_no: number;
+
+    granted_no: number;
+
+    institue_affiliation: string;
+
+    patent_status: number;
+
+    invention_type : number[];
+
+    sdg_goals : number[];
+
+    applicant_names :number[];
+
+    nmims_school : string[];
+
+    nmims_campus:string[];  
+
+    inventors_id: number[];
+
+    supporting_documents:string[];
+
+}

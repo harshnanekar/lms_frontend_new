@@ -144,7 +144,7 @@ export const conferenceData = z.object({
   });
 
 
-  
+
 export type conferenceReq = z.infer<typeof conferenceData>;
 
 
@@ -226,5 +226,71 @@ const meetingItemSchema = z.object({
 		console.log(e);
 		return { status: false, message: e.message };
 	  }
-	};
+	}; 
+
+
+
+
+	export const iprDetails = z.object({
+
+        nmims_school : z.array(z.string()).min(1,{message:'School Is Required'}),
+
+        nmims_campus : z.array(z.string()).min(1,{message:'Campus Is Required'}),
+
+        invention_type: z.array(z.number()).min(1, {message:'Invention type is required'}),
+
+        sdg_goals: z.array(z.number()).min(1, {message:'Sustainable Development Goals is required'}),
+
+        patent_status: z.array(z.number()).min(1, {message:'Patent Status is required'}),
+
+        title: z.string().min(1, 'Title of Patent / Invention  is required'),
+
+        appln_no: z.number().min(1, 'Patent/Invention Application Number'),
+
+        filed_date: z.string().refine(date => {
+
+            return date !== '1970-01-01';
+
+        }, {
+
+            message: 'Patent Filed Date is required',
+
+        }), 
+
+        grant_date: z.string().refine(date => {
+
+            return date !== '1970-01-01';
+
+        }, {
+
+            message: 'Patent Grant Date is required',
+
+        }),
+
+        published_date: z.string().refine(date => {
+
+            return date !== '1970-01-01';
+
+        }, {
+
+            message: 'Patent /Invention Published Date is required',
+
+        }),
+
+        publication_no: z.number().optional(),
+
+        granted_no: z.number().optional(),
+
+        institue_affiliation: z.string().min(1, 'Institute Affiliation is required')
+
+
+
+
+    });
+
+    
+
+    
+
+      export type iprDetailsReq = z.infer<typeof iprDetails>;
 	

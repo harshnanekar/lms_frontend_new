@@ -60,6 +60,20 @@ export const SIDEBAR_URL = [
 	},
 
 
+	{
+
+        url: '/ipr',
+
+        icon: 'test',
+
+        label: 'IPR',
+
+        module: null,
+
+        child: []
+
+    },
+
 
 
 	{

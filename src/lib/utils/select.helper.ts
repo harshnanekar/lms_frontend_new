@@ -193,4 +193,33 @@ export function getEnternalAuthors(data:any) : CustomOptions[] {
     });
   
     return inputFieldsArr;
+}  
+
+
+export function getSdgGoals(data : any) :CustomOptions[] {
+	let sgdArr : any[] = [];
+	data.forEach((item : any) => {
+		sgdArr.push({value: item.id, label: item.name});
+	});
+  
+	return sgdArr;
 } 
+
+export function getPatentStatus(data : any) :CustomOptions[] {
+	let statusArr : any[] = [];
+	data.forEach((item : any) => {
+		statusArr.push({value: item.id, label: item.name});
+	});
+  
+	return statusArr;
+} 
+
+
+export function getInventionType(data : any) :CustomOptions[] {
+	let inventionArr : any[] = [];
+	data.forEach((item : any) => {
+		inventionArr.push({value: item.id, label: item.name});
+	});
+  
+	return inventionArr;
+}
