@@ -43,46 +43,67 @@
 	$: campus = nmimsCampus;
 
 	let obj = {
-		case_study_id: data.caseData.caseData[0].id,
+		case_study_id: data.caseData.caseData.length > 0 ? data.caseData.caseData[0].id : null,
 		nmims_school:
-			data.caseData.caseData[0].nmims_school != null
+			data.caseData.caseData.length > 0 && data.caseData.caseData[0].nmims_school != null
 				? data.caseData.caseData[0].nmims_school.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
 				: null,
 		nmims_campus:
-			data.caseData.caseData[0].nmims_campus != null
+			data.caseData.caseData.length > 0 && data.caseData.caseData[0].nmims_campus != null
 				? data.caseData.caseData[0].nmims_campus.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
 				: null,
-		publish_year: data.caseData.caseData[0].publish_year
-			? Number(data.caseData.caseData[0].publish_year)
-			: null,
+		publish_year:
+			data.caseData.caseData.length > 0 && data.caseData.caseData[0].publish_year
+				? Number(data.caseData.caseData[0].publish_year)
+				: null,
 		all_authors:
-			data.caseData.caseData[0].all_authors != null
+			data.caseData.caseData.length > 0 && data.caseData.caseData[0].all_authors != null
 				? data.caseData.caseData[0].all_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.name };
 					})
 				: null,
 		nmims_authors:
-			data.caseData.caseData[0].nmims_authors != null
+			data.caseData.caseData.length > 0 && data.caseData.caseData[0].nmims_authors != null
 				? data.caseData.caseData[0].nmims_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.name };
 					})
 				: null,
-		nmims_authors_count: data.caseData.caseData[0].publish_year
-			? Number(data.caseData.caseData[0].nmims_authors_count)
-			: null,
-		publisher: data.caseData.caseData[0].publisher ? data.caseData.caseData[0].publisher : '',
-		publisher_category: data.caseData.caseData[0].publisher_category
-			? Number(data.caseData.caseData[0].publisher_category)
-			: null,
-		edition: data.caseData.caseData[0].edition ? data.caseData.caseData[0].edition : '',
-		page_no: data.caseData.caseData[0].page_no ? data.caseData.caseData[0].page_no : '',
-		volume_no: data.caseData.caseData[0].volume_no ? data.caseData.caseData[0].volume_no : '',
-		title: data.caseData.caseData[0].title ? data.caseData.caseData[0].title : '',
-		url: data.caseData.caseData[0].url ? data.caseData.caseData[0].url : ''
+		nmims_authors_count:
+			data.caseData.caseData.length > 0 && data.caseData.caseData[0].publish_year
+				? Number(data.caseData.caseData[0].nmims_authors_count)
+				: null,
+		publisher:
+			data.caseData.caseData.length > 0 && data.caseData.caseData[0].publisher
+				? data.caseData.caseData[0].publisher
+				: '',
+		publisher_category:
+			data.caseData.caseData.length > 0 && data.caseData.caseData[0].publisher_category
+				? Number(data.caseData.caseData[0].publisher_category)
+				: null,
+		edition:
+			data.caseData.caseData.length > 0 && data.caseData.caseData[0].edition
+				? data.caseData.caseData[0].edition
+				: '',
+		page_no:
+			data.caseData.caseData.length > 0 && data.caseData.caseData[0].page_no
+				? data.caseData.caseData[0].page_no
+				: '',
+		volume_no:
+			data.caseData.caseData.length > 0 && data.caseData.caseData[0].volume_no
+				? data.caseData.caseData[0].volume_no
+				: '',
+		title:
+			data.caseData.caseData.length > 0 && data.caseData.caseData[0].title
+				? data.caseData.caseData[0].title
+				: '',
+		url:
+			data.caseData.caseData.length > 0 && data.caseData.caseData[0].url
+				? data.caseData.caseData[0].url
+				: ''
 	};
 
 	let files: any = [];
@@ -132,7 +153,7 @@
 		const formData = new FormData();
 
 		// Append each file to the FormData
-		Array.from(files).forEach((file) => {
+		Array.from(files).forEach((file: any) => {
 			formData.append('supporting_documents', file);
 		});
 

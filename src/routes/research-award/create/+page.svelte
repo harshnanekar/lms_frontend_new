@@ -6,18 +6,11 @@
 	import { fly } from 'svelte/transition';
 	import { Card } from '$lib/components/ui';
 
-	import {
-		getSchool,
-		getCampus,
-		getMasterAllAuthors,
-		getMasterNmimsAuthors
-	} from '$lib/utils/select.helper';
+	import { getSchool, getCampus } from '$lib/utils/select.helper';
 	import { validateWithZod } from '$lib/utils/validations';
 	import {
-		caseStudy,
 		researchAwardObj,
-		type caseStudyReq,
-		type researchAwardReq,
+		type researchAwardReq
 	} from '$lib/schemas/modules/research/master-validations';
 	import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
 	import { toast } from 'svelte-sonner';
@@ -38,8 +31,7 @@
 	$: school = nmimsSchool;
 	$: campus = nmimsCampus;
 
-
-    let publicationDate: Date | null = new Date();
+	let publicationDate: Date | null = new Date();
 	publicationDate = null;
 	$: publicationFormattedDate = publicationDate;
 	function handleDateChange(e: CustomEvent<any>) {
@@ -47,16 +39,15 @@
 		publicationFormattedDate = publicationDate;
 	}
 
-	let obj = {
+	let obj: any = {
 		nmims_school: null,
 		nmims_campus: null,
-		faculty_name : '',
-		award_name : '',
-		award_details : '',
-		award_organization : '',
-		award_place : '',
-		award_category: null,
-		
+		faculty_name: '',
+		award_name: '',
+		award_details: '',
+		award_organization: '',
+		award_place: '',
+		award_category: 1
 	};
 
 	let files: any = [];
@@ -72,8 +63,8 @@
 			award_details: obj.award_details,
 			award_organization: obj.award_organization,
 			award_place: obj.award_place,
-			award_category: obj.award_category!=null ? Number(obj.award_category) : null,
-	        award_date : publicationFormattedDate != null ? formatDate(publicationFormattedDate) : '',
+			award_category: Number(obj.award_category),
+			award_date: publicationFormattedDate != null ? formatDate(publicationFormattedDate) : ''
 		};
 
 		const fileObject: FileReq = {
@@ -94,11 +85,11 @@
 		const formData = new FormData();
 
 		// Append each file to the FormData
-		Array.from(files).forEach((file) => {
+		Array.from(files).forEach((file: any) => {
 			formData.append('supporting_documents', file);
 		});
 
-		const result = validateWithZod(researchAwardObj,researchAward);
+		const result = validateWithZod(researchAwardObj, researchAward);
 
 		if (result.errors) {
 			console.log(result.errors);
@@ -134,16 +125,16 @@
 
 	function clearForm() {
 		obj = {
-	    nmims_school: null,
-		nmims_campus: null,
-		faculty_name : '',
-		award_name : '',
-		award_details : '',
-		award_organization : '',
-		award_place : '',
-		award_category: null,
+			nmims_school: null,
+			nmims_campus: null,
+			faculty_name: '',
+			award_name: '',
+			award_details: '',
+			award_organization: '',
+			award_place: '',
+			award_category: null
 		};
-        publicationDate = null;
+		publicationDate = null;
 	}
 </script>
 
@@ -171,15 +162,17 @@
 		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="Award Name" bind:value={obj.award_name} />
 			<Input type="text" placeholder="Award Details" bind:value={obj.award_details} />
-			<Input type="text" placeholder="Organisation Conferring Award" bind:value={obj.award_organization} />
+			<Input
+				type="text"
+				placeholder="Organisation Conferring Award"
+				bind:value={obj.award_organization}
+			/>
 		</div>
 
 		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="Award Place" bind:value={obj.award_place} />
 			<div class="ml-2">
-				<label class="text-sm text-[#888888]">
-					Award Category
-				</label>
+				<label class="text-sm text-[#888888]"> Award Category<span>*</span> </label>
 				<div class="mt-2.5 flex flex-row gap-[20px]">
 					<div class="flex items-center">
 						<input
@@ -189,6 +182,7 @@
 							name="publisher_category"
 							bind:group={obj.award_category}
 							value={1}
+							checked
 						/>
 						<span class="text-sm text-[#888888]">International</span>
 					</div>
@@ -208,44 +202,43 @@
 			<input type="file" bind:files multiple />
 		</div>
 
-	    <div class="flex md:flex-row gap-4 p-4">
-         <DatePicker
-			on:change={handleDateChange}
-			bind:selectedDateTime={publicationDate}
-			disabled={(publicationDate) => publicationDate.getTime() < new Date().setHours(0, 0, 0, 0)}
-		>
-			<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-				<SelectDateIcon />
-				<span class="text-body-2 font-bold">Add Award Date</span>
-			</div>
-		</DatePicker>
-		{#if publicationFormattedDate}
-			{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
-			<div
-				class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-				in:fly={{ x: -100, duration: 300 }}
-				out:fly={{ x: 100, duration: 300 }}
+		<div class="flex gap-4 p-4 md:flex-row">
+			<DatePicker
+				on:change={handleDateChange}
+				bind:selectedDateTime={publicationDate}
+				disabled={(publicationDate) => publicationDate.getTime() < new Date().setHours(0, 0, 0, 0)}
 			>
-				<p class="m-0 p-0">{formattedDate}</p>
-				<button
-					use:tooltip={{
-						content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-					}}
-					on:click={() => {
-						// remove the current date
-						publicationFormattedDate = null;
-					}}
+				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+					<SelectDateIcon />
+					<span class="text-body-2 font-bold">Add Award Date</span>
+				</div>
+			</DatePicker>
+			{#if publicationFormattedDate}
+				{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
+				<div
+					class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+					in:fly={{ x: -100, duration: 300 }}
+					out:fly={{ x: 100, duration: 300 }}
 				>
-					<XIcon />
-				</button>
-			</div>
-		{/if}
-        </div>
+					<p class="m-0 p-0">{formattedDate}</p>
+					<button
+						use:tooltip={{
+							content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+						}}
+						on:click={() => {
+							// remove the current date
+							publicationFormattedDate = null;
+						}}
+					>
+						<XIcon />
+					</button>
+				</div>
+			{/if}
+		</div>
 
 		<div class="flex flex-col gap-4 p-4 md:flex-row">
 			<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
 			<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
 		</div>
 	</div>
-    </Card
->
+</Card>

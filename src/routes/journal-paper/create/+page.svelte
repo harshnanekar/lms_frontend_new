@@ -67,7 +67,7 @@
 		console.log('publication date ', publicationDate);
 	}
 
-	let obj = {
+	let obj: any = {
 		nmims_school: null,
 		nmims_campus: null,
 		publish_year: null,
@@ -140,17 +140,19 @@
 			gs_indexed: obj.gs_indexed,
 			paper_type: obj.paper_type != null ? Number(obj.paper_type.value) : 0,
 			wos_indexed: obj.wos_indexed,
-			abdc_indexed: obj.abdc_indexed != null ? Number(obj.abdc_indexed.value) : 0,
+			abdc_indexed: obj.abdc_indexed != null ? Number(obj.abdc_indexed.value) : null,
 			ugc_indexed: obj.ugc_indexed,
 			scs_indexed: obj.scs_indexed,
 			foreign_authors_count: Number(obj.foreign_authors_count),
 			foreign_authors:
-				obj.foreign_authors != null ? obj.foreign_authors.map((data) => Number(data.value)) : [],
+				obj.foreign_authors != null
+					? obj.foreign_authors.map((data: any) => Number(data.value))
+					: [],
 			student_authors_count: Number(obj.student_authors_count),
 			student_authors:
-				obj.student_authors != null ? obj.student_authors.map((data) => Number(data.value)) : [],
-
-			// supporting_documents: Array.from(files),
+				obj.student_authors != null
+					? obj.student_authors.map((data: any) => Number(data.value))
+					: [],
 			journal_type: Number(obj.journal_type)
 		};
 
@@ -243,15 +245,15 @@
 			title: '',
 			gs_indexed: '',
 			paper_type: null,
-			wos_indexed: true,
+			wos_indexed: null,
 			abdc_indexed: null,
-			ugc_indexed: true,
-			scs_indexed: true,
+			ugc_indexed: null,
+			scs_indexed: null,
 			foreign_authors_count: null,
 			foreign_authors: null,
 			student_authors_count: null,
 			student_authors: null,
-			journal_type: 1
+			journal_type: null
 		};
 
 		publicationDate = null;
@@ -342,9 +344,7 @@
 		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input type="text" {isRequired} placeholder="GS Indexed" bind:value={obj.gs_indexed} />
 			<div class="ml-2">
-				<label class="text-sm text-[#888888]"
-					>International/National Journal<span class="text-danger text-sm">*</span></label
-				>
+				<label class="text-sm text-[#888888]">Journal Type<span>*</span></label>
 				<div class="mt-2.5 flex flex-row gap-[20px]">
 					<div class="flex flex-row">
 						<input
@@ -353,8 +353,8 @@
 							class="lms-input-radio w-4"
 							name="radio-button-national"
 							bind:group={obj.journal_type}
-							checked
 							value={1}
+							checked
 						/>
 						<span class="text-sm text-[#888888]">International</span>
 					</div>
@@ -372,9 +372,7 @@
 				</div>
 			</div>
 			<div class="ml-2">
-				<label class="text-sm text-[#888888]"
-					>Wos Indexed<span class="text-danger text-sm">*</span></label
-				>
+				<label class="text-sm text-[#888888]">Wos Indexed<span>*</span></label>
 				<div class="mt-2 flex flex-row gap-[20px]">
 					<div class="flex flex-row">
 						<input
@@ -383,8 +381,8 @@
 							class="lms-input-radio w-4"
 							name="radio-button-wos"
 							bind:group={obj.wos_indexed}
-							checked
 							value={true}
+							checked
 						/>
 						<span class="text-sm text-[#888888]">Yes</span>
 					</div>
@@ -404,16 +402,14 @@
 		</div>
 		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
-				isRequired={true}
+				isRequired={false}
 				placeholder="ABDC Indexed"
 				options={getAbdcIndexed(abdcTypes)}
 				bind:selectedOptions={obj.abdc_indexed}
 				isMultiSelect={false}
 			/>
 			<div class="ml-2">
-				<label class="text-sm text-[#888888]"
-					>UGC Indexed<span class="text-danger text-sm">*</span></label
-				>
+				<label class="text-sm text-[#888888]">UGC Indexed<span>*</span></label>
 				<div class="mt-2 flex flex-row gap-[20px]">
 					<div class="flex flex-row">
 						<input
@@ -422,8 +418,8 @@
 							class="lms-input-radio w-4"
 							name="radio-button-ugc"
 							bind:group={obj.ugc_indexed}
-							checked
 							value={true}
+							checked
 						/>
 						<span class="text-sm text-[#888888]">Yes</span>
 					</div>
@@ -480,9 +476,7 @@
 				bind:value={obj.student_authors_count}
 			/>
 			<div class="ml-2">
-				<label class="text-sm text-[#888888]"
-					>Scopus Site Indexed<span class="text-danger text-sm">*</span></label
-				>
+				<label class="text-sm text-[#888888]">Scopus Site Indexed<span>*</span></label>
 				<div class="mt-2 flex flex-row gap-[20px]">
 					<div class="flex flex-row">
 						<input
@@ -512,7 +506,7 @@
 			<input type="file" bind:files multiple />
 		</div>
 
-		<div class="flex md:flex-row gap-4">
+		<div class="flex gap-4 md:flex-row">
 			<DatePicker
 				on:change={handleDateChange}
 				bind:selectedDateTime={publicationDate}

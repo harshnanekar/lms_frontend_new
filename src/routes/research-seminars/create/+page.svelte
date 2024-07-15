@@ -11,7 +11,6 @@
 		getSchool,
 		getCampus,
 		getMasterNmimsAuthors
-
 	} from '$lib/utils/select.helper';
 	import { validateWithZod } from '$lib/utils/validations';
 	import {
@@ -30,18 +29,17 @@
 	let isRequired = false;
 	let title = 'Research Seminars';
 
-    console.log('data received ',JSON.stringify(data))
+	console.log('data received ', JSON.stringify(data));
 
 	let nmimsAuthors = data?.researchSeminar?.nmims_authors?.message;
 	let abdcIndexed = data?.researchSeminar?.abdcIndexed?.message;
 	let nmimsSchool = data?.researchSeminar?.nmims_school?.message;
 	let nmimsCampus = data?.researchSeminar?.nmims_campus?.message;
 
-
 	$: abdcTypes = abdcIndexed;
 	$: nmimsAuth = nmimsAuthors;
-    $: school = nmimsSchool;
-    $: campus = nmimsCampus;
+	$: school = nmimsSchool;
+	$: campus = nmimsCampus;
 
 	let publicationDate: Date | null = new Date();
 	publicationDate = null;
@@ -52,13 +50,13 @@
 		console.log('publication date ', publicationDate);
 	}
 
-    let researchDate : Date | null = new Date();
-    researchDate = null;
-    $: researchFormattedDate = researchDate;
-    function handleResearchDateChange(e: CustomEvent<any>) {
-        if (!researchDate) return;
-        researchFormattedDate = researchDate;
-    }
+	let researchDate: Date | null = new Date();
+	researchDate = null;
+	$: researchFormattedDate = researchDate;
+	function handleResearchDateChange(e: CustomEvent<any>) {
+		if (!researchDate) return;
+		researchFormattedDate = researchDate;
+	}
 
 	let obj = {
 		nmims_school: null,
@@ -71,16 +69,16 @@
 		resource_person: '',
 		volume_no: '',
 		issn_no: '',
-        doi_no : null,
+		doi_no: null,
 		scopus_site_score: '',
 		impact_factor: null,
 		paper_title: '',
 		gs_indexed: '',
-		wos_indexed: null,
+		wos_indexed: true,
 		abdc_indexed: null,
-		ugc_indexed: null,
+		ugc_indexed: true,
 		scs_indexed: '',
-		publisher_category: null
+		publisher_category: 1
 	};
 
 	let files: any = [];
@@ -92,29 +90,31 @@
 				obj.nmims_school != null ? obj.nmims_school.map((data: { value: any }) => data.value) : [],
 			nmims_campus:
 				obj.nmims_campus != null ? obj.nmims_campus.map((data: { value: any }) => data.value) : [],
-			topic : obj.topic,
-			resource_person : obj.resource_person,
-			nmims_authors: obj.nmims_authors != null ? obj.nmims_authors.map((data: { value: any }) => Number(data.value)) : [],
-			paper_title : obj.paper_title,
+			topic: obj.topic,
+			resource_person: obj.resource_person,
+			nmims_authors:
+				obj.nmims_authors != null
+					? obj.nmims_authors.map((data: { value: any }) => Number(data.value))
+					: [],
+			paper_title: obj.paper_title,
 			journal_name: obj.journal_name,
-			publisher : obj.publisher,
-			publisher_category:  obj.publisher_category != null ? Number(obj.publisher_category) : null,
+			publisher: obj.publisher,
+			publisher_category: Number(obj.publisher_category),
 			volume_no: obj.volume_no,
 			issn_no: obj.issn_no,
 			scopus_site_score: obj.scopus_site_score,
 			impact_factor: Number(obj.impact_factor),
 			scs_indexed: obj.scs_indexed,
-			wos_indexed: obj.wos_indexed != null ? obj.wos_indexed : null,
+			wos_indexed: obj.wos_indexed,
 			gs_indexed: obj.gs_indexed,
 			abdc_indexed: obj.abdc_indexed != null ? Number(obj.abdc_indexed.value) : null,
-			ugc_indexed: obj.ugc_indexed != null ? obj.ugc_indexed : null,
+			ugc_indexed: obj.ugc_indexed,
 			doi_no: obj.doi_no != null ? obj.doi_no : null,
 			uid: obj.uid,
 			publication_date:
-			publicationFormattedDate != null ? formatDate(publicationFormattedDate) : '',
-            research_date : researchFormattedDate != null ? formatDate(researchFormattedDate) : '',
+				publicationFormattedDate != null ? formatDate(publicationFormattedDate) : '',
+			research_date: researchFormattedDate != null ? formatDate(researchFormattedDate) : ''
 		};
-	
 
 		const fileObject: FileReq = {
 			documents: Array.from(files)
@@ -182,40 +182,38 @@
 		}
 	}
 
-	
-
 	function clearForm() {
 		obj = {
-		nmims_school: null,
-		nmims_campus: null,
-		topic: '',
-		nmims_authors: null,
-		journal_name: '',
-		uid: '',
-		publisher: '',
-		resource_person: '',
-		volume_no: '',
-		issn_no: '',
-        doi_no : null,
-		scopus_site_score: '',
-		impact_factor: null,
-		paper_title: '',
-		gs_indexed: '',
-		wos_indexed: null,
-		abdc_indexed: null,
-		ugc_indexed: null,
-		scs_indexed: '',
-		publisher_category: null
-	};
+			nmims_school: null,
+			nmims_campus: null,
+			topic: '',
+			nmims_authors: null,
+			journal_name: '',
+			uid: '',
+			publisher: '',
+			resource_person: '',
+			volume_no: '',
+			issn_no: '',
+			doi_no: null,
+			scopus_site_score: '',
+			impact_factor: null,
+			paper_title: '',
+			gs_indexed: '',
+			wos_indexed: true,
+			abdc_indexed: null,
+			ugc_indexed: true,
+			scs_indexed: '',
+			publisher_category: 1
+		};
 
 		publicationDate = null;
-        researchDate = null
+		researchDate = null;
 	}
 </script>
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
 <Card {title}>
-	<div class="modal-content p-4"> 
+	<div class="modal-content p-4">
 		<!-- Adjust max-height as needed -->
 		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
@@ -236,8 +234,13 @@
 		</div>
 
 		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-		   <Input type="text" placeholder="Resource Person" {isRequired} bind:value={obj.resource_person} />	
-		    <DynamicSelect
+			<Input
+				type="text"
+				placeholder="Resource Person"
+				{isRequired}
+				bind:value={obj.resource_person}
+			/>
+			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims Authors"
 				options={getMasterNmimsAuthors(nmimsAuth)}
@@ -247,14 +250,11 @@
 			<Input type="text" placeholder="Title Of Paper" bind:value={obj.paper_title} />
 		</div>
 
-	
 		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="Journal Name" bind:value={obj.journal_name} />
 			<Input type="text" placeholder="Publisher" bind:value={obj.publisher} />
-	          <div class="ml-2">
-				<label class="text-sm text-[#888888]"
-					>Publisher Category</label
-				>
+			<div class="ml-2">
+				<label class="text-sm text-[#888888]">Publisher Category<span>*</span></label>
 				<div class="mt-2.5 flex flex-row gap-[20px]">
 					<div class="flex flex-row">
 						<input
@@ -282,7 +282,6 @@
 			</div>
 		</div>
 
-
 		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" {isRequired} placeholder="Vol,Issue,Page No." bind:value={obj.page_no} />
 			<Input type="text" {isRequired} placeholder="ISSN No." bind:value={obj.issn_no} />
@@ -294,17 +293,15 @@
 			/>
 		</div>
 
- 	<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-            <Input
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<Input
 				type="number"
 				{isRequired}
 				placeholder="Impact factor by Clarivate Analytics"
 				bind:value={obj.impact_factor}
-			/>			
-            <div class="ml-2">
-				<label class="text-sm text-[#888888]"
-					>Wos Indexed</label
-				>
+			/>
+			<div class="ml-2">
+				<label class="text-sm text-[#888888]">WOS Indexed<span>*</span></label>
 				<div class="mt-2 flex flex-row gap-[20px]">
 					<div class="flex flex-row">
 						<input
@@ -330,16 +327,10 @@
 					</div>
 				</div>
 			</div>
-			<Input
-				type="text"
-				{isRequired}
-				placeholder="Scopus Indexed"
-				bind:value={obj.scs_indexed}
-			/>
+			<Input type="text" {isRequired} placeholder="Scopus Indexed" bind:value={obj.scs_indexed} />
 		</div>
 
-
-	<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" {isRequired} placeholder="GS Indexed" bind:value={obj.gs_indexed} />
 			<DynamicSelect
 				isRequired={true}
@@ -349,9 +340,7 @@
 				isMultiSelect={false}
 			/>
 			<div class="ml-2">
-				<label class="text-sm text-[#888888]"
-					>UGC Indexed</label
-				>
+				<label class="text-sm text-[#888888]">UGC Indexed<span>*</span></label>
 				<div class="mt-2 flex flex-row gap-[20px]">
 					<div class="flex flex-row">
 						<input
@@ -379,85 +368,85 @@
 			</div>
 		</div>
 
-
-	<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input type="text" {isRequired} placeholder="Weblink/DOI NO." bind:value={obj.doi_no} />
-			<Input type="text"  placeholder="UID" bind:value={obj.uid} />
-			<input type="file" bind:files multiple /> 
+			<Input type="text" placeholder="UID" bind:value={obj.uid} />
+			<input type="file" bind:files multiple />
 		</div>
-		
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
-		<div class="flex md:flex-row gap-4">
-			<DatePicker
-				on:change={handleResearchDateChange}
-				bind:selectedDateTime={researchDate}
-				disabled={(researchDate) => researchDate.getTime() < new Date().setHours(0, 0, 0, 0)}
-			>
-				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-					<SelectDateIcon />
-					<span class="text-body-2 font-bold">Add Research Seminar Date</span>
-				</div>
-			</DatePicker>
-			{#if researchFormattedDate}
-				{@const formattedDate = formatDateTimeShort(new Date(researchFormattedDate))}
-				<div
-					class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-					in:fly={{ x: -100, duration: 300 }}
-					out:fly={{ x: 100, duration: 300 }}
-				>
-					<p class="m-0 p-0">{formattedDate}</p>
-					<button
-						use:tooltip={{
-							content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-						}}
-						on:click={() => {
-							// remove the current date
-							researchFormattedDate = null;
-						}}
-					>
-						<XIcon />
-					</button>
-				</div>
-			{/if}
-		</div>	
 
-		<div class="flex md:flex-row gap-4">
-			<DatePicker
-			on:change={handleDateChange}
-			bind:selectedDateTime={publicationDate}
-			disabled={(publicationDate) => publicationDate.getTime() < new Date().setHours(0, 0, 0, 0)}
-		>
-			<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-				<SelectDateIcon />
-				<span class="text-body-2 font-bold">Add Publication Date</span>
-			</div>
-		</DatePicker>
-		{#if publicationFormattedDate}
-			{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
-			<div
-				class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-				in:fly={{ x: -100, duration: 300 }}
-				out:fly={{ x: 100, duration: 300 }}
-			>
-				<p class="m-0 p-0">{formattedDate}</p>
-				<button
-					use:tooltip={{
-						content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-					}}
-					on:click={() => {
-						// remove the current date
-						publicationFormattedDate = null;
-					}}
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
+			<div class="flex gap-4 md:flex-row">
+				<DatePicker
+					on:change={handleResearchDateChange}
+					bind:selectedDateTime={researchDate}
+					disabled={(researchDate) => researchDate.getTime() < new Date().setHours(0, 0, 0, 0)}
 				>
-					<XIcon />
-				</button>
+					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+						<SelectDateIcon />
+						<span class="text-body-2 font-bold">Add Research Seminar Date</span>
+					</div>
+				</DatePicker>
+				{#if researchFormattedDate}
+					{@const formattedDate = formatDateTimeShort(new Date(researchFormattedDate))}
+					<div
+						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+						in:fly={{ x: -100, duration: 300 }}
+						out:fly={{ x: 100, duration: 300 }}
+					>
+						<p class="m-0 p-0">{formattedDate}</p>
+						<button
+							use:tooltip={{
+								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+							}}
+							on:click={() => {
+								// remove the current date
+								researchFormattedDate = null;
+							}}
+						>
+							<XIcon />
+						</button>
+					</div>
+				{/if}
 			</div>
-		{/if}
-	</div>
+
+			<div class="flex gap-4 md:flex-row">
+				<DatePicker
+					on:change={handleDateChange}
+					bind:selectedDateTime={publicationDate}
+					disabled={(publicationDate) =>
+						publicationDate.getTime() < new Date().setHours(0, 0, 0, 0)}
+				>
+					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+						<SelectDateIcon />
+						<span class="text-body-2 font-bold">Add Publication Date</span>
+					</div>
+				</DatePicker>
+				{#if publicationFormattedDate}
+					{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
+					<div
+						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+						in:fly={{ x: -100, duration: 300 }}
+						out:fly={{ x: 100, duration: 300 }}
+					>
+						<p class="m-0 p-0">{formattedDate}</p>
+						<button
+							use:tooltip={{
+								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+							}}
+							on:click={() => {
+								// remove the current date
+								publicationFormattedDate = null;
+							}}
+						>
+							<XIcon />
+						</button>
+					</div>
+				{/if}
+			</div>
 		</div>
 	</div>
 	<div class="flex flex-col gap-4 p-4 md:flex-row">
 		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
 		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
 	</div>
-</Card> 
+</Card>

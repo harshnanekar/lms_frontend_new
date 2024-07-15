@@ -9,27 +9,45 @@
 	let checkData = data.caseData.length > 0 ? true : false;
 
 	let obj = {
-		case_study_id: data.caseData[0].id,
-		nmims_school: data.caseData[0].nmims_school ? data.caseData[0].nmims_school : [],
-		nmims_campus: data.caseData[0].nmims_campus ? data.caseData[0].nmims_campus : [],
-		all_authors: data.caseData[0].all_authors ? data.caseData[0].all_authors : [],
-		nmims_authors: data.caseData[0].nmims_authors ? data.caseData[0].nmims_authors : [],
-		title: data.caseData[0].title ? data.caseData[0].title : '',
-		edition: data.caseData[0].edition ? data.caseData[0].edition : '',
-		publish_year: data.caseData[0].publish_year ? data.caseData[0].publish_year : '',
-		publisher: data.caseData[0].publisher ? data.caseData[0].publisher : '',
-		publisher_category: data.caseData[0].publisher_category
-			? Number(data.caseData[0].publisher_category)
-			: null,
-		url: data.caseData[0].url ? data.caseData[0].url : '',
-		page_no: data.caseData[0].page_no ? data.caseData[0].page_no : '',
-		nmims_authors_count: data.caseData[0].nmims_authors_count
-			? data.caseData[0].nmims_authors_count
-			: '',
-		supporting_documents: data.caseData[0].supporting_documents
-			? data.caseData[0].supporting_documents
-			: '',
-		volume_no: data.caseData[0].volume_no ? data.caseData[0].volume_no : ''
+		case_study_id: data.caseData.length > 0 ? data.caseData[0].id : null,
+		nmims_school:
+			data.caseData.length > 0 && data.caseData[0].nmims_school
+				? data.caseData[0].nmims_school
+				: [],
+		nmims_campus:
+			data.caseData.length > 0 && data.caseData[0].nmims_campus
+				? data.caseData[0].nmims_campus
+				: [],
+		all_authors:
+			data.caseData.length > 0 && data.caseData[0].all_authors ? data.caseData[0].all_authors : [],
+		nmims_authors:
+			data.caseData.length > 0 && data.caseData[0].nmims_authors
+				? data.caseData[0].nmims_authors
+				: [],
+		title: data.caseData.length > 0 && data.caseData[0].title ? data.caseData[0].title : '',
+		edition: data.caseData.length > 0 && data.caseData[0].edition ? data.caseData[0].edition : '',
+		publish_year:
+			data.caseData.length > 0 && data.caseData[0].publish_year
+				? data.caseData[0].publish_year
+				: '',
+		publisher:
+			data.caseData.length > 0 && data.caseData[0].publisher ? data.caseData[0].publisher : '',
+		publisher_category:
+			data.caseData.length > 0 && data.caseData[0].publisher_category
+				? Number(data.caseData[0].publisher_category)
+				: null,
+		url: data.caseData.length > 0 && data.caseData[0].url ? data.caseData[0].url : '',
+		page_no: data.caseData.length > 0 && data.caseData[0].page_no ? data.caseData[0].page_no : '',
+		nmims_authors_count:
+			data.caseData.length > 0 && data.caseData[0].nmims_authors_count
+				? data.caseData[0].nmims_authors_count
+				: '',
+		supporting_documents:
+			data.caseData.length > 0 && data.caseData[0].supporting_documents
+				? data.caseData[0].supporting_documents
+				: '',
+		volume_no:
+			data.caseData.length > 0 && data.caseData[0].volume_no ? data.caseData[0].volume_no : ''
 	};
 
 	let disabled = true;

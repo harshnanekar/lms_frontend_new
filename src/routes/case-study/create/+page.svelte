@@ -40,7 +40,7 @@
 	$: school = nmimsSchool;
 	$: campus = nmimsCampus;
 
-	let obj = {
+	let obj : any = {
 		nmims_school: null,
 		nmims_campus: null,
 		publish_year: null,

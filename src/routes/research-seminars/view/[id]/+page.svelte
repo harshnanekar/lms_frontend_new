@@ -1,66 +1,108 @@
 <script lang="ts">
-export let data : any;
-import {Card,Input} from '$lib/components/ui'
-import { SelectDateIcon } from '$lib/components/icons';
-import { formatDateTimeShort } from '$lib/utils/date-formatter';
-import { tooltip } from '$lib/utils/tooltip';
-import { fly } from 'svelte/transition';
+	export let data: any;
+	import { Card, Input } from '$lib/components/ui';
+	import { SelectDateIcon } from '$lib/components/icons';
+	import { formatDateTimeShort } from '$lib/utils/date-formatter';
+	import { tooltip } from '$lib/utils/tooltip';
+	import { fly } from 'svelte/transition';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
-    import {downloadFetch} from '$lib/utils/fetcher'
+	import { downloadFetch } from '$lib/utils/fetcher';
 	import { toast } from 'svelte-sonner';
 
-let disabled: boolean = true;
-let checkData = data.researchSeminarData.length > 0 ? true : false;
-let title = 'Research Seminars'
-console.log('research data ',JSON.stringify(data.researchSeminarData))
+	let disabled: boolean = true;
+	let checkData = data.researchSeminarData.length > 0 ? true : false;
+	let title = 'Research Seminars';
+	console.log('research data ', JSON.stringify(data.researchSeminarData));
 
-       let obj = {
-            research_seminar_id : data.researchSeminarData[0].id,
-            nmims_school:data.researchSeminarData[0].nmims_school != null ? data.researchSeminarData[0].nmims_school : null,
-			nmims_campus:data.researchSeminarData[0].nmims_campus != null ? data.researchSeminarData[0].nmims_campus : null,
-			topic : data.researchSeminarData[0].topic ?  data.researchSeminarData[0].topic : '',
-			resource_person : data.researchSeminarData[0].resource_person ,
-			nmims_authors:  data.researchSeminarData[0].nmims_authors != null ?  data.researchSeminarData[0].nmims_authors : null,
-			paper_title : data.researchSeminarData[0].paper_title ? data.researchSeminarData[0].paper_title : '',
-			journal_name: data.researchSeminarData[0].journal_name ? data.researchSeminarData[0].journal_name : '',
-			publisher : data.researchSeminarData[0].publisher ? data.researchSeminarData[0].publisher : '',
-			publisher_category:  data.researchSeminarData[0].publisher_category != null ? Number(data.researchSeminarData[0].publisher_category) :  null,
-			volume_no: data.researchSeminarData[0].volume_no,
-			issn_no: data.researchSeminarData[0].issn_no,
-			scopus_site_score:data.researchSeminarData[0].scopus_site_score,
-			impact_factor: data.researchSeminarData[0].impact_factor ? Number(data.researchSeminarData[0].impact_factor) : 0,
-			scs_indexed: data.researchSeminarData[0].scs_indexed,
-			wos_indexed: data.researchSeminarData[0].wos_indexed,
-			gs_indexed: data.researchSeminarData[0].gs_indexed,
-			abdc_indexed: data.researchSeminarData[0].abdc_indexed,
-			ugc_indexed: data.researchSeminarData[0].ugc_indexed,
-			doi_no: data.researchSeminarData[0].doi_no,
-			uid: data.researchSeminarData[0].uid ? data.researchSeminarData[0].uid : '',
-			supporting_documents :  data.researchSeminarData[0].filename ? data.researchSeminarData[0].filename : '',
-       }
+	let obj = {
+		research_seminar_id:
+			data.researchSeminarData.length > 0 ? data.researchSeminarData[0].id : null,
+		nmims_school:
+			data.researchSeminarData.length > 0 && data.researchSeminarData[0].nmims_school != null
+				? data.researchSeminarData[0].nmims_school
+				: null,
+		nmims_campus:
+			data.researchSeminarData.length > 0 && data.researchSeminarData[0].nmims_campus != null
+				? data.researchSeminarData[0].nmims_campus
+				: null,
+		topic:
+			data.researchSeminarData.length > 0 && data.researchSeminarData[0].topic
+				? data.researchSeminarData[0].topic
+				: '',
+		resource_person:
+			data.researchSeminarData.length > 0 ? data.researchSeminarData[0].resource_person : '',
+		nmims_authors:
+			data.researchSeminarData.length > 0 && data.researchSeminarData[0].nmims_authors != null
+				? data.researchSeminarData[0].nmims_authors
+				: null,
+		paper_title:
+			data.researchSeminarData.length > 0 && data.researchSeminarData[0].paper_title
+				? data.researchSeminarData[0].paper_title
+				: '',
+		journal_name:
+			data.researchSeminarData.length > 0 && data.researchSeminarData[0].journal_name
+				? data.researchSeminarData[0].journal_name
+				: '',
+		publisher:
+			data.researchSeminarData.length > 0 && data.researchSeminarData[0].publisher
+				? data.researchSeminarData[0].publisher
+				: '',
+		publisher_category:
+			data.researchSeminarData.length > 0 && data.researchSeminarData[0].publisher_category != null
+				? Number(data.researchSeminarData[0].publisher_category)
+				: null,
+		volume_no: data.researchSeminarData.length > 0 ? data.researchSeminarData[0].volume_no : '',
+		issn_no: data.researchSeminarData.length > 0 ? data.researchSeminarData[0].issn_no : '',
+		scopus_site_score: data.researchSeminarData[0].scopus_site_score,
+		impact_factor:
+			data.researchSeminarData.length > 0 && data.researchSeminarData[0].impact_factor
+				? Number(data.researchSeminarData[0].impact_factor)
+				: 0,
+		scs_indexed:
+			data.researchSeminarData.length > 0 ? data.researchSeminarData[0].scs_indexed : null,
+		wos_indexed:
+			data.researchSeminarData.length > 0 ? data.researchSeminarData[0].wos_indexed : null,
+		gs_indexed: data.researchSeminarData.length > 0 ? data.researchSeminarData[0].gs_indexed : '',
+		abdc_indexed:
+			data.researchSeminarData.length > 0 ? data.researchSeminarData[0].abdc_indexed : null,
+		ugc_indexed:
+			data.researchSeminarData.length > 0 ? data.researchSeminarData[0].ugc_indexed : null,
+		doi_no: data.researchSeminarData.length > 0 ? data.researchSeminarData[0].doi_no : '',
+		uid:
+			data.researchSeminarData.length > 0 && data.researchSeminarData[0].uid
+				? data.researchSeminarData[0].uid
+				: '',
+		supporting_documents:
+			data.researchSeminarData.length > 0 && data.researchSeminarData[0].filename
+				? data.researchSeminarData[0].filename
+				: ''
+	};
 
-       let publicationDate: Date | null = new Date();
-	   publicationDate = data.researchSeminarData[0].publication_date ? data.researchSeminarData[0].publication_date : null;
-	   $: publicationFormattedDate = publicationDate;
+	let publicationDate: Date | null = new Date();
+	publicationDate = data.researchSeminarData[0].publication_date
+		? data.researchSeminarData[0].publication_date
+		: null;
+	$: publicationFormattedDate = publicationDate;
 
-       let researchDate: Date | null = new Date();
-	   researchDate = data.researchSeminarData[0].research_date ? data.researchSeminarData[0].research_date : null;
-	   $: researchFormattedDate = researchDate;
+	let researchDate: Date | null = new Date();
+	researchDate = data.researchSeminarData[0].research_date
+		? data.researchSeminarData[0].research_date
+		: null;
+	$: researchFormattedDate = researchDate;
 
-        async function downLoadFiles() {
+	async function downLoadFiles() {
+		// const response = await downloadFetch<null>({
+		// url: `${PUBLIC_API_BASE_URL}/case-study-download-files?id=${obj.research_seminar_id}`,
+		// method: 'GET',
+		// isDownload: true,
+		// downloadFileName: 'research_seminar_documents.zip'
+		// });
 
-        // const response = await downloadFetch<null>({
-        // url: `${PUBLIC_API_BASE_URL}/case-study-download-files?id=${obj.research_seminar_id}`,
-        // method: 'GET',
-        // isDownload: true,
-        // downloadFileName: 'research_seminar_documents.zip'
-        // });
-
-        // if (response.error) {
-        //     toast.error(response.error.message || 'Something went wrong!', {
-        //         description: response.error.errorId ? `ERROR-ID: ${response.error.errorId}` : ''
-        //     });
-        // }
+		// if (response.error) {
+		//     toast.error(response.error.message || 'Something went wrong!', {
+		//         description: response.error.errorId ? `ERROR-ID: ${response.error.errorId}` : ''
+		//     });
+		// }
 		fetch(`${PUBLIC_API_BASE_URL}/research-seminar-download-files?id=${obj.research_seminar_id}`)
 			.then((response) => {
 				if (response.ok) {
@@ -84,233 +126,300 @@ console.log('research data ',JSON.stringify(data.researchSeminarData))
 				});
 			});
 	}
-       
-
 </script>
 
-{#if checkData }
-<Card {title}>
-	<div class="modal-content p-4"> 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-			<Input type="text" placeholder="Nmims School" isRequired={true} value={obj.nmims_school} {disabled}/>
-			<Input type="text" placeholder="Nmims Campus" isRequired={true} value={obj.nmims_campus} {disabled}/>
-			<Input type="text" placeholder="Topic Of Research Seminar" isRequired={true} value={obj.topic} {disabled}/>
-		</div>
+{#if checkData}
+	<Card {title}>
+		<div class="modal-content p-4">
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<Input
+					type="text"
+					placeholder="Nmims School"
+					isRequired={true}
+					value={obj.nmims_school}
+					{disabled}
+				/>
+				<Input
+					type="text"
+					placeholder="Nmims Campus"
+					isRequired={true}
+					value={obj.nmims_campus}
+					{disabled}
+				/>
+				<Input
+					type="text"
+					placeholder="Topic Of Research Seminar"
+					isRequired={true}
+					value={obj.topic}
+					{disabled}
+				/>
+			</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-		    <Input type="text" placeholder="Resource Person" isRequired={false} value={obj.resource_person} {disabled}/>	
-		    <Input type="text" placeholder="Nmims Authors" isRequired={true} value={obj.paper_title} {disabled} />
-			<Input type="text" placeholder="Title Of Paper" isRequired={true} value={obj.paper_title} {disabled}/>
-		</div>
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<Input
+					type="text"
+					placeholder="Resource Person"
+					isRequired={false}
+					value={obj.resource_person}
+					{disabled}
+				/>
+				<Input
+					type="text"
+					placeholder="Nmims Authors"
+					isRequired={true}
+					value={obj.paper_title}
+					{disabled}
+				/>
+				<Input
+					type="text"
+					placeholder="Title Of Paper"
+					isRequired={true}
+					value={obj.paper_title}
+					{disabled}
+				/>
+			</div>
 
-	
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-			<Input type="text" placeholder="Journal Name" isRequired={true} value={obj.journal_name} {disabled}/>
-			<Input type="text" placeholder="Publisher" value={obj.publisher} isRequired={true} {disabled}/>
-	          <div class="ml-2">
-				<label class="text-sm text-[#888888]"
-					>Publisher Category</label
-				>
-				<div class="mt-2.5 flex flex-row gap-[20px]">
-					<div class="flex flex-row">
-						<input
-							type="radio"
-							id="html"
-							class="lms-input-radio w-4"
-							name="radio-button-national"
-							value={1}
-                            checked = {obj.publisher_category===1}
-                            {disabled}
-						/>
-						<span class="text-sm text-[#888888]">International</span>
-					</div>
-					<div class="flex flex-row">
-						<input
-							type="radio"
-							id="html"
-							class="lms-input-radio w-4"
-							name="radio-button-national"
-							bind:group={obj.publisher_category}
-							value={2}
-                            checked = {obj.publisher_category===2}
-                            {disabled}
-						/>
-						<span class="text-sm text-[#888888]">National</span>
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<Input
+					type="text"
+					placeholder="Journal Name"
+					isRequired={true}
+					value={obj.journal_name}
+					{disabled}
+				/>
+				<Input
+					type="text"
+					placeholder="Publisher"
+					value={obj.publisher}
+					isRequired={true}
+					{disabled}
+				/>
+				<div class="ml-2">
+					<label class="text-sm text-[#888888]">Publisher Category</label><span>*</span>
+					<div class="mt-2.5 flex flex-row gap-[20px]">
+						<div class="flex flex-row">
+							<input
+								type="radio"
+								id="html"
+								class="lms-input-radio w-4"
+								name="radio-button-national"
+								value={1}
+								checked={obj.publisher_category === 1}
+								{disabled}
+							/>
+							<span class="text-sm text-[#888888]">International</span>
+						</div>
+						<div class="flex flex-row">
+							<input
+								type="radio"
+								id="html"
+								class="lms-input-radio w-4"
+								name="radio-button-national"
+								bind:group={obj.publisher_category}
+								value={2}
+								checked={obj.publisher_category === 2}
+								{disabled}
+							/>
+							<span class="text-sm text-[#888888]">National</span>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<Input
+					type="text"
+					isRequired={false}
+					placeholder="Vol,Issue,Page No."
+					value={obj.volume_no}
+					{disabled}
+				/>
+				<Input
+					type="text"
+					isRequired={false}
+					placeholder="ISSN No."
+					value={obj.issn_no}
+					{disabled}
+				/>
+				<Input
+					type="text"
+					isRequired={false}
+					placeholder="Scopus Site Score"
+					value={obj.scopus_site_score}
+					{disabled}
+				/>
+			</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-			<Input type="text" isRequired={false} placeholder="Vol,Issue,Page No." value={obj.volume_no} {disabled} />
-			<Input type="text" isRequired={false} placeholder="ISSN No." value={obj.issn_no} {disabled}/>
-			<Input
-				type="text"
-				isRequired={false}
-				placeholder="Scopus Site Score"
-				value={obj.scopus_site_score}
-                {disabled}
-			/>
-		</div>
-
- 	<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-            <Input
-				type="number"
-				isRequired={false}
-				placeholder="Impact factor by Clarivate Analytics"
-				value={obj.impact_factor}
-                {disabled}
-			/>			
-            <div class="ml-2">
-				<label class="text-sm text-[#888888]"
-					>Wos Indexed</label
-				>
-				<div class="mt-2 flex flex-row gap-[20px]">
-					<div class="flex flex-row">
-						<input
-							type="radio"
-							id="html"
-							class="lms-input-radio w-4"
-							name="radio-button-wos"
-                            value= {true}
-							checked= {obj.wos_indexed === true}
-                            {disabled}
-						/>
-						<span class="text-sm text-[#888888]">Yes</span>
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<Input
+					type="number"
+					isRequired={false}
+					placeholder="Impact factor by Clarivate Analytics"
+					value={obj.impact_factor}
+					{disabled}
+				/>
+				<div class="ml-2">
+					<label class="text-sm text-[#888888]">Wos Indexed</label>
+					<div class="mt-2 flex flex-row gap-[20px]">
+						<div class="flex flex-row">
+							<input
+								type="radio"
+								id="html"
+								class="lms-input-radio w-4"
+								name="radio-button-wos"
+								value={true}
+								checked={obj.wos_indexed === true}
+								{disabled}
+							/>
+							<span class="text-sm text-[#888888]">Yes</span>
+						</div>
+						<div class="flex flex-row">
+							<input
+								type="radio"
+								id="html"
+								class="lms-input-radio w-4"
+								name="radio-button-wos"
+								value={false}
+								checked={obj.wos_indexed === false}
+								{disabled}
+							/>
+							<span class="text-sm text-[#888888]">No</span>
+						</div>
 					</div>
-					<div class="flex flex-row">
-						<input
-							type="radio"
-							id="html"
-							class="lms-input-radio w-4"
-							name="radio-button-wos"
-							value={false}
-                            checked= {obj.wos_indexed === false}
-                            {disabled}
-						/>
-						<span class="text-sm text-[#888888]">No</span>
+				</div>
+				<Input
+					type="text"
+					isRequired={false}
+					placeholder="Scopus Indexed"
+					value={obj.scs_indexed}
+					{disabled}
+				/>
+			</div>
+
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<Input
+					type="text"
+					isRequired={false}
+					placeholder="GS Indexed"
+					value={obj.gs_indexed}
+					{disabled}
+				/>
+				<Input
+					type="text"
+					isRequired={false}
+					placeholder="ABDC Indexed"
+					value={obj.abdc_indexed}
+					{disabled}
+				/>
+
+				<div class="ml-2">
+					<label class="text-sm text-[#888888]">UGC Indexed</label>
+					<div class="mt-2 flex flex-row gap-[20px]">
+						<div class="flex flex-row">
+							<input
+								type="radio"
+								id="html"
+								class="lms-input-radio w-4"
+								name="radio-button-ugc"
+								value={true}
+								checked={obj.ugc_indexed === true}
+								{disabled}
+							/>
+							<span class="text-sm text-[#888888]">Yes</span>
+						</div>
+						<div class="flex flex-row">
+							<input
+								type="radio"
+								id="html"
+								class="lms-input-radio w-4"
+								name="radio-button-ugc"
+								bind:group={obj.ugc_indexed}
+								value={false}
+								checked={obj.ugc_indexed === false}
+								{disabled}
+							/>
+							<span class="text-sm text-[#888888]">No</span>
+						</div>
 					</div>
 				</div>
 			</div>
-			<Input
-				type="text"
-				isRequired={false}
-				placeholder="Scopus Indexed"
-				value={obj.scs_indexed}
-                {disabled}			
-                />
-		</div>
 
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+				<Input
+					type="text"
+					isRequired={false}
+					placeholder="Weblink/DOI NO."
+					value={obj.doi_no}
+					{disabled}
+				/>
+				<Input type="text" isRequired={true} placeholder="UID" bind:value={obj.uid} {disabled} />
+				<div class="lms-input-container flex flex-row gap-2">
+					<input
+						id="documents"
+						class="lms-input"
+						placeholder=""
+						value={obj.supporting_documents}
+						{disabled}
+					/>
+					<label for="documents" class="lms-placeholder"
+						>Supporting Documents
+						<span>*</span>
+					</label>
+					<button class="lms-btn lms-primary-btn" on:click={downLoadFiles}
+						><i class="fa-solid fa-download text-lg"></i></button
+					>
+				</div>
+			</div>
 
-	<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-			<Input type="text" isRequired={false} placeholder="GS Indexed" value={obj.gs_indexed} {disabled}/>
-			<Input type="text" isRequired={false} placeholder="ABDC Indexed" value={obj.abdc_indexed} {disabled}/>
-
-			<div class="ml-2">
-				<label class="text-sm text-[#888888]"
-					>UGC Indexed</label
-				>
-				<div class="mt-2 flex flex-row gap-[20px]">
-					<div class="flex flex-row">
-						<input
-							type="radio"
-							id="html"
-							class="lms-input-radio w-4"
-							name="radio-button-ugc"
-							value={true}
-                            checked={obj.ugc_indexed===true}
-                            {disabled}
-						/>
-						<span class="text-sm text-[#888888]">Yes</span>
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
+				<div class="flex gap-4 md:flex-row">
+					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+						<SelectDateIcon />
+						<span class="text-body-2 font-bold">Publication Date</span>
 					</div>
-					<div class="flex flex-row">
-						<input
-							type="radio"
-							id="html"
-							class="lms-input-radio w-4"
-							name="radio-button-ugc"
-							bind:group={obj.ugc_indexed}
-							value={false}
-                            checked={obj.ugc_indexed===false}
-                            {disabled}
-						/>
-						<span class="text-sm text-[#888888]">No</span>
+					{#if publicationFormattedDate}
+						{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
+						<div
+							class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+							in:fly={{ x: -100, duration: 300 }}
+							out:fly={{ x: 100, duration: 300 }}
+						>
+							<p class="m-0 p-0">{formattedDate}</p>
+							<button
+								use:tooltip={{
+									content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+								}}
+							>
+							</button>
+						</div>
+					{/if}
+				</div>
+
+				<div class="flex gap-4 md:flex-row">
+					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+						<SelectDateIcon />
+						<span class="text-body-2 font-bold">Research Seminar Date</span>
 					</div>
+					{#if researchFormattedDate}
+						{@const formattedDate = formatDateTimeShort(new Date(researchFormattedDate))}
+						<div
+							class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+							in:fly={{ x: -100, duration: 300 }}
+							out:fly={{ x: 100, duration: 300 }}
+						>
+							<p class="m-0 p-0">{formattedDate}</p>
+							<button
+								use:tooltip={{
+									content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+								}}
+							>
+							</button>
+						</div>
+					{/if}
 				</div>
 			</div>
 		</div>
-
-
-	<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-			<Input type="text" isRequired={false} placeholder="Weblink/DOI NO." value={obj.doi_no} {disabled}/>
-			<Input type="text" isRequired={true} placeholder="UID" bind:value={obj.uid} {disabled}/>
-            <div class="lms-input-container flex flex-row gap-2">
-						<input
-							id="documents"
-							class="lms-input"
-							placeholder=""
-							value={obj.supporting_documents}
-							{disabled}
-						/>
-						<label for="documents" class="lms-placeholder"
-							>Supporting Documents
-							<span>*</span>
-						</label>
-						<button class="lms-btn lms-primary-btn" 
-						on:click={downLoadFiles}><i class="fa-solid fa-download text-lg"></i></button>
-				</div>		
-            </div>
-		
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
-         <div class="flex md:flex-row gap-4">
-            <div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-                <SelectDateIcon />
-                <span class="text-body-2 font-bold">Publication Date</span>
-            </div>
-            {#if publicationFormattedDate}
-                {@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
-                <div
-                    class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-                    in:fly={{ x: -100, duration: 300 }}
-                    out:fly={{ x: 100, duration: 300 }}
-                >
-                    <p class="m-0 p-0">{formattedDate}</p>
-                    <button
-                        use:tooltip={{
-                            content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-                        }}
-                    >
-                    </button>
-                </div>
-            {/if}
-          </div>
-
-          <div class="flex md:flex-row gap-4">
-            <div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-                <SelectDateIcon />
-                <span class="text-body-2 font-bold">Research Seminar Date</span>
-            </div>
-            {#if researchFormattedDate}
-                {@const formattedDate = formatDateTimeShort(new Date(researchFormattedDate))}
-                <div
-                    class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-                    in:fly={{ x: -100, duration: 300 }}
-                    out:fly={{ x: 100, duration: 300 }}
-                >
-                    <p class="m-0 p-0">{formattedDate}</p>
-                    <button
-                        use:tooltip={{
-                            content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-                        }}
-                    >
-                    </button>
-                </div>
-            {/if}
-		</div>
-        </div>
-	</div>
-</Card> 
+	</Card>
 {:else}
-<p>No Data Found !</p>
+	<p>No Data Found !</p>
 {/if}

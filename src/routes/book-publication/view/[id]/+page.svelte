@@ -1,19 +1,11 @@
 <script lang="ts">
 	import { Card } from '$lib/components/ui';
-	import type { JournalPaper } from '$lib/types/modules/research/research-types.ts';
 	import { Input } from '$lib/components/ui';
-	import { SelectDateIcon, XIcon } from '$lib/components/icons';
-	import { formatDateTimeShort } from '$lib/utils/date-formatter';
-	import { tooltip } from '$lib/utils/tooltip';
-	import { fly } from 'svelte/transition';
-	import { fetchApi } from '$lib/utils/fetcher';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import { toast } from 'svelte-sonner';
-	import { Toaster } from '$lib/components/ui/sonner';
-	import { json } from '@sveltejs/kit';
 
 	export let data: any;
-	let campus: string = '';
+
 	let disabled: boolean = true;
 	let checkData = data.bookPublicationData.length > 0 ? true : false;
 
@@ -23,39 +15,74 @@
 	);
 
 	let obj = {
-		book_pulication_id: parseInt(data.bookPublicationData[0].book_publication_id),
-		nmims_school: data.bookPublicationData[0].nmims_school
-			? data.bookPublicationData[0].nmims_school
-			: '',
-		nmims_campus: data.bookPublicationData[0].nmims_campus
-			? data.bookPublicationData[0].nmims_campus
-			: '',
-		all_authors: data.bookPublicationData[0].all_authors
-			? data.bookPublicationData[0].all_authors
-			: '',
-		nmims_authors: data.bookPublicationData[0].nmims_authors
-			? data.bookPublicationData[0].nmims_authors
-			: '',
-		title: data.bookPublicationData[0].title ? data.bookPublicationData[0].title : '',
-		edition: data.bookPublicationData[0].edition ? data.bookPublicationData[0].edition : '',
-		publish_year: data.bookPublicationData[0].publish_year
-			? data.bookPublicationData[0].publish_year
-			: '',
-		volume_no: data.bookPublicationData[0].volume_no ? data.bookPublicationData[0].volume_no : '',
-		publisher: data.bookPublicationData[0].publisher ? data.bookPublicationData[0].publisher : '',
-		web_link: data.bookPublicationData[0].web_link ? data.bookPublicationData[0].web_link : '',
-		doi_no: data.bookPublicationData[0].doi_no ? data.bookPublicationData[0].doi_no : '',
-		publication_place: data.bookPublicationData[0].publication_place
-			? data.bookPublicationData[0].publication_place
-			: '',
-		isbn_no: data.bookPublicationData[0].isbn_no ? data.bookPublicationData[0].isbn_no : '',
-		nmims_authors_count: data.bookPublicationData[0].nmims_authors_count
-			? data.bookPublicationData[0].nmims_authors_count
-			: '',
-		publisher_category: Number(data.bookPublicationData[0].publisher_category),
-		filename: data.bookPublicationData[0].supporting_documents
-			? data.bookPublicationData[0].supporting_documents
-			: ''
+		book_pulication_id:
+			data.bookPublicationData.length > 0
+				? parseInt(data.bookPublicationData[0].book_publication_id)
+				: null,
+		nmims_school:
+			data.bookPublicationData.length > 0 && data.bookPublicationData[0].nmims_school != null
+				? data.bookPublicationData[0].nmims_school
+				: '',
+		nmims_campus:
+			data.bookPublicationData.length > 0 && data.bookPublicationData[0].nmims_campus != null
+				? data.bookPublicationData[0].nmims_campus
+				: '',
+		all_authors:
+			data.bookPublicationData.length > 0 && data.bookPublicationData[0].all_authors != null
+				? data.bookPublicationData[0].all_authors
+				: '',
+		nmims_authors:
+			data.bookPublicationData.length > 0 && data.bookPublicationData[0].nmims_authors != null
+				? data.bookPublicationData[0].nmims_authors
+				: '',
+		title:
+			data.bookPublicationData.length > 0 && data.bookPublicationData[0].title
+				? data.bookPublicationData[0].title
+				: '',
+		edition:
+			data.bookPublicationData.length > 0 && data.bookPublicationData[0].edition
+				? data.bookPublicationData[0].edition
+				: '',
+		publish_year:
+			data.bookPublicationData.length > 0 && data.bookPublicationData[0].publish_year
+				? data.bookPublicationData[0].publish_year
+				: '',
+		volume_no:
+			data.bookPublicationData.length > 0 && data.bookPublicationData[0].volume_no
+				? data.bookPublicationData[0].volume_no
+				: '',
+		publisher:
+			data.bookPublicationData.length > 0 && data.bookPublicationData[0].publisher
+				? data.bookPublicationData[0].publisher
+				: '',
+		web_link:
+			data.bookPublicationData.length > 0 && data.bookPublicationData[0].web_link
+				? data.bookPublicationData[0].web_link
+				: '',
+		doi_no:
+			data.bookPublicationData.length > 0 && data.bookPublicationData[0].doi_no
+				? data.bookPublicationData[0].doi_no
+				: '',
+		publication_place:
+			data.bookPublicationData.length > 0 && data.bookPublicationData[0].publication_place
+				? data.bookPublicationData[0].publication_place
+				: '',
+		isbn_no:
+			data.bookPublicationData.length > 0 && data.bookPublicationData[0].isbn_no
+				? data.bookPublicationData[0].isbn_no
+				: '',
+		nmims_authors_count:
+			data.bookPublicationData.length > 0 && data.bookPublicationData[0].nmims_authors_count
+				? data.bookPublicationData[0].nmims_authors_count
+				: '',
+		publisher_category:
+			data.bookPublicationData.length > 0
+				? Number(data.bookPublicationData[0].publisher_category)
+				: null,
+		filename:
+			data.bookPublicationData.length > 0 && data.bookPublicationData[0].supporting_documents
+				? data.bookPublicationData[0].supporting_documents
+				: ''
 	};
 
 	let title = 'Book Publication ';

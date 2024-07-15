@@ -63,11 +63,11 @@
 	}
 
 	let obj: any = {
-		book_chapter_id: parseInt(
-			data.bookChapterPublicationData.bookChapterPublicationData[0].book_chapter_id
-		),
+		book_chapter_id: data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ?  parseInt(
+			data.bookChapterPublicationData.bookChapterPublicationData[0].book_chapter_id 
+		) : null,
 		nmims_school:
-			data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_school.length > 0
+		data.bookChapterPublicationData.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_school != null
 				? data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_school.map(
 						(dt: any) => {
 							return { value: dt, label: dt };
@@ -75,7 +75,7 @@
 					)
 				: [],
 		nmims_campus:
-			data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_campus.length > 0
+		data.bookChapterPublicationData.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_campus != null
 				? data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_campus.map(
 						(dt: any) => {
 							return { value: dt, label: dt };
@@ -83,7 +83,7 @@
 					)
 				: [],
 		all_authors:
-			data.bookChapterPublicationData.bookChapterPublicationData[0].all_authors.length > 0
+		data.bookChapterPublicationData.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData.bookChapterPublicationData[0].all_authors != null
 				? data.bookChapterPublicationData.bookChapterPublicationData[0].all_authors.map(
 						(dt: any) => {
 							return { value: dt.id, label: dt.name };
@@ -92,7 +92,7 @@
 				: [],
 
 		nmims_authors:
-			data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_authors.length > 0
+		data.bookChapterPublicationData.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_authors != null
 				? data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_authors.map(
 						(dt: any) => {
 							return { value: dt.id, label: dt.name };
@@ -100,30 +100,29 @@
 					)
 				: [],
 		book_editors:
-			data.bookChapterPublicationData.bookChapterPublicationData[0].book_editors.length > 0
+	    data.bookChapterPublicationData.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData.bookChapterPublicationData[0].book_editors != null
 				? data.bookChapterPublicationData.bookChapterPublicationData[0].book_editors.map(
 						(dt: any) => {
 							return { value: dt.id, label: dt.editor_name };
 						}
 					)
 				: [],
-		book_title: data.bookChapterPublicationData.bookChapterPublicationData[0].book_title,
-		chapter_title: data.bookChapterPublicationData.bookChapterPublicationData[0].chapter_title,
-		edition: data.bookChapterPublicationData.bookChapterPublicationData[0].edition,
-		publish_year: data.bookChapterPublicationData.bookChapterPublicationData[0].publish_year,
-		volume_no: data.bookChapterPublicationData.bookChapterPublicationData[0].volume_no,
-		chapter_page_no: data.bookChapterPublicationData.bookChapterPublicationData[0].chapter_page_no,
-		publisher: data.bookChapterPublicationData.bookChapterPublicationData[0].publisher,
-		web_link: data.bookChapterPublicationData.bookChapterPublicationData[0].web_link,
-		doi_no: data.bookChapterPublicationData.bookChapterPublicationData[0].doi_no,
-		publication_place:
-			data.bookChapterPublicationData.bookChapterPublicationData[0].publication_place,
-		isbn_no: data.bookChapterPublicationData.bookChapterPublicationData[0].isbn_no,
+		book_title: data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].book_title : '',
+		chapter_title: data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].chapter_title : '',
+		edition: data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].edition : '',
+		publish_year:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].publish_year : null,
+		volume_no:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].volume_no : '',
+		chapter_page_no:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].chapter_page_no : '',
+		publisher:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].publisher : '',
+		web_link:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].web_link : '',
+		doi_no:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].doi_no : '',
+		publication_place:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ?	data.bookChapterPublicationData.bookChapterPublicationData[0].publication_place : '',
+		isbn_no:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].isbn_no : '',
 		nmims_authors_count:
-			data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_authors_count,
-		publisher_category: Number(
+		data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ?	data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_authors_count : null,
+		publisher_category:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? Number(
 			data.bookChapterPublicationData.bookChapterPublicationData[0].publisher_category
-		)
+		) : null
 	};
 
 	async function handleSubmit() {
@@ -226,30 +225,6 @@
 			isChecked = false;
 			goto('/book-chapter-publication');
 		}
-	}
-
-	function clearForm() {
-		obj = {
-			nmims_school: null,
-			nmims_campus: null,
-			all_authors: null,
-			nmims_authors: null,
-			book_editors: null,
-			book_title: '',
-			chapter_title: '',
-			edition: '',
-			chapter_page_no: '',
-			volume_no: '',
-			publisher: '',
-			publisher_category: 1,
-			publish_year: null,
-			web_link: '',
-			isbn_no: '',
-			doi_no: '',
-			publication_place: '',
-			nmims_authors_count: ''
-		};
-		files = [];
 	}
 
 	async function downLoadFiles() {
