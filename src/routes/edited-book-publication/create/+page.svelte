@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Card } from '$lib/components/ui';
     import { Input, DynamicSelect } from '$lib/components/ui'
-    import { getAllAuthor, getSchool, getCampus } from '$lib/utils/select.helper';
+    import { getAllAuthor, getSchool, getCampus, getNmimsAuthor } from '$lib/utils/select.helper';
     import { editedBookPublication, type editedBookPublicationReq, type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations'
     import { validateWithZod } from '$lib/utils/validations';
     import { toast } from 'svelte-sonner';
@@ -10,14 +10,17 @@
         const title = 'Edited Book Publication'
 
         let allAuthorData = data?.editedBookData?.authorData?.message;
+        let nmimsAuthorData = data?.editedBookData?.nmimsAuthorData?.message;
         let campuseData = data?.editedBookData?.campusData?.message;
         let schoolData = data?.editedBookData?.schoolData?.message;
 
         $: allAuthors = allAuthorData
         $: campuses = campuseData;
         $: schools = schoolData;
+        $: nmimsAuthors = nmimsAuthorData;
        
         let obj = {
+            nmimsAuthors: null,
             authors: null,
             title: null,
             campuses: null,
@@ -54,7 +57,7 @@
             doi_no: obj.doi_no,
             publication_place: obj.publication_place,
             nmims_author_count: Number(obj.nmims_authors_count),
-            nmims_authors: obj.nmims_authors
+            nmims_authors: obj.nmimsAuthors != null ? obj.nmimsAuthors.map((data: { value: any }) => Number(data.value)) : [],
         }
         
         const fileObject: FileReq = {
@@ -200,7 +203,13 @@
     <div class="grid grid-cols-3 gap-[40px] p-4">
         <Input type="text" placeholder="Place Of Publication" bind:value={obj.publication_place} />
         <Input type="number" placeholder="No. Of NMIMS Authors" bind:value={obj.nmims_authors_count} />
-        <Input type="text" placeholder="Name Of NMIMS Authors" bind:value={obj.nmims_authors} />
+        <DynamicSelect
+            isRequired={true}
+            placeholder="Nmims Authors Name"
+            bind:selectedOptions={obj.authors}
+            options={getNmimsAuthor(nmimsAuthors)}
+            isMultiSelect={true}
+    />
         <input type="file" bind:files multiple />
     </div>
 
