@@ -12,8 +12,8 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
-	import { meetPaginateUrl } from '$lib/stores/modules/mpc/master.store';
-	import { confirmStore, actionStore } from '$lib/stores/modules/mpc/master.store';
+	import { meetPaginateUrl } from '$lib/stores/modules/research/master.store';
+	import { confirmStore, actionStore } from '$lib/stores/modules/research/master.store';
 	import { showConfirmation } from '$lib/components/ui/popup';
 	export let actionData: MeetingView;
 

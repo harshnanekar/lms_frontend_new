@@ -158,3 +158,21 @@ export type BookChapterDetails = {
 	journal_name : string
 	nmims_authors : string[],
  }
+
+ export type EContentView = {
+	faculty_name : string,
+	module : string,
+	module_platform : string,
+	document_link : string,
+	facility_list :string
+	media_link : string,
+ }
+
+ export type ResearchAwardView = {
+ nmims_school : string[],
+ nmims_campus : string[],
+ faculty_name : string,
+ award_name : string,
+ award_details : string,
+ award_organization: string,
+ }

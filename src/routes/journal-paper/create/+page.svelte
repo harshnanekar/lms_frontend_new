@@ -254,7 +254,7 @@
 			journal_type: 1
 		};
 
-		publicationFormattedDate = null;
+		publicationDate = null;
 	}
 </script>
 
@@ -512,7 +512,7 @@
 			<input type="file" bind:files multiple />
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="flex md:flex-row gap-4">
 			<DatePicker
 				on:change={handleDateChange}
 				bind:selectedDateTime={publicationDate}

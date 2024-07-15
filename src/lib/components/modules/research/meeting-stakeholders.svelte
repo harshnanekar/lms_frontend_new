@@ -39,7 +39,6 @@
 		<div class="lms-table-wrapper rounded-2xl p-4">
 			<table class="lms-table">
 				<thead>
-					<th class="!text-[15px]">Sr.No</th>
 					<th class="!text-[15px]">Meeting Stakeholders Type</th>
 					<th class="!text-[15px]">Description</th>
 					<th class="!text-[15px]">Link</th>
@@ -49,7 +48,6 @@
 					{#if meetingData.length > 0}
 						{#each meetingData as meet}
 							<tr>
-								<td class="!text-[15px]">{count + 1}.</td>
 								<td class="!text-[15px]">{meet.type.label}</td>
 								<td class="!text-[15px]">{meet.description}</td>
 								<td class="!text-[15px]">{meet.link} {disabled}</td>

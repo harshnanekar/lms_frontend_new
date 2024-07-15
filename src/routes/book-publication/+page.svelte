@@ -8,7 +8,7 @@
     import { PaginateDynamic } from '$lib/components/layout/pagination';
     import {BookPublicationHeaders} from "$lib/test";
     import { BookPublicationAction } from '$lib/components/modules/mpc';
-    import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
+    import { paginateUrl } from '$lib/stores/modules/research/master.store';
 
 	let dynamicUrl = 'http://localhost:9090/research/book-publication-paginate';
 	const url = new URL(dynamicUrl);

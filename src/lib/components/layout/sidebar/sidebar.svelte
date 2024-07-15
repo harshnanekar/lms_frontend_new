@@ -45,7 +45,7 @@
 		<MenuBarIcon />
 	</button>
 	{#if $activeSidebarModule?.child?.length < 1}
-		<div id="sidebar-wrapper" class="max-h-[80vh] overflow-y-auto overflow-x-hidden">
+		<div id="sidebar-wrapper" class="max-h-[80vh] no-scrollbar overflow-y-auto overflow-x-hidden">
 			<div class="pt-10 text-center"></div>
 			<SidebarItem sidebarList={SIDEBAR_URL} />
 		</div>

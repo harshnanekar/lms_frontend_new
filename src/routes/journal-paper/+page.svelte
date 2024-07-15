@@ -7,7 +7,7 @@
 	import { PaginateDynamic } from '$lib/components/layout/pagination';
 	import { paginationHeaders } from '$lib/test';
     import { ResearchAction } from '$lib/components/modules/mpc';
-	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
+	import { paginateUrl } from '$lib/stores/modules/research/master.store';
 
 	let dynamicUrl = 'http://localhost:9090/research/journal-paginate';
 	const url = new URL(dynamicUrl);

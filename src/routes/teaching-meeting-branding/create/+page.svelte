@@ -22,7 +22,7 @@
 	import { validateWithZod } from '$lib/utils/validations';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import { fetchFormApi } from '$lib/utils/fetcher';
-	import { optionStore } from '$lib/stores/modules/mpc/master.store';
+	import { optionStore } from '$lib/stores/modules/research/master.store';
 	import { goto } from '$app/navigation';
 	import { Accordion, AccordionItem } from '$lib/components/ui';
 	import Accordian from '$lib/components/ui/accordian/accordian.svelte';
