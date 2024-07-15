@@ -14,7 +14,8 @@ import {
 	DownloadIcon,
 	AttendanceIcon,
 	SuccessIcon,
-	DeleteIcon
+	DeleteIcon,
+	MinusIcon
 } from './base';
 import { MeetingIcon, ScheduledIcon } from './modules';
 
@@ -38,5 +39,6 @@ export {
 	DownloadIcon,
 	AttendanceIcon,
 	SuccessIcon,
-	DeleteIcon
+	DeleteIcon,
+	MinusIcon
 };

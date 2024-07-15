@@ -1,6 +1,6 @@
 import type { TableHeaders } from './types/layout/table';
 import type { SubjectMeetingDetail } from './types/modules/mpc/master-form';
-import type { JournalPaper, JournalView, EditedBookPublicationView } from './types/modules/research/research-types';
+import type { JournalPaper, JournalView } from './types/modules/research/research-types';
 
 
 export const SIDEBAR_URL = [
@@ -22,13 +22,6 @@ export const SIDEBAR_URL = [
 		url: '/journal-paper',
 		icon: 'test',
 		label: 'Journal Articles Published',
-		module: null,
-		child: []
-	},
-	{
-		url: '/edited-book-publication',
-		icon: 'test',
-		label: 'Edited Book Publication',
 		module: null,
 		child: []
 	},
@@ -263,57 +256,3 @@ export const paginationHeaders : TableHeaders<JournalView>[] = [
 		showTooltip: false
 	}
 ]; 
-
-
-
-export const EditedBookPublicationHeader : TableHeaders<EditedBookPublicationView>[] = [ 
-	{
-		label: 'Author Name',
-        key: 'authors',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-	},
-	{
-		label: 'NMIMS Campus - Author',
-        key: 'campuses',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-	},
-	{
-		label: 'NMIMS School - Author',
-        key: 'schools',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-	},
-	{
-		label: 'Publication Year',
-        key: 'publish_year',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-	},
-	{
-		label: 'Book Title',
-        key: 'title',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-	},
-	{
-		label: 'ISBN Number',
-        key: 'isbn_no',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-	},
-	{
-		label: 'Publisher Name',
-        key: 'publisher',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-	},
-];

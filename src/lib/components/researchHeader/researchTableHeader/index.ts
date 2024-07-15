@@ -1,0 +1,1 @@
+export {default as ResearchTableHeaders} from './tableHeader.svelte';

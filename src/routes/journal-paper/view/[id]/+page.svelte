@@ -39,9 +39,9 @@
 		journal_type: data.journalData[0].journal_type
 			? Number(data.journalData[0].journal_type)
 			: null,
-		ugc_indexed: data.journalData[0].ugc_indexed ? data.journalData[0].ugc_indexed : null,
-		scs_indexed: data.journalData[0].scs_indexed ? data.journalData[0].scs_indexed : null,
-		wos_indexed: data.journalData[0].wos_indexed ? data.journalData[0].wos_indexed : null,
+		ugc_indexed: data.journalData[0].ugc_indexed,
+		scs_indexed: data.journalData[0].scs_indexed,
+		wos_indexed: data.journalData[0].wos_indexed,
 		foreign_authors_count: data.journalData[0].foreign_authors_count
 			? data.journalData[0].foreign_authors_count
 			: null,
@@ -70,7 +70,7 @@
 
 	let title = 'Journal Articles Published';
 
-	console.log('journal json ', JSON.stringify(obj), data.journalData[0].paper_name);
+	console.log('journal json ', JSON.stringify(data.journalData[0].scs_indexed));
 
 	async function downLoadFiles() {
 		fetch(`${PUBLIC_API_BASE_URL}/journal-download-files?id=${obj.journal_paper_id}`)
@@ -85,7 +85,7 @@
 				const a = document.createElement('a');
 				a.style.display = 'none';
 				a.href = url;
-				a.download = 'research_documents.zip';
+				a.download = 'journal_article_documents.zip';
 				document.body.appendChild(a);
 				a.click();
 				window.URL.revokeObjectURL(url);
@@ -101,7 +101,7 @@
 {#if checkData}
 	<Card {title}>
 		<div class="p-4">
-			<div class="scroll modal-content max-h-[70vh] min-h-[50vh] overflow-auto">
+			<div class="scroll small-scrollbar modal-content max-h-[70vh] min-h-[50vh] overflow-auto">
 				<!-- Adjust max-height as needed -->
 				<div class="grid grid-cols-3 gap-[40px] p-4">
 					<Input type="text" placeholder="Nmims School" value={obj.nmims_school} {disabled} />
@@ -231,7 +231,7 @@
 				</div>
 
 				<div class="grid grid-cols-3 gap-[40px] p-4">
-					<Input type="text" placeholder="Abdc Indexed" value={obj.abdc_indexed} />
+					<Input type="text" placeholder="Abdc Indexed" value={obj.abdc_indexed} {disabled} />
 					<div class="ml-2">
 						<label class="text-sm text-[#888888]"
 							>UGC Indexed<span class="text-danger text-sm">*</span></label
@@ -263,17 +263,18 @@
 							</div>
 						</div>
 					</div>
-					<Input type="text" placeholder="Paper Type" value={obj.paper_type} />
+					<Input type="text" placeholder="Paper Type" value={obj.paper_type} {disabled} />
 				</div>
 
 				<div class="grid grid-cols-3 gap-[40px] p-4">
-					<Input type="text" placeholder="Foreign Authors" value={obj.foreign_authors} />
+					<Input type="text" placeholder="Foreign Authors" value={obj.foreign_authors} {disabled} />
 					<Input
 						type="number"
 						placeholder="No. Of Foreign Authors"
 						value={obj.foreign_authors_count}
+						{disabled}
 					/>
-					<Input type="text" placeholder="Student Authors" value={obj.student_authors} />
+					<Input type="text" placeholder="Student Authors" value={obj.student_authors} {disabled} />
 				</div>
 
 				<div class="grid grid-cols-3 gap-[40px] p-4">
@@ -281,6 +282,7 @@
 						type="text"
 						placeholder="No. Of Student Authors"
 						value={obj.student_authors_count}
+						{disabled}
 					/>
 
 					<!---scopus-->

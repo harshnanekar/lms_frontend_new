@@ -4,7 +4,7 @@
 	import type { TableHeaders } from '$lib/types/layout/table';
 	import { debounce } from '$lib/utils/debounce';
 	import { writable } from 'svelte/store';
-    import ResearchAction  from '$lib/components/modules/mpc/research-action.svelte';
+	import ResearchAction from '$lib/components/modules/mpc/research-action.svelte';
 
 	interface FilterOption {
 		name: string;
@@ -28,6 +28,7 @@
 	const data = writable<{ items: any[]; total: number }>({ items: [], total: 0 });
 	const isLoading = writable(false);
 	const error = writable<string | null>(null);
+
 
 	// Fetch data function
 	async function fetchData() {
@@ -141,6 +142,9 @@
 
 		return pageNumbers;
 	}
+	function handleCustomEvent(event) {
+    console.log('Received custom event:', event.detail);
+    }
 </script>
 
 <div>
@@ -191,7 +195,7 @@
 							{#each header as column}
 								<td class={column.classes}>{item[column.key]}</td>
 							{/each}
-						    <td>
+							<td>
 								<slot actionData={item} />
 							</td>
 						</tr>
@@ -216,7 +220,7 @@
 				</div>
 				<div class="text-cta-sm lg:text-cta-md">
 					<button
-						class="rounded border px-4 py-2 hover:bg-primary-light disabled:opacity-50"
+						class="hover:bg-primary-light rounded border px-4 py-2 disabled:opacity-50"
 						on:click={() => setPage($page - 1)}
 						disabled={$page === 1}>Previous</button
 					>
@@ -235,7 +239,7 @@
 						{/if}
 					{/each}
 					<button
-						class="rounded border px-4 py-2 hover:bg-primary-light disabled:opacity-50"
+						class="hover:bg-primary-light rounded border px-4 py-2 disabled:opacity-50"
 						on:click={() => setPage($page + 1)}
 						disabled={$page >= Math.ceil($data.total / $limit)}>Next</button
 					>

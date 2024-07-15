@@ -55,3 +55,32 @@ export type JournalPaper = {
 	publisher: string
  }
 
+ export type TeachingView =  {
+	 pedagogy_innovation : string,
+	 fdp_program :string,
+     student_workshops :string,
+     niche : string,
+	 program_orientation :string
+ }
+
+ export type MeetingView = {
+	ranking:string,
+	accreditation:string,
+	achievements :string,
+	convocation :string,
+	inaugral_program:string,
+	events :string
+ }
+
+ export type brandingView = {
+    faculty_recognition : string,
+	faculty_awards : string,
+	staff_awards : string,
+	alumni_awards : string,
+	student_awards :string,
+	international_ventures : string,
+	conference_participation : string,
+	organizing_conference : string,
+	newspaper_article : string,
+	student_event : string
+ }
