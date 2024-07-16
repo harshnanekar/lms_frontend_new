@@ -7,7 +7,8 @@ import type { JournalPaper, JournalView, BookPublicationRender,
 	TeachingView,
 	ConferenceRender,
 	conferenceDetails,
-	IPRRender
+	IPRRender,
+	patentRender
 
  } from './types/modules/research/research-types';
 
@@ -68,6 +69,20 @@ export const SIDEBAR_URL = [
         icon: 'test',
 
         label: 'IPR',
+
+        module: null,
+
+        child: []
+
+    }, 
+
+	{
+
+        url: '/patent-submission-and-grant',
+
+        icon: 'test',
+
+        label: 'Patent Submission And Grant',
 
         module: null,
 
@@ -781,6 +796,97 @@ export const IPRHeaders : TableHeaders<IPRRender>[]=[
 
 
 
+
+
+
+ ];
+
+
+ export const PatentHeaders : TableHeaders<patentRender>[]=[
+
+    
+
+    {
+
+        label: 'Title of Invention',
+
+        key: 'title',
+
+        sortable: false,
+
+        classes: '',
+
+        showTooltip: false
+
+    },
+
+
+
+
+    {
+
+        label: 'Type of Invention(IPR)',
+
+        key: 'invention_type',
+
+        sortable: false,
+
+        classes: '',
+
+        showTooltip: false
+
+    },
+
+
+
+
+    {
+
+        label: 'Patent Stage',
+
+        key: 'patent_status',
+
+        sortable: false,
+
+        classes: '',
+
+        showTooltip: false
+
+    },
+
+
+
+
+    {
+
+        label: 'Application Number',
+
+        key: 'appln_no',
+
+        sortable: false,
+
+        classes: '',
+
+        showTooltip: false
+
+    },
+
+
+
+
+    {
+
+        label: 'Date of Filing/Grant/Published',
+
+        key: 'publication_date',
+
+        sortable: false,
+
+        classes: '',
+
+        showTooltip: false
+
+    },
 
 
 

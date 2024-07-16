@@ -178,6 +178,7 @@ export type conferenceDetails = {
 
 
 export type IPRRender = {
+	id: number;
 
     nmims_school : string[],
 
@@ -194,11 +195,7 @@ export type IPRRender = {
 
 
 
- } 
-
-
-
-
+ }; 
 
 
  export type IPRData = {
@@ -235,4 +232,43 @@ export type IPRRender = {
 
     supporting_documents:string[];
 
-}
+}; 
+
+
+export type patentRender = {
+
+	title: string;
+
+    appln_no: number
+
+    publication_date: string;
+
+    patent_status: number;
+
+    invention_type : number[];
+
+
+ };   
+
+
+
+ export type patentData = {
+
+    title: string;
+
+    appln_no: number
+
+    publication_date: string;
+
+    patent_status: number;
+
+    invention_type : number[];
+
+    sdg_goals : number[];
+
+
+    inventors_id: number[];
+
+    supporting_documents:string[];
+
+}; 

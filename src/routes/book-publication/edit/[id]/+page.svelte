@@ -49,12 +49,9 @@
 	$: campus = nmimsCampus;
 
 	console.log('JSON.stringify(school)', JSON.stringify(school));
-	let isCheckedDoc: boolean = false;
-	let isCheckedaward: boolean = false;
+	let isChecked: boolean = false;
 
-	$: checkDoc = isCheckedDoc;
-	$: checkAward = isCheckedaward
-	console.log('checkbox check ', checkDoc);
+	$: checkVal  = isChecked;
 
 	let obj: any = {
 		book_publication_id: parseInt(

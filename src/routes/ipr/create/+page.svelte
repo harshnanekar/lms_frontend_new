@@ -117,7 +117,7 @@
     published_date: '',
     publication_no: '',
     granted_no: '',
-    institue_affiliation: '',
+    institute_affiliation: '',
     applicant_names: null,
     internal_authors: null,
     external_authors: null
@@ -186,7 +186,7 @@
         published_date: publishedFormattedDate,
         publication_no: Number(obj.publication_no),
         granted_no: Number(obj.granted_no),
-        institue_affiliation: obj.institue_affiliation,
+        institute_affiliation: obj.institute_affiliation,
         internal_authors: obj.internal_authors != null ? obj.internal_authors.map((data: { value: any }) => Number(data.value)) : [],
         external_authors: obj.external_authors != null ? obj.external_authors.map((data: { value: any }) => Number(data.value)) : [],
         applicant_names: obj.applicant_names != null ? obj.applicant_names.map((data: { value: any }) => Number(data.value)) : [],
@@ -283,9 +283,9 @@
 
             granted_no: '',
 
-            institue_affiliation: '',
+            institute_affiliation: '',
 
-            applicant_names : '',
+            applicant_names : null,
 
             internal_authors: null,
 			external_authors: null
@@ -361,7 +361,7 @@
         </div>
 
         <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-            <Input type="text" placeholder="Institute Affiliation" bind:value={obj.institue_affiliation} />
+            <Input type="text" placeholder="Institute Affiliation" bind:value={obj.institute_affiliation} />
             <DynamicSelect
             isRequired={true}
             placeholder="Applicants Names"

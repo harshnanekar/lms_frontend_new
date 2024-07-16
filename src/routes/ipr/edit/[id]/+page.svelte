@@ -57,7 +57,9 @@
 
     export let data: any;
 
-    let isRequired = false;
+    // let isRequired = false;
+    let isChecked: boolean = false;
+	$: checkVal = isChecked;
 
     let title = 'IPR';
 
@@ -83,7 +85,9 @@
 
     // let isRequired = false;
 
-    console.log('render iprDataList', data.iprDataList);
+    console.log('render iprDataList', data.iprDataList.iprDataList[0]);
+    let facultyDetails = data.iprDataList.iprDataList[0].faculty_details || [];
+    console.log('facultyDetails ==>>>>', facultyDetails);
 
     
 
@@ -103,41 +107,66 @@
     $: applicantNames = applicantNames;
 
 
+    console.log('data.iprDataList.iprdata[0].ipr_id ==>>', data.iprDataList.iprDataList[0].ipr_id)
 
-    let obj = {
-    nmims_school: null,
-    nmims_campus: null,
-    invention_type: null,
-    sdg_goals: null,
-    patent_status: null,
-    title: '',
-    appln_no: '',
-    filed_date: '',
-    grant_date: '',
-    published_date: '',
-    publication_no: '',
-    granted_no: '',
-    institue_affiliation: '',
-    applicant_names: null,
-    internal_authors: null,
-    external_authors: null
+    let obj: any = {
+        ipr_id: parseInt(
+			data.iprDataList.iprDataList[0].ipr_id
+		),
+        nmims_school: data.iprDataList.iprDataList.length > 0 && data.iprDataList.iprDataList[0].nmims_school != null
+        ? data.iprDataList.iprDataList[0].nmims_school.map((dt: any) => {
+            return { value: dt, label: dt };
+        })
+        : [],
+    nmims_campus: data.iprDataList.iprDataList.length > 0 && data.iprDataList.iprDataList[0].nmims_campus != null
+        ? data.iprDataList.iprDataList[0].nmims_campus.map((dt: any) => {
+            return { value: dt, label: dt };
+        })
+        : [],
+    invention_type: data.iprDataList.iprDataList.length > 0 && data.iprDataList.iprDataList[0].invention_type
+        ? { value: data.iprDataList.iprDataList[0].invention_id, label: data.iprDataList.iprDataList[0].invention_type }
+        : null,
+    sdg_goals: data.iprDataList.iprDataList.length > 0 && data.iprDataList.iprDataList[0].sdg_goals != null
+        ? data.iprDataList.iprDataList[0].sdg_goals.map((dt: any) => {
+            return { value: dt.id, label: dt.goals_name };
+        })
+        : [],
+    patent_status: data.iprDataList.iprDataList.length > 0 && data.iprDataList.iprDataList[0].patent_status
+        ? { value: data.iprDataList.iprDataList[0].status_id, label: data.iprDataList.iprDataList[0].patent_status }
+        : null,
+    title:data.iprDataList.iprDataList.length > 0 && data.iprDataList.iprDataList[0].title? data.iprDataList.iprDataList[0].title : '',
+    appln_no: data.iprDataList.iprDataList.length > 0 && data.iprDataList.iprDataList[0].appln_no? data.iprDataList.iprDataList[0].appln_no : '',
+    filed_date: data.iprDataList.iprDataList.length > 0 && data.iprDataList.iprDataList[0].filed_date? data.iprDataList.iprDataList[0].filed_date : '',
+    grant_date: data.iprDataList.iprDataList.length > 0 && data.iprDataList.iprDataList[0].grant_date? data.iprDataList.iprDataList[0].grant_date : '',
+    published_date: data.iprDataList.iprDataList.length > 0 && data.iprDataList.iprDataList[0].published_date? data.iprDataList.iprDataList[0].published_date : '',
+    publication_no: data.iprDataList.iprDataList.length > 0 && data.iprDataList.iprDataList[0].publication_no? data.iprDataList.iprDataList[0].publication_no : '',
+    granted_no: data.iprDataList.iprDataList.length > 0 && data.iprDataList.iprDataList[0].granted_no? data.iprDataList.iprDataList[0].granted_no : '',
+    institute_affiliation: data.iprDataList.iprDataList.length > 0 && data.iprDataList.iprDataList[0].institute_affiliation? data.iprDataList.iprDataList[0].institute_affiliation : '',
+    applicant_names: data.iprDataList.iprDataList.length > 0 && data.iprDataList.iprDataList[0].applicant_names != null
+        ? data.iprDataList.iprDataList[0].applicant_names.map((dt: any) => {
+            return { value: dt.id, label: dt.name };
+        })
+        : [],
+    internal_authors: data.iprDataList.iprDataList.length > 0 && facultyDetails.filter((author: any) => author.abbr === 'int').map((author: any) => ({ value: author.id, label: author.faculty_name })),
+    external_authors: data.iprDataList.iprDataList.length > 0 && facultyDetails.filter((author: any) => author.abbr === 'ext').map((author: any) => ({ value: author.id, label: author.faculty_name }))
 };
 
     let filedDate: Date | null = new Date();
-    filedDate = null;
-    $: publicationFormattedDate = filedDate ? formatDate(filedDate) : '';
+    filedDate = data.iprDataList.iprDataList.length > 0 && data.iprDataList.iprDataList[0].filed_date!= null ? new Date(data.iprDataList.iprDataList[0].filed_date) : null;
+    ;
+    $: fileFormattedDate = filedDate ? formatDate(filedDate) : '';
 
     let grantDate: Date | null = new Date();
-    grantDate = null;
+    grantDate = data.iprDataList.iprDataList.length > 0 && data.iprDataList.iprDataList[0].grant_date!= null ? new Date(data.iprDataList.iprDataList[0].grant_date) : null;
     $: grantFormattedDate = grantDate ? formatDate(grantDate) : '';
 
     let publishedDate: Date | null = new Date();
-    publishedDate = null;
+    publishedDate = data.iprDataList.iprDataList.length > 0 && data.iprDataList.iprDataList[0].published_date!= null ? new Date(data.iprDataList.iprDataList[0].published_date) : null;
     $: publishedFormattedDate = publishedDate ? formatDate(publishedDate) : '';
 
     function handleDateChange(e: CustomEvent<any>) {
         if (!filedDate) return;
-        publicationFormattedDate = formatDate(filedDate);
+        fileFormattedDate = formatDate(filedDate);
         console.log('publication date ', filedDate);
     }
 
@@ -171,6 +200,7 @@
 
 
     //submit function for sending data 
+    console.log('obj.invention_type ==>>>>', obj.invention_type)
 
     async function handleSubmit() {
     const iprObject : iprDetailsReq =  {
@@ -181,33 +211,40 @@
         patent_status: obj.patent_status != null ? Number(obj.patent_status.value) : 0,
         title: obj.title,
         appln_no: Number(obj.appln_no),
-        filed_date: publicationFormattedDate,
+        filed_date: fileFormattedDate,
         grant_date: grantFormattedDate,
         published_date: publishedFormattedDate,
         publication_no: Number(obj.publication_no),
         granted_no: Number(obj.granted_no),
-        institue_affiliation: obj.institue_affiliation,
+        institute_affiliation: obj.institute_affiliation,
         internal_authors: obj.internal_authors != null ? obj.internal_authors.map((data: { value: any }) => Number(data.value)) : [],
         external_authors: obj.external_authors != null ? obj.external_authors.map((data: { value: any }) => Number(data.value)) : [],
         applicant_names: obj.applicant_names != null ? obj.applicant_names.map((data: { value: any }) => Number(data.value)) : [],
     };
 
-    const fileObject = {
-        documents: Array.from(files)
-    };
+   
 
-    console.log('files object ', files);
 
-    const fileresult = validateWithZod(fileSchema, fileObject);
-    if (fileresult.errors) {
-        console.log(fileresult.errors);
-        const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
-        toast.error('ALERT!', { description: firstMessage });
-        return;
-    }
+    
+
+    if (checkVal) {
+			const fileObject: FileReq = {
+				documents: Array.from(files)
+			};
+			const fileresult = validateWithZod(fileSchema, fileObject);
+			if (fileresult.errors) {
+				console.log(fileresult.errors);
+				const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
+				toast.error('ALERT!', {
+					description: firstMessage
+				});
+				return;
+			}
+		}
 
     const formData = new FormData();
-    formData.append('ipr_data', JSON.stringify(iprObject));
+    formData.append('update_ipr_data', JSON.stringify(iprObject));
+    formData.append('ipr_id', obj.ipr_id);
 
     Array.from(files).forEach((file) => {
         formData.append('supporting_documents', file);
@@ -230,7 +267,7 @@
     console.log('validated data', JSON.stringify(result.data));
 
     const { error, json } = await fetchFormApi({
-        url: `${PUBLIC_API_BASE_URL}/ipr-insert`,
+        url: `${PUBLIC_API_BASE_URL}/ipr-update`,
         method: 'POST',
         body: formData
     });
@@ -242,57 +279,42 @@
         return;
     }
 
-    if (json[0].insert_ipr.status == 403) {
-        toast.error('ALERT!', { description: json[0].insert_ipr.message });
+    if (json[0].upsert_ipr.status == 403) {
+        toast.error('ALERT!', { description: json[0].upsert_ipr.message });
     } else {
-        toast.success('Inserted Successfully');
-        clearForm();
+        toast.success('updated Successfully');
         goto('/ipr');
     }
 }
 
 
 
+async function downLoadFiles() {
+		fetch(`${PUBLIC_API_BASE_URL}/ipr-download-files?id=${obj.ipr_id }`)
+			.then((response) => {
+				if (response.ok) {
+					return response.blob();
+				}
+				throw new Error('Network response was not ok.');
+			})
+			.then((blob) => {
+				const url = window.URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.style.display = 'none';
+				a.href = url;
+				a.download = 'ipr_document.zip';
+				document.body.appendChild(a);
+				a.click();
+				window.URL.revokeObjectURL(url);
+			})
+			.catch((error) => {
+				toast.error(error.message || 'Something went wrong!', {
+					description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+				});
+			});
+	}
 
 
-    function clearForm() {
-
-        obj = {
-
-            nmims_school: null,
-
-            nmims_campus: null,
-
-            invention_type : null,
-
-            sdg_goals : null,
-
-            patent_status: null,
-
-            title: '',
-
-            appln_no: '',
-
-            filed_date:'',
-
-            grant_date:'', 
-
-            published_date: '',
-
-            publication_no: '',
-
-            granted_no: '',
-
-            institue_affiliation: '',
-
-            applicant_names : '',
-
-            internal_authors: null,
-			external_authors: null
-
-        };
-
-    }
 
 </script>
 
@@ -361,26 +383,36 @@
         </div>
 
         <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-            <Input type="text" placeholder="Institute Affiliation" bind:value={obj.institue_affiliation} />
+            <Input type="text" placeholder="Institute Affiliation" bind:value={obj.institute_affiliation} />
             <DynamicSelect
             isRequired={true}
             placeholder="Applicants Names"
             options={getApplicantNames(applicantNames)}
             bind:selectedOptions={obj.applicant_names}
             isMultiSelect={true}/>
-            <input type="file" bind:files multiple />
+            <div>
+				<label for="supporting-documents"
+					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
+				>
+				<label>Click To Upload New File <input type="checkbox" bind:checked={isChecked} /></label>
+				{#if checkVal}
+					<input type="file" bind:files multiple />
+				{:else}
+					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
+						><i class="fa-solid fa-download text-md"></i></button
+					>
+				{/if}
+			</div>
         </div>
         <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
             
             <div class="ml-2">
-                
-
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
-					>Details of Inventors<span class="text-danger text-sm">*</span>
+					>Name Of Co-Authors<span class="text-danger text-sm">*</span>
 				</label>
-				<div class="mt-2.5 flex gap-5">
-					<div class="flex items-center">
+				<div class="mt-2.5 flex md:flex-row gap-[20px]">
+					<div class="flex md:flex-row items-center">
 						<input
 							id="internal-checkbox"
 							type="checkbox"
@@ -391,7 +423,7 @@
 							>Internal</label
 						>
 					</div>
-					<div class="flex items-center">
+					<div class="flex md:flex-row items-center">
 						<input
 							id="external-checkbox"
 							type="checkbox"
@@ -403,7 +435,7 @@
 						>
 					</div>
 				</div>
-				<div class="flex items-center gap-x-3">
+				<div class="grid grid-row-2 items-center mt-2 gap-4">
 					{#if showInternal}
 						<DynamicSelect
 							isRequired={true}
@@ -437,8 +469,8 @@
                            Add Patent Filed Date </span>
 					</div>
 				</DatePicker>
-				{#if publicationFormattedDate}
-					{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
+				{#if fileFormattedDate}
+					{@const formattedDate = formatDateTimeShort(new Date(fileFormattedDate))}
 					<div
 						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
 						in:fly={{ x: -100, duration: 300 }}
@@ -451,7 +483,7 @@
 							}}
 							on:click={() => {
 								// remove the current date
-								publicationFormattedDate = null;
+								fileFormattedDate = '';
 							}}
 						>
 							<XIcon />
@@ -486,7 +518,7 @@
 							}}
 							on:click={() => {
 								// remove the current date
-								grantFormattedDate = null;
+								grantFormattedDate = '';
 							}}
 						>
 							<XIcon />
@@ -526,7 +558,7 @@
 							}}
 							on:click={() => {
 								// remove the current date
-								publishedFormattedDate = null;
+								publishedFormattedDate = '';
 							}}
 						>
 							<XIcon />
@@ -540,9 +572,8 @@
 
     <div class="flex flex-row gap-[20px] p-4">
 
-        <button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
 
-        <button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
+        <button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Update</button>
 
     </div>
 
