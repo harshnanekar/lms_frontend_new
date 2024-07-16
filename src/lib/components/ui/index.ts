@@ -2,7 +2,7 @@ import { Accordion, AccordionItem } from './accordian';
 import { DynamicSelect } from './select';
 import { Modal } from './modal';
 import { Card } from './card';
-import { Input, Textarea, Toggle } from './input';
+import { Input, Textarea, Toggle ,File } from './input';
 import Image from './image.svelte';
 import DatePicker from './date-picker.svelte';
 import { skeletonLoader } from './loaders';
@@ -18,5 +18,6 @@ export {
 	Textarea,
 	DatePicker,
 	Toggle,
-	skeletonLoader
+	skeletonLoader,
+	File
 };

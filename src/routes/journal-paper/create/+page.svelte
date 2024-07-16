@@ -175,8 +175,7 @@
 
 		formData.append('journal_paper', JSON.stringify(journalObject));
 
-		// Append each file to the FormData
-		Array.from(files).forEach((file) => {
+		Array.from(files).forEach((file: any) => {
 			formData.append('supporting_documents', file);
 		});
 
