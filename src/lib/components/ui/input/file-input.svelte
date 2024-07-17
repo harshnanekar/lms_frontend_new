@@ -1,9 +1,10 @@
 <script lang="ts">
+	import { generateRandomUUID } from '$lib/utils/helper';
 	import { Modal } from '$lib/components/ui';
 	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
 	import { writable } from 'svelte/store';
-	import { DeleteIcon,EyeIcon,CloseEyeIcon } from '$lib/components/icons';
-	import {createEventDispatcher} from "svelte"
+	import { DeleteIcon, EyeIcon, CloseEyeIcon } from '$lib/components/icons';
+	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 	const isOpen = writable(false);
@@ -11,53 +12,50 @@
 	const isEyeIconChange = writable(false);
 	let modalwidthPercent: ModalSizes = 'md';
 	let fileUrl = '';
+	let files: any = [];
+	let isView: boolean = false;
+
 	$: selectedFileUrl = fileUrl;
 
-	let files: any = [];
-	$: fileData = files.map((file : any) => {
-		return {
-			name: file.name,
-			url: URL.createObjectURL(file),
-		};
-	});;
+	$: fileData = files;
 
 	function previewFile() {
 		isOpen.set(true);
-		isEyeIconChange.set(true)
+		isEyeIconChange.set(true);
 	}
 
-	function previewParticularFile(url : string){
+	function previewParticularFile(url: string) {
 		fileUrl = url;
 		isPreviewOpen.set(true);
 		isOpen.set(false);
-
 	}
 
 	const closeModal = () => {
 		isOpen.set(false);
-		isEyeIconChange.set(false)
-
+		isEyeIconChange.set(false);
 	};
 
 	const closePreviewModal = () => {
 		isPreviewOpen.set(false);
-		isEyeIconChange.set(false)
-	}
-	
-	$: console.log('filename ',files[0])
+		isEyeIconChange.set(false);
+	};
+
+	$: console.log('filename ', files);
 
 	function handleFileUpload(event: Event) {
-		const input : any = event.target as HTMLInputElement;
-			files = Array.from(input.files);
-			const fileData = files.map((file : any) => ({
-				name: file.name,
-				url: URL.createObjectURL(file),
-			}));
+		const input: any = event.target as HTMLInputElement;
+		files = Array.from(input.files);
+		const fileData = files.map((file: any) => ({
+			name: file.name + generateRandomUUID(),
+			url: URL.createObjectURL(file)
+		}));
 
-			dispatch('filesSelected', fileData);
+		dispatch('filesSelected', fileData);
 	}
 
-
+	function handleDelete(file: any) {
+		files = files.filter((f: any) => f.name !== file);
+	}
 </script>
 
 <div class="flex items-center">
@@ -83,7 +81,7 @@
 					/>
 				</svg>
 				<span class="font-bold md:text-lg lg:text-lg">Upload</span>
-				<input type="file" class="hidden" multiple on:change = {handleFileUpload} />
+				<input type="file" class="hidden" multiple on:change={handleFileUpload} />
 			</div>
 		</label>
 	</div>
@@ -91,9 +89,9 @@
 	<div class="ml-2 mt-2">
 		<button on:click={previewFile}>
 			{#if $isEyeIconChange}
-			<CloseEyeIcon/>
+				<CloseEyeIcon />
 			{:else}
-			<EyeIcon />
+				<EyeIcon />
 			{/if}
 		</button>
 	</div>
@@ -106,7 +104,7 @@
 		</div>
 	</div>
 	<svalte:fragment slot="body">
-		<div class="lms-table-wrapper rounded-2xl p-4 ">
+		<div class="lms-table-wrapper rounded-2xl p-4">
 			<table class="lms-table">
 				<thead>
 					<th class="!text-[15px]">Sr.No</th>
@@ -115,13 +113,17 @@
 				</thead>
 				<tbody>
 					{#if fileData.length > 0}
-						{#each fileData as file,index}
+						{#each fileData as file, index}
 							<tr>
 								<td class="!text-[15px]">{index + 1}</td>
 								<td class="!text-[15px]">{file.name}</td>
-								<td class="!text-[15px] flex items-center gap-2">
-								<button><DeleteIcon /></button>
-								<button on:click={() => previewParticularFile(file.url)}><EyeIcon width=20 height=20 /></button>
+								<td class="flex items-center gap-2 !text-[15px]">
+									{#if !isView}
+										<button on:click={() => handleDelete(file.name)}><DeleteIcon /></button>
+									{/if}
+									<button on:click={() => previewParticularFile(file.url)}
+										><EyeIcon width="20" height="20" /></button
+									>
 								</td>
 							</tr>
 						{/each}
@@ -143,9 +145,10 @@
 			<h2 class="text-lg font-semibold">File Preview</h2>
 		</div>
 	</div>
+
 	<svalte:fragment slot="body">
 		<div>
-			<iframe src={selectedFileUrl} class="min-h-[80vh] w-[100%] scroll small-scroll"></iframe>
+			<iframe src={selectedFileUrl} class="scroll small-scroll min-h-[80vh] w-[100%]"></iframe>
 		</div>
 	</svalte:fragment>
 	<div slot="footer">
