@@ -2,23 +2,62 @@
 	import { Modal } from '$lib/components/ui';
 	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
 	import { writable } from 'svelte/store';
-	import { DeleteIcon } from '$lib/components/icons';
+	import { DeleteIcon,EyeIcon,CloseEyeIcon } from '$lib/components/icons';
+	import {createEventDispatcher} from "svelte"
 
+	const dispatch = createEventDispatcher();
 	const isOpen = writable(false);
+	const isPreviewOpen = writable(false);
+	const isEyeIconChange = writable(false);
 	let modalwidthPercent: ModalSizes = 'md';
+	let fileUrl = '';
+	$: selectedFileUrl = fileUrl;
 
-	let fileData: any = [];
-	$: files = fileData;
+	let files: any = [];
+	$: fileData = files.map((file : any) => {
+		return {
+			name: file.name,
+			url: URL.createObjectURL(file),
+		};
+	});;
 
 	function previewFile() {
 		isOpen.set(true);
+		isEyeIconChange.set(true)
+	}
+
+	function previewParticularFile(url : string){
+		fileUrl = url;
+		isPreviewOpen.set(true);
+		isOpen.set(false);
+
 	}
 
 	const closeModal = () => {
 		isOpen.set(false);
+		isEyeIconChange.set(false)
+
 	};
 
-	function handleFiles() {}
+	const closePreviewModal = () => {
+		isPreviewOpen.set(false);
+		isEyeIconChange.set(false)
+	}
+	
+	$: console.log('filename ',files[0])
+
+	function handleFileUpload(event: Event) {
+		const input : any = event.target as HTMLInputElement;
+			files = Array.from(input.files);
+			const fileData = files.map((file : any) => ({
+				name: file.name,
+				url: URL.createObjectURL(file),
+			}));
+
+			dispatch('filesSelected', fileData);
+	}
+
+
 </script>
 
 <div class="flex items-center">
@@ -44,29 +83,18 @@
 					/>
 				</svg>
 				<span class="font-bold md:text-lg lg:text-lg">Upload</span>
-				<input type="file" class="hidden" multiple on:change={handleFiles} />
+				<input type="file" class="hidden" multiple on:change = {handleFileUpload} />
 			</div>
 		</label>
 	</div>
 
 	<div class="ml-2 mt-2">
 		<button on:click={previewFile}>
-			<svg
-				width="24"
-				height="24"
-				viewBox="0 0 24 24"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<path
-					d="M12.0001 14.7106C13.8403 14.7106 15.3322 13.2733 15.3322 11.5003C15.3322 9.72733 13.8403 8.29004 12.0001 8.29004C10.1598 8.29004 8.66797 9.72733 8.66797 11.5003C8.66797 13.2733 10.1598 14.7106 12.0001 14.7106Z"
-					fill="#D2232A"
-				/>
-				<path
-					d="M21.389 9.42857C20.097 7.40128 17.1581 4 12 4C6.84191 4 3.903 7.40128 2.61098 9.42857C2.21157 10.051 2 10.7683 2 11.5C2 12.2317 2.21157 12.949 2.61098 13.5714C3.903 15.5987 6.84191 19 12 19C17.1581 19 20.097 15.5987 21.389 13.5714C21.7884 12.949 22 12.2317 22 11.5C22 10.7683 21.7884 10.051 21.389 9.42857ZM12 16.3154C11.0115 16.3154 10.0451 16.033 9.22318 15.5039C8.40124 14.9747 7.76061 14.2227 7.38231 13.3428C7.00401 12.4629 6.90503 11.4947 7.09789 10.5606C7.29074 9.62646 7.76677 8.76844 8.46578 8.09499C9.16478 7.42154 10.0554 6.96292 11.0249 6.77712C11.9945 6.59131 12.9994 6.68668 13.9127 7.05114C14.826 7.41561 15.6066 8.03281 16.1558 8.8247C16.705 9.61659 16.9981 10.5476 16.9981 11.5C16.9968 12.7767 16.4698 14.0008 15.5328 14.9036C14.5957 15.8064 13.3252 16.3141 12 16.3154Z"
-					fill="#D2232A"
-				/>
-			</svg>
+			{#if $isEyeIconChange}
+			<CloseEyeIcon/>
+			{:else}
+			<EyeIcon />
+			{/if}
 		</button>
 	</div>
 </div>
@@ -78,21 +106,22 @@
 		</div>
 	</div>
 	<svalte:fragment slot="body">
-		<div class="lms-table-wrapper rounded-2xl p-4">
+		<div class="lms-table-wrapper rounded-2xl p-4 ">
 			<table class="lms-table">
 				<thead>
-					<th>Sr.No</th>
-					<th>Filename</th>
-					<th>Action</th>
+					<th class="!text-[15px]">Sr.No</th>
+					<th class="!text-[15px]">Filename</th>
+					<th class="!text-[15px]">Action</th>
 				</thead>
 				<tbody>
-					{#if files.length > 0}
-						{#each files as file, index}
+					{#if fileData.length > 0}
+						{#each fileData as file,index}
 							<tr>
-								<td>{index}</td>
-								<td>file</td>
-								<td>
-									<DeleteIcon />
+								<td class="!text-[15px]">{index + 1}</td>
+								<td class="!text-[15px]">{file.name}</td>
+								<td class="!text-[15px] flex items-center gap-2">
+								<button><DeleteIcon /></button>
+								<button on:click={() => previewParticularFile(file.url)}><EyeIcon width=20 height=20 /></button>
 								</td>
 							</tr>
 						{/each}
@@ -105,5 +134,21 @@
 	</svalte:fragment>
 	<div slot="footer">
 		<button class="lms-btn lms-primary-btn m-4" on:click={closeModal}>Close</button>
+	</div>
+</Modal>
+
+<Modal bind:isOpen={$isPreviewOpen} size="xl" on:close={closePreviewModal}>
+	<div slot="header">
+		<div class="border-b p-4">
+			<h2 class="text-lg font-semibold">File Preview</h2>
+		</div>
+	</div>
+	<svalte:fragment slot="body">
+		<div>
+			<iframe src={selectedFileUrl} class="min-h-[80vh] w-[100%] scroll small-scroll"></iframe>
+		</div>
+	</svalte:fragment>
+	<div slot="footer">
+		<button class="lms-btn lms-primary-btn m-4" on:click={closePreviewModal}>Close</button>
 	</div>
 </Modal>
