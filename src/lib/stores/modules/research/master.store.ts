@@ -1,5 +1,6 @@
 import type { CustomOptions } from "$lib/components/ui/select/helper.select";
 import { writable } from "svelte/store";
+import { any, number, unknown } from "zod";
 
 let url =new URL("http://localhost:9090/research");
 export const paginateUrl = writable<URL>(url);
@@ -26,3 +27,5 @@ export type ActionStore = {
 }
 
 export const actionStore = writable<ActionStore>({});
+
+export const fileDataStore = writable([{name : String , url : URL , id : number}]);
