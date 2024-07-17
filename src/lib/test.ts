@@ -8,7 +8,9 @@ import type { JournalPaper, JournalView, BookPublicationRender,
 	ConferenceRender,
 	conferenceDetails,
 	IPRRender,
-	patentRender
+	ResearchProjectRender,
+	patentRender,
+
 
  } from './types/modules/research/research-types';
 
@@ -83,6 +85,20 @@ export const SIDEBAR_URL = [
         icon: 'test',
 
         label: 'Patent Submission And Grant',
+
+        module: null,
+
+        child: []
+
+    }, 
+
+	{
+
+        url: '/research-project',
+
+        icon: 'test',
+
+        label: 'Research Project',
 
         module: null,
 
@@ -888,6 +904,101 @@ export const IPRHeaders : TableHeaders<IPRRender>[]=[
 
     },
 
+
+
+ ]; 
+
+
+ export const ResearchProjectHeaders : TableHeaders<ResearchProjectRender>[]=[
+
+    {
+
+        label: 'Nmims School',
+
+        key: 'nmims_school',
+
+        sortable: false,
+
+        classes: '',
+
+        showTooltip: false
+
+    },
+
+    {
+
+        label: 'Nmims Campus',
+
+        key: 'nmims_campus',
+
+        sortable: false,
+
+        classes: '',
+
+        showTooltip: false
+
+    },
+
+
+    {
+
+        label: 'Title of Project',
+
+        key: 'title',
+
+        sortable: false,
+
+        classes: '',
+
+        showTooltip: false
+
+    },
+
+    {
+
+        label: 'Funding Amount ',
+
+        key: 'funding_amount',
+
+        sortable: false,
+
+        classes: '',
+
+        showTooltip: false
+
+    },
+
+
+
+
+    {
+
+        label: 'Name of Funding Agency',
+
+        key: 'funding_agency',
+
+        sortable: false,
+
+        classes: '',
+
+        showTooltip: false
+
+    },
+
+
+    {
+
+        label: 'Thrust area of Research',
+
+        key: 'thrust_area',
+
+        sortable: false,
+
+        classes: '',
+
+        showTooltip: false
+
+    },
 
 
  ];

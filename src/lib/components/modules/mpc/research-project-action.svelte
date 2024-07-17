@@ -3,7 +3,7 @@
 
 	import { Modal } from '$lib/components/ui';
 
-	import type { patentRender } from '$lib/types/modules/research/research-types';
+	import type { ResearchProjectRender } from '$lib/types/modules/research/research-types';
 
 	import { createEventDispatcher, onMount } from 'svelte';
 
@@ -27,7 +27,7 @@
 
 	import { showConfirmation } from '$lib/components/ui/popup';
 
-	export let actionData: patentRender;
+	export let actionData: ResearchProjectRender;
 
 	const showMenu = writable<boolean>(false);
 	const menuPosition = writable<{ top: number; left: number }>({ top: 0, left: 0 });
@@ -83,10 +83,10 @@
 	$: console.log('ACTIONDATA Ankit >>>>>>>>>>>', actionData);
 	const isOpen = writable(false);
 	let modalwidthPercent: ModalSizes = 'md';
-	let patentId: number;
+	let iprId: number;
 
 	const openModal = async () => {
-		patentId = actionData.id;
+		iprId = actionData.id;
 		console.log('click called');
 
 		const message = 'Are you sure you want to delete this?';
@@ -105,10 +105,10 @@
 	};
 
 	async function handleDelete() {
-		console.log('delete button clicked', patentId);
+		console.log('delete button clicked', iprId);
 		isOpen.set(false);
 
-		const response = await fetch(`${PUBLIC_API_BASE_URL}/patent-submission-and-grant-delete?id=${patentId}`, {
+		const response = await fetch(`${PUBLIC_API_BASE_URL}/research-project-delete?id=${iprId}`, {
 			method: 'POST'
 		});
 
@@ -122,7 +122,7 @@
 		}
 
 		toast.success('Deleted Successfully!');
-		let url = new URL('http://localhost:9090/research/patent-submission-and-grant-paginate');
+		let url = new URL('http://localhost:9090/research/research-project-paginate');
 		paginateUrl.set(url);
 	}
 </script>
@@ -140,12 +140,12 @@
 		>
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 				<a
-					href="/patent-submission-and-grant/view/{actionData.id}"
+					href="/research-project/view/{actionData.id}"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">View</a
 				>
 				<a
-					href="/patent-submission-and-grant/edit/{actionData.id}"
+					href="/research-project/edit/{actionData.id}"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">Edit</a
 				>

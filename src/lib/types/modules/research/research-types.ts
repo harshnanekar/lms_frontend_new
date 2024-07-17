@@ -236,6 +236,7 @@ export type IPRRender = {
 
 
 export type patentRender = {
+	id: number;
 
 	title: string;
 
@@ -272,3 +273,44 @@ export type patentRender = {
     supporting_documents:string[];
 
 }; 
+
+
+
+export type ResearchProjectRender = {
+	id: number;
+
+    nmims_school : string[],
+
+    nmims_campus : string[],
+
+    title :string,
+
+    funding_amount :number,
+
+    funding_agency :string,
+
+    thrust_area:string,
+
+
+ };
+
+export type ResearchProjectData = {
+
+	title: string;
+	grant_proposal: number;
+	grant_type: number;
+	thrust_area: string;
+	grant_date: string;
+	funding_amount: number;
+	funding_agency: number;
+	duration: string;
+	scheme: number;
+	payment_date: string;
+	received_amount: number;
+	research_status: number;
+	faculty_id: number[];
+	supporting_documents: string[];
+	nmims_school: string[];
+	nmims_campus: string[];
+
+};

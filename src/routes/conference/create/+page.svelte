@@ -37,11 +37,11 @@
 	let enternalAuthors = data?.conferenceDetails?.enternalAuthors?.message;
 	let conferenceDocumentAbbr = data?.conferenceDetails?.conferenceDocumentAbbr;
 	let conference_abbr = conferenceDocumentAbbr
-		.filter((data) => data.abbr === 'cd')
-		.map((dt) => Number(dt.id))[0];
+		.filter((data: { abbr: string; }) => data.abbr === 'cd')
+		.map((dt: { id: any; }) => Number(dt.id))[0];
 	let award_abbr = conferenceDocumentAbbr
-		.filter((data) => data.abbr === 'ad')
-		.map((dt) => Number(dt.id))[0];
+		.filter((data: { abbr: string; }) => data.abbr === 'ad')
+		.map((dt: { id: any; }) => Number(dt.id))[0];
 	console.log('conference abbr ', conference_abbr, award_abbr);
 
 	console.log(

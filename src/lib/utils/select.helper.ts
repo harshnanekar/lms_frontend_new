@@ -232,4 +232,15 @@ export function getApplicantNames(data : any) :CustomOptions[] {
 	});
   
 	return statusArr;
+}  
+
+
+
+export function getResearchStatus(data : any) :CustomOptions[] {
+	let statusArr : any[] = [];
+	data.forEach((item : any) => {
+		statusArr.push({value: item.id, label: item.status});
+	});
+  
+	return statusArr;
 } 
