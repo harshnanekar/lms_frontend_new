@@ -100,7 +100,7 @@
 	};
 
 	let files: any = [];
-	$: console.log('files type ', files);
+	$: console.log('deleted files ', files);
 
 	async function handleSubmit() {
 		const journalObject: JournalPaperReq = {
@@ -156,15 +156,11 @@
 			journal_type: Number(obj.journal_type)
 		};
 
-		// const fileObject: FileReq = {
-		// 	documents: Array.from(files)
-		// };
 
 		console.log('files object ', files);
-		// for (let i = 0; i < files.length; i++) {
 
 		const fileObject: FileReq = {
-			documents: files
+			documents: files.map((f:any) => { return f.file })
 		};
 		console.log('fileObject ', fileObject);
 
@@ -180,11 +176,10 @@
 		// }
 
 		const formData = new FormData();
-
 		formData.append('journal_paper', JSON.stringify(journalObject));
 
 		Array.from(files).forEach((file: any) => {
-			formData.append('supporting_documents', file);
+			formData.append('supporting_documents', file.file);
 		});
 
 		for (let [key, value] of formData.entries()) {
@@ -270,6 +265,10 @@
 		};
 
 		publicationDate = null;
+	}
+
+	function handleDeleteFiles(event :CustomEvent){
+		files = event.detail;
 	}
 </script>
 
@@ -520,10 +519,9 @@
 				<label class="lms-label"
 					>Upload Supporting Documents<span class="text-primary">*</span></label
 				>
-				<File on:filesSelected={handleFiles} isView={false} />
+				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
 			</div>
 
-			<!-- <input type="file" bind:files multiple /> -->
 		</div>
 
 		<div class="flex gap-4 md:flex-row">
@@ -550,7 +548,6 @@
 							content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
 						}}
 						on:click={() => {
-							// remove the current date
 							publicationFormattedDate = null;
 						}}
 					>

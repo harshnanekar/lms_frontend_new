@@ -13,7 +13,7 @@
 	const isEyeIconChange = writable(false);
 	let modalwidthPercent: ModalSizes = 'md';
 	let fileUrl = '';
-	let files: File[] = [];
+	let files: any = [];
 	export let isView: boolean = false;
 
 	$: selectedFileUrl = fileUrl;
@@ -45,19 +45,23 @@
 
 	function handleFileUpload(event: Event) {
 		const input: any = event.target as HTMLInputElement;
-		files = Array.from(input.files || []);
-		const fileData = files.map((file: any) => ({
+		const fileData  = Array.from(input.files || []);
+		files = fileData.map((file: any) => ({
+			file,
 			name: file.name,
 			url: URL.createObjectURL(file),
 			id: generateRandomUUID()
 		}));
 
-		fileDataStore.set(fileData);
-		dispatch('filesSelected', fileData);
+		fileDataStore.set(files);
+		dispatch('filesSelected', files);
 	}
 
-	function handleDelete(file: any) {
-		fileDataStore.update((files) => files.filter((f: any) => f.id !== file));
+	function handleDelete(file : any) {
+		files = files.filter((f : any) => f.id !== file);
+		console.log('files display ',files)
+	    fileDataStore.update((files) => files.filter((f: any) => f.id !== file));
+		dispatch('deletedFiles',files);
 	}
 </script>
 
