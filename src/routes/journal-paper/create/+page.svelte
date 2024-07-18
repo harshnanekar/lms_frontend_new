@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { Input, DatePicker, DynamicSelect,File } from '$lib/components/ui';
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
@@ -100,7 +100,7 @@
 	};
 
 	let files: any = [];
-	console.log('indexes type ', obj.ugc_indexed, obj.gs_indexed, obj.wos_indexed);
+   $: console.log('files type ', files);
 
 	async function handleSubmit() {
 		const journalObject: JournalPaperReq = {
@@ -156,11 +156,18 @@
 			journal_type: Number(obj.journal_type)
 		};
 
-		const fileObject: FileReq = {
-			documents: Array.from(files)
-		};
+		// const fileObject: FileReq = {
+		// 	documents: Array.from(files)
+		// };
 
 		console.log('files object ', files);
+		for(let i = 0; i < files.length ; i++){
+
+			const fileObject: FileReq = {
+			documents: Array.from(files[i])
+		    };
+			console.log('fileObject ', fileObject);
+
 		const fileresult = validateWithZod(fileSchema, fileObject);
 		if (fileresult.errors) {
 			console.log(fileresult.errors);
@@ -170,6 +177,7 @@
 			});
 			return;
 		}
+	    }
 
 		const formData = new FormData();
 
@@ -220,6 +228,11 @@
 			clearForm();
 			goto('/journal-paper');
 		}
+	}
+
+	function handleFiles(event : any){
+     files = event.detail;
+	 console.log('files details', files);
 	}
 
 	function clearForm() {
@@ -502,7 +515,15 @@
 					</div>
 				</div>
 			</div>
-			<input type="file" bind:files multiple />
+            <div class="space-y-2">
+            <label class="lms-label">Upload Supporting Documents<span class="text-primary">*</span></label>		
+			<File 
+			on:filesSelected = {handleFiles}
+			isView = {false}
+			/>
+		    </div>
+			
+			<!-- <input type="file" bind:files multiple /> -->
 		</div>
 
 		<div class="flex gap-4 md:flex-row">

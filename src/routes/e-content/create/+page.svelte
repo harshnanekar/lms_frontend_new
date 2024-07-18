@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { Input, DatePicker, DynamicSelect ,File} from '$lib/components/ui';
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
@@ -13,6 +13,7 @@
 	import { EContentObj, type EContentReq } from '$lib/schemas/modules/research/master-validations';
 
 	let title = 'E-Content Development';
+	let files : any = [];
 
 	let publicationDate: Date | null = new Date();
 	publicationDate = null;
@@ -22,7 +23,7 @@
 		publicationFormattedDate = publicationDate;
 	}
 
-	let obj = {
+	let obj : any= {
 		faculty_name: '',
 		module: '',
 		module_platform: '',
@@ -96,6 +97,8 @@
 		};
 		publicationDate = null;
 	}
+
+
 </script>
 
 <Card {title}>

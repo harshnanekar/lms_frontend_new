@@ -5,6 +5,7 @@
 	import { writable } from 'svelte/store';
 	import { DeleteIcon, EyeIcon, CloseEyeIcon } from '$lib/components/icons';
 	import { createEventDispatcher } from 'svelte';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 
 	const dispatch = createEventDispatcher();
 	const isOpen = writable(false);
@@ -12,12 +13,11 @@
 	const isEyeIconChange = writable(false);
 	let modalwidthPercent: ModalSizes = 'md';
 	let fileUrl = '';
-	let files: any = [];
-	let isView: boolean = false;
+	let files: File[] = [];
+	export let isView: boolean = false;
 
 	$: selectedFileUrl = fileUrl;
-
-	$: fileData = files;
+	$: fileData = $fileDataStore;
 
 	function previewFile() {
 		isOpen.set(true);
@@ -26,6 +26,7 @@
 
 	function previewParticularFile(url: string) {
 		fileUrl = url;
+		console.log('url ',fileUrl)
 		isPreviewOpen.set(true);
 		isOpen.set(false);
 	}
@@ -40,27 +41,29 @@
 		isEyeIconChange.set(false);
 	};
 
-	$: console.log('filename ', files);
+	$: console.log('filename ', fileData);
 
 	function handleFileUpload(event: Event) {
 		const input: any = event.target as HTMLInputElement;
 		files = Array.from(input.files);
 		const fileData = files.map((file: any) => ({
-			name: file.name + generateRandomUUID(),
-			url: URL.createObjectURL(file)
+			name: file.name,
+			url: URL.createObjectURL(file),
+			id : generateRandomUUID()
 		}));
 
+		fileDataStore.set(fileData);
 		dispatch('filesSelected', fileData);
 	}
 
 	function handleDelete(file: any) {
-		files = files.filter((f: any) => f.name !== file);
+		fileDataStore.update(files => files.filter((f: any) => f.id !== file));
 	}
 </script>
 
 <div class="flex items-center">
 	<div
-		class="md:rounded-1 flex items-center justify-center rounded-[6px] border-2 border-red-200 sm:h-5 sm:w-full sm:py-6 md:h-5 md:w-24 md:px-16 md:py-4 lg:h-3 lg:w-36 lg:px-14 lg:py-6"
+		class="md:rounded-1 flex items-center justify-center rounded-[6px] border-2 border-red-200 sm:h-5 sm:w-full sm:py-6 md:h-5 md:w-24 md:px-16 md:py-4 lg:h-3 lg:w-36 lg:px-14 lg:py-5"
 	>
 		<label class="flex cursor-pointer items-center justify-center">
 			<div class="flex items-center justify-center gap-4">
@@ -80,7 +83,7 @@
 						fill="#D2232A"
 					/>
 				</svg>
-				<span class="font-bold md:text-lg lg:text-lg">Upload</span>
+				<span class="font-semibold md:text-lg lg:text-lg">Upload</span>
 				<input type="file" class="hidden" multiple on:change={handleFileUpload} />
 			</div>
 		</label>
@@ -119,7 +122,7 @@
 								<td class="!text-[15px]">{file.name}</td>
 								<td class="flex items-center gap-2 !text-[15px]">
 									{#if !isView}
-										<button on:click={() => handleDelete(file.name)}><DeleteIcon /></button>
+										<button on:click={() => handleDelete(file.id)}><DeleteIcon /></button>
 									{/if}
 									<button on:click={() => previewParticularFile(file.url)}
 										><EyeIcon width="20" height="20" /></button
@@ -128,7 +131,7 @@
 							</tr>
 						{/each}
 					{:else}
-						<tr><td class="col-span-3">No Files Found !</td></tr>
+						<tr><td colspan="3" class="text-center py-4 !text-[15px]">No Files Found!</td></tr>
 					{/if}
 				</tbody>
 			</table>
