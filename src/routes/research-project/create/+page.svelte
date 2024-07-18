@@ -159,9 +159,9 @@
 
     async function handleSubmit() {
     const researchProjectObj : ResearchProjectDetailsReq =  {
-		nmims_school: obj.nmims_school != null ? obj.nmims_school.map((data: { value: any; }) => data.value) : [],
-		nmims_campus: obj.nmims_campus != null ? obj.nmims_campus.map((data: { value: any; }) => data.value) : [],
-		research_status: obj.research_status != null ? Number(obj.research_status.value) : 0,
+		nmims_school: obj.nmims_school != null ? (obj.nmims_school as any).map((data: { value: any; }) => data.value) : [],
+		nmims_campus: obj.nmims_campus != null ? (obj.nmims_campus as any).map((data: { value: any; }) => data.value) : [],
+		research_status: obj.research_status != null ? Number((obj.research_status as any).value) : 0,
 		title: obj.title,
         thrust_area: obj.thrust_area,
 		grant_proposal: Number(obj.grant_proposal),
@@ -173,8 +173,8 @@
 		received_amount: Number(obj.received_amount),
         grant_date: grantFormattedDate, 
 		payment_date: paymentFormattedDate,
-		internal_authors: obj.internal_authors != null ? obj.internal_authors.map((data: { value: any; }) => Number(data.value)) : [],
-		external_authors: obj.external_authors != null ? obj.external_authors.map((data: { value: any; }) => Number(data.value)) : [],
+		internal_authors: obj.internal_authors != null ? (obj.internal_authors as any).map((data: { value: any; }) => Number(data.value)) : [],
+		external_authors: obj.external_authors != null ? (obj.external_authors as any).map((data: { value: any; }) => Number(data.value)) : [],
 		
 	};
 
@@ -195,7 +195,7 @@
     const formData = new FormData();
     formData.append('ipr_data', JSON.stringify(researchProjectObj));
 
-    Array.from(files).forEach((file) => {
+    Array.from(files).forEach((file : any) => {
         formData.append('supporting_documents', file);
     });
 
@@ -229,15 +229,14 @@
     }
 
     if (json[0].insert_research_project.status == 403) {
-        toast.error('ALERT!', { description: json[0].insert_research_project.message });
-    } else {
-        toast.success('Inserted Successfully');
-        clearForm();
-        goto('/research-project');
-    }
-}
-
-
+			toast.error('ALERT!', { description: json[0].insert_research_project.message });
+		} else {
+			toast.success('Inserted Successfully');
+            clearForm();
+			goto('/research-project');
+		}
+	};
+   
 
 
 

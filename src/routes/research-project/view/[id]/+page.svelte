@@ -11,35 +11,9 @@
     import { fly } from 'svelte/transition';
 
     import { Card } from '$lib/components/ui';
-
-
-
-
-
-
-    import { validateWithZod } from '$lib/utils/validations';
-
-    import {
-
-        researchProjectDetails,
-
-        type ResearchProjectDetailsReq
-
-    } from '$lib/schemas/modules/research/master-validations';
-
-    import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
-
     import { toast } from 'svelte-sonner';
-
-    import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
-
     import { PUBLIC_API_BASE_URL } from '$env/static/public';
-
-    import type { any } from 'zod';
-
-    import { goto } from '$app/navigation';
-
-
+  
 
 
     export let data: any;
@@ -136,13 +110,13 @@ async function downLoadFiles() {
       <div class="grid grid-cols-3 gap-[40px] p-4">
         <Input type="text" placeholder="Nmims School" value={obj.nmims_school} {disabled} />
         <Input type="text" placeholder="Nmims Campus" value={obj.nmims_campus} {disabled} />
-        <Input type="text" placeholder="Patent Status" bind:value ={obj.research_status} {disabled}/>
+        <Input type="text" placeholder="Patent Status" value ={obj.research_status} {disabled}/>
 
 
       </div>
       <div class="grid grid-cols-3 gap-[40px] p-4">
-        <Input type="text" placeholder="Title of Project" bind:value={obj.title} {disabled}/>
-        <Input type="text" placeholder="Thrust area of Research" bind:value={obj.thrust_area} {disabled}/>
+        <Input type="text" placeholder="Title of Project" value={obj.title} {disabled}/>
+        <Input type="text" placeholder="Thrust area of Research" value={obj.thrust_area} {disabled}/>
         <div class="ml-2">
             <!-- svelte-ignore a11y-label-has-associated-control -->
             <label class="text-sm text-[#888888]">
@@ -154,7 +128,7 @@ async function downLoadFiles() {
                         type="radio"
                         class="lms-input-radio w-4"
                         name="grant-proposal"
-                        bind:group={obj.grant_proposal}
+                        checked={obj.grant_proposal === 1}
                         value={1}
                         {disabled}/>
                     <span class="text-sm text-[#888888]">
@@ -165,7 +139,7 @@ async function downLoadFiles() {
                         type="radio"
                         class="lms-input-radio w-4"
                         name="grant-proposal"
-                        bind:group={obj.grant_proposal}
+                        checked={obj.grant_proposal === 2}
                         value={2} {disabled}
                     />
                     <span class="text-sm text-[#888888]">
@@ -187,8 +161,8 @@ async function downLoadFiles() {
                         type="radio"
                         class="lms-input-radio w-4"
                         name="grant-type"
-                        bind:group={obj.grant_type}
                         value={1} {disabled}
+                        checked={obj.grant_type === 1}
                     />
                     <span class="text-sm text-[#888888]">Research Project</span>
                 </div>
@@ -197,8 +171,9 @@ async function downLoadFiles() {
                         type="radio"
                         class="lms-input-radio w-4"
                         name="grant-type"
-                        bind:group={obj.grant_type} {disabled}
+                        {disabled}
                         value={2}
+                        checked={obj.grant_type === 2}
                     />
                     <span class="text-sm text-[#888888]"> Consultancy
                     </span>
@@ -208,20 +183,20 @@ async function downLoadFiles() {
                         type="radio"
                         class="lms-input-radio w-4"
                         name="grant-type"
-                        bind:group={obj.grant_type}
                         value={3} {disabled}
+                        checked={obj.grant_type === 3}
                     />
                     <span class="text-sm text-[#888888]">Capacity Building </span>
                 </div>
             </div>
         </div>            
-        <Input type="number" placeholder="Funding Amount" bind:value={obj.funding_amount} {disabled}/>
-        <Input type="text" placeholder="Name of Funding Agency " bind:value={obj.funding_agency} {disabled}/>
+        <Input type="number" placeholder="Funding Amount" value={obj.funding_amount} {disabled}/>
+        <Input type="text" placeholder="Name of Funding Agency " value={obj.funding_agency} {disabled}/>
       </div>
       <div class="grid grid-cols-3 gap-[40px] p-4">
-        <Input type="text" placeholder="Duration Of Project In Months" bind:value={obj.duration} {disabled}/>
-        <Input type="text" placeholder="Scheme" bind:value={obj.scheme} {disabled}/>
-        <Input type="number" placeholder="Amount Received" bind:value={obj.received_amount} {disabled}/>
+        <Input type="text" placeholder="Duration Of Project In Months" value={obj.duration} {disabled}/>
+        <Input type="text" placeholder="Scheme" value={obj.scheme} {disabled}/>
+        <Input type="number" placeholder="Amount Received" value={obj.received_amount} {disabled}/>
 
       </div>
       <div class="grid grid-cols-3 gap-[40px] p-4">
@@ -297,6 +272,7 @@ async function downLoadFiles() {
 {:else}
 	<p>No Data Found</p>
 {/if}
+
 
 
 

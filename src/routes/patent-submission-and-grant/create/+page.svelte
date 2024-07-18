@@ -34,6 +34,7 @@
 	import type { any } from 'zod';
 
 	import { goto } from '$app/navigation';
+	import { json } from '@sveltejs/kit';
 
 	export let data: any;
 
@@ -76,7 +77,7 @@
 	};
 
 
-	let publicationDate: Date | null = new Date();
+	let publicationDate: Date | null  = new Date();
 	publicationDate = null;
 	$: publicationFormattedDate = publicationDate ? formatDate(publicationDate) : null;
 
@@ -91,35 +92,29 @@
 	let showInternal = false;
 	let showExternal = false;
 
-	function handleInternalChange(event: { target: { checked: boolean } }) {
-		showInternal = event.target.checked;
-	}
 
-	function handleExternalChange(event: { target: { checked: boolean } }) {
-		showExternal = event.target.checked;
-	}
 
 	//submit function for sending data
 
 	async function handleSubmit() {
 		const patentObject: patentDetailsReq = {
 			
-			invention_type: obj.invention_type != null ? Number(obj.invention_type.value) : 0,
+			invention_type: obj.invention_type != null ? Number((obj.invention_type as any).value) : 0,
 			sdg_goals:
 				obj.sdg_goals != null
-					? obj.sdg_goals.map((data: { value: any }) => Number(data.value))
+					? (obj.sdg_goals as any).map((data: { value: any }) => Number(data.value))
 					: [],
-			patent_status: obj.patent_status != null ? Number(obj.patent_status.value) : 0,
+			patent_status: obj.patent_status != null ? Number((obj.patent_status as any).value) : 0,
 			title: obj.title,
 			appln_no: Number(obj.appln_no),
-			publication_date: publicationFormattedDate,
+			publication_date: publicationFormattedDate ? publicationFormattedDate : '',
 			internal_authors:
 				obj.internal_authors != null
-					? obj.internal_authors.map((data: { value: any }) => Number(data.value))
+					? (obj.internal_authors as any).map((data: { value: any }) => Number(data.value))
 					: [],
 			external_authors:
 				obj.external_authors != null
-					? obj.external_authors.map((data: { value: any }) => Number(data.value))
+					? (obj.external_authors as any).map((data: { value: any }) => Number(data.value))
 					: []
 		};
 
@@ -140,7 +135,7 @@
 		const formData = new FormData();
 		formData.append('patent_data', JSON.stringify(patentObject));
 
-		Array.from(files).forEach((file) => {
+		Array.from(files).forEach((file : any) => {
 			formData.append('supporting_documents', file);
 		});
 
@@ -251,7 +246,7 @@
 							id="internal-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-							on:change={handleInternalChange}
+                            bind:checked={showInternal}
 						/>
 						<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
 							>Internal</label
@@ -262,7 +257,7 @@
 							id="external-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-							on:change={handleExternalChange}
+                            bind:checked={showExternal}
 						/>
 						<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
 							>External</label

@@ -141,7 +141,7 @@
         console.log('publication date ', filedDate);
     }
 
-    function handleDateChange1(e: CustomEvent<any>) {
+    function handleGrandDate(e: CustomEvent<any>) {
         if (!grantDate) return;
         grantFormattedDate = formatDate(grantDate);
         console.log('grantDate ', grantDate);
@@ -160,13 +160,6 @@
     let showInternal = false;
 	let showExternal = false;
 
-	function handleInternalChange(event: { target: { checked: boolean } }) {
-		showInternal = event.target.checked;
-	}
-
-	function handleExternalChange(event: { target: { checked: boolean } }) {
-		showExternal = event.target.checked;
-	}
 
 
 
@@ -174,22 +167,22 @@
 
     async function handleSubmit() {
     const iprObject : iprDetailsReq =  {
-        nmims_school: obj.nmims_school != null ? obj.nmims_school.map((data: { value: any }) => data.value) : [],
-        nmims_campus: obj.nmims_campus != null ? obj.nmims_campus.map((data: { value: any }) => data.value) : [],
-        invention_type: obj.invention_type != null ? Number(obj.invention_type.value) : 0,
-        sdg_goals: obj.sdg_goals != null ? obj.sdg_goals.map((data: { value: any }) => Number(data.value)) : [],
-        patent_status: obj.patent_status != null ? Number(obj.patent_status.value) : 0,
+        nmims_school: obj.nmims_school != null ? (obj.nmims_school  as any).map((data: { value: any }) => data.value) : [],
+        nmims_campus: obj.nmims_campus != null ? (obj.nmims_campus  as any).map((data: { value: any }) => data.value) : [],
+        invention_type: obj.invention_type != null ? Number((obj.invention_type  as any).value) : 0,
+        sdg_goals: obj.sdg_goals != null ? (obj.sdg_goals  as any).map((data: { value: any }) => Number(data.value)) : [],
+        patent_status: obj.patent_status != null ? Number((obj.patent_status  as any).value) : 0,
         title: obj.title,
         appln_no: Number(obj.appln_no),
-        filed_date: publicationFormattedDate,
-        grant_date: grantFormattedDate,
-        published_date: publishedFormattedDate,
+        filed_date: publicationFormattedDate!= null ? publicationFormattedDate : '',
+        grant_date: grantFormattedDate != null ? grantFormattedDate : '',
+        published_date: publishedFormattedDate != null ? publishedFormattedDate : '',
         publication_no: Number(obj.publication_no),
         granted_no: Number(obj.granted_no),
         institute_affiliation: obj.institute_affiliation,
-        internal_authors: obj.internal_authors != null ? obj.internal_authors.map((data: { value: any }) => Number(data.value)) : [],
-        external_authors: obj.external_authors != null ? obj.external_authors.map((data: { value: any }) => Number(data.value)) : [],
-        applicant_names: obj.applicant_names != null ? obj.applicant_names.map((data: { value: any }) => Number(data.value)) : [],
+        internal_authors: obj.internal_authors != null ? (obj.internal_authors as any).map((data: { value: any }) => Number(data.value)) : [], 
+		external_authors: obj.external_authors != null ? (obj.external_authors as any).map((data: { value: any }) => Number(data.value)) : [],
+        applicant_names: obj.applicant_names != null ? (obj.applicant_names  as any).map((data: { value: any }) => Number(data.value)) : [],
     };
 
     const fileObject = {
@@ -370,11 +363,9 @@
             isMultiSelect={true}/>
             <input type="file" bind:files multiple />
         </div>
-        <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 p-4 md:grid-cols-2 lg:grid-cols-2">
             
             <div class="ml-2">
-                
-
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
 					>Details of Inventors<span class="text-danger text-sm">*</span>
@@ -385,7 +376,7 @@
 							id="internal-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-							on:change={handleInternalChange}
+                            bind:checked={showInternal}
 						/>
 						<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
 							>Internal</label
@@ -396,7 +387,7 @@
 							id="external-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-							on:change={handleExternalChange}
+                            bind:checked={showExternal}
 						/>
 						<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
 							>External</label
@@ -424,7 +415,7 @@
 					{/if}
 				</div>
 			</div>
-            <div class="flex flex-row gap-[40px] p-4">
+            <div class="flex flex-row gap-4 py-4">
 				<DatePicker
 					on:change={handleDateChange}
 					bind:selectedDateTime={filedDate}
@@ -451,18 +442,22 @@
 							}}
 							on:click={() => {
 								// remove the current date
-								publicationFormattedDate = null;
+								publicationFormattedDate = '';
 							}}
 						>
 							<XIcon />
 						</button>
 					</div>
 				{/if}
-			</div>
+                </div>
+        </div>
 
-            <div class="flex flex-row gap-[40px] p-4">
+        <div class="grid grid-cols-1 p-4 md:grid-cols-1 lg:grid-cols-2">
+
+            <div class="flex md:flex-row gap-4 py-4">
+				<!-- svelte-ignore missing-declaration -->
 				<DatePicker
-					on:change={handleDateChange1}
+					on:change={handleGrandDate}
 					bind:selectedDateTime={grantDate}
 					disabled={(grantDate) =>
 						grantDate.getTime() < new Date().setHours(0, 0, 0, 0)}
@@ -486,7 +481,7 @@
 							}}
 							on:click={() => {
 								// remove the current date
-								grantFormattedDate = null;
+								grantFormattedDate = '';
 							}}
 						>
 							<XIcon />
@@ -495,12 +490,7 @@
 				{/if}
 			</div>
 
-        </div>
-        <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-			
-
-    
-            <div class="flex flex-row gap-[40px] p-4">
+            <div class="flex md:flex-row gap-4 py-4">
 				<DatePicker
 					on:change={handleDateChange2}
 					bind:selectedDateTime={publishedDate}
@@ -509,7 +499,7 @@
 				>
 					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 						<SelectDateIcon />
-						<span class="text-body-2 font-bold">Add Patent /Invention Published Date</span>
+						<span class="text-body-2 font-bold">Add Invention Published Date</span>
 					</div>
 				</DatePicker>
 				{#if publishedFormattedDate}
@@ -526,7 +516,7 @@
 							}}
 							on:click={() => {
 								// remove the current date
-								publishedFormattedDate = null;
+								publishedFormattedDate = '';
 							}}
 						>
 							<XIcon />
@@ -534,16 +524,13 @@
 					</div>
 				{/if}
 			</div>
-		</div>
+        </div>
 
     </div>
 
     <div class="flex flex-row gap-[20px] p-4">
-
         <button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
-
         <button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
-
     </div>
 
 </Card>

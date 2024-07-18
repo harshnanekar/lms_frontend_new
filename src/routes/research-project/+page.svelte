@@ -26,7 +26,7 @@
 
     import { ResearchProjectHeaders } from '$lib/test';
 
-    import ResearchActions from '$lib/components/modules/mpc/research-project-action.svelte';
+    import ResearchProjectAction from '$lib/components/modules/mpc/research-project-action.svelte';
 
 
 
@@ -101,7 +101,7 @@
 
         <PaginateDynamic url={$paginateUrl} header={ResearchProjectHeaders} let:actionData>
 
-            <ResearchActions {actionData}  />
+            <ResearchProjectAction {actionData}  />
 
         </PaginateDynamic>
 

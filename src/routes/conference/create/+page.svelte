@@ -31,7 +31,6 @@
 
 	let nmimsSchool = data?.conferenceDetails?.school?.message;
 	let nmimsCampus = data?.conferenceDetails?.campus?.message;
-	let nmimsAuthors = data?.conferenceDetails?.nmimsAuthors?.message;
 	let masterAllAuthors = data?.conferenceDetails?.masterAllAuthors?.message;
 	let externalAuthors = data?.conferenceDetails?.externalAuthors?.message;
 	let enternalAuthors = data?.conferenceDetails?.enternalAuthors?.message;
@@ -51,7 +50,6 @@
 	console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool);
 
 	$: school = nmimsSchool;
-	$: nmimsAuth = nmimsAuthors;
 	$: allAuth = masterAllAuthors;
 	$: campus = nmimsCampus;
 	$: external = externalAuthors;
@@ -92,19 +90,14 @@
 		external_authors: null
 	};
 
-	let conferenceFiles: any = [];
+	let conferenceFiles:any = [];
 	let awardFiles: any = [];
+
+	$: console.log('conference file ',conferenceFiles,awardFiles)
 
 	let showInternal = false;
 	let showExternal = false;
 
-	function handleInternalChange(event: { target: { checked: boolean } }) {
-		showInternal = event.target.checked;
-	}
-
-	function handleExternalChange(event: { target: { checked: boolean } }) {
-		showExternal = event.target.checked;
-	}
 
 	async function handleSubmit() {
 	const conferenceObj: conferenceReq = {
@@ -139,24 +132,13 @@
 		return;
 	}
 
-	if (conferenceFiles.length === 0 || awardFiles.length === 0) {
-		if(conferenceFiles.length === 0){
-			toast.error('Conference documents  are required for submission');
-		}
-		if(awardFiles.length === 0){
-			toast.error('Conference award fils are required for submission');
-		}
-		return;
-	}
-
 	console.log('validated data', JSON.stringify(result.data));
 
 	const formData = new FormData();
 	formData.append('conference_publication', JSON.stringify(conferenceObj));
 
-	Array.from(conferenceFiles).forEach((file: any) => {
 		const fileObject: FileReq = {
-			documents: [file],
+			documents : Array.from(conferenceFiles)
 		};
 
 		console.log('fileObject ===>>>>', fileObject);
@@ -169,26 +151,31 @@
 			});
 			return;
 		}
+		console.log('conference files ',fileresult.data)
+		Array.from(conferenceFiles).forEach((file: any) => {
 		formData.append(conference_abbr, file);
-	});
+		})
 
-	Array.from(awardFiles).forEach((file: any) => {
-		const fileObject: FileReq = {
-			documents: [file],
+
+		const fileObjects: FileReq = {
+			documents : Array.from(awardFiles)
 		};
-		const fileresult = validateWithZod(fileSchema, fileObject);
-		if (fileresult.errors) {
-			console.log(fileresult.errors);
-			const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
+		const fileresults = validateWithZod(fileSchema, fileObjects);
+		if (fileresults.errors) {
+			console.log(fileresults.errors);
+			const [firstPath, firstMessage] = Object.entries(fileresults.errors)[0];
 			toast.error('ALERT!', {
 				description: firstMessage as string,
 			});
 			return;
 		}
-		formData.append(award_abbr, file);
-	});
+		console.log('award files ',fileresults.data)
 
-	for (let [key, value] of formData.entries()) {
+		Array.from(awardFiles).forEach((file: any) => {
+		formData.append(award_abbr, file);
+		})
+
+	 for (let [key, value] of formData.entries()) {
 		console.log(`${key}: ${value}`);
 	}
 
@@ -215,9 +202,6 @@
 		goto('/conference');
 	}
 }
-
-
-
 
 	function clearForm() {
 		obj = {
@@ -386,31 +370,36 @@
 				<label class="text-sm text-[#888888]"
 					>Name Of Co-Authors<span class="text-danger text-sm">*</span>
 				</label>
-				<div class="mt-2.5 flex gap-5">
+				<div class="mt-2.5 flex gap-8">
 					<div class="flex items-center">
 						<input
 							id="internal-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-							on:change={handleInternalChange}
+                            bind:checked={showInternal}
 						/>
-						<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
+						<label for="internal-checkbox" class="lms-label"
 							>Internal</label
 						>
+
 					</div>
 					<div class="flex items-center">
 						<input
 							id="external-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-							on:change={handleExternalChange}
+                            bind:checked={showExternal}
 						/>
-						<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
+						<label for="external-checkbox" class="lms-label"
 							>External</label
 						>
+
 					</div>
 				</div>
-				<div class="flex items-center gap-x-3">
+
+
+				<div class="flex items-center gap-8 mt-6">
+					<div>
 					{#if showInternal}
 						<DynamicSelect
 							isRequired={true}
@@ -420,6 +409,9 @@
 							isMultiSelect={true}
 						/>
 					{/if}
+				   </div>
+
+				   <div>
 					{#if showExternal}
 						<DynamicSelect
 							isRequired={true}
@@ -429,7 +421,10 @@
 							isMultiSelect={true}
 						/>
 					{/if}
+				   </div>
 				</div>
+
+
 			</div>
 			<div>
 				<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -447,7 +442,7 @@
 				<input type="file" bind:files={awardFiles} multiple />
 			</div>
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<!-- <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3"> -->
 			<div class="flex flex-row gap-[40px] p-4">
 				<DatePicker
 					on:change={handleDateChange}
@@ -482,7 +477,7 @@
 					</div>
 				{/if}
 			</div>
-		</div>
+		<!-- </div> -->
 	</div>
 	<div class="flex flex-col gap-4 p-4 md:flex-row">
 		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>

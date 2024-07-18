@@ -121,7 +121,7 @@ async function downLoadFiles() {
 
 {#if checkData}
 <Card {title}>
-    <div class="min-h-[50vh] overflow-auto scroll modal-content max-h-[70vh]"> <!-- Adjust max-height as needed -->
+    <div class="modal-content p-4"> <!-- Adjust max-height as needed -->
       <div class="grid grid-cols-3 gap-[40px] p-4">
         <Input type="text" placeholder="Title of Patent / Invention" bind:value ={obj.title} {disabled}/>
         <Input type="text" placeholder="Type of Invention(IPR)" value={obj.invention_type} {disabled} />
@@ -186,7 +186,6 @@ async function downLoadFiles() {
 
        
       </div>
-  
     </div>
 </Card>
 {:else}

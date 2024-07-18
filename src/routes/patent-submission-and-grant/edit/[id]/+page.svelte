@@ -139,13 +139,6 @@
     let showInternal = false;
 	let showExternal = false;
 
-	function handleInternalChange(event: { target: { checked: boolean } }) {
-		showInternal = event.target.checked;
-	}
-
-	function handleExternalChange(event: { target: { checked: boolean } }) {
-		showExternal = event.target.checked;
-	}
 
 
 
@@ -224,7 +217,7 @@
     if (json[0].upsert_patent_grant.status == 403) {
         toast.error('ALERT!', { description: json[0].upsert_patent_grant.message });
     } else {
-        toast.success('updated Successfully');
+        toast.success('Updated Successfully');
         goto('/patent-submission-and-grant');
     }
 }
@@ -275,14 +268,12 @@ async function downLoadFiles() {
             placeholder="Type of Invention(IPR) "
             options={getInventionType(inventionType)}
             bind:selectedOptions={obj.invention_type} isMultiSelect={false}/>
-
             <DynamicSelect
             isRequired={true}
-            placeholder="Sustainable Development Goals (SDG)?"
-            options={getSdgGoals(sdgGoals)}
-            bind:selectedOptions={obj.sdg_goals}
-            isMultiSelect={true}/>
-
+            placeholder="Patent Status"
+            options={getPatentStatus(patetntStatus)}
+            bind:selectedOptions={obj.patent_status}
+            isMultiSelect={false}/>
 
         </div>
 
@@ -293,10 +284,10 @@ async function downLoadFiles() {
         <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
             <DynamicSelect
             isRequired={true}
-            placeholder="Patent Status"
-            options={getPatentStatus(patetntStatus)}
-            bind:selectedOptions={obj.patent_status}
-            isMultiSelect={false}/>
+            placeholder="Sustainable Development Goals (SDG)?"
+            options={getSdgGoals(sdgGoals)}
+            bind:selectedOptions={obj.sdg_goals}
+            isMultiSelect={true}/>
 
             <Input type="number" placeholder="Patent/Invention Application Number" bind:value={obj.appln_no} />
             <div>
@@ -329,7 +320,7 @@ async function downLoadFiles() {
 							id="internal-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-							on:change={handleInternalChange}
+                            bind:checked={showInternal}
 						/>
 						<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
 							>Internal</label
@@ -340,7 +331,7 @@ async function downLoadFiles() {
 							id="external-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-							on:change={handleExternalChange}
+                            bind:checked={showExternal}
 						/>
 						<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
 							>External</label

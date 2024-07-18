@@ -189,13 +189,7 @@
     let showInternal = false;
 	let showExternal = false;
 
-	function handleInternalChange(event: { target: { checked: boolean } }) {
-		showInternal = event.target.checked;
-	}
 
-	function handleExternalChange(event: { target: { checked: boolean } }) {
-		showExternal = event.target.checked;
-	}
 
 
 
@@ -222,11 +216,6 @@
         applicant_names: obj.applicant_names != null ? obj.applicant_names.map((data: { value: any }) => Number(data.value)) : [],
     };
 
-   
-
-
-    
-
     if (checkVal) {
 			const fileObject: FileReq = {
 				documents: Array.from(files)
@@ -246,7 +235,7 @@
     formData.append('update_ipr_data', JSON.stringify(iprObject));
     formData.append('ipr_id', obj.ipr_id);
 
-    Array.from(files).forEach((file) => {
+    Array.from(files).forEach((file : any) => {
         formData.append('supporting_documents', file);
     });
 
@@ -282,7 +271,7 @@
     if (json[0].upsert_ipr.status == 403) {
         toast.error('ALERT!', { description: json[0].upsert_ipr.message });
     } else {
-        toast.success('updated Successfully');
+        toast.success('Updated Successfully');
         goto('/ipr');
     }
 }
@@ -417,7 +406,7 @@ async function downLoadFiles() {
 							id="internal-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-							on:change={handleInternalChange}
+                            bind:checked={showInternal}
 						/>
 						<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
 							>Internal</label
@@ -428,7 +417,7 @@ async function downLoadFiles() {
 							id="external-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-							on:change={handleExternalChange}
+                            bind:checked={showExternal}
 						/>
 						<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
 							>External</label

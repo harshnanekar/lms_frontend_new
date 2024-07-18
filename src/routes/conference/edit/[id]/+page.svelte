@@ -31,17 +31,16 @@
 
 	let nmimsSchool = data?.conferenceDetails?.school?.message;
 	let nmimsCampus = data?.conferenceDetails?.campus?.message;
-	let nmimsAuthors = data?.conferenceDetails?.nmimsAuthors?.message;
 	let masterAllAuthors = data?.conferenceDetails?.masterAllAuthors?.message;
 	let externalAuthors = data?.conferenceDetails?.externalAuthors?.message;
 	let enternalAuthors = data?.conferenceDetails?.enternalAuthors?.message;
 	let conferenceDocumentAbbr = data?.conferenceDetails?.conferenceDocumentAbbr;
 	let conference_abbr = conferenceDocumentAbbr
-		.filter((data) => data.abbr === 'cd')
-		.map((dt) => Number(dt.id))[0];
+		.filter((data: { abbr: string; }) => data.abbr === 'cd')
+		.map((dt: { id: any; }) => Number(dt.id))[0];
 	let award_abbr = conferenceDocumentAbbr
-		.filter((data) => data.abbr === 'ad')
-		.map((dt) => Number(dt.id))[0];
+		.filter((data: { abbr: string; }) => data.abbr === 'ad')
+		.map((dt: { id: any; }) => Number(dt.id))[0];
 	console.log('conference abbr ', conference_abbr, award_abbr);
 
 	console.log(
@@ -51,13 +50,12 @@
 	console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool);
 
 	$: school = nmimsSchool;
-	$: nmimsAuth = nmimsAuthors;
 	$: allAuth = masterAllAuthors;
 	$: campus = nmimsCampus;
 	$: external = externalAuthors;
 	$: internal = enternalAuthors;
 
-	console.log('external ===>>>>>>', external);
+	console.log('external ===>>>>>>', externalAuthors);
 	console.log('internal ===>>>>>>', internal);
 	console.log('campus ===>>>>>>', campus);
 
@@ -82,9 +80,8 @@
 
 	console.log('JSON.stringify(school)', JSON.stringify(school));
     console.log('conference details', JSON.stringify(data.conferenceDetails));
-    let facultyDetails = data.conferenceDetails.conferenceDetails[0].faculty_details || [];
-
-    console.log('facultyDetails ===>>>>>', facultyDetails);
+ 
+    $: console.log('facultyDetails ===>>>>>',JSON.stringify(data.conferenceDetails.conferenceDetails));
     
 
 	let obj: any = {
@@ -94,51 +91,58 @@
             return { value: dt, label: dt };
         })
         : [],
-    nmims_campus: data.conferenceDetails.conferenceDetails[0].nmims_campus != null
+    nmims_campus:   data.conferenceDetails.conferenceDetails[0].nmims_campus != null
         ? data.conferenceDetails.conferenceDetails[0].nmims_campus.map((dt: any) => {
             return { value: dt, label: dt };
         })
         : [],
     paper_title: data.conferenceDetails.conferenceDetails[0].paper_title ? data.conferenceDetails.conferenceDetails[0].paper_title : '',
-    conference_name: data.conferenceDetails.conferenceDetails[0].conference_name ? data.conferenceDetails.conferenceDetails[0].conference_name : '',
-    all_authors: data.conferenceDetails.conferenceDetails[0].all_authors != null
+    conference_name:  data.conferenceDetails.conferenceDetails[0].conference_name ? data.conferenceDetails.conferenceDetails[0].conference_name : '',
+    all_authors:  data.conferenceDetails.conferenceDetails[0].all_authors != null
         ? data.conferenceDetails.conferenceDetails[0].all_authors.map((dt: any) => {
             return { value: dt.id, label: dt.name };
         })
         : [],
-    place: data.conferenceDetails.conferenceDetails[0].place ? data.conferenceDetails.conferenceDetails[0].place : '',
-    proceeding_published: data.conferenceDetails.conferenceDetails[0].proceeding_published,
-    conference_type: Number(data.conferenceDetails.conferenceDetails[0].conference_type),
-    presenting_author: data.conferenceDetails.conferenceDetails[0].presenting_author ? data.conferenceDetails.conferenceDetails[0].presenting_author : '',
-    organizing_body: data.conferenceDetails.conferenceDetails[0].organizing_body ? data.conferenceDetails.conferenceDetails[0].organizing_body : '',
-    volume_no: data.conferenceDetails.conferenceDetails[0].volume_no ? data.conferenceDetails.conferenceDetails[0].volume_no : '',
-    issn_no: data.conferenceDetails.conferenceDetails[0].issn_no ? data.conferenceDetails.conferenceDetails[0].issn_no : '',
-    sponsored: Number(data.conferenceDetails.conferenceDetails[0].sponsored),
-    doi_no: data.conferenceDetails.conferenceDetails[0].doi_no ? data.conferenceDetails.conferenceDetails[0].doi_no : '',
-    amount: data.conferenceDetails.conferenceDetails[0].amount ? data.conferenceDetails.conferenceDetails[0].amount : '',
+    place:  data.conferenceDetails.conferenceDetails[0].place ? data.conferenceDetails.conferenceDetails[0].place : '',
+    proceeding_published:  data.conferenceDetails.conferenceDetails[0].proceeding_published,
+    conference_type:  Number(data.conferenceDetails.conferenceDetails[0].conference_type),
+    presenting_author:  data.conferenceDetails.conferenceDetails[0].presenting_author ? data.conferenceDetails.conferenceDetails[0].presenting_author : '',
+    organizing_body:  data.conferenceDetails.conferenceDetails[0].organizing_body ? data.conferenceDetails.conferenceDetails[0].organizing_body : '',
+    volume_no:  data.conferenceDetails.conferenceDetails[0].volume_no ? data.conferenceDetails.conferenceDetails[0].volume_no : '',
+    issn_no:  data.conferenceDetails.conferenceDetails[0].issn_no ? data.conferenceDetails.conferenceDetails[0].issn_no : '',
+    sponsored:  Number(data.conferenceDetails.conferenceDetails[0].sponsored),
+    doi_no:  data.conferenceDetails.conferenceDetails[0].doi_no ? data.conferenceDetails.conferenceDetails[0].doi_no : '',
+    amount:  data.conferenceDetails.conferenceDetails[0].amount ? data.conferenceDetails.conferenceDetails[0].amount : '',
     publication_date: publicationFormattedDate != null ? formatDate(publicationFormattedDate) : '',
-    internal_authors: facultyDetails.filter((author: any) => author.abbr === 'int').map((author: any) => ({ value: author.id, label: author.faculty_name })),
-    external_authors: facultyDetails.filter((author: any) => author.abbr === 'ext').map((author: any) => ({ value: author.id, label: author.faculty_name }))
+	internal_authors: data.conferenceDetails.conferenceDetails[0].internal_faculty && data.conferenceDetails.conferenceDetails[0].internal_faculty.length > 0
+      ? data.conferenceDetails.conferenceDetails[0].internal_faculty.map((dt: any) => {
+            return { value: dt.id, label: dt.faculty_name };
+        })
+      : null,
+    external_authors: data.conferenceDetails.conferenceDetails[0].external_faculty && data.conferenceDetails.conferenceDetails[0].external_faculty.length > 0
+      ? data.conferenceDetails.conferenceDetails[0].external_faculty.map((dt: any) => {
+            return { value: dt.id, label: dt.faculty_name };
+        })
+      : null
 };
 
-	let conferenceFiles: any = [];
-	let awardFiles: any = [];
 
 	let showInternal = false;
 	let showExternal = false;
 
-	function handleInternalChange(event: { target: { checked: boolean } }) {
-		showInternal = event.target.checked;
-	}
+	$: console.log('final obj ',JSON.stringify(obj))
+	
+    showInternal = obj.internal_authors != null ?  true : false
+    showExternal = obj.external_authors != null ? true : false
 
-	function handleExternalChange(event: { target: { checked: boolean } }) {
-		showExternal = event.target.checked;
-	}
+	$: showInternalFaculty = showInternal;
+	$: showExternalFaculty = showExternal;
+
+	let conferenceFiles: any = [];
+	let awardFiles: any = [];
 
 	async function handleSubmit() {
 		
-
-
 		const conferenceObj: conferenceReq = {
 
 			nmims_school:
@@ -166,6 +170,9 @@
             internal_authors: obj.internal_authors != null ? obj.internal_authors.map((data: { value: any }) => Number(data.value)) : [],
             external_authors: obj.external_authors != null ? obj.external_authors.map((data: { value: any }) => Number(data.value)) : [],
         }
+
+	
+	
 		const result = validateWithZod(conferenceData, conferenceObj);
 
 		if (result.errors) {
@@ -183,18 +190,11 @@
 		formData.append('update_conference_publication', JSON.stringify(conferenceObj));
 		formData.append('conference_id', JSON.stringify(obj.conference_id));
 
-		// Append each file to the FormData with their respective keys
-        // Array.from(conferenceFiles).forEach((file: any) => {
-        //     formData.append(conference_abbr, file);
-        // });
 
         if (checkDoc) {
-            if(conferenceFiles.length === 0){
-			toast.error('Conference documents  are required for submission');
-		}
-            Array.from(conferenceFiles).forEach((file: any) => {
+
             const fileObject: FileReq = {
-                documents: [file] 
+                documents: Array.from(conferenceFiles) 
             };
             const fileresult = validateWithZod(fileSchema, fileObject);
             if (fileresult.errors) {
@@ -205,21 +205,16 @@
                 });
                 return;
         }
-        formData.append(conference_abbr, file);
-    });
+				Array.from(conferenceFiles).forEach((file: any) => {	
+				formData.append(conference_abbr, file);
+				});
         } 
 
-        // Array.from(awardFiles).forEach((file: any) => {
-        //     formData.append(award_abbr, file);
-        // }); 
+      
 
         if (checkAward) {
-            if(awardFiles.length === 0){
-                toast.error('Conference award fils are required for submission');
-            }
-            Array.from(awardFiles).forEach((file: any) => {
             const fileObject: FileReq = {
-                documents: [file] 
+                documents: Array.from(awardFiles)
             };
             const fileresult = validateWithZod(fileSchema, fileObject);
             if (fileresult.errors) {
@@ -230,8 +225,9 @@
                 });
                 return;
         }
-        formData.append(award_abbr, file);
-    });
+		 Array.from(awardFiles).forEach((file: any) => {
+          formData.append(award_abbr, file);
+         });
         }
 	
 
@@ -261,36 +257,6 @@
 			goto('/conference');
 		}
 	}
-
-
-
-	// function clearForm() {
-	// 	obj = {
-	// 		nmims_school: null,
-	// 		nmims_campus: null,
-	// 		paper_title: '',
-	// 		conference_name: '',
-	// 		all_authors: null,
-	// 		place: '',
-	// 		proceeding_published: true,
-	// 		conference_type: 1,
-	// 		presenting_author: '',
-	// 		organizing_body: '',
-	// 		volume_no: '',
-	// 		issn_no: '',
-	// 		publication_date: '',
-	// 		enternal: '',
-	// 		external: '',
-	// 		doi_no: '',
-	// 		sponsored: 1,
-	// 		amount: '',
-	// 		internal_authors: null,
-	// 		external_authors: null
-	// 	};
-	// 	conferenceFiles = [];
-	// 	awardFiles = [];
-	// } 
-
 
     async function downLoadFiles(abbr: string) {
 		fetch(`${PUBLIC_API_BASE_URL}/conference-download-files?id=${obj.conference_id}&abbr=${abbr}`)
@@ -454,18 +420,85 @@
 
 
 		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+
+
 			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
 					>Name Of Co-Authors<span class="text-danger text-sm">*</span>
 				</label>
+				<div class="mt-2.5 flex gap-[100px]">
+					<div class="flex items-center">
+						<input
+							id="internal-checkbox"
+							type="checkbox"
+							class="lms-input-radio w-4"
+                            bind:checked={showInternal}
+						/>
+						<label for="internal-checkbox" class="lms-label"
+							>Internal</label
+						>
+
+					</div>
+					<div class="flex items-center">
+						<input
+							id="external-checkbox"
+							type="checkbox"
+							class="lms-input-radio w-4"
+                            bind:checked={showExternal}
+						/>
+						<label for="external-checkbox" class="lms-label"
+							>External</label
+						>
+
+					</div>
+				</div>
+
+				
+				<div class="flex items-center gap-8 mt-6">
+					<div>
+					{#if showInternalFaculty}
+						<DynamicSelect
+							isRequired={true}
+							placeholder="Internal Authors"
+							options={getEnternalAuthors(internal)}
+							bind:selectedOptions={obj.internal_authors}
+							isMultiSelect={true}
+						/>
+					{/if}
+				   </div>
+
+				   <div>
+					{#if showExternalFaculty}
+						<DynamicSelect
+							isRequired={true}
+							placeholder="External Authors"
+							options={getExternalAuthors(external)}
+							bind:selectedOptions={obj.external_authors}
+							isMultiSelect={true}
+						/>
+					{/if}
+				   </div>
+				</div>
+			</div>
+
+
+
+			   
+			<!-- <div class="ml-2">
+
+				<label class="text-sm text-[#888888]"
+					>Name Of Co-Authors<span class="text-danger text-sm">*</span>
+				</label>
+
 				<div class="mt-2.5 flex md:flex-row gap-[20px]">
+
 					<div class="flex md:flex-row items-center">
 						<input
 							id="internal-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-							on:change={handleInternalChange}
+                            bind:checked={showInternalFaculty}
 						/>
 						<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
 							>Internal</label
@@ -476,15 +509,18 @@
 							id="external-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-							on:change={handleExternalChange}
+                            bind:checked={showExternalFaculty}
 						/>
 						<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
 							>External</label
 						>
 					</div>
+
 				</div>
-				<div class="grid grid-row-2 items-center mt-2 gap-4">
-					{#if showInternal}
+
+				<div class="gap-8 mt-2">
+					<div>
+					{#if showInternalFaculty}
 						<DynamicSelect
 							isRequired={true}
 							placeholder="Internal Authors"
@@ -493,7 +529,10 @@
 							isMultiSelect={true}
 						/>
 					{/if}
-					{#if showExternal}
+				   </div>
+
+				<div>
+					{#if showExternalFaculty}
 						<DynamicSelect
 							isRequired={true}
 							placeholder="External Authors"
@@ -502,8 +541,9 @@
 							isMultiSelect={true}
 						/>
 					{/if}
+				</div>	
 				</div>
-			</div>
+			</div> -->
 
             <!-- Upload Conference Documents -->
             <div>
@@ -531,8 +571,7 @@
 	
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-			<div class="flex flex-row gap-[40px] p-4">
+			<div class="flex md:flex-row gap-[40px] p-4">
 				<DatePicker
 					on:change={handleDateChange}
 					bind:selectedDateTime={publicationDate}
@@ -566,7 +605,6 @@
 					</div>
 				{/if}
 			</div>
-		</div>
 	</div>
 	<div class="flex flex-col gap-4 p-4 md:flex-row">
 		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Update</button>

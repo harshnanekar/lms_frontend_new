@@ -42,14 +42,14 @@
 
 
 	let obj: any = {
-    conference_id: parseInt(data.conferenceDetails[0].conference_id),
-    nmims_school: data.conferenceDetails[0].nmims_school ? data.conferenceDetails[0].nmims_school : '',
+    conference_id: checkData ? parseInt(data.conferenceDetails[0].conference_id) : null,
+    nmims_school: checkData && data.conferenceDetails[0].nmims_school ? data.conferenceDetails[0].nmims_school : '',
     nmims_campus: data.conferenceDetails[0].nmims_campus ? data.conferenceDetails[0].nmims_campus : '',
     paper_title: data.conferenceDetails[0].paper_title ? data.conferenceDetails[0].paper_title : '',
     all_authors: data.conferenceDetails[0].all_authors ? data.conferenceDetails[0].all_authors : '',
     conference_name: data.conferenceDetails[0].conference_name ? data.conferenceDetails[0].conference_name : '',
     place: data.conferenceDetails[0].place ? data.conferenceDetails[0].place : '',
-    proceeding_published: data.conferenceDetails[0].proceeding_published ? data.conferenceDetails[0].proceeding_published : '',
+    proceeding_published: data.conferenceDetails[0].proceeding_published,
     conference_type: Number(data.conferenceDetails[0].conference_type),
     presenting_author: data.conferenceDetails[0].presenting_author ? data.conferenceDetails[0].presenting_author : '',
     organizing_body: data.conferenceDetails[0].organizing_body ? data.conferenceDetails[0].organizing_body : '',
@@ -132,8 +132,8 @@ $: publicationFormattedDate = publicationDate;
 							type="radio"
 							class="lms-input-radio w-4"
 							name="proceedings-published"
-							bind:group={obj.proceeding_published}
 							value={true}
+							checked={obj.proceeding_published === true} {disabled}
 						/>
 						<span class="text-sm text-[#888888]">Yes</span>
 					</div>
@@ -142,8 +142,8 @@ $: publicationFormattedDate = publicationDate;
 							type="radio"
 							class="lms-input-radio w-4"
 							name="proceedings-published"
-							bind:group={obj.proceeding_published}
-							value={false}
+							checked={obj.proceeding_published === false}
+							value={false} {disabled}
 						/>
 						<span class="text-sm text-[#888888]">No</span>
 					</div>
@@ -161,8 +161,9 @@ $: publicationFormattedDate = publicationDate;
 							type="radio"
 							class="lms-input-radio w-4"
 							name="conference-type"
-							bind:group={obj.conference_type}
-							value={1}
+							checked={obj.conference_type === 1}
+							value={2}
+							{disabled}	
 						/>
 						<span class="text-sm text-[#888888]">International </span>
 					</div>
@@ -171,8 +172,9 @@ $: publicationFormattedDate = publicationDate;
 							type="radio"
 							class="lms-input-radio w-4"
 							name="conference-type"
-							bind:group={obj.conference_type}
+							checked={obj.conference_type === 2}
 							value={2}
+							{disabled}
 						/>
 						<span class="text-sm text-[#888888]"> National</span>
 					</div>
@@ -198,9 +200,9 @@ $: publicationFormattedDate = publicationDate;
 							id="html"
 							class="lms-input-radio w-4"
 							name="radio-button-national"
-							bind:group={obj.sponsored}
 							checked={obj.sponsored == 1}
 							value={1}
+							{disabled}
 						/>
 						<span class="text-sm text-[#888888]">NMIMS </span>
 					</div>
@@ -210,8 +212,9 @@ $: publicationFormattedDate = publicationDate;
 							id="html"
 							class="lms-input-radio w-4"
 							name="radio-button-national"
-							bind:group={obj.sponsored}
+							checked={obj.sponsored == 2}
 							value={2}
+							{disabled}
 						/>
 						<span class="text-sm text-[#888888]"> Other</span>
 					</div>
@@ -244,7 +247,7 @@ $: publicationFormattedDate = publicationDate;
                 </div>
                 
 		</div>
-        <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
             
             <div class="lms-input-container flex flex-row gap-2">
                 <input
@@ -262,32 +265,34 @@ $: publicationFormattedDate = publicationDate;
                     ><i class="fa-solid fa-download text-lg"></i></button
                 >
             </div>
-            <div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-                <SelectDateIcon />
-                <span class="text-body-2 font-bold">Publication Date</span>
-            </div>
-            {#if publicationFormattedDate}
-                {@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
-                <div
-                    class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-                    in:fly={{ x: -100, duration: 300 }}
-                    out:fly={{ x: 100, duration: 300 }}
-                >
-                    <p class="m-0 p-0">{formattedDate}</p>
-                    <button
-                        use:tooltip={{
-                            content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-                        }}
-                    >
-                    </button>
-                </div>
-            {/if}
 
-           
+			<div class="flex md:flex-row gap-4">
+				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+					<SelectDateIcon />
+					<span class="text-body-2 font-bold">Publication Date</span>
+				</div>
+				{#if publicationFormattedDate}
+					{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
+					<div
+						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+						in:fly={{ x: -100, duration: 300 }}
+						out:fly={{ x: 100, duration: 300 }}
+					>
+						<p class="m-0 p-0">{formattedDate}</p>
+						<button
+							use:tooltip={{
+								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+							}}
+						>
+						</button>
+					</div>
+				{/if}
+			</div>
+	
 
-            
         </div>
 
+		
         
 	</div>
 	<div class="flex flex-col gap-4 p-4 md:flex-row">
