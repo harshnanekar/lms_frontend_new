@@ -22,19 +22,21 @@
 		publicationFormattedDate = publicationDate;
 	}
 
+
     let obj = {
-      faculty_name : data.eContentData.length > 0 && data.eContentData[0].faculty_name ?  data.eContentData[0].faculty_name : '',
-      module : data.eContentData.length > 0 && data.eContentData[0].module ?  data.eContentData[0].module : '',
-      module_platform : data.eContentData.length > 0 && data.eContentData[0].module_platform ?  data.eContentData[0].module_platform : '',
-      document_link : data.eContentData.length > 0 && data.eContentData[0].document_link ?  data.eContentData[0].document_link : '',
-      media_link : data.eContentData.length > 0 && data.eContentData[0].media_link ?  data.eContentData[0].media_link : '',
-      facility_list : data.eContentData.length > 0 && data.eContentData[0].facility_list ?  data.eContentData[0].facility_list : '',
+      faculty_name : checkData && data.eContentData[0].faculty_name ?  data.eContentData[0].faculty_name : '',
+      module : checkData && data.eContentData[0].module ?  data.eContentData[0].module : '',
+      module_platform : checkData && data.eContentData[0].module_platform ?  data.eContentData[0].module_platform : '',
+      document_link : checkData && data.eContentData[0].document_link ?  data.eContentData[0].document_link : '',
+      media_link : checkData && data.eContentData[0].media_link ?  data.eContentData[0].media_link : '',
+      facility_list : checkData && data.eContentData[0].facility_list ?  data.eContentData[0].facility_list : '',
     }
 
    
 
 </script>    
 
+{#if checkData}
 <Card {title} >
     <div class="modal-content p-4">
 		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
@@ -70,6 +72,7 @@
             {/if}
 		</div>
     </div>
-
-
 </Card>
+{:else}
+<p>No Data Found !</p>
+{/if}

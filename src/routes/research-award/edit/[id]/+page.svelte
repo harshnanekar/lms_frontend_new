@@ -45,37 +45,39 @@
 		publicationFormattedDate = publicationDate;
 	}
 
+	let checkData = data.researchAwardData.researchAwardData.length > 0 ? true : false
+
 	let obj: any = {
-		research_award_id: data.researchAwardData.researchAwardData.length > 0 ? data.researchAwardData.researchAwardData[0].id : null,
+		research_award_id: checkData ? data.researchAwardData.researchAwardData[0].id : null,
 		nmims_school:
-			data.researchAwardData.researchAwardData[0].nmims_school != null
+		checkData && data.researchAwardData.researchAwardData[0].nmims_school != null
 				? data.researchAwardData.researchAwardData[0].nmims_school.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
 				: null,
 		nmims_campus:
-		data.researchAwardData.researchAwardData.length > 0 && data.researchAwardData.researchAwardData[0].nmims_campus != null
+		checkData && data.researchAwardData.researchAwardData[0].nmims_campus != null
 				? data.researchAwardData.researchAwardData[0].nmims_campus.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
 				: null,
-		faculty_name:data.researchAwardData.researchAwardData.length > 0 && data.researchAwardData.researchAwardData[0].faculty_name
+		faculty_name:checkData && data.researchAwardData.researchAwardData[0].faculty_name
 			? data.researchAwardData.researchAwardData[0].faculty_name
 			: '',
-		award_name:data.researchAwardData.researchAwardData.length > 0 && data.researchAwardData.researchAwardData[0].award_name
+		award_name:checkData && data.researchAwardData.researchAwardData[0].award_name
 			? data.researchAwardData.researchAwardData[0].award_name
 			: '',
-		award_details:data.researchAwardData.researchAwardData.length > 0 && data.researchAwardData.researchAwardData[0].award_details
+		award_details:checkData && data.researchAwardData.researchAwardData[0].award_details
 			? data.researchAwardData.researchAwardData[0].award_details
 			: '',
-		award_organization:data.researchAwardData.researchAwardData.length > 0 && data.researchAwardData.researchAwardData[0].award_organization
+		award_organization:checkData && data.researchAwardData.researchAwardData[0].award_organization
 			? data.researchAwardData.researchAwardData[0].award_organization
 			: '',
-		award_place:data.researchAwardData.researchAwardData.length > 0 && data.researchAwardData.researchAwardData[0].award_place
+		award_place:checkData && data.researchAwardData.researchAwardData[0].award_place
 			? data.researchAwardData.researchAwardData[0].award_place
 			: '',
 		award_category:
-			data.researchAwardData.researchAwardData.length > 0 && data.researchAwardData.researchAwardData[0].award_category != null
+		checkData && data.researchAwardData.researchAwardData[0].award_category != null
 				? Number(data.researchAwardData.researchAwardData[0].award_category)
 				: null
 	};

@@ -25,90 +25,90 @@
 
 	let obj: any = {
 		book_chapter_id:
-			data.bookChapterPublicationData.length > 0
+		checkData
 				? parseInt(data.bookChapterPublicationData[0].book_chapter_id)
 				: null,
 		nmims_school:
-			data.bookChapterPublicationData && data.bookChapterPublicationData[0].nmims_school != null
+		checkData && data.bookChapterPublicationData[0].nmims_school != null
 				? data.bookChapterPublicationData[0].nmims_school
 				: '',
 		nmims_campus:
-			data.bookChapterPublicationData.length > 0 &&
+		checkData &&
 			data.bookChapterPublicationData[0].nmims_campus != null
 				? data.bookChapterPublicationData[0].nmims_campus
 				: '',
 		all_authors:
-			data.bookChapterPublicationData.length > 0 &&
+		checkData &&
 			data.bookChapterPublicationData[0].all_authors != null
 				? data.bookChapterPublicationData[0].all_authors
 				: '',
 		nmims_authors:
-			data.bookChapterPublicationData.length > 0 &&
+		checkData &&
 			data.bookChapterPublicationData[0].nmims_authors != null
 				? data.bookChapterPublicationData[0].nmims_authors
 				: '',
 		book_editors:
-			data.bookChapterPublicationData.length > 0 &&
+		checkData &&
 			data.bookChapterPublicationData[0].book_editors != null
 				? data.bookChapterPublicationData[0].book_editors
 				: '',
 		book_title:
-			data.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData[0].book_title
+			checkData && data.bookChapterPublicationData[0].book_title
 				? data.bookChapterPublicationData[0].book_title
 				: '',
 		chapter_title:
-			data.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData[0].chapter_title
+		checkData && data.bookChapterPublicationData[0].chapter_title
 				? data.bookChapterPublicationData[0].chapter_title
 				: '',
 		edition:
-			data.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData[0].edition
+		checkData && data.bookChapterPublicationData[0].edition
 				? data.bookChapterPublicationData[0].edition
 				: '',
 		publish_year:
-			data.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData[0].publish_year
+		checkData && data.bookChapterPublicationData[0].publish_year
 				? data.bookChapterPublicationData[0].publish_year
 				: '',
 		volume_no:
-			data.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData[0].volume_no
+		checkData && data.bookChapterPublicationData[0].volume_no
 				? data.bookChapterPublicationData[0].volume_no
 				: '',
 		chapter_page_no:
-			data.bookChapterPublicationData.length > 0 &&
+		checkData &&
 			data.bookChapterPublicationData[0].chapter_page_no
 				? data.bookChapterPublicationData[0].chapter_page_no
 				: '',
 		publisher:
-			data.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData[0].publisher
+		checkData && data.bookChapterPublicationData[0].publisher
 				? data.bookChapterPublicationData[0].publisher
 				: '',
 		web_link:
-			data.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData[0].web_link
+		checkData && data.bookChapterPublicationData[0].web_link
 				? data.bookChapterPublicationData[0].web_link
 				: '',
 		doi_no:
-			data.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData[0].doi_no
+		checkData && data.bookChapterPublicationData[0].doi_no
 				? data.bookChapterPublicationData[0].doi_no
 				: '',
 		publication_place:
-			data.bookChapterPublicationData.length > 0 &&
+		checkData &&
 			data.bookChapterPublicationData[0].publication_place
 				? data.bookChapterPublicationData[0].publication_place
 				: '',
 		isbn_no:
-			data.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData[0].isbn_no
+		checkData && data.bookChapterPublicationData[0].isbn_no
 				? data.bookChapterPublicationData[0].isbn_no
 				: '',
 		nmims_authors_count:
-			data.bookChapterPublicationData.length > 0 &&
+		checkData &&
 			data.bookChapterPublicationData[0].nmims_authors_count
 				? data.bookChapterPublicationData[0].nmims_authors_count
 				: '',
 		publisher_category:
-			data.bookChapterPublicationData.length > 0
+		checkData
 				? Number(data.bookChapterPublicationData[0].publisher_category)
 				: null,
 		filename:
-			data.bookChapterPublicationData.length > 0 &&
+		checkData &&
 			data.bookChapterPublicationData[0].supporting_documents
 				? data.bookChapterPublicationData[0].supporting_documents
 				: ''
