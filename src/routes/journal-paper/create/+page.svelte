@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect,File } from '$lib/components/ui';
+	import { Input, DatePicker, DynamicSelect, File } from '$lib/components/ui';
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
@@ -100,7 +100,7 @@
 	};
 
 	let files: any = [];
-   $: console.log('files type ', files);
+	$: console.log('files type ', files);
 
 	async function handleSubmit() {
 		const journalObject: JournalPaperReq = {
@@ -161,12 +161,12 @@
 		// };
 
 		console.log('files object ', files);
-		for(let i = 0; i < files.length ; i++){
+		// for (let i = 0; i < files.length; i++) {
 
-			const fileObject: FileReq = {
-			documents: Array.from(files[i])
-		    };
-			console.log('fileObject ', fileObject);
+		const fileObject: FileReq = {
+			documents: files
+		};
+		console.log('fileObject ', fileObject);
 
 		const fileresult = validateWithZod(fileSchema, fileObject);
 		if (fileresult.errors) {
@@ -177,7 +177,7 @@
 			});
 			return;
 		}
-	    }
+		// }
 
 		const formData = new FormData();
 
@@ -230,9 +230,13 @@
 		}
 	}
 
-	function handleFiles(event : any){
-     files = event.detail;
-	 console.log('files details', files);
+	function handleFiles(event: CustomEvent<File[]>) {
+		files = event.detail;
+		console.log('files details', files);
+
+		files.forEach((file: any) => {
+			console.log('File instance:', file instanceof File);
+		});
 	}
 
 	function clearForm() {
@@ -257,10 +261,7 @@
 			title: '',
 			gs_indexed: '',
 			paper_type: null,
-			wos_indexed: null,
 			abdc_indexed: null,
-			ugc_indexed: null,
-			scs_indexed: null,
 			foreign_authors_count: null,
 			foreign_authors: null,
 			student_authors_count: null,
@@ -515,14 +516,13 @@
 					</div>
 				</div>
 			</div>
-            <div class="space-y-2">
-            <label class="lms-label">Upload Supporting Documents<span class="text-primary">*</span></label>		
-			<File 
-			on:filesSelected = {handleFiles}
-			isView = {false}
-			/>
-		    </div>
-			
+			<div class="space-y-2">
+				<label class="lms-label"
+					>Upload Supporting Documents<span class="text-primary">*</span></label
+				>
+				<File on:filesSelected={handleFiles} isView={false} />
+			</div>
+
 			<!-- <input type="file" bind:files multiple /> -->
 		</div>
 

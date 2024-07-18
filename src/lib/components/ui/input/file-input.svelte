@@ -26,7 +26,7 @@
 
 	function previewParticularFile(url: string) {
 		fileUrl = url;
-		console.log('url ',fileUrl)
+		console.log('url ', fileUrl);
 		isPreviewOpen.set(true);
 		isOpen.set(false);
 	}
@@ -45,11 +45,11 @@
 
 	function handleFileUpload(event: Event) {
 		const input: any = event.target as HTMLInputElement;
-		files = Array.from(input.files);
+		files = Array.from(input.files || []);
 		const fileData = files.map((file: any) => ({
 			name: file.name,
 			url: URL.createObjectURL(file),
-			id : generateRandomUUID()
+			id: generateRandomUUID()
 		}));
 
 		fileDataStore.set(fileData);
@@ -57,7 +57,7 @@
 	}
 
 	function handleDelete(file: any) {
-		fileDataStore.update(files => files.filter((f: any) => f.id !== file));
+		fileDataStore.update((files) => files.filter((f: any) => f.id !== file));
 	}
 </script>
 
@@ -131,7 +131,7 @@
 							</tr>
 						{/each}
 					{:else}
-						<tr><td colspan="3" class="text-center py-4 !text-[15px]">No Files Found!</td></tr>
+						<tr><td colspan="3" class="py-4 text-center !text-[15px]">No Files Found!</td></tr>
 					{/if}
 				</tbody>
 			</table>
