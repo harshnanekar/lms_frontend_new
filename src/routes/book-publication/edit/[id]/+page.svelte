@@ -53,46 +53,48 @@
 	$: checkVal = isChecked;
 	console.log('checkbox check ', checkVal);
 
+	let checkData = data.bookPublicationData.bookPublicationData.length > 0 ? true : false
+
 	let obj: any = {
-		book_publication_id:data.bookPublicationData.bookPublicationData.length > 0 ? parseInt(
+		book_publication_id:checkData ? parseInt(
 			data.bookPublicationData.bookPublicationData[0].book_pulication_id 
 		) : null,
 		nmims_school:
-		data.bookPublicationData.bookPublicationData.length > 0 && data.bookPublicationData.bookPublicationData[0].nmims_school != null
+		checkData && data.bookPublicationData.bookPublicationData[0].nmims_school != null
 				? data.bookPublicationData.bookPublicationData[0].nmims_school.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
 				: [],
 		nmims_campus:
-		data.bookPublicationData.bookPublicationData.length > 0 && data.bookPublicationData.bookPublicationData[0].nmims_campus != null
+		checkData && data.bookPublicationData.bookPublicationData[0].nmims_campus != null
 				? data.bookPublicationData.bookPublicationData[0].nmims_campus.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
 				: [],
 		all_authors:
-		data.bookPublicationData.bookPublicationData.length > 0 && data.bookPublicationData.bookPublicationData[0].all_authors != null
+		checkData && data.bookPublicationData.bookPublicationData[0].all_authors != null
 				? data.bookPublicationData.bookPublicationData[0].all_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.name };
 					})
 				: [],
 
 		nmims_authors:
-		data.bookPublicationData.bookPublicationData.length > 0 && data.bookPublicationData.bookPublicationData[0].nmims_authors != null
+		checkData && data.bookPublicationData.bookPublicationData[0].nmims_authors != null
 				? data.bookPublicationData.bookPublicationData[0].nmims_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.name };
 					})
 				: [],
-		title:data.bookPublicationData.bookPublicationData.length > 0 ? data.bookPublicationData.bookPublicationData[0].title : '',
-		edition:data.bookPublicationData.bookPublicationData.length > 0 ? data.bookPublicationData.bookPublicationData[0].edition : '',
-		publish_year : data.bookPublicationData.bookPublicationData.length > 0 ? data.bookPublicationData.bookPublicationData[0].publish_year : null,
-		volume_no : data.bookPublicationData.bookPublicationData.length > 0 ? data.bookPublicationData.bookPublicationData[0].volume_no : '',
-		publisher: data.bookPublicationData.bookPublicationData.length > 0 ? data.bookPublicationData.bookPublicationData[0].publisher : '',
-		web_link: data.bookPublicationData.bookPublicationData.length > 0 ? data.bookPublicationData.bookPublicationData[0].web_link : '',
-		doi_no: data.bookPublicationData.bookPublicationData.length > 0 ? data.bookPublicationData.bookPublicationData[0].doi_no : '',
-		publication_place: data.bookPublicationData.bookPublicationData.length > 0 ? data.bookPublicationData.bookPublicationData[0].publication_place : '',
-		isbn_no: data.bookPublicationData.bookPublicationData.length > 0 ? data.bookPublicationData.bookPublicationData[0].isbn_no : '',
-		nmims_authors_count: data.bookPublicationData.bookPublicationData.length > 0 ? data.bookPublicationData.bookPublicationData[0].nmims_authors_count : null,
-		publisher_category:  data.bookPublicationData.bookPublicationData.length > 0 ? Number(data.bookPublicationData.bookPublicationData[0].publisher_category) : null
+		title:checkData ? data.bookPublicationData.bookPublicationData[0].title : '',
+		edition:checkData ? data.bookPublicationData.bookPublicationData[0].edition : '',
+		publish_year : checkData ? data.bookPublicationData.bookPublicationData[0].publish_year : null,
+		volume_no : checkData ? data.bookPublicationData.bookPublicationData[0].volume_no : '',
+		publisher: checkData ? data.bookPublicationData.bookPublicationData[0].publisher : '',
+		web_link: checkData ? data.bookPublicationData.bookPublicationData[0].web_link : '',
+		doi_no: checkData ? data.bookPublicationData.bookPublicationData[0].doi_no : '',
+		publication_place: checkData ? data.bookPublicationData.bookPublicationData[0].publication_place : '',
+		isbn_no: checkData ? data.bookPublicationData.bookPublicationData[0].isbn_no : '',
+		nmims_authors_count: checkData ? data.bookPublicationData.bookPublicationData[0].nmims_authors_count : null,
+		publisher_category: checkData ? Number(data.bookPublicationData.bookPublicationData[0].publisher_category) : null
 	};
 
 	interface FileReq {

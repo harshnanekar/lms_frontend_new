@@ -22,41 +22,41 @@
 	console.log('research data ', JSON.stringify(data.researchAwardData));
 
 	let obj = {
-		research_award_id: data.researchAwardData.length > 0 ? data.researchAwardData[0].id : null,
+		research_award_id: checkData ? data.researchAwardData[0].id : null,
 		nmims_school:
-			data.researchAwardData.length > 0 && data.researchAwardData[0].nmims_school != null
+		checkData && data.researchAwardData[0].nmims_school != null
 				? data.researchAwardData[0].nmims_school
 				: null,
 		nmims_campus:
-			data.researchAwardData.length > 0 && data.researchAwardData[0].nmims_campus != null
+		checkData && data.researchAwardData[0].nmims_campus != null
 				? data.researchAwardData[0].nmims_campus
 				: null,
 		faculty_name:
-			data.researchAwardData.length > 0 && data.researchAwardData[0].faculty_name
+		checkData && data.researchAwardData[0].faculty_name
 				? data.researchAwardData[0].faculty_name
 				: '',
 		award_name:
-			data.researchAwardData.length > 0 && data.researchAwardData[0].award_name
+		checkData && data.researchAwardData[0].award_name
 				? data.researchAwardData[0].award_name
 				: '',
 		award_details:
-			data.researchAwardData.length > 0 && data.researchAwardData[0].award_details
+		checkData && data.researchAwardData[0].award_details
 				? data.researchAwardData[0].award_details
 				: '',
 		award_organization:
-			data.researchAwardData.length > 0 && data.researchAwardData[0].award_organization
+		checkData && data.researchAwardData[0].award_organization
 				? data.researchAwardData[0].award_organization
 				: '',
 		award_place:
-			data.researchAwardData.length > 0 && data.researchAwardData[0].award_place
+		checkData && data.researchAwardData[0].award_place
 				? data.researchAwardData[0].award_place
 				: '',
 		award_category:
-			data.researchAwardData.length > 0 && data.researchAwardData[0].award_category != null
+		checkData && data.researchAwardData[0].award_category != null
 				? Number(data.researchAwardData[0].award_category)
 				: null,
 		supporting_documents:
-			data.researchAwardData.length > 0 && data.researchAwardData[0].supporting_documents
+		checkData && data.researchAwardData[0].supporting_documents
 				? data.researchAwardData[0].supporting_documents
 				: ''
 	};

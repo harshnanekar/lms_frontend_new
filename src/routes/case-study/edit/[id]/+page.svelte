@@ -1,9 +1,5 @@
 <script lang="ts">
 	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
-	import { SelectDateIcon, XIcon } from '$lib/components/icons';
-	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
-	import { tooltip } from '$lib/utils/tooltip';
-	import { fly } from 'svelte/transition';
 	import { Card } from '$lib/components/ui';
 
 	import {
@@ -42,66 +38,68 @@
 	$: school = nmimsSchool;
 	$: campus = nmimsCampus;
 
+	let checkData =  data.caseData.caseData.length > 0 ? true : false;
+
 	let obj = {
-		case_study_id: data.caseData.caseData.length > 0 ? data.caseData.caseData[0].id : null,
+		case_study_id: checkData ? data.caseData.caseData[0].id : null,
 		nmims_school:
-			data.caseData.caseData.length > 0 && data.caseData.caseData[0].nmims_school != null
+		checkData && data.caseData.caseData[0].nmims_school != null
 				? data.caseData.caseData[0].nmims_school.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
 				: null,
 		nmims_campus:
-			data.caseData.caseData.length > 0 && data.caseData.caseData[0].nmims_campus != null
+		checkData && data.caseData.caseData[0].nmims_campus != null
 				? data.caseData.caseData[0].nmims_campus.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
 				: null,
 		publish_year:
-			data.caseData.caseData.length > 0 && data.caseData.caseData[0].publish_year
+		checkData && data.caseData.caseData[0].publish_year
 				? Number(data.caseData.caseData[0].publish_year)
 				: null,
 		all_authors:
-			data.caseData.caseData.length > 0 && data.caseData.caseData[0].all_authors != null
+		checkData && data.caseData.caseData[0].all_authors != null
 				? data.caseData.caseData[0].all_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.name };
 					})
 				: null,
 		nmims_authors:
-			data.caseData.caseData.length > 0 && data.caseData.caseData[0].nmims_authors != null
+		checkData && data.caseData.caseData[0].nmims_authors != null
 				? data.caseData.caseData[0].nmims_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.name };
 					})
 				: null,
 		nmims_authors_count:
-			data.caseData.caseData.length > 0 && data.caseData.caseData[0].publish_year
+		checkData && data.caseData.caseData[0].publish_year
 				? Number(data.caseData.caseData[0].nmims_authors_count)
 				: null,
 		publisher:
-			data.caseData.caseData.length > 0 && data.caseData.caseData[0].publisher
+		checkData && data.caseData.caseData[0].publisher
 				? data.caseData.caseData[0].publisher
 				: '',
 		publisher_category:
-			data.caseData.caseData.length > 0 && data.caseData.caseData[0].publisher_category
+		checkData && data.caseData.caseData[0].publisher_category
 				? Number(data.caseData.caseData[0].publisher_category)
 				: null,
 		edition:
-			data.caseData.caseData.length > 0 && data.caseData.caseData[0].edition
+		checkData && data.caseData.caseData[0].edition
 				? data.caseData.caseData[0].edition
 				: '',
 		page_no:
-			data.caseData.caseData.length > 0 && data.caseData.caseData[0].page_no
+		checkData && data.caseData.caseData[0].page_no
 				? data.caseData.caseData[0].page_no
 				: '',
 		volume_no:
-			data.caseData.caseData.length > 0 && data.caseData.caseData[0].volume_no
+		checkData && data.caseData.caseData[0].volume_no
 				? data.caseData.caseData[0].volume_no
 				: '',
 		title:
-			data.caseData.caseData.length > 0 && data.caseData.caseData[0].title
+		checkData && data.caseData.caseData[0].title
 				? data.caseData.caseData[0].title
 				: '',
 		url:
-			data.caseData.caseData.length > 0 && data.caseData.caseData[0].url
+		checkData && data.caseData.caseData[0].url
 				? data.caseData.caseData[0].url
 				: ''
 	};
@@ -283,7 +281,7 @@
 							name="publisher_category"
 							bind:group={obj.publisher_category}
 							value={1}
-							checked
+							
 						/>
 						<span class="text-sm text-[#888888]">International</span>
 					</div>

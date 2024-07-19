@@ -19,108 +19,108 @@
 	console.log('journal data ', JSON.stringify(data.journalData[0]));
 
 	let obj = {
-		journal_paper_id: data.journalData.length > 0 ? data.journalData[0].journal_paper_id : null,
+		journal_paper_id: checkData ? data.journalData[0].journal_paper_id : null,
 		journal_name:
-			data.journalData.length > 0 && data.journalData[0].journal_name
+		checkData && data.journalData[0].journal_name
 				? data.journalData[0].journal_name
 				: '',
 		title:
-			data.journalData.length > 0 && data.journalData[0].title ? data.journalData[0].title : '',
+		checkData && data.journalData[0].title ? data.journalData[0].title : '',
 		publish_year:
-			data.journalData.length > 0 && data.journalData[0].publish_year
+		checkData && data.journalData[0].publish_year
 				? data.journalData[0].publish_year
 				: null,
 		total_authors:
-			data.journalData.length > 0 && data.journalData[0].total_authors
+		checkData && data.journalData[0].total_authors
 				? data.journalData[0].total_authors
 				: null,
 		nmims_author_count:
-			data.journalData.length > 0 && data.journalData[0].nmims_authors_count
+		checkData && data.journalData[0].nmims_authors_count
 				? data.journalData[0].nmims_authors_count
 				: null,
-		uid: data.journalData.length > 0 && data.journalData[0].uid ? data.journalData[0].uid : '',
+		uid: checkData && data.journalData[0].uid ? data.journalData[0].uid : '',
 		doi_no:
-			data.journalData.length > 0 && data.journalData[0].doi_no ? data.journalData[0].doi_no : '',
+		checkData&& data.journalData[0].doi_no ? data.journalData[0].doi_no : '',
 		publisher:
-			data.journalData.length > 0 && data.journalData[0].publisher
+		checkData && data.journalData[0].publisher
 				? data.journalData[0].publisher
 				: '',
 		publication_date:
-			data.journalData.length > 0 ? new Date(data.journalData[0].publishing_date) : null,
+		checkData ? new Date(data.journalData[0].publishing_date) : null,
 		issn_no:
-			data.journalData.length > 0 && data.journalData[0].issn_no ? data.journalData[0].issn_no : '',
+		checkData && data.journalData[0].issn_no ? data.journalData[0].issn_no : '',
 		scopus_site_score:
-			data.journalData.length > 0 && data.journalData[0].scopus_site_score
+		checkData && data.journalData[0].scopus_site_score
 				? data.journalData[0].scopus_site_score
 				: null,
 		gs_indexed:
-			data.journalData.length > 0 && data.journalData[0].gs_indexed
+		checkData && data.journalData[0].gs_indexed
 				? data.journalData[0].gs_indexed
 				: null,
 		journal_type:
-			data.journalData.length > 0 && data.journalData[0].journal_type
+		checkData && data.journalData[0].journal_type
 				? Number(data.journalData[0].journal_type)
 				: null,
-		ugc_indexed: data.journalData.length > 0 ? data.journalData[0].ugc_indexed : null,
-		scs_indexed: data.journalData.length > 0 ? data.journalData[0].scs_indexed : null,
-		wos_indexed: data.journalData.length > 0 ? data.journalData[0].wos_indexed : null,
+		ugc_indexed: checkData ? data.journalData[0].ugc_indexed : null,
+		scs_indexed: checkData ? data.journalData[0].scs_indexed : null,
+		wos_indexed: checkData ? data.journalData[0].wos_indexed : null,
 		foreign_authors_count:
-			data.journalData.length > 0 && data.journalData[0].foreign_authors_count
+		checkData && data.journalData[0].foreign_authors_count
 				? data.journalData[0].foreign_authors_count
 				: null,
 		student_authors_count:
-			data.journalData.length > 0 && data.journalData[0].student_authors_count
+		checkData && data.journalData[0].student_authors_count
 				? data.journalData[0].student_authors_count
 				: null,
 		impact_factor:
-			data.journalData.length > 0 && data.journalData[0].impact_factor
+		checkData && data.journalData[0].impact_factor
 				? data.journalData[0].impact_factor
 				: null,
 		page_no:
-			data.journalData.length > 0 && data.journalData[0].page_no ? data.journalData[0].page_no : '',
+		checkData && data.journalData[0].page_no ? data.journalData[0].page_no : '',
 		paper_type:
-			data.journalData.length > 0 && data.journalData[0].paper_name
+		checkData && data.journalData[0].paper_name
 				? data.journalData[0].paper_name
 				: '',
 		nmims_school:
-			data.journalData.length > 0 && data.journalData[0].nmims_school
+		checkData && data.journalData[0].nmims_school
 				? data.journalData[0].nmims_school
 				: '',
 		nmims_campus:
-			data.journalData.length > 0 && data.journalData[0].nmims_campus
+		checkData && data.journalData[0].nmims_campus
 				? data.journalData[0].nmims_campus
 				: '',
-		abdc_indexed: data.journalData.length > 0 ? data.journalData[0].abdc_indexed : '',
+		abdc_indexed: checkData ? data.journalData[0].abdc_indexed : '',
 		policy_cadre:
-			data.journalData.length > 0 && data.journalData[0].policy_names
+		checkData && data.journalData[0].policy_names
 				? data.journalData[0].policy_names
 				: '',
 		all_authors:
-			data.journalData.length > 0 && data.journalData[0].all_authors
+		checkData && data.journalData[0].all_authors
 				? data.journalData[0].all_authors
 				: '',
 		nmims_authors:
-			data.journalData.length > 0 && data.journalData[0].nmims_authors
+		checkData && data.journalData[0].nmims_authors
 				? data.journalData[0].nmims_authors
 				: '',
 		foreign_authors:
-			data.journalData.length > 0 && data.journalData[0].foreign_authors
+		checkData && data.journalData[0].foreign_authors
 				? data.journalData[0].foreign_authors
 				: '',
 		other_authors:
-			data.journalData.length > 0 && data.journalData[0].other_authors
+		checkData && data.journalData[0].other_authors
 				? data.journalData[0].other_authors
 				: '',
 		student_authors:
-			data.journalData.length > 0 && data.journalData[0].student_authors
+		checkData && data.journalData[0].student_authors
 				? data.journalData[0].student_authors
 				: '',
 		supporting_documents:
-			data.journalData.length > 0 && data.journalData[0].supporting_documents
+		checkData && data.journalData[0].supporting_documents
 				? data.journalData[0].supporting_documents
 				: '',
 		filename:
-			data.journalData.length > 0 && data.journalData[0].filename
+		checkData && data.journalData[0].filename
 				? data.journalData[0].filename
 				: ''
 	};

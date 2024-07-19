@@ -60,14 +60,13 @@
 	$: paper = paperType;
 	$: school = nmimsSchool;
 	$: campus = nmimsCampus;
+	
+	let checkData = data.journalData.journalData.length > 0 ? true : false
 
 	console.log(JSON.stringify(data.journalData.journalData[0]));
 
 	let publicationDate: Date | null = new Date();
-	publicationDate =
-		data.journalData.journalData.length > 0
-			? data.journalData.journalData[0].publishing_date
-			: null;
+	publicationDate = checkData ? data.journalData.journalData[0].publishing_date : null;
 	$: publicationFormattedDate = publicationDate;
 	function handleDateChange(e: CustomEvent<any>) {
 		if (!publicationDate) return;
@@ -76,147 +75,127 @@
 	}
 
 	let obj: any = {
-		journal_paper_id:
-			data.journalData.journalData.length > 0
-				? parseInt(data.journalData.journalData[0].journal_paper_id)
-				: null,
+		journal_paper_id : checkData ? parseInt(data.journalData.journalData[0].journal_paper_id) : null,
 		nmims_school:
-			data.journalData.journalData.length > 0 &&
-			data.journalData.journalData[0].nmims_school != null
+		checkData && data.journalData.journalData[0].nmims_school != null
 				? data.journalData.journalData[0].nmims_school.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
 				: null,
 		nmims_campus:
-			data.journalData.journalData.length > 0 &&
-			data.journalData.journalData[0].nmims_campus != null
+		checkData && data.journalData.journalData[0].nmims_campus != null
 				? data.journalData.journalData[0].nmims_campus.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
 				: null,
 		publish_year:
-			data.journalData.journalData.length > 0 && data.journalData.journalData[0].publish_year
+			checkData && data.journalData.journalData[0].publish_year
 				? data.journalData.journalData[0].publish_year
 				: null,
 		policy_cadre:
-			data.journalData.journalData.length > 0 &&
-			data.journalData.journalData[0].policy_names != null
+		checkData && data.journalData.journalData[0].policy_names != null
 				? data.journalData.journalData[0].policy_names.map((dt: any) => {
 						return { value: dt.id, label: dt.policy_name };
 					})
 				: null,
 		all_authors:
-			data.journalData.journalData.length > 0 && data.journalData.journalData[0].all_authors != null
+			checkData && data.journalData.journalData[0].all_authors != null
 				? data.journalData.journalData[0].all_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.faculty_name };
 					})
 				: null,
 		total_authors:
-			data.journalData.journalData.length > 0 && data.journalData.journalData[0].total_authors
+		checkData && data.journalData.journalData[0].total_authors
 				? data.journalData.journalData[0].total_authors
 				: null,
 		nmims_authors:
-			data.journalData.journalData.length > 0 &&
-			data.journalData.journalData[0].nmims_authors != null
+		checkData && data.journalData.journalData[0].nmims_authors != null
 				? data.journalData.journalData[0].nmims_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.faculty_name };
 					})
 				: null,
 		nmims_author_count:
-			data.journalData.journalData.length > 0 && data.journalData.journalData[0].nmims_authors_count
+		checkData && data.journalData.journalData[0].nmims_authors_count
 				? data.journalData.journalData[0].nmims_authors_count
 				: null,
 		journal_name:
-			data.journalData.journalData.length > 0 && data.journalData.journalData[0].journal_name
+		checkData && data.journalData.journalData[0].journal_name
 				? data.journalData.journalData[0].journal_name
 				: '',
 		uid:
-			data.journalData.journalData.length > 0 && data.journalData.journalData[0].uid
+		checkData && data.journalData.journalData[0].uid
 				? data.journalData.journalData[0].uid
 				: '',
-		publisher: data.journalData.journalData[0].publisher
+		publisher: checkData && data.journalData.journalData[0].publisher
 			? data.journalData.journalData[0].publisher
 			: '',
 		other_authors:
-			data.journalData.journalData.length > 0 &&
-			data.journalData.journalData[0].other_authors != null
+		checkData && data.journalData.journalData[0].other_authors != null
 				? data.journalData.journalData[0].other_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.name };
 					})
 				: null,
 		page_no:
-			data.journalData.journalData.length > 0 && data.journalData.journalData[0].page_no
+		checkData && data.journalData.journalData[0].page_no
 				? data.journalData.journalData[0].page_no
 				: '',
 		issn_no:
-			data.journalData.journalData.length > 0 && data.journalData.journalData[0].issn_no
+		checkData && data.journalData.journalData[0].issn_no
 				? data.journalData.journalData[0].issn_no
 				: '',
 		scopus_site_score:
-			data.journalData.journalData.length > 0 && data.journalData.journalData[0].scopus_site_score
+		checkData && data.journalData.journalData[0].scopus_site_score
 				? data.journalData.journalData[0].scopus_site_score
 				: null,
 		impact_factor:
-			data.journalData.journalData.length > 0 && data.journalData.journalData[0].impact_factor
+		checkData && data.journalData.journalData[0].impact_factor
 				? data.journalData.journalData[0].impact_factor
 				: null,
 		doi_no:
-			data.journalData.journalData.length > 0 && data.journalData.journalData[0].doi_no
+		checkData && data.journalData.journalData[0].doi_no
 				? data.journalData.journalData[0].doi_no
 				: null,
 		title:
-			data.journalData.journalData.length > 0 && data.journalData.journalData[0].title
+		checkData && data.journalData.journalData[0].title
 				? data.journalData.journalData[0].title
 				: '',
-		gs_indexed:
-			data.journalData.journalData.length > 0 && data.journalData.journalData[0].gs_indexed,
+		gs_indexed:checkData && data.journalData.journalData[0].gs_indexed,
 		paper_type:
-			data.journalData.journalData.length > 0 && data.journalData.journalData[0].paper_type[0]
+		checkData && data.journalData.journalData[0].paper_type[0]
 				? {
 						value: data.journalData.journalData[0].paper_type[0].id,
 						label: data.journalData.journalData[0].paper_type[0].paper_name
 					}
 				: null,
-		wos_indexed:
-			data.journalData.journalData.length > 0 ? data.journalData.journalData[0].wos_indexed : null,
+		wos_indexed:checkData ? data.journalData.journalData[0].wos_indexed : null,
 		abdc_indexed:
-			data.journalData.journalData.length > 0 &&
-			data.journalData.journalData[0].abdc_indexed[0] != null
+		checkData && data.journalData.journalData[0].abdc_indexed[0] != null
 				? {
 						value: data.journalData.journalData[0].abdc_indexed[0].id,
 						label: data.journalData.journalData[0].abdc_indexed[0].abdc_type
 					}
 				: null,
-		ugc_indexed:
-			data.journalData.journalData.length > 0 ? data.journalData.journalData[0].ugc_indexed : null,
-		scs_indexed:
-			data.journalData.journalData.length > 0 ? data.journalData.journalData[0].scs_indexed : null,
-		foreign_authors_count:
-			data.journalData.journalData.length > 0 &&
-			data.journalData.journalData[0].foreign_authors_count
+		ugc_indexed:checkData ? data.journalData.journalData[0].ugc_indexed : null,
+		scs_indexed:checkData ? data.journalData.journalData[0].scs_indexed : null,
+		foreign_authors_count: checkData && data.journalData.journalData[0].foreign_authors_count
 				? data.journalData.journalData[0].foreign_authors_count
 				: null,
-		foreign_authors:
-			data.journalData.journalData.length > 0 &&
-			data.journalData.journalData[0].foreign_authors.length > 0
+		foreign_authors:checkData && data.journalData.journalData[0].foreign_authors.length > 0
 				? data.journalData.journalData[0].foreign_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.name };
 					})
 				: null,
 		student_authors_count:
-			data.journalData.journalData.length > 0 &&
-			data.journalData.journalData[0].student_authors_count
+		checkData && data.journalData.journalData[0].student_authors_count
 				? data.journalData.journalData[0].student_authors_count
 				: null,
 		student_authors:
-			data.journalData.journalData.length > 0 &&
-			data.journalData.journalData[0].student_authors.length > 0
+		checkData && data.journalData.journalData[0].student_authors.length > 0
 				? data.journalData.journalData[0].student_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.name };
 					})
 				: null,
-		journal_type:
-			data.journalData.journalData.length > 0 && data.journalData.journalData[0].journal_type
+		journal_type: checkData && data.journalData.journalData[0].journal_type
 				? parseInt(data.journalData.journalData[0].journal_type)
 				: null
 	};
@@ -285,11 +264,9 @@
 				obj.student_authors != null
 					? obj.student_authors.map((data: { value: any }) => Number(data.value))
 					: [],
-			// supporting_documents: Array.from(files),
 			journal_type: Number(obj.journal_type)
 		};
 
-		// if (files.length > 0) {
 		if (checkVal) {
 			const fileObject: FileReq = {
 				documents: Array.from(files)
@@ -310,7 +287,6 @@
 		formData.append('journal_paper', JSON.stringify(journalObject));
 		formData.append('journal_id', obj.journal_paper_id);
 
-		// Append each file to the FormData
 		Array.from(files).forEach((file) => {
 			formData.append('supporting_documents', file);
 		});

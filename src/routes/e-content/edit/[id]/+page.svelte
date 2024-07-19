@@ -26,30 +26,31 @@
 		publicationFormattedDate = publicationDate;
 	}
 
+	let checkData =  data.eContentData.length > 0 : true ? false
 	let obj = {
-		eContentId: data.eContentData.length > 0 ? data.eContentData[0].id : null,
+		eContentId:checkData ? data.eContentData[0].id : null,
 		faculty_name:
-			data.eContentData.length > 0 && data.eContentData[0].faculty_name
+		checkData && data.eContentData[0].faculty_name
 				? data.eContentData[0].faculty_name
 				: '',
 		module:
-			data.eContentData.length > 0 && data.eContentData[0].faculty_name
+		checkData && data.eContentData[0].faculty_name
 				? data.eContentData[0].module
 				: '',
 		module_platform:
-			data.eContentData.length > 0 && data.eContentData[0].faculty_name
+		checkData && data.eContentData[0].faculty_name
 				? data.eContentData[0].module_platform
 				: '',
 		document_link:
-			data.eContentData.length > 0 && data.eContentData[0].faculty_name
+		checkData && data.eContentData[0].faculty_name
 				? data.eContentData[0].document_link
 				: '',
 		media_link:
-			data.eContentData.length > 0 && data.eContentData[0].faculty_name
+		checkData && data.eContentData[0].faculty_name
 				? data.eContentData[0].media_link
 				: '',
 		facility_list:
-			data.eContentData.length > 0 && data.eContentData[0].faculty_name
+		checkData && data.eContentData[0].faculty_name
 				? data.eContentData[0].facility_list
 				: '',
 		launching_date: ''

@@ -62,12 +62,14 @@
 		documents: File[];
 	}
 
+	let checkData = data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? true : false;
+
 	let obj: any = {
-		book_chapter_id: data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ?  parseInt(
+		book_chapter_id:checkData ?  parseInt(
 			data.bookChapterPublicationData.bookChapterPublicationData[0].book_chapter_id 
 		) : null,
 		nmims_school:
-		data.bookChapterPublicationData.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_school != null
+		checkData && data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_school != null
 				? data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_school.map(
 						(dt: any) => {
 							return { value: dt, label: dt };
@@ -75,7 +77,7 @@
 					)
 				: [],
 		nmims_campus:
-		data.bookChapterPublicationData.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_campus != null
+		checkData && data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_campus != null
 				? data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_campus.map(
 						(dt: any) => {
 							return { value: dt, label: dt };
@@ -83,7 +85,7 @@
 					)
 				: [],
 		all_authors:
-		data.bookChapterPublicationData.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData.bookChapterPublicationData[0].all_authors != null
+		checkData && data.bookChapterPublicationData.bookChapterPublicationData[0].all_authors != null
 				? data.bookChapterPublicationData.bookChapterPublicationData[0].all_authors.map(
 						(dt: any) => {
 							return { value: dt.id, label: dt.name };
@@ -92,7 +94,7 @@
 				: [],
 
 		nmims_authors:
-		data.bookChapterPublicationData.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_authors != null
+		checkData && data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_authors != null
 				? data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_authors.map(
 						(dt: any) => {
 							return { value: dt.id, label: dt.name };
@@ -100,27 +102,27 @@
 					)
 				: [],
 		book_editors:
-	    data.bookChapterPublicationData.bookChapterPublicationData.length > 0 && data.bookChapterPublicationData.bookChapterPublicationData[0].book_editors != null
+	    checkData && data.bookChapterPublicationData.bookChapterPublicationData[0].book_editors != null
 				? data.bookChapterPublicationData.bookChapterPublicationData[0].book_editors.map(
 						(dt: any) => {
 							return { value: dt.id, label: dt.editor_name };
 						}
 					)
 				: [],
-		book_title: data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].book_title : '',
-		chapter_title: data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].chapter_title : '',
-		edition: data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].edition : '',
-		publish_year:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].publish_year : null,
-		volume_no:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].volume_no : '',
-		chapter_page_no:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].chapter_page_no : '',
-		publisher:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].publisher : '',
-		web_link:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].web_link : '',
-		doi_no:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].doi_no : '',
-		publication_place:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ?	data.bookChapterPublicationData.bookChapterPublicationData[0].publication_place : '',
-		isbn_no:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? data.bookChapterPublicationData.bookChapterPublicationData[0].isbn_no : '',
+		book_title: checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].book_title : '',
+		chapter_title: checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].chapter_title : '',
+		edition: checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].edition : '',
+		publish_year:checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].publish_year : null,
+		volume_no:checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].volume_no : '',
+		chapter_page_no:checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].chapter_page_no : '',
+		publisher:checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].publisher : '',
+		web_link:checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].web_link : '',
+		doi_no:checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].doi_no : '',
+		publication_place:checkData ?	data.bookChapterPublicationData.bookChapterPublicationData[0].publication_place : '',
+		isbn_no:checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].isbn_no : '',
 		nmims_authors_count:
-		data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ?	data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_authors_count : null,
-		publisher_category:data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? Number(
+		checkData ?	data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_authors_count : null,
+		publisher_category:checkData ? Number(
 			data.bookChapterPublicationData.bookChapterPublicationData[0].publisher_category
 		) : null
 	};
