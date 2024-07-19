@@ -28,4 +28,4 @@ export type ActionStore = {
 
 export const actionStore = writable<ActionStore>({});
 
-export const fileDataStore = writable([{name : String , url : URL , id : number}]);
+export const fileDataStore = writable([]);

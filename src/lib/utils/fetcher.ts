@@ -158,6 +158,28 @@ export const downloadFetch = async <T>({
 };
 
 
+export async function fetchFiles(url: string) {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch files');
+  }
+
+  const blob = await response.blob();
+  console.log('blob ',blob)
+  const fileName = response.headers.get('Content-Disposition')?.split('filename=')[1] || 'file';
+  const file = new File([blob], fileName, { type: blob.type });
+
+  return {
+    file,
+    name: file.name,
+    url: URL.createObjectURL(file),
+    size: file.size,
+    lastModified: new Date().toISOString() 
+  };
+}
+
+
 // import type { ApiResponse } from '$lib/types/request.types';
 // import type { HttpMethod } from '@sveltejs/kit';
 

@@ -147,7 +147,8 @@ const meetingItemSchema = z.object({
 		  'application/pdf',
 		  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 		  'application/vnd.ms-excel',
-		  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+		  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+		  'application/octet-stream'
 		].includes(file.type)),
 		{ message: 'Only .pdf, .docx, .xls, .xlsx formats are supported' }
 	  ),

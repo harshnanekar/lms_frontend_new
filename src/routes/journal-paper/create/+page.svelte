@@ -156,11 +156,12 @@
 			journal_type: Number(obj.journal_type)
 		};
 
-
 		console.log('files object ', files);
 
 		const fileObject: FileReq = {
-			documents: files.map((f:any) => { return f.file })
+			documents: files.map((f: any) => {
+				return f.file;
+			})
 		};
 		console.log('fileObject ', fileObject);
 
@@ -265,9 +266,10 @@
 		};
 
 		publicationDate = null;
+		files = [];
 	}
 
-	function handleDeleteFiles(event :CustomEvent){
+	function handleDeleteFiles(event: CustomEvent) {
 		files = event.detail;
 	}
 </script>
@@ -521,7 +523,6 @@
 				>
 				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
 			</div>
-
 		</div>
 
 		<div class="flex gap-4 md:flex-row">

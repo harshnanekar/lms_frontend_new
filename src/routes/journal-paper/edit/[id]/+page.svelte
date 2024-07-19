@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store.ts';
+	import { Input, DatePicker, DynamicSelect, File } from '$lib/components/ui';
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
@@ -25,10 +26,11 @@
 	} from '$lib/schemas/modules/research/master-validations';
 	import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
 	import { toast } from 'svelte-sonner';
-	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
+	import { fetchFiles, fetchFormApi } from '$lib/utils/fetcher';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
+	import { createFile } from '$lib/utils/helper';
 
 	export let data: any;
 	let isRequired = false;
@@ -60,10 +62,10 @@
 	$: paper = paperType;
 	$: school = nmimsSchool;
 	$: campus = nmimsCampus;
-	
-	let checkData = data.journalData.journalData.length > 0 ? true : false
 
-	console.log(JSON.stringify(data.journalData.journalData[0]));
+	let checkData = data.journalData.journalData.length > 0 ? true : false;
+
+	console.log(JSON.stringify(data.journalData.files));
 
 	let publicationDate: Date | null = new Date();
 	publicationDate = checkData ? data.journalData.journalData[0].publishing_date : null;
@@ -75,15 +77,15 @@
 	}
 
 	let obj: any = {
-		journal_paper_id : checkData ? parseInt(data.journalData.journalData[0].journal_paper_id) : null,
+		journal_paper_id: checkData ? parseInt(data.journalData.journalData[0].journal_paper_id) : null,
 		nmims_school:
-		checkData && data.journalData.journalData[0].nmims_school != null
+			checkData && data.journalData.journalData[0].nmims_school != null
 				? data.journalData.journalData[0].nmims_school.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
 				: null,
 		nmims_campus:
-		checkData && data.journalData.journalData[0].nmims_campus != null
+			checkData && data.journalData.journalData[0].nmims_campus != null
 				? data.journalData.journalData[0].nmims_campus.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
@@ -93,7 +95,7 @@
 				? data.journalData.journalData[0].publish_year
 				: null,
 		policy_cadre:
-		checkData && data.journalData.journalData[0].policy_names != null
+			checkData && data.journalData.journalData[0].policy_names != null
 				? data.journalData.journalData[0].policy_names.map((dt: any) => {
 						return { value: dt.id, label: dt.policy_name };
 					})
@@ -105,117 +107,113 @@
 					})
 				: null,
 		total_authors:
-		checkData && data.journalData.journalData[0].total_authors
+			checkData && data.journalData.journalData[0].total_authors
 				? data.journalData.journalData[0].total_authors
 				: null,
 		nmims_authors:
-		checkData && data.journalData.journalData[0].nmims_authors != null
+			checkData && data.journalData.journalData[0].nmims_authors != null
 				? data.journalData.journalData[0].nmims_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.faculty_name };
 					})
 				: null,
 		nmims_author_count:
-		checkData && data.journalData.journalData[0].nmims_authors_count
+			checkData && data.journalData.journalData[0].nmims_authors_count
 				? data.journalData.journalData[0].nmims_authors_count
 				: null,
 		journal_name:
-		checkData && data.journalData.journalData[0].journal_name
+			checkData && data.journalData.journalData[0].journal_name
 				? data.journalData.journalData[0].journal_name
 				: '',
 		uid:
-		checkData && data.journalData.journalData[0].uid
-				? data.journalData.journalData[0].uid
+			checkData && data.journalData.journalData[0].uid ? data.journalData.journalData[0].uid : '',
+		publisher:
+			checkData && data.journalData.journalData[0].publisher
+				? data.journalData.journalData[0].publisher
 				: '',
-		publisher: checkData && data.journalData.journalData[0].publisher
-			? data.journalData.journalData[0].publisher
-			: '',
 		other_authors:
-		checkData && data.journalData.journalData[0].other_authors != null
+			checkData && data.journalData.journalData[0].other_authors != null
 				? data.journalData.journalData[0].other_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.name };
 					})
 				: null,
 		page_no:
-		checkData && data.journalData.journalData[0].page_no
+			checkData && data.journalData.journalData[0].page_no
 				? data.journalData.journalData[0].page_no
 				: '',
 		issn_no:
-		checkData && data.journalData.journalData[0].issn_no
+			checkData && data.journalData.journalData[0].issn_no
 				? data.journalData.journalData[0].issn_no
 				: '',
 		scopus_site_score:
-		checkData && data.journalData.journalData[0].scopus_site_score
+			checkData && data.journalData.journalData[0].scopus_site_score
 				? data.journalData.journalData[0].scopus_site_score
 				: null,
 		impact_factor:
-		checkData && data.journalData.journalData[0].impact_factor
+			checkData && data.journalData.journalData[0].impact_factor
 				? data.journalData.journalData[0].impact_factor
 				: null,
 		doi_no:
-		checkData && data.journalData.journalData[0].doi_no
+			checkData && data.journalData.journalData[0].doi_no
 				? data.journalData.journalData[0].doi_no
 				: null,
 		title:
-		checkData && data.journalData.journalData[0].title
+			checkData && data.journalData.journalData[0].title
 				? data.journalData.journalData[0].title
 				: '',
-		gs_indexed:checkData && data.journalData.journalData[0].gs_indexed,
+		gs_indexed: checkData && data.journalData.journalData[0].gs_indexed,
 		paper_type:
-		checkData && data.journalData.journalData[0].paper_type[0]
+			checkData && data.journalData.journalData[0].paper_type[0]
 				? {
 						value: data.journalData.journalData[0].paper_type[0].id,
 						label: data.journalData.journalData[0].paper_type[0].paper_name
 					}
 				: null,
-		wos_indexed:checkData ? data.journalData.journalData[0].wos_indexed : null,
+		wos_indexed: checkData ? data.journalData.journalData[0].wos_indexed : null,
 		abdc_indexed:
-		checkData && data.journalData.journalData[0].abdc_indexed[0] != null
+			checkData && data.journalData.journalData[0].abdc_indexed[0] != null
 				? {
 						value: data.journalData.journalData[0].abdc_indexed[0].id,
 						label: data.journalData.journalData[0].abdc_indexed[0].abdc_type
 					}
 				: null,
-		ugc_indexed:checkData ? data.journalData.journalData[0].ugc_indexed : null,
-		scs_indexed:checkData ? data.journalData.journalData[0].scs_indexed : null,
-		foreign_authors_count: checkData && data.journalData.journalData[0].foreign_authors_count
+		ugc_indexed: checkData ? data.journalData.journalData[0].ugc_indexed : null,
+		scs_indexed: checkData ? data.journalData.journalData[0].scs_indexed : null,
+		foreign_authors_count:
+			checkData && data.journalData.journalData[0].foreign_authors_count
 				? data.journalData.journalData[0].foreign_authors_count
 				: null,
-		foreign_authors:checkData && data.journalData.journalData[0].foreign_authors.length > 0
+		foreign_authors:
+			checkData && data.journalData.journalData[0].foreign_authors.length > 0
 				? data.journalData.journalData[0].foreign_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.name };
 					})
 				: null,
 		student_authors_count:
-		checkData && data.journalData.journalData[0].student_authors_count
+			checkData && data.journalData.journalData[0].student_authors_count
 				? data.journalData.journalData[0].student_authors_count
 				: null,
 		student_authors:
-		checkData && data.journalData.journalData[0].student_authors.length > 0
+			checkData && data.journalData.journalData[0].student_authors.length > 0
 				? data.journalData.journalData[0].student_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.name };
 					})
 				: null,
-		journal_type: checkData && data.journalData.journalData[0].journal_type
+		journal_type:
+			checkData && data.journalData.journalData[0].journal_type
 				? parseInt(data.journalData.journalData[0].journal_type)
 				: null
 	};
 
-	let files: any = [];
+	// fetchMultipleFiles();
+	let files: any = checkData ? createFile(data.journalData.files) : [];
+	$: console.log('retrieved files ', files);
 
-	// let foreignAuthors = data?.journalData?.foreignAuthors?.message;
-	// let filteredForeignAuth: any = [];
+	// async function fetchMultipleFiles() {
+	// 	files = await fetchFiles(`${PUBLIC_API_BASE_URL}/journal-files/?id=${obj.journal_paper_id}`);
+	// }
 
-	// $: Array.from(obj.foreign_authors).forEach((faa) => {
-	// 	Array.from(foreignAuthors).forEach((fa) => {
-	// 		if (faa.value !== fa.id) {
-	// 			filteredForeignAuth.push(fa);
-	// 		}
-	// 	});
-	// });
-
-	// console.log('foreign authors ', foreignAuthors, obj.foreign_authors, filteredForeignAuth);
-
-	// $: foreignAuth = filteredForeignAuth;
+	console.log('files uploaded ', files);
+	fileDataStore.set(files);
 
 	async function handleSubmit() {
 		const journalObject: JournalPaperReq = {
@@ -269,8 +267,13 @@
 
 		if (checkVal) {
 			const fileObject: FileReq = {
-				documents: Array.from(files)
+				documents: files.map((f: any) => {
+					return f.file;
+				})
 			};
+
+			console.log('fileObject validation', fileObject);
+
 			const fileresult = validateWithZod(fileSchema, fileObject);
 			if (fileresult.errors) {
 				console.log(fileresult.errors);
@@ -287,8 +290,8 @@
 		formData.append('journal_paper', JSON.stringify(journalObject));
 		formData.append('journal_id', obj.journal_paper_id);
 
-		Array.from(files).forEach((file) => {
-			formData.append('supporting_documents', file);
+		Array.from(files).forEach((file: any) => {
+			formData.append('supporting_documents', file.file);
 		});
 
 		for (let [key, value] of formData.entries()) {
@@ -359,6 +362,19 @@
 					description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
 				});
 			});
+	}
+
+	function handleFiles(event: CustomEvent<File[]>) {
+		files = event.detail;
+		console.log('edit files details', files);
+
+		files.forEach((file: any) => {
+			console.log('File instance:', file instanceof File);
+		});
+	}
+
+	function handleDeleteFiles(event: CustomEvent) {
+		files = event.detail;
 	}
 </script>
 
@@ -611,12 +627,19 @@
 			</div>
 
 			<div>
-				<label for="supporting-documents"
+				<label for="supporting-documents" class="lms-label"
 					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
 				>
-				<label>Click To Upload New File <input type="checkbox" bind:checked={isChecked} /></label>
+				<label class="lms-label"
+					>Click To Upload New File <input type="checkbox" bind:checked={isChecked} /></label
+				>
 				{#if checkVal}
-					<input type="file" bind:files multiple />
+					<File
+						on:filesSelected={handleFiles}
+						on:deletedFiles={handleDeleteFiles}
+						isView={false}
+						isEdit={true}
+					/>
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-md"></i></button

@@ -15,6 +15,7 @@
 	let fileUrl = '';
 	let files: any = [];
 	export let isView: boolean = false;
+	export let isEdit: boolean = false;
 
 	$: selectedFileUrl = fileUrl;
 	$: fileData = $fileDataStore;
@@ -45,23 +46,37 @@
 
 	function handleFileUpload(event: Event) {
 		const input: any = event.target as HTMLInputElement;
-		const fileData  = Array.from(input.files || []);
-		files = fileData.map((file: any) => ({
-			file,
-			name: file.name,
-			url: URL.createObjectURL(file),
-			id: generateRandomUUID()
-		}));
+		const fileData = Array.from(input.files || []);
+
+		if (!isEdit) {
+			files = fileData.map((file: any) => ({
+				file,
+				name: file.name,
+				url: URL.createObjectURL(file),
+				id: generateRandomUUID()
+			}));
+		} else {
+			const storedFiles = $fileDataStore;
+			files = [
+				...storedFiles,
+				...fileData.map((file: any) => ({
+					file,
+					name: file.name,
+					url: URL.createObjectURL(file),
+					id: generateRandomUUID()
+				}))
+			];
+		}
 
 		fileDataStore.set(files);
 		dispatch('filesSelected', files);
 	}
 
-	function handleDelete(file : any) {
-		files = files.filter((f : any) => f.id !== file);
-		console.log('files display ',files)
-	    fileDataStore.update((files) => files.filter((f: any) => f.id !== file));
-		dispatch('deletedFiles',files);
+	function handleDelete(file: any) {
+		files = files.filter((f: any) => f.id !== file);
+		console.log('files display ', files);
+		fileDataStore.update((files) => files.filter((f: any) => f.id !== file));
+		dispatch('deletedFiles', files);
 	}
 </script>
 
