@@ -1,148 +1,115 @@
 <script lang="ts">
+	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
 
-    import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 
-    import { SelectDateIcon, XIcon } from '$lib/components/icons';
+	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
 
-    import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
+	import { tooltip } from '$lib/utils/tooltip';
 
-    import { tooltip } from '$lib/utils/tooltip';
+	import { fly } from 'svelte/transition';
 
-    import { fly } from 'svelte/transition';
+	import { Card } from '$lib/components/ui';
 
-    import { Card } from '$lib/components/ui';
+	import {
+		getEnternalAuthors,
+		getExternalAuthors,
+		getResearchStatus,
+		getSchool,
+		getCampus
+	} from '$lib/utils/select.helper';
 
+	import { validateWithZod } from '$lib/utils/validations';
 
+	import {
+		researchProjectDetails,
+		type ResearchProjectDetailsReq
+	} from '$lib/schemas/modules/research/master-validations';
 
+	import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
 
-    import {
+	import { toast } from 'svelte-sonner';
 
-        getEnternalAuthors,
-        getExternalAuthors,
-        getResearchStatus,
-        getSchool,
-        getCampus,
+	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
 
-        
+	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 
-    } from '$lib/utils/select.helper';
+	import type { any } from 'zod';
 
-    import { validateWithZod } from '$lib/utils/validations';
+	import { goto } from '$app/navigation';
+	import type { researchProjectStatus } from '$lib/types/modules/research/research-types';
 
-    import {
+	export let data: any;
 
-        researchProjectDetails,
+	let isRequired = false;
 
-        type ResearchProjectDetailsReq
+	let title = 'Research Project';
 
-    } from '$lib/schemas/modules/research/master-validations';
+	let nmimsSchool = data?.ResearchProjectDataList?.school?.message;
 
-    import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
+	let nmimsCampus = data?.ResearchProjectDataList?.campus?.message;
 
-    import { toast } from 'svelte-sonner';
+	let enternalAuthors = data?.ResearchProjectDataList?.internalAuthors?.message;
 
-    import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
+	let externalAuthors = data?.ResearchProjectDataList?.externalAuthors?.message;
 
-    import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	let researchStatus = data?.ResearchProjectDataList?.status?.message;
 
-    import type { any } from 'zod';
+	// let isRequired = false;
 
-    import { goto } from '$app/navigation';
+	console.log('render ResearchProjectDataList', data.ResearchProjectDataList);
 
+	$: school = nmimsSchool;
 
+	$: campus = nmimsCampus;
 
+	$: researchStatus = researchStatus;
 
-    export let data: any;
-
-    let isRequired = false;
-
-    let title = 'Research Project';
-
-
-
-    let nmimsSchool = data?.ResearchProjectDataList?.school?.message;
-
-    let nmimsCampus = data?.ResearchProjectDataList?.campus?.message;
-
-    let enternalAuthors = data?.ResearchProjectDataList?.internalAuthors?.message;
-
-    let externalAuthors = data?.ResearchProjectDataList?.externalAuthors?.message;
-
-
-    let researchStatus = data?.ResearchProjectDataList?.status?.message;
-
-
-
-
-
-    // let isRequired = false;
-
-    console.log('render ResearchProjectDataList', data.ResearchProjectDataList);
-
-    
-
-    $: school = nmimsSchool;
-
-    $: campus = nmimsCampus;
-
-    $: researchStatus = researchStatus;
-
-
-
-    $: external = externalAuthors;
+	$: external = externalAuthors;
 	$: internal = enternalAuthors;
 
+	let obj = {
+		nmims_school: null,
+		nmims_campus: null,
+		research_status: null,
+		title: '',
+		thrust_area: '',
+		grant_proposal: 1,
+		grant_type: 1,
+		funding_amount: '',
+		funding_agency: '',
+		scheme: '',
+		received_amount: '',
+		grant_date: '',
+		duration: '',
+		payment_date: '',
+		internal_authors: null,
+		external_authors: null
+	};
 
+	let grantDate: Date | null = new Date();
+	grantDate = null;
+	$: grantFormattedDate = grantDate ? formatDate(grantDate) : '';
 
+	let paymentDate: Date | null = new Date();
+	paymentDate = null;
+	$: paymentFormattedDate = paymentDate ? formatDate(paymentDate) : '';
 
-    let obj = {
-    nmims_school: null,
-    nmims_campus: null,
-    research_status: null,
-    title: '',
-	thrust_area: '',
-    grant_proposal: 1,
-	grant_type: 1,
-	funding_amount: '',
-	funding_agency: '',
-	scheme: '',
-	received_amount: '',
-    grant_date: '',
-	duration: '',
-	payment_date: '',
-    internal_authors: null,
-    external_authors: null
-};
+	function handleDateChange1(e: CustomEvent<any>) {
+		if (!grantDate) return;
+		grantFormattedDate = formatDate(grantDate);
+		console.log('grantDate ', grantDate);
+	}
 
- 
+	function handleDateChange2(e: CustomEvent<any>) {
+		if (!paymentDate) return;
+		paymentFormattedDate = formatDate(paymentDate);
+		console.log('paymentDate ', paymentDate);
+	}
 
-    let grantDate: Date | null = new Date();
-    grantDate = null;
-    $: grantFormattedDate = grantDate ? formatDate(grantDate) : '';
+	let files: any = [];
 
-    let paymentDate: Date | null = new Date();
-    paymentDate = null;
-    $: paymentFormattedDate = paymentDate ? formatDate(paymentDate) : '';
-
-
-
-    function handleDateChange1(e: CustomEvent<any>) {
-        if (!grantDate) return;
-        grantFormattedDate = formatDate(grantDate);
-        console.log('grantDate ', grantDate);
-    }
-
-    function handleDateChange2(e: CustomEvent<any>) {
-        if (!paymentDate) return;
-        paymentFormattedDate = formatDate(paymentDate);
-        console.log('paymentDate ', paymentDate);
-    }
-
-
-
-    let files: any = [];
-
-    let showInternal = false;
+	let showInternal = false;
 	let showExternal = false;
 
 	function handleInternalChange(event: { target: { checked: boolean } }) {
@@ -153,209 +120,198 @@
 		showExternal = event.target.checked;
 	}
 
+	//submit function for sending data
 
+	async function handleSubmit() {
+		const researchProjectObj: ResearchProjectDetailsReq = {
+			nmims_school:
+				obj.nmims_school != null
+					? (obj.nmims_school as any).map((data: { value: any }) => data.value)
+					: [],
+			nmims_campus:
+				obj.nmims_campus != null
+					? (obj.nmims_campus as any).map((data: { value: any }) => data.value)
+					: [],
+			research_status: obj.research_status != null ? Number((obj.research_status as any).value) : 0,
+			title: obj.title,
+			thrust_area: obj.thrust_area,
+			grant_proposal: Number(obj.grant_proposal),
+			grant_type: Number(obj.grant_type),
+			duration: obj.duration,
+			funding_amount: Number(obj.funding_amount),
+			funding_agency: obj.funding_agency,
+			scheme: obj.scheme,
+			received_amount: Number(obj.received_amount),
+			grant_date: grantFormattedDate,
+			payment_date: paymentFormattedDate,
+			internal_authors:
+				obj.internal_authors != null
+					? (obj.internal_authors as any).map((data: { value: any }) => Number(data.value))
+					: [],
+			external_authors:
+				obj.external_authors != null
+					? (obj.external_authors as any).map((data: { value: any }) => Number(data.value))
+					: []
+		};
 
-    //submit function for sending data 
+		const fileObject = {
+			documents: Array.from(files)
+		};
 
-    async function handleSubmit() {
-    const researchProjectObj : ResearchProjectDetailsReq =  {
-		nmims_school: obj.nmims_school != null ? (obj.nmims_school as any).map((data: { value: any; }) => data.value) : [],
-		nmims_campus: obj.nmims_campus != null ? (obj.nmims_campus as any).map((data: { value: any; }) => data.value) : [],
-		research_status: obj.research_status != null ? Number((obj.research_status as any).value) : 0,
-		title: obj.title,
-        thrust_area: obj.thrust_area,
-		grant_proposal: Number(obj.grant_proposal),
-		grant_type: Number(obj.grant_type),
-        duration: obj.duration,
-		funding_amount: Number(obj.funding_amount),
-		funding_agency: obj.funding_agency,
-		scheme: obj.scheme,
-		received_amount: Number(obj.received_amount),
-        grant_date: grantFormattedDate, 
-		payment_date: paymentFormattedDate,
-		internal_authors: obj.internal_authors != null ? (obj.internal_authors as any).map((data: { value: any; }) => Number(data.value)) : [],
-		external_authors: obj.external_authors != null ? (obj.external_authors as any).map((data: { value: any; }) => Number(data.value)) : [],
-		
-	};
+		console.log('files object ', files);
 
-    const fileObject = {
-        documents: Array.from(files)
-    };
+		const fileresult = validateWithZod(fileSchema, fileObject);
+		if (fileresult.errors) {
+			console.log(fileresult.errors);
+			const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
+			toast.error('ALERT!', { description: firstMessage });
+			return;
+		}
 
-    console.log('files object ', files);
+		const formData = new FormData();
+		formData.append('ipr_data', JSON.stringify(researchProjectObj));
 
-    const fileresult = validateWithZod(fileSchema, fileObject);
-    if (fileresult.errors) {
-        console.log(fileresult.errors);
-        const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
-        toast.error('ALERT!', { description: firstMessage });
-        return;
-    }
+		Array.from(files).forEach((file: any) => {
+			formData.append('supporting_documents', file);
+		});
 
-    const formData = new FormData();
-    formData.append('ipr_data', JSON.stringify(researchProjectObj));
+		for (let [key, value] of formData.entries()) {
+			console.log(`${key}: ${value}`);
+		}
 
-    Array.from(files).forEach((file : any) => {
-        formData.append('supporting_documents', file);
-    });
+		console.log(JSON.stringify(researchProjectObj));
+		const result = validateWithZod(researchProjectDetails, researchProjectObj);
 
-    for (let [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
-    }
+		if (result.errors) {
+			console.log(result.errors);
+			const [firstPath, firstMessage] = Object.entries(result.errors)[0];
+			toast.error('ALERT!', { description: firstMessage });
+			return;
+		}
 
-    console.log(JSON.stringify(researchProjectObj));
-    const result = validateWithZod(researchProjectDetails, researchProjectObj);
+		console.log('validated data', JSON.stringify(result.data));
 
-    if (result.errors) {
-        console.log(result.errors);
-        const [firstPath, firstMessage] = Object.entries(result.errors)[0];
-        toast.error('ALERT!', { description: firstMessage });
-        return;
-    }
+		const { error, json } = await fetchFormApi<researchProjectStatus[]>({
+			url: `${PUBLIC_API_BASE_URL}/research-project-insert`,
+			method: 'POST',
+			body: formData
+		});
 
-    console.log('validated data', JSON.stringify(result.data));
+		if (error) {
+			toast.error(error.message || 'Something went wrong!', {
+				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+			});
+			return;
+		}
 
-    const { error, json } = await fetchFormApi({
-        url: `${PUBLIC_API_BASE_URL}/research-project-insert`,
-        method: 'POST',
-        body: formData
-    });
-
-    if (error) {
-        toast.error(error.message || 'Something went wrong!', {
-            description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
-        });
-        return;
-    }
-
-    if (json[0].insert_research_project.status == 403) {
+		if (json[0].insert_research_project.status == 403) {
 			toast.error('ALERT!', { description: json[0].insert_research_project.message });
 		} else {
 			toast.success('Inserted Successfully');
-            clearForm();
+			clearForm();
 			goto('/research-project');
 		}
-	};
-   
+	}
 
-
-
-    function clearForm() {
-
-        obj = {
-
-            nmims_school: null,
-            nmims_campus: null,
-            research_status: null,
-            title: '',
-            thrust_area: '',
-            grant_proposal: 1,
-            grant_type: 1,
-            funding_amount: '',
-            funding_agency: '',
-            scheme: '',
-            received_amount: '',
-            grant_date: '',
-            duration: '',
-            payment_date: '',
-            internal_authors: null,
-            external_authors: null
-
-        };
-
-    }
-
+	function clearForm() {
+		obj = {
+			nmims_school: null,
+			nmims_campus: null,
+			research_status: null,
+			title: '',
+			thrust_area: '',
+			grant_proposal: 1,
+			grant_type: 1,
+			funding_amount: '',
+			funding_agency: '',
+			scheme: '',
+			received_amount: '',
+			grant_date: '',
+			duration: '',
+			payment_date: '',
+			internal_authors: null,
+			external_authors: null
+		};
+	}
 </script>
 
-
-
-
-
 <Card {title}>
+	<div class="modal-content p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<DynamicSelect
+				isRequired={true}
+				placeholder="Nmims School"
+				options={getSchool(school)}
+				bind:selectedOptions={obj.nmims_school}
+				isMultiSelect={true}
+			/>
 
-    <div class="modal-content p-4">
-        <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-            <DynamicSelect
-                isRequired={true}
-                placeholder="Nmims School"
-                options={getSchool(school)}
-                bind:selectedOptions={obj.nmims_school}
-                isMultiSelect={true}/>
+			<DynamicSelect
+				isRequired={true}
+				placeholder="Nmims Campus"
+				options={getCampus(campus)}
+				bind:selectedOptions={obj.nmims_campus}
+				isMultiSelect={true}
+			/>
 
-            <DynamicSelect
-                isRequired={true}
-                placeholder="Nmims Campus"
-                options={getCampus(campus)}
-                bind:selectedOptions={obj.nmims_campus}
-                isMultiSelect={true} />
+			<DynamicSelect
+				isRequired={true}
+				placeholder="Research Status"
+				options={getResearchStatus(researchStatus)}
+				bind:selectedOptions={obj.research_status}
+				isMultiSelect={false}
+			/>
+		</div>
 
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<Input type="text" placeholder="Title of Project" bind:value={obj.title} />
+			<Input type="text" placeholder="Thrust area of Research" bind:value={obj.thrust_area} />
+			<div class="ml-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<label class="text-sm text-[#888888]"
+					>Type of Grant<span class="text-danger text-sm">*</span>
+				</label>
+				<div class="mt-2.5 flex flex-row gap-[20px]">
+					<div class="flex flex-row">
+						<input
+							type="radio"
+							class="lms-input-radio w-4"
+							name="proceedings-published"
+							bind:group={obj.grant_type}
+							value={1}
+						/>
+						<span class="text-sm text-[#888888]"> Research Project </span>
+					</div>
+					<div class="flex flex-row">
+						<input
+							type="radio"
+							class="lms-input-radio w-4"
+							name="Type of Grant"
+							bind:group={obj.grant_type}
+							value={2}
+						/>
+						<span class="text-sm text-[#888888]">Consultancy</span>
+					</div>
 
-                <DynamicSelect
-                isRequired={true}
-                placeholder="Research Status"
-                options={getResearchStatus(researchStatus)}
-                bind:selectedOptions={obj.research_status}
-                isMultiSelect={false}/>
+					<div class="flex flex-row">
+						<input
+							type="radio"
+							class="lms-input-radio w-4"
+							name="Type of Grant"
+							bind:group={obj.grant_type}
+							value={3}
+						/>
+						<span class="text-sm text-[#888888]">Capacity Building</span>
+					</div>
+				</div>
+			</div>
+		</div>
 
- 
-
-        </div>
-
-        <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-
-            <Input type="text" placeholder="Title of Project" bind:value={obj.title} />
-            <Input type="text" placeholder="Thrust area of Research" bind:value={obj.thrust_area} />
-            <div class="ml-2">
-                <!-- svelte-ignore a11y-label-has-associated-control -->
-                <label class="text-sm text-[#888888]"
-                >Type of Grant<span class="text-danger text-sm">*</span>
-            </label>
-            <div class="mt-2.5 flex flex-row gap-[20px]">
-                <div class="flex flex-row">
-                    <input
-                        type="radio"
-                        class="lms-input-radio w-4"
-                        name="proceedings-published"
-                        bind:group={obj.grant_type}
-                        value={1}
-                    />
-                    <span class="text-sm text-[#888888]"> Research Project  </span>
-                </div>
-                <div class="flex flex-row">
-                    <input
-                        type="radio"
-                        class="lms-input-radio w-4"
-                        name="Type of Grant"
-                        bind:group={obj.grant_type}
-                        value={2}
-                    />
-                    <span class="text-sm text-[#888888]">Consultancy</span>
-                </div> 
-
-                <div class="flex flex-row">
-                    <input
-                        type="radio"
-                        class="lms-input-radio w-4"
-                        name="Type of Grant"
-                        bind:group={obj.grant_type}
-                        value={3}
-                    />
-                    <span class="text-sm text-[#888888]">Capacity Building</span>
-                </div>
-            </div>
-            </div>
-          
-
-
-        </div>
-
-
-
-
-        <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-            <!-- svelte-ignore a11y-label-has-associated-control -->
-            <div class="ml-2">
-            <label class="text-sm text-[#888888]">Grant Proposal<span class="text-danger text-sm">*</span>
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<!-- svelte-ignore a11y-label-has-associated-control -->
+			<div class="ml-2">
+				<label class="text-sm text-[#888888]"
+					>Grant Proposal<span class="text-danger text-sm">*</span>
 				</label>
 				<div class="mt-2.5 flex flex-row gap-[20px]">
 					<div class="flex flex-row">
@@ -365,7 +321,7 @@
 							name="grant-proposal"
 							bind:group={obj.grant_proposal}
 							value={1}
-                            checked={obj.grant_proposal == 1}
+							checked={obj.grant_proposal == 1}
 						/>
 						<span class="text-sm text-[#888888]">Goverment</span>
 					</div>
@@ -380,25 +336,20 @@
 						<span class="text-sm text-[#888888]">Industry</span>
 					</div>
 				</div>
+			</div>
+			<Input type="number" placeholder="Funding Amount" bind:value={obj.funding_amount} />
+			<Input type="text" placeholder="Name of Funding Agency" bind:value={obj.funding_agency} />
+		</div>
 
-            </div>
-            <Input type="number" placeholder="Funding Amount" bind:value={obj.funding_amount} />
-            <Input type="text" placeholder="Name of Funding Agency" bind:value={obj.funding_agency} />
-           
-        </div>
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<Input type="text" placeholder="Duration Of Project In Months" bind:value={obj.duration} />
+			<Input type="text" placeholder="Scheme " bind:value={obj.scheme} />
+			<Input type="number" placeholder="Amount Received" bind:value={obj.received_amount} />
+		</div>
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<input type="file" bind:files multiple />
 
-        <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-            <Input type="text" placeholder="Duration Of Project In Months" bind:value={obj.duration} />
-            <Input type="text" placeholder="Scheme " bind:value={obj.scheme} />
-            <Input type="number" placeholder="Amount Received" bind:value={obj.received_amount} />
-            
-        </div>
-        <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-            <input type="file" bind:files multiple />
-            
-            <div class="ml-2">
-                
-
+			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
 					>Details of Faculty<span class="text-danger text-sm">*</span>
@@ -409,7 +360,7 @@
 							id="internal-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-                            bind:checked={showInternal}
+							bind:checked={showInternal}
 						/>
 						<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
 							>Internal</label
@@ -420,7 +371,7 @@
 							id="external-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-                            bind:checked={showExternal}
+							bind:checked={showExternal}
 						/>
 						<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
 							>External</label
@@ -448,14 +399,12 @@
 					{/if}
 				</div>
 			</div>
-           
 
-            <div class="flex flex-row gap-[40px] p-4">
+			<div class="flex flex-row gap-[40px] p-4">
 				<DatePicker
 					on:change={handleDateChange1}
 					bind:selectedDateTime={grantDate}
-					disabled={(grantDate) =>
-						grantDate.getTime() < new Date().setHours(0, 0, 0, 0)}
+					disabled={(grantDate) => grantDate.getTime() < new Date().setHours(0, 0, 0, 0)}
 				>
 					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 						<SelectDateIcon />
@@ -484,18 +433,13 @@
 					</div>
 				{/if}
 			</div>
-
-        </div>
-        <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-			
-
-    
-            <div class="flex flex-row gap-[40px] p-4">
+		</div>
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<div class="flex flex-row gap-[40px] p-4">
 				<DatePicker
 					on:change={handleDateChange2}
 					bind:selectedDateTime={paymentDate}
-					disabled={(paymentDate) =>
-						paymentDate.getTime() < new Date().setHours(0, 0, 0, 0)}
+					disabled={(paymentDate) => paymentDate.getTime() < new Date().setHours(0, 0, 0, 0)}
 				>
 					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 						<SelectDateIcon />
@@ -525,15 +469,11 @@
 				{/if}
 			</div>
 		</div>
+	</div>
 
-    </div>
+	<div class="flex flex-row gap-[20px] p-4">
+		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
 
-    <div class="flex flex-row gap-[20px] p-4">
-
-        <button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
-
-        <button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
-
-    </div>
-
+		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
+	</div>
 </Card>

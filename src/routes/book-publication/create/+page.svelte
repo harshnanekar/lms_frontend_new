@@ -23,6 +23,7 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
+	import type { bookPublicationStatus } from '$lib/types/modules/research/research-types';
 
 	export let data: any;
 	let isRequired = false;
@@ -30,13 +31,13 @@
 
 	let nmimsSchool = data?.bookPublicationData?.school?.message;
 	let nmimsCampus = data?.bookPublicationData?.campus?.message;
-    let nmimsAuthors = data?.bookPublicationData?.nmimsAuthors?.message;
-    let allAuthors = data?.bookPublicationData?.allAuthors?.message;
-	
-    console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool)
+	let nmimsAuthors = data?.bookPublicationData?.nmimsAuthors?.message;
+	let allAuthors = data?.bookPublicationData?.allAuthors?.message;
 
-    $: school = nmimsSchool;
-    $: nmimsAuth = nmimsAuthors;
+	console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool);
+
+	$: school = nmimsSchool;
+	$: nmimsAuth = nmimsAuthors;
 	$: allAuth = allAuthors;
 	$: campus = nmimsCampus;
 
@@ -89,7 +90,7 @@
 			nmims_authors_count: Number(obj.nmims_authors_count)
 		};
 
-		const fileObject: FileReq = {
+		const fileObject = {
 			documents: Array.from(files)
 		};
 		const fileresult = validateWithZod(fileSchema, fileObject);
@@ -129,7 +130,7 @@
 
 		console.log('validated data', JSON.stringify(result.data));
 
-		const { error, json } = await fetchFormApi({
+		const { error, json } = await fetchFormApi<bookPublicationStatus[]>({
 			url: `${PUBLIC_API_BASE_URL}/book-publication-insert`,
 			method: 'POST',
 			body: formData

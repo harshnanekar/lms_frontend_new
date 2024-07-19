@@ -15,11 +15,11 @@
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
 	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
-	import {confirmStore,actionStore} from "$lib/stores/modules/mpc/master.store"
-	import {showConfirmation} from '$lib/components/ui/popup'
+	import { confirmStore, actionStore } from '$lib/stores/modules/mpc/master.store';
+	import { showConfirmation } from '$lib/components/ui/popup';
 
 	export let actionData: ConferenceRender;
-	
+
 	const showMenu = writable<boolean>(false);
 	const menuPosition = writable<{ top: number; left: number }>({ top: 0, left: 0 });
 
@@ -64,7 +64,6 @@
 		}
 	};
 
-
 	onMount(() => {
 		document.addEventListener('click', handleClickOutside);
 		return () => {
@@ -72,59 +71,54 @@
 		};
 	});
 
-    $: console.log("ACTIONDATA Conference Details >>>>>>>>>>>", actionData);
+	$: console.log('ACTIONDATA Conference Details >>>>>>>>>>>', actionData);
 	const isOpen = writable(false);
 	let modalwidthPercent: ModalSizes = 'md';
 	let conferenceId: number;
 
 	const openModal = async () => {
 		conferenceId = actionData.id;
-		console.log('click called')
-	
-     const message = 'Are you sure you want to delete this?';
-     confirmStore.set({
-		isVisible:true,
-		confirmText:message
-	 })
+		console.log('click called');
 
-	 actionStore.set({
-            callback: handleDelete
-     });
+		const message = 'Are you sure you want to delete this?';
+		confirmStore.set({
+			isVisible: true,
+			confirmText: message
+		});
+
+		actionStore.set({
+			callback: handleDelete
+		});
 	};
 
 	const closeModal = () => {
 		isOpen.set(false);
 	};
 
-
 	async function handleDelete() {
-    console.log('delete button clicked', conferenceId);
-    isOpen.set(false);
+		console.log('delete button clicked', conferenceId);
+		isOpen.set(false);
 
-    const response = await fetch(`${PUBLIC_API_BASE_URL}/conference-delete?id=${conferenceId}`, {
-        method: 'POST'
-    });
+		const response = await fetch(`${PUBLIC_API_BASE_URL}/conference-delete?id=${conferenceId}`, {
+			method: 'POST'
+		});
 
-    const { error, json } = await response.json();
+		const { error, json } = await response.json();
 
-    if (error) {
-        toast.error(error.message || 'Something went wrong!', {
-            description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
-        });
-        return;
-    }
+		if (error) {
+			toast.error(error.message || 'Something went wrong!', {
+				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+			});
+			return;
+		}
 
-    toast.success('Deleted Successfully!');
-	let url = new URL('http://localhost:9090/research/conference-paginate');
-    paginateUrl.set(url);
-    
-   
-}
-
+		toast.success('Deleted Successfully!');
+		let url = new URL('http://localhost:9090/research/conference-paginate');
+		paginateUrl.set(url);
+	}
 </script>
 
 <div>
-   
 	<button class="action-button" bind:this={buttonElement} on:click={toggleMenu}>
 		<ActionIcon />
 	</button>
@@ -136,11 +130,15 @@
 			style="top: {$menuPosition.top}px; left: {$menuPosition.left}px;"
 		>
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-				<a href="/conference/view/{actionData.id}" class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
-			    >View</a
+				<a
+					href="/conference/view/{actionData.id}"
+					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+					role="menuitem">View</a
 				>
-				<a href="/conference/edit/{actionData.id}" class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
-					>Edit</a
+				<a
+					href="/conference/edit/{actionData.id}"
+					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+					role="menuitem">Edit</a
 				>
 				<button
 					on:click={openModal}

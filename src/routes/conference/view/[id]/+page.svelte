@@ -1,12 +1,10 @@
 <script lang="ts">
-
 	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
 	import { fly } from 'svelte/transition';
 	import { Card } from '$lib/components/ui';
-
 
 	import { validateWithZod } from '$lib/utils/validations';
 	import {
@@ -23,16 +21,14 @@
 	export let data: any;
 	let isRequired = false;
 	let title = 'Conference';
-    let disabled: boolean = true;
-    let checkData = data.conferenceDetails.length > 0 ? true : false;
+	let disabled: boolean = true;
+	let checkData = data.conferenceDetails.length > 0 ? true : false;
 
-
-
-    console.log('data detaisl ===>>>', data.conferenceDetails)
-    console.log('data.conferenceDetails.conferenceDetails[0].conference_name  ==>>', data.conferenceDetails[0].nmims_school)
-    
-
-	
+	console.log('data detaisl ===>>>', data.conferenceDetails);
+	console.log(
+		'data.conferenceDetails.conferenceDetails[0].conference_name  ==>>',
+		data.conferenceDetails[0].nmims_school
+	);
 
 	let conferenceFiles: any = [];
 	let awardFiles: any = [];
@@ -40,45 +36,56 @@
 	let showInternal = false;
 	let showExternal = false;
 
-
 	let obj: any = {
-    conference_id: checkData ? parseInt(data.conferenceDetails[0].conference_id) : null,
-    nmims_school: checkData && data.conferenceDetails[0].nmims_school ? data.conferenceDetails[0].nmims_school : '',
-    nmims_campus: data.conferenceDetails[0].nmims_campus ? data.conferenceDetails[0].nmims_campus : '',
-    paper_title: data.conferenceDetails[0].paper_title ? data.conferenceDetails[0].paper_title : '',
-    all_authors: data.conferenceDetails[0].all_authors ? data.conferenceDetails[0].all_authors : '',
-    conference_name: data.conferenceDetails[0].conference_name ? data.conferenceDetails[0].conference_name : '',
-    place: data.conferenceDetails[0].place ? data.conferenceDetails[0].place : '',
-    proceeding_published: data.conferenceDetails[0].proceeding_published,
-    conference_type: Number(data.conferenceDetails[0].conference_type),
-    presenting_author: data.conferenceDetails[0].presenting_author ? data.conferenceDetails[0].presenting_author : '',
-    organizing_body: data.conferenceDetails[0].organizing_body ? data.conferenceDetails[0].organizing_body : '',
-    volume_no: data.conferenceDetails[0].volume_no ? data.conferenceDetails[0].volume_no : '',
-    issn_no: data.conferenceDetails[0].issn_no ? data.conferenceDetails[0].issn_no : '',
-    sponsored: Number(data.conferenceDetails[0].sponsored),
-    doi_no: data.conferenceDetails[0].doi_no ? data.conferenceDetails[0].doi_no : '',
-    amount: data.conferenceDetails[0].amount ? data.conferenceDetails[0].amount : '',
-    publication_date: data.conferenceDetails[0].publication_date
+		conference_id: checkData ? parseInt(data.conferenceDetails[0].conference_id) : null,
+		nmims_school:
+			checkData && data.conferenceDetails[0].nmims_school
+				? data.conferenceDetails[0].nmims_school
+				: '',
+		nmims_campus: data.conferenceDetails[0].nmims_campus
+			? data.conferenceDetails[0].nmims_campus
+			: '',
+		paper_title: data.conferenceDetails[0].paper_title ? data.conferenceDetails[0].paper_title : '',
+		all_authors: data.conferenceDetails[0].all_authors ? data.conferenceDetails[0].all_authors : '',
+		conference_name: data.conferenceDetails[0].conference_name
+			? data.conferenceDetails[0].conference_name
+			: '',
+		place: data.conferenceDetails[0].place ? data.conferenceDetails[0].place : '',
+		proceeding_published: data.conferenceDetails[0].proceeding_published,
+		conference_type: Number(data.conferenceDetails[0].conference_type),
+		presenting_author: data.conferenceDetails[0].presenting_author
+			? data.conferenceDetails[0].presenting_author
+			: '',
+		organizing_body: data.conferenceDetails[0].organizing_body
+			? data.conferenceDetails[0].organizing_body
+			: '',
+		volume_no: data.conferenceDetails[0].volume_no ? data.conferenceDetails[0].volume_no : '',
+		issn_no: data.conferenceDetails[0].issn_no ? data.conferenceDetails[0].issn_no : '',
+		sponsored: Number(data.conferenceDetails[0].sponsored),
+		doi_no: data.conferenceDetails[0].doi_no ? data.conferenceDetails[0].doi_no : '',
+		amount: data.conferenceDetails[0].amount ? data.conferenceDetails[0].amount : '',
+		publication_date: data.conferenceDetails[0].publication_date
 			? new Date(data.conferenceDetails[0].publication_date)
 			: null,
-    internal_faculty_details : data.conferenceDetails[0].internal_faculty_details ? data.conferenceDetails[0].internal_faculty_details : '',
-    external_faculty_details : data.conferenceDetails[0].external_faculty_details ? data.conferenceDetails[0].external_faculty_details : '',
-    conference_documents : data.conferenceDetails[0].conference_documents ? data.conferenceDetails[0].conference_documents : '',
-    conference_awards : data.conferenceDetails[0].conference_awards ? data.conferenceDetails[0].conference_awards : ''
+		internal_faculty_details: data.conferenceDetails[0].internal_faculty_details
+			? data.conferenceDetails[0].internal_faculty_details
+			: '',
+		external_faculty_details: data.conferenceDetails[0].external_faculty_details
+			? data.conferenceDetails[0].external_faculty_details
+			: '',
+		conference_documents: data.conferenceDetails[0].conference_documents
+			? data.conferenceDetails[0].conference_documents
+			: '',
+		conference_awards: data.conferenceDetails[0].conference_awards
+			? data.conferenceDetails[0].conference_awards
+			: ''
+	};
+	console.log('boj ankit  ===>>>>', obj);
+	let publicationDate: Date | null = new Date();
+	publicationDate = obj.publication_date;
+	$: publicationFormattedDate = publicationDate;
 
-
-};
-console.log('boj ankit  ===>>>>', obj);
-let publicationDate: Date | null = new Date();
-publicationDate = obj.publication_date;
-$: publicationFormattedDate = publicationDate;
-
-	
-
-
-
-
-    async function downLoadFiles(abbr: string) {
+	async function downLoadFiles(abbr: string) {
 		fetch(`${PUBLIC_API_BASE_URL}/conference-download-files?id=${obj.conference_id}&abbr=${abbr}`)
 			.then((response) => {
 				if (response.ok) {
@@ -104,203 +111,227 @@ $: publicationFormattedDate = publicationDate;
 	}
 </script>
 
-
 {#if checkData}
-<Card {title}>
-	<div class="modal-content p-4">
-		<!-- Adjust max-height as needed -->
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-            <Input type="text" placeholder="Nmims School" value={obj.nmims_school} {disabled} />
-            <Input type="text" placeholder="Nmims Campus" value={obj.nmims_campus} {disabled} />
-			<Input type="text" placeholder="Title Of The Paper" bind:value={obj.paper_title} {disabled}/>
-		</div>
-
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-			<Input type="text" placeholder="Name of Conference" bind:value={obj.conference_name} {disabled}/>
-            <Input type="text" placeholder="All Authors Names" value={obj.all_authors} {disabled} />
-			<Input type="text" placeholder="Place of Conference" bind:value={obj.place} {disabled}/>
-		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-			<div class="ml-2">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
-				<label class="text-sm text-[#888888]"
-					>Proceedings published<span class="text-danger text-sm">*</span>
-				</label>
-				<div class="mt-2.5 flex flex-row gap-[20px]">
-					<div class="flex flex-row">
-						<input
-							type="radio"
-							class="lms-input-radio w-4"
-							name="proceedings-published"
-							value={true}
-							checked={obj.proceeding_published === true} {disabled}
-						/>
-						<span class="text-sm text-[#888888]">Yes</span>
-					</div>
-					<div class="flex flex-row">
-						<input
-							type="radio"
-							class="lms-input-radio w-4"
-							name="proceedings-published"
-							checked={obj.proceeding_published === false}
-							value={false} {disabled}
-						/>
-						<span class="text-sm text-[#888888]">No</span>
-					</div>
-				</div>
+	<Card {title}>
+		<div class="modal-content p-4">
+			<!-- Adjust max-height as needed -->
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+				<Input type="text" placeholder="Nmims School" value={obj.nmims_school} {disabled} />
+				<Input type="text" placeholder="Nmims Campus" value={obj.nmims_campus} {disabled} />
+				<Input
+					type="text"
+					placeholder="Title Of The Paper"
+					bind:value={obj.paper_title}
+					{disabled}
+				/>
 			</div>
 
-			<div class="ml-2">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
-				<label class="text-sm text-[#888888]"
-					>Type Of Conference<span class="text-danger text-sm">*</span>
-				</label>
-				<div class="mt-2.5 flex flex-row gap-[20px]">
-					<div class="flex flex-row">
-						<input
-							type="radio"
-							class="lms-input-radio w-4"
-							name="conference-type"
-							checked={obj.conference_type === 1}
-							value={2}
-							{disabled}	
-						/>
-						<span class="text-sm text-[#888888]">International </span>
-					</div>
-					<div class="flex flex-row">
-						<input
-							type="radio"
-							class="lms-input-radio w-4"
-							name="conference-type"
-							checked={obj.conference_type === 2}
-							value={2}
-							{disabled}
-						/>
-						<span class="text-sm text-[#888888]"> National</span>
-					</div>
-				</div>
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+				<Input
+					type="text"
+					placeholder="Name of Conference"
+					bind:value={obj.conference_name}
+					{disabled}
+				/>
+				<Input type="text" placeholder="All Authors Names" value={obj.all_authors} {disabled} />
+				<Input type="text" placeholder="Place of Conference" bind:value={obj.place} {disabled} />
 			</div>
-			<Input type="text" placeholder="Presenting Author " bind:value={obj.presenting_author} />
-		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-			<Input type="text" placeholder="Organizing Body" bind:value={obj.organizing_body} {disabled}/>
-			<Input type="text" placeholder="Vol and issue no [e.g 9 (12)]" bind:value={obj.volume_no} {disabled}/>
-			<Input type="text" placeholder="ISSN/ISNB No." bind:value={obj.issn_no} {disabled}/>
-		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-			<div class="ml-2">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
-				<label class="text-sm text-[#888888]"
-					>Sponsored By NMIMS/Other<span class="text-danger text-sm">*</span>
-				</label>
-				<div class="mt-2.5 flex flex-row gap-[20px]">
-					<div class="flex flex-row">
-						<input
-							type="radio"
-							id="html"
-							class="lms-input-radio w-4"
-							name="radio-button-national"
-							checked={obj.sponsored == 1}
-							value={1}
-							{disabled}
-						/>
-						<span class="text-sm text-[#888888]">NMIMS </span>
-					</div>
-					<div class="flex flex-row">
-						<input
-							type="radio"
-							id="html"
-							class="lms-input-radio w-4"
-							name="radio-button-national"
-							checked={obj.sponsored == 2}
-							value={2}
-							{disabled}
-						/>
-						<span class="text-sm text-[#888888]"> Other</span>
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+				<div class="ml-2">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="text-sm text-[#888888]"
+						>Proceedings published<span class="text-danger text-sm">*</span>
+					</label>
+					<div class="mt-2.5 flex flex-row gap-[20px]">
+						<div class="flex flex-row">
+							<input
+								type="radio"
+								class="lms-input-radio w-4"
+								name="proceedings-published"
+								value={true}
+								checked={obj.proceeding_published === true}
+								{disabled}
+							/>
+							<span class="text-sm text-[#888888]">Yes</span>
+						</div>
+						<div class="flex flex-row">
+							<input
+								type="radio"
+								class="lms-input-radio w-4"
+								name="proceedings-published"
+								checked={obj.proceeding_published === false}
+								value={false}
+								{disabled}
+							/>
+							<span class="text-sm text-[#888888]">No</span>
+						</div>
 					</div>
 				</div>
+
+				<div class="ml-2">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="text-sm text-[#888888]"
+						>Type Of Conference<span class="text-danger text-sm">*</span>
+					</label>
+					<div class="mt-2.5 flex flex-row gap-[20px]">
+						<div class="flex flex-row">
+							<input
+								type="radio"
+								class="lms-input-radio w-4"
+								name="conference-type"
+								checked={obj.conference_type === 1}
+								value={2}
+								{disabled}
+							/>
+							<span class="text-sm text-[#888888]">International </span>
+						</div>
+						<div class="flex flex-row">
+							<input
+								type="radio"
+								class="lms-input-radio w-4"
+								name="conference-type"
+								checked={obj.conference_type === 2}
+								value={2}
+								{disabled}
+							/>
+							<span class="text-sm text-[#888888]"> National</span>
+						</div>
+					</div>
+				</div>
+				<Input type="text" placeholder="Presenting Author " bind:value={obj.presenting_author} />
 			</div>
-			<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} {disabled}/>
-			<Input type="number" placeholder="Amount Spent In RS. By NMIMS" bind:value={obj.amount} {disabled}/>
-		</div>
-
-
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
-                <Input type="text" placeholder="Name Of  Internal Co-Authors" value={obj.internal_faculty_details} {disabled} />
-                <Input type="text" placeholder="Name Of External Co-Authors" value={obj.external_faculty_details} {disabled} />
-                <div class="lms-input-container flex flex-row gap-2">
-                    <input
-                        id="documents"
-                        class="lms-input"
-                        placeholder=""
-                        value={obj.conference_documents}
-                        {disabled}
-                    />
-                    <label for="documents" class="lms-placeholder"
-                        >Conference Documents
-                        <span>*</span>
-                    </label>
-                    <button class="lms-btn lms-primary-btn" on:click={() => downLoadFiles('cd')}
-                        ><i class="fa-solid fa-download text-lg"></i></button
-                    >
-                </div>
-                
-		</div>
-        <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
-            
-            <div class="lms-input-container flex flex-row gap-2">
-                <input
-                    id="documents"
-                    class="lms-input"
-                    placeholder=""
-                    value={obj.conference_awards}
-                    {disabled}
-                />
-                <label for="documents" class="lms-placeholder"
-                    > Conference Awards
-                    <span>*</span>
-                </label>
-                <button class="lms-btn lms-primary-btn" on:click={() => downLoadFiles('ad')}
-                    ><i class="fa-solid fa-download text-lg"></i></button
-                >
-            </div>
-
-			<div class="flex md:flex-row gap-4">
-				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-					<SelectDateIcon />
-					<span class="text-body-2 font-bold">Publication Date</span>
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+				<Input
+					type="text"
+					placeholder="Organizing Body"
+					bind:value={obj.organizing_body}
+					{disabled}
+				/>
+				<Input
+					type="text"
+					placeholder="Vol and issue no [e.g 9 (12)]"
+					bind:value={obj.volume_no}
+					{disabled}
+				/>
+				<Input type="text" placeholder="ISSN/ISNB No." bind:value={obj.issn_no} {disabled} />
+			</div>
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+				<div class="ml-2">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="text-sm text-[#888888]"
+						>Sponsored By NMIMS/Other<span class="text-danger text-sm">*</span>
+					</label>
+					<div class="mt-2.5 flex flex-row gap-[20px]">
+						<div class="flex flex-row">
+							<input
+								type="radio"
+								id="html"
+								class="lms-input-radio w-4"
+								name="radio-button-national"
+								checked={obj.sponsored == 1}
+								value={1}
+								{disabled}
+							/>
+							<span class="text-sm text-[#888888]">NMIMS </span>
+						</div>
+						<div class="flex flex-row">
+							<input
+								type="radio"
+								id="html"
+								class="lms-input-radio w-4"
+								name="radio-button-national"
+								checked={obj.sponsored == 2}
+								value={2}
+								{disabled}
+							/>
+							<span class="text-sm text-[#888888]"> Other</span>
+						</div>
+					</div>
 				</div>
-				{#if publicationFormattedDate}
-					{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
-					<div
-						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-						in:fly={{ x: -100, duration: 300 }}
-						out:fly={{ x: 100, duration: 300 }}
+				<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} {disabled} />
+				<Input
+					type="number"
+					placeholder="Amount Spent In RS. By NMIMS"
+					bind:value={obj.amount}
+					{disabled}
+				/>
+			</div>
+
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<Input
+					type="text"
+					placeholder="Name Of  Internal Co-Authors"
+					value={obj.internal_faculty_details}
+					{disabled}
+				/>
+				<Input
+					type="text"
+					placeholder="Name Of External Co-Authors"
+					value={obj.external_faculty_details}
+					{disabled}
+				/>
+				<div class="lms-input-container flex flex-row gap-2">
+					<input
+						id="documents"
+						class="lms-input"
+						placeholder=""
+						value={obj.conference_documents}
+						{disabled}
+					/>
+					<label for="documents" class="lms-placeholder"
+						>Conference Documents
+						<span>*</span>
+					</label>
+					<button class="lms-btn lms-primary-btn" on:click={() => downLoadFiles('cd')}
+						><i class="fa-solid fa-download text-lg"></i></button
 					>
-						<p class="m-0 p-0">{formattedDate}</p>
-						<button
-							use:tooltip={{
-								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-							}}
-						>
-						</button>
-					</div>
-				{/if}
+				</div>
 			</div>
-	
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
+				<div class="lms-input-container flex flex-row gap-2">
+					<input
+						id="documents"
+						class="lms-input"
+						placeholder=""
+						value={obj.conference_awards}
+						{disabled}
+					/>
+					<label for="documents" class="lms-placeholder">
+						Conference Awards
+						<span>*</span>
+					</label>
+					<button class="lms-btn lms-primary-btn" on:click={() => downLoadFiles('ad')}
+						><i class="fa-solid fa-download text-lg"></i></button
+					>
+				</div>
 
-        </div>
-
-		
-        
-	</div>
-	<div class="flex flex-col gap-4 p-4 md:flex-row">
-	</div>
-</Card>
+				<div class="flex gap-4 md:flex-row">
+					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+						<SelectDateIcon />
+						<span class="text-body-2 font-bold">Publication Date</span>
+					</div>
+					{#if publicationFormattedDate}
+						{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
+						<div
+							class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+							in:fly={{ x: -100, duration: 300 }}
+							out:fly={{ x: 100, duration: 300 }}
+						>
+							<p class="m-0 p-0">{formattedDate}</p>
+							<button
+								use:tooltip={{
+									content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+								}}
+							>
+							</button>
+						</div>
+					{/if}
+				</div>
+			</div>
+		</div>
+		<div class="flex flex-col gap-4 p-4 md:flex-row"></div>
+	</Card>
 {:else}
 	<p>No Data Found</p>
 {/if}
-
-
-

@@ -24,6 +24,7 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
+	import type { updateBookPublicationStatus } from '$lib/types/modules/research/research-types';
 
 	let campus: string = '';
 	let title = 'Book Publication';
@@ -51,7 +52,7 @@
 	console.log('JSON.stringify(school)', JSON.stringify(school));
 	let isChecked: boolean = false;
 
-	$: checkVal  = isChecked;
+	$: checkVal = isChecked;
 
 	let obj: any = {
 		book_publication_id: parseInt(
@@ -170,7 +171,7 @@
 
 		console.log('validated data', JSON.stringify(result.data));
 
-		const { error, json } = await fetchFormApi({
+		const { error, json } = await fetchFormApi<updateBookPublicationStatus[]>({
 			url: `${PUBLIC_API_BASE_URL}/book-publication-update`,
 			method: 'POST',
 			body: formData

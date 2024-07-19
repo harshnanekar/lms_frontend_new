@@ -25,6 +25,7 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
+	import type { updateBookChapterStatus } from '$lib/types/modules/research/research-types';
 
 	let campus: string = '';
 	let title = 'Book Chapter Publication';
@@ -179,7 +180,7 @@
 		formData.append('book_chapter_id', JSON.stringify(obj.book_chapter_id));
 
 		// Append each file to the FormData
-		Array.from(files).forEach((file) => {
+		Array.from(files).forEach((file: any) => {
 			formData.append('supporting_documents', file);
 		});
 
@@ -201,7 +202,7 @@
 
 		console.log('validated data', JSON.stringify(result.data));
 
-		const { error, json } = await fetchFormApi({
+		const { error, json } = await fetchFormApi<updateBookChapterStatus[]>({
 			url: `${PUBLIC_API_BASE_URL}/book-chapter-publication-update`,
 			method: 'POST',
 			body: formData
@@ -216,7 +217,7 @@
 
 		if (json[0].upsert_book_chapter.status == 403) {
 			toast.error('ALERT!', {
-				description: json[0].ups.message
+				description: json[0].upsert_book_chapter.message
 			});
 		} else {
 			toast.success('Updated Successfully');

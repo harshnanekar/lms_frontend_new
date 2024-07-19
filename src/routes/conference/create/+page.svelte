@@ -24,10 +24,15 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
+	import type { conferenceStatus } from '$lib/types/modules/research/research-types';
 
 	export let data: any;
 	let isRequired = false;
 	let title = 'Conference';
+
+	type FileReq = {
+		documents: [File, ...File[]];
+	};
 
 	let nmimsSchool = data?.conferenceDetails?.school?.message;
 	let nmimsCampus = data?.conferenceDetails?.campus?.message;
@@ -36,11 +41,11 @@
 	let enternalAuthors = data?.conferenceDetails?.enternalAuthors?.message;
 	let conferenceDocumentAbbr = data?.conferenceDetails?.conferenceDocumentAbbr;
 	let conference_abbr = conferenceDocumentAbbr
-		.filter((data: { abbr: string; }) => data.abbr === 'cd')
-		.map((dt: { id: any; }) => Number(dt.id))[0];
+		.filter((data: { abbr: string }) => data.abbr === 'cd')
+		.map((dt: { id: any }) => Number(dt.id))[0];
 	let award_abbr = conferenceDocumentAbbr
-		.filter((data: { abbr: string; }) => data.abbr === 'ad')
-		.map((dt: { id: any; }) => Number(dt.id))[0];
+		.filter((data: { abbr: string }) => data.abbr === 'ad')
+		.map((dt: { id: any }) => Number(dt.id))[0];
 	console.log('conference abbr ', conference_abbr, award_abbr);
 
 	console.log(
@@ -61,10 +66,11 @@
 
 	let publicationDate: Date | null = new Date();
 	publicationDate = null;
-	$: publicationFormattedDate = publicationDate;
+	$: publicationFormattedDate = publicationDate ? formatDate(publicationDate) : '';
+
 	function handleDateChange(e: CustomEvent<any>) {
 		if (!publicationDate) return;
-		publicationFormattedDate = publicationDate;
+		publicationFormattedDate = formatDate(publicationDate);
 		console.log('publication date ', publicationDate);
 	}
 
@@ -90,55 +96,69 @@
 		external_authors: null
 	};
 
-	let conferenceFiles:any = [];
+	let conferenceFiles: any = [];
 	let awardFiles: any = [];
 
-	$: console.log('conference file ',conferenceFiles,awardFiles)
+	$: console.log('conference file ', conferenceFiles, awardFiles);
 
 	let showInternal = false;
 	let showExternal = false;
 
-
 	async function handleSubmit() {
-	const conferenceObj: conferenceReq = {
-		nmims_school: obj.nmims_school != null ? obj.nmims_school.map((data: { value: any }) => data.value) : [],
-		nmims_campus: obj.nmims_campus != null ? obj.nmims_campus.map((data: { value: any }) => data.value) : [],
-		paper_title: obj.paper_title,
-		conference_name: obj.conference_name,
-		all_authors: obj.all_authors != null ? obj.all_authors.map((data: { value: any }) => Number(data.value)) : [],
-		place: obj.place,
-		proceeding_published: obj.proceeding_published,
-		conference_type: Number(obj.conference_type),
-		presenting_author: obj.presenting_author,
-		organizing_body: obj.organizing_body,
-		volume_no: obj.volume_no,
-		issn_no: obj.issn_no,
-		doi_no: obj.doi_no,
-		publication_date: publicationFormattedDate != null ? formatDate(publicationFormattedDate) : '',
-		sponsored: obj.sponsored,
-		amount: obj.amount,
-		internal_authors: obj.internal_authors != null ? obj.internal_authors.map((data: { value: any }) => Number(data.value)) : [],
-		external_authors: obj.external_authors != null ? obj.external_authors.map((data: { value: any }) => Number(data.value)) : [],
-	};
+		const conferenceObj: conferenceReq = {
+			nmims_school:
+				obj.nmims_school != null ? obj.nmims_school.map((data: { value: any }) => data.value) : [],
+			nmims_campus:
+				obj.nmims_campus != null ? obj.nmims_campus.map((data: { value: any }) => data.value) : [],
+			paper_title: obj.paper_title,
+			conference_name: obj.conference_name,
+			all_authors:
+				obj.all_authors != null
+					? obj.all_authors.map((data: { value: any }) => Number(data.value))
+					: [],
+			place: obj.place,
+			proceeding_published: obj.proceeding_published,
+			conference_type: Number(obj.conference_type),
+			presenting_author: obj.presenting_author,
+			organizing_body: obj.organizing_body,
+			volume_no: obj.volume_no,
+			issn_no: obj.issn_no,
+			doi_no: obj.doi_no,
+			publication_date: publicationFormattedDate != null ? publicationFormattedDate : '',
+			sponsored: obj.sponsored,
+			amount: obj.amount,
+			internal_authors:
+				obj.internal_authors != null
+					? obj.internal_authors.map((data: { value: any }) => Number(data.value))
+					: [],
+			external_authors:
+				obj.external_authors != null
+					? obj.external_authors.map((data: { value: any }) => Number(data.value))
+					: []
+		};
 
-	const result = validateWithZod(conferenceData, conferenceObj);
+		const result = validateWithZod(conferenceData, conferenceObj);
 
-	if (result.errors) {
-		console.log(result.errors);
-		const [firstPath, firstMessage] = Object.entries(result.errors)[0];
-		toast.error('ALERT!', {
-			description: firstMessage as string,
-		});
-		return;
-	}
+		if (result.errors) {
+			console.log(result.errors);
+			const [firstPath, firstMessage] = Object.entries(result.errors)[0];
+			toast.error('ALERT!', {
+				description: firstMessage as string
+			});
+			return;
+		}
 
-	console.log('validated data', JSON.stringify(result.data));
+		console.log('validated data', JSON.stringify(result.data));
 
-	const formData = new FormData();
-	formData.append('conference_publication', JSON.stringify(conferenceObj));
+		const formData = new FormData();
+		formData.append('conference_publication', JSON.stringify(conferenceObj));
 
-		const fileObject: FileReq = {
-			documents : Array.from(conferenceFiles)
+		// const fileObject: FileReq = {
+		// 	documents : Array.from(conferenceFiles)
+		// };
+
+		const fileObject = {
+			documents: Array.from(conferenceFiles)
 		};
 
 		console.log('fileObject ===>>>>', fileObject);
@@ -147,61 +167,64 @@
 			console.log(fileresult.errors);
 			const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
 			toast.error('ALERT!', {
-				description: firstMessage as string,
+				description: firstMessage as string
 			});
 			return;
 		}
-		console.log('conference files ',fileresult.data)
+		console.log('conference files ', fileresult.data);
 		Array.from(conferenceFiles).forEach((file: any) => {
-		formData.append(conference_abbr, file);
-		})
+			formData.append(conference_abbr, file);
+		});
 
+		// const fileObjects: FileReq = {
+		// 	documents : Array.from(awardFiles)
+		// };
 
-		const fileObjects: FileReq = {
-			documents : Array.from(awardFiles)
+		const fileObjects = {
+			documents: Array.from(awardFiles)
 		};
 		const fileresults = validateWithZod(fileSchema, fileObjects);
 		if (fileresults.errors) {
 			console.log(fileresults.errors);
 			const [firstPath, firstMessage] = Object.entries(fileresults.errors)[0];
 			toast.error('ALERT!', {
-				description: firstMessage as string,
+				description: firstMessage as string
 			});
 			return;
 		}
-		console.log('award files ',fileresults.data)
+		console.log('award files ', fileresults.data);
 
 		Array.from(awardFiles).forEach((file: any) => {
-		formData.append(award_abbr, file);
-		})
-
-	 for (let [key, value] of formData.entries()) {
-		console.log(`${key}: ${value}`);
-	}
-
-	const { error, json } = await fetchFormApi({
-		url: `${PUBLIC_API_BASE_URL}/conference-insert`,
-		method: 'POST',
-		body: formData,
-	});
-
-	if (error) {
-		toast.error(error.message || 'Something went wrong!', {
-			description: error.errorId ? `ERROR-ID: ${error.errorId}` : '',
+			formData.append(award_abbr, file);
 		});
-		return;
-	}
 
-	if (json[0].insert_conference.status === 403) {
-		toast.error('ALERT!', {
-			description: json[0].insert_conference.message,
+		for (let [key, value] of formData.entries()) {
+			console.log(`${key}: ${value}`);
+		}
+
+		const { error, json } = await fetchFormApi<conferenceStatus[]>({
+			url: `${PUBLIC_API_BASE_URL}/conference-insert`,
+			method: 'POST',
+			body: formData
 		});
-	} else {
-		toast.success('Inserted Successfully');
-		clearForm();
-		goto('/conference');
+
+		if (error) {
+			toast.error(error.message || 'Something went wrong!', {
+				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+			});
+			return;
+		}
+
+		if (json[0].insert_conference.status === 403) {
+			toast.error('ALERT!', {
+				description: json[0].insert_conference.message
+			});
+		} else {
+			toast.success('Inserted Successfully');
+			clearForm();
+			goto('/conference');
+		}
 	}
-}
 
 	function clearForm() {
 		obj = {
@@ -376,55 +399,46 @@
 							id="internal-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-                            bind:checked={showInternal}
+							bind:checked={showInternal}
 						/>
-						<label for="internal-checkbox" class="lms-label"
-							>Internal</label
-						>
-
+						<label for="internal-checkbox" class="lms-label">Internal</label>
 					</div>
 					<div class="flex items-center">
 						<input
 							id="external-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-                            bind:checked={showExternal}
+							bind:checked={showExternal}
 						/>
-						<label for="external-checkbox" class="lms-label"
-							>External</label
-						>
-
+						<label for="external-checkbox" class="lms-label">External</label>
 					</div>
 				</div>
 
-
-				<div class="flex items-center gap-8 mt-6">
+				<div class="mt-6 flex items-center gap-8">
 					<div>
-					{#if showInternal}
-						<DynamicSelect
-							isRequired={true}
-							placeholder="Internal Authors"
-							options={getEnternalAuthors(internal)}
-							bind:selectedOptions={obj.internal_authors}
-							isMultiSelect={true}
-						/>
-					{/if}
-				   </div>
+						{#if showInternal}
+							<DynamicSelect
+								isRequired={true}
+								placeholder="Internal Authors"
+								options={getEnternalAuthors(internal)}
+								bind:selectedOptions={obj.internal_authors}
+								isMultiSelect={true}
+							/>
+						{/if}
+					</div>
 
-				   <div>
-					{#if showExternal}
-						<DynamicSelect
-							isRequired={true}
-							placeholder="External Authors"
-							options={getExternalAuthors(external)}
-							bind:selectedOptions={obj.external_authors}
-							isMultiSelect={true}
-						/>
-					{/if}
-				   </div>
+					<div>
+						{#if showExternal}
+							<DynamicSelect
+								isRequired={true}
+								placeholder="External Authors"
+								options={getExternalAuthors(external)}
+								bind:selectedOptions={obj.external_authors}
+								isMultiSelect={true}
+							/>
+						{/if}
+					</div>
 				</div>
-
-
 			</div>
 			<div>
 				<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -443,40 +457,38 @@
 			</div>
 		</div>
 		<!-- <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3"> -->
-			<div class="flex flex-row gap-[40px] p-4">
-				<DatePicker
-					on:change={handleDateChange}
-					bind:selectedDateTime={publicationDate}
-					disabled={(publicationDate) =>
-						publicationDate.getTime() < new Date().setHours(0, 0, 0, 0)}
+		<div class="flex flex-row gap-[40px] p-4">
+			<DatePicker
+				on:change={handleDateChange}
+				bind:selectedDateTime={publicationDate}
+				disabled={(publicationDate) => publicationDate.getTime() < new Date().setHours(0, 0, 0, 0)}
+			>
+				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+					<SelectDateIcon />
+					<span class="text-body-2 font-bold">Add Publication Date</span>
+				</div>
+			</DatePicker>
+			{#if publicationFormattedDate}
+				{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
+				<div
+					class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+					in:fly={{ x: -100, duration: 300 }}
+					out:fly={{ x: 100, duration: 300 }}
 				>
-					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-						<SelectDateIcon />
-						<span class="text-body-2 font-bold">Add Publication Date</span>
-					</div>
-				</DatePicker>
-				{#if publicationFormattedDate}
-					{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
-					<div
-						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-						in:fly={{ x: -100, duration: 300 }}
-						out:fly={{ x: 100, duration: 300 }}
+					<p class="m-0 p-0">{formattedDate}</p>
+					<button
+						use:tooltip={{
+							content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+						}}
+						on:click={() => {
+							publicationFormattedDate = '';
+						}}
 					>
-						<p class="m-0 p-0">{formattedDate}</p>
-						<button
-							use:tooltip={{
-								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-							}}
-							on:click={() => {
-								// remove the current date
-								publicationFormattedDate = null;
-							}}
-						>
-							<XIcon />
-						</button>
-					</div>
-				{/if}
-			</div>
+						<XIcon />
+					</button>
+				</div>
+			{/if}
+		</div>
 		<!-- </div> -->
 	</div>
 	<div class="flex flex-col gap-4 p-4 md:flex-row">
@@ -484,4 +496,3 @@
 		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
 	</div>
 </Card>
-

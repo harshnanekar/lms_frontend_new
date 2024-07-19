@@ -1,171 +1,193 @@
 <script lang="ts">
+	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
 
-    import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 
-    import { SelectDateIcon, XIcon } from '$lib/components/icons';
+	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
 
-    import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
+	import { tooltip } from '$lib/utils/tooltip';
 
-    import { tooltip } from '$lib/utils/tooltip';
+	import { fly } from 'svelte/transition';
 
-    import { fly } from 'svelte/transition';
+	import { Card } from '$lib/components/ui';
 
-    import { Card } from '$lib/components/ui';
+	import {
+		getEnternalAuthors,
+		getExternalAuthors,
+		getInventionType,
+		getSdgGoals,
+		getPatentStatus
+	} from '$lib/utils/select.helper';
 
+	import { validateWithZod } from '$lib/utils/validations';
 
+	import {
+		patentDetails,
+		type patentDetailsReq
+	} from '$lib/schemas/modules/research/master-validations';
 
+	import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
 
-    import {
+	import { toast } from 'svelte-sonner';
 
-        getEnternalAuthors,
-        getExternalAuthors,
-        getInventionType,
-        getSdgGoals,
-        getPatentStatus
+	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
 
-    } from '$lib/utils/select.helper';
+	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 
-    import { validateWithZod } from '$lib/utils/validations';
+	import type { any } from 'zod';
 
-    import {
+	import { goto } from '$app/navigation';
+	import type { updatePatentStatus } from '$lib/types/modules/research/research-types';
 
-        patentDetails,
+	export let data: any;
 
-        type patentDetailsReq
-
-    } from '$lib/schemas/modules/research/master-validations';
-
-    import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
-
-    import { toast } from 'svelte-sonner';
-
-    import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
-
-    import { PUBLIC_API_BASE_URL } from '$env/static/public';
-
-    import type { any } from 'zod';
-
-    import { goto } from '$app/navigation';
-
-
-
-
-    export let data: any;
-
-    // let isRequired = false;
-    let isChecked: boolean = false;
+	// let isRequired = false;
+	let isChecked: boolean = false;
 	$: checkVal = isChecked;
 
-    let title = 'Patent Submission And Grant';
+	let title = 'Patent Submission And Grant';
 
+	let enternalAuthors = data?.patentDataList?.internalAuthors?.message;
 
+	let externalAuthors = data?.patentDataList?.externalAuthors?.message;
 
+	let sdgGoals = data?.patentDataList?.sdgGoals?.message;
 
+	let patetntStatus = data?.patentDataList?.status?.message;
 
-    let enternalAuthors = data?.patentDataList?.internalAuthors?.message;
+	let inventionType = data?.patentDataList?.inventionType?.message;
 
-    let externalAuthors = data?.patentDataList?.externalAuthors?.message;
+	// let isRequired = false;
 
-    let sdgGoals = data?.patentDataList?.sdgGoals?.message;
+	console.log('render patentDataList', data.patentDataList.patentDataList[0]);
 
-    let patetntStatus = data?.patentDataList?.status?.message;
+	$: patetntStatus = patetntStatus;
 
-    let inventionType = data?.patentDataList?.inventionType?.message;
+	$: sdgGoals = sdgGoals;
 
+	$: inventionType = inventionType;
 
-
-
-    // let isRequired = false;
-
-    console.log('render patentDataList', data.patentDataList.patentDataList[0]);
-    let facultyDetails = data.patentDataList.patentDataList[0].faculty_details || [];
-    console.log('facultyDetails ==>>>>', facultyDetails);
-
-    
-
-
-    $: patetntStatus = patetntStatus;
-
-    $: sdgGoals = sdgGoals;
-
-    $: inventionType = inventionType;
-
-    $: external = externalAuthors;
+	$: external = externalAuthors;
 	$: internal = enternalAuthors;
 
+	console.log(
+		'data.patentDataList.iprdata[0].patent_id ==>>',
+		data.patentDataList.patentDataList[0].patent_id
+	);
 
+	let obj: any = {
+		patent_id: parseInt(data.patentDataList.patentDataList[0].patent_id),
 
-    console.log('data.patentDataList.iprdata[0].patent_id ==>>', data.patentDataList.patentDataList[0].patent_id)
+		invention_type:
+			data.patentDataList.patentDataList.length > 0 &&
+			data.patentDataList.patentDataList[0].invention_type
+				? {
+						value: data.patentDataList.patentDataList[0].invention_id,
+						label: data.patentDataList.patentDataList[0].invention_type
+					}
+				: null,
+		sdg_goals:
+			data.patentDataList.patentDataList.length > 0 &&
+			data.patentDataList.patentDataList[0].sdg_goals != null
+				? data.patentDataList.patentDataList[0].sdg_goals.map((dt: any) => {
+						return { value: dt.id, label: dt.goals_name };
+					})
+				: [],
+		patent_status:
+			data.patentDataList.patentDataList.length > 0 &&
+			data.patentDataList.patentDataList[0].patent_status
+				? {
+						value: data.patentDataList.patentDataList[0].status_id,
+						label: data.patentDataList.patentDataList[0].patent_status
+					}
+				: null,
+		title:
+			data.patentDataList.patentDataList.length > 0 && data.patentDataList.patentDataList[0].title
+				? data.patentDataList.patentDataList[0].title
+				: '',
+		appln_no:
+			data.patentDataList.patentDataList.length > 0 &&
+			data.patentDataList.patentDataList[0].appln_no
+				? data.patentDataList.patentDataList[0].appln_no
+				: null,
+		publication_date:
+			data.patentDataList.patentDataList.length > 0 &&
+			data.patentDataList.patentDataList[0].publication_date
+				? data.patentDataList.patentDataList[0].publication_date
+				: '',
 
-    let obj: any = {
-        patent_id: parseInt(
-			data.patentDataList.patentDataList[0].patent_id
-		),
+		internal_authors:
+			data.patentDataList.patentDataList[0].internal_faculty &&
+			data.patentDataList.patentDataList[0].internal_faculty.length > 0
+				? data.patentDataList.patentDataList[0].internal_faculty.map((dt: any) => {
+						return { value: dt.id, label: dt.faculty_name };
+					})
+				: null,
+		external_authors:
+			data.patentDataList.patentDataList[0].external_faculty &&
+			data.patentDataList.patentDataList[0].external_faculty.length > 0
+				? data.patentDataList.patentDataList[0].external_faculty.map((dt: any) => {
+						return { value: dt.id, label: dt.faculty_name };
+					})
+				: null
+	};
 
-    invention_type: data.patentDataList.patentDataList.length > 0 && data.patentDataList.patentDataList[0].invention_type
-        ? { value: data.patentDataList.patentDataList[0].invention_id, label: data.patentDataList.patentDataList[0].invention_type }
-        : null,
-    sdg_goals: data.patentDataList.patentDataList.length > 0 && data.patentDataList.patentDataList[0].sdg_goals != null
-        ? data.patentDataList.patentDataList[0].sdg_goals.map((dt: any) => {
-            return { value: dt.id, label: dt.goals_name };
-        })
-        : [],
-    patent_status: data.patentDataList.patentDataList.length > 0 && data.patentDataList.patentDataList[0].patent_status
-        ? { value: data.patentDataList.patentDataList[0].status_id, label: data.patentDataList.patentDataList[0].patent_status }
-        : null,
-    title:data.patentDataList.patentDataList.length > 0 && data.patentDataList.patentDataList[0].title? data.patentDataList.patentDataList[0].title : '',
-    appln_no: data.patentDataList.patentDataList.length > 0 && data.patentDataList.patentDataList[0].appln_no? data.patentDataList.patentDataList[0].appln_no : '',
-    publication_date: data.patentDataList.patentDataList.length > 0 && data.patentDataList.patentDataList[0].publication_date? data.patentDataList.patentDataList[0].publication_date : '',
+	let publicationDate: Date | null = new Date();
+	publicationDate =
+		data.patentDataList.patentDataList.length > 0 &&
+		data.patentDataList.patentDataList[0].publication_date != null
+			? new Date(data.patentDataList.patentDataList[0].publication_date)
+			: null;
+	$: publicationFormattedDate = publicationDate ? formatDate(publicationDate) : '';
 
-    internal_authors: data.patentDataList.patentDataList.length > 0 && facultyDetails.filter((author: any) => author.abbr === 'int').map((author: any) => ({ value: author.id, label: author.faculty_name })),
-    external_authors: data.patentDataList.patentDataList.length > 0 && facultyDetails.filter((author: any) => author.abbr === 'ext').map((author: any) => ({ value: author.id, label: author.faculty_name }))
-};
+	function handleDateChange(e: CustomEvent<any>) {
+		if (!publicationDate) return;
+		publicationFormattedDate = formatDate(publicationDate);
+		console.log('publication date ', publicationDate);
+	}
 
-    let publicationDate: Date | null = new Date();
-    publicationDate = data.patentDataList.patentDataList.length > 0 && data.patentDataList.patentDataList[0].publication_date!= null ? new Date(data.patentDataList.patentDataList[0].publication_date) : null;
-    ;
-    $: publicationFormattedDate = publicationDate ? formatDate(publicationDate) : '';
+	let files: any = [];
 
-    function handleDateChange(e: CustomEvent<any>) {
-        if (!publicationDate) return;
-        publicationFormattedDate = formatDate(publicationDate);
-        console.log('publication date ', publicationDate);
-    }
-
-
-
-    let files: any = [];
-
-    let showInternal = false;
+	let showInternal = false;
 	let showExternal = false;
 
+	$: console.log('final obj ', JSON.stringify(obj));
 
+	showInternal = obj.internal_authors != null ? true : false;
+	showExternal = obj.external_authors != null ? true : false;
 
+	$: showInternalFaculty = showInternal;
+	$: showExternalFaculty = showExternal;
 
-    //submit function for sending data 
-    console.log('obj.invention_type ==>>>>', obj.invention_type)
+	//submit function for sending data
+	console.log('obj.invention_type ==>>>>', obj.invention_type);
 
-    async function handleSubmit() {
-    const patentObject : patentDetailsReq =  {
-        invention_type: obj.invention_type != null ? Number(obj.invention_type.value) : 0,
-        sdg_goals: obj.sdg_goals != null ? obj.sdg_goals.map((data: { value: any }) => Number(data.value)) : [],
-        patent_status: obj.patent_status != null ? Number(obj.patent_status.value) : 0,
-        title: obj.title,
-        appln_no: Number(obj.appln_no),
-        publication_date: publicationFormattedDate,
-        internal_authors: obj.internal_authors != null ? obj.internal_authors.map((data: { value: any }) => Number(data.value)) : [],
-        external_authors: obj.external_authors != null ? obj.external_authors.map((data: { value: any }) => Number(data.value)) : [],
-    };
+	async function handleSubmit() {
+		const patentObject: patentDetailsReq = {
+			invention_type: obj.invention_type != null ? Number(obj.invention_type.value) : 0,
+			sdg_goals:
+				obj.sdg_goals != null
+					? obj.sdg_goals.map((data: { value: any }) => Number(data.value))
+					: [],
+			patent_status: obj.patent_status != null ? Number(obj.patent_status.value) : 0,
+			title: obj.title,
+			appln_no: Number(obj.appln_no),
+			publication_date: publicationFormattedDate,
+			internal_authors:
+				obj.internal_authors != null
+					? obj.internal_authors.map((data: { value: any }) => Number(data.value))
+					: [],
+			external_authors:
+				obj.external_authors != null
+					? obj.external_authors.map((data: { value: any }) => Number(data.value))
+					: []
+		};
 
-   
-
-
-    
-
-    if (checkVal) {
-			const fileObject: FileReq = {
+		if (checkVal) {
+			const fileObject = {
 				documents: Array.from(files)
 			};
+
 			const fileresult = validateWithZod(fileSchema, fileObject);
 			if (fileresult.errors) {
 				console.log(fileresult.errors);
@@ -177,55 +199,53 @@
 			}
 		}
 
-    const formData = new FormData();
-    formData.append('update_patent_data', JSON.stringify(patentObject));
-    formData.append('patent_id', obj.patent_id);
+		const formData = new FormData();
+		formData.append('update_patent_data', JSON.stringify(patentObject));
+		formData.append('patent_id', obj.patent_id);
 
-    Array.from(files).forEach((file) => {
-        formData.append('supporting_documents', file);
-    });
+		Array.from(files).forEach((file: any) => {
+			formData.append('supporting_documents', file);
+		});
 
-    for (let [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
-    }
+		for (let [key, value] of formData.entries()) {
+			console.log(`${key}: ${value}`);
+		}
 
-    console.log(JSON.stringify(patentObject));
-    const result = validateWithZod(patentDetails, patentObject);
+		console.log(JSON.stringify(patentObject));
+		const result = validateWithZod(patentDetails, patentObject);
 
-    if (result.errors) {
-        console.log(result.errors);
-        const [firstPath, firstMessage] = Object.entries(result.errors)[0];
-        toast.error('ALERT!', { description: firstMessage });
-        return;
-    }
+		if (result.errors) {
+			console.log(result.errors);
+			const [firstPath, firstMessage] = Object.entries(result.errors)[0];
+			toast.error('ALERT!', { description: firstMessage });
+			return;
+		}
 
-    console.log('validated data', JSON.stringify(result.data));
+		console.log('validated data', JSON.stringify(result.data));
 
-    const { error, json } = await fetchFormApi({
-        url: `${PUBLIC_API_BASE_URL}/patent-submission-and-grant-update`,
-        method: 'POST',
-        body: formData
-    });
+		const { error, json } = await fetchFormApi<updatePatentStatus[]>({
+			url: `${PUBLIC_API_BASE_URL}/patent-submission-and-grant-update`,
+			method: 'POST',
+			body: formData
+		});
 
-    if (error) {
-        toast.error(error.message || 'Something went wrong!', {
-            description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
-        });
-        return;
-    }
+		if (error) {
+			toast.error(error.message || 'Something went wrong!', {
+				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+			});
+			return;
+		}
 
-    if (json[0].upsert_patent_grant.status == 403) {
-        toast.error('ALERT!', { description: json[0].upsert_patent_grant.message });
-    } else {
-        toast.success('Updated Successfully');
-        goto('/patent-submission-and-grant');
-    }
-}
+		if (json[0].upsert_patent_grant.status == 403) {
+			toast.error('ALERT!', { description: json[0].upsert_patent_grant.message });
+		} else {
+			toast.success('Updated Successfully');
+			goto('/patent-submission-and-grant');
+		}
+	}
 
-
-
-async function downLoadFiles() {
-		fetch(`${PUBLIC_API_BASE_URL}/patent-submission-and-grant-download-files?id=${obj.patent_id }`)
+	async function downLoadFiles() {
+		fetch(`${PUBLIC_API_BASE_URL}/patent-submission-and-grant-download-files?id=${obj.patent_id}`)
 			.then((response) => {
 				if (response.ok) {
 					return response.blob();
@@ -248,49 +268,44 @@ async function downLoadFiles() {
 				});
 			});
 	}
-
-
-
 </script>
 
-
-
-
-
 <Card {title}>
+	<div class="modal-content p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<Input type="text" placeholder="Title of Invention" bind:value={obj.title} />
 
-    <div class="modal-content p-4">
-        <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-            <Input type="text" placeholder="Title of Invention" bind:value={obj.title} />
+			<DynamicSelect
+				isRequired={true}
+				placeholder="Type of Invention(IPR) "
+				options={getInventionType(inventionType)}
+				bind:selectedOptions={obj.invention_type}
+				isMultiSelect={false}
+			/>
+			<DynamicSelect
+				isRequired={true}
+				placeholder="Patent Status"
+				options={getPatentStatus(patetntStatus)}
+				bind:selectedOptions={obj.patent_status}
+				isMultiSelect={false}
+			/>
+		</div>
 
-            <DynamicSelect
-            isRequired={true}
-            placeholder="Type of Invention(IPR) "
-            options={getInventionType(inventionType)}
-            bind:selectedOptions={obj.invention_type} isMultiSelect={false}/>
-            <DynamicSelect
-            isRequired={true}
-            placeholder="Patent Status"
-            options={getPatentStatus(patetntStatus)}
-            bind:selectedOptions={obj.patent_status}
-            isMultiSelect={false}/>
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<DynamicSelect
+				isRequired={true}
+				placeholder="Sustainable Development Goals (SDG)?"
+				options={getSdgGoals(sdgGoals)}
+				bind:selectedOptions={obj.sdg_goals}
+				isMultiSelect={true}
+			/>
 
-        </div>
-
-
-
-
-
-        <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-            <DynamicSelect
-            isRequired={true}
-            placeholder="Sustainable Development Goals (SDG)?"
-            options={getSdgGoals(sdgGoals)}
-            bind:selectedOptions={obj.sdg_goals}
-            isMultiSelect={true}/>
-
-            <Input type="number" placeholder="Patent/Invention Application Number" bind:value={obj.appln_no} />
-            <div>
+			<Input
+				type="number"
+				placeholder="Patent/Invention Application Number"
+				bind:value={obj.appln_no}
+			/>
+			<div>
 				<label for="supporting-documents"
 					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
 				>
@@ -303,110 +318,101 @@ async function downLoadFiles() {
 					>
 				{/if}
 			</div>
-           
+		</div>
 
-        </div>
-
-        <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-            
-            <div class="ml-2">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
+			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
 					>Name Of Co-Authors<span class="text-danger text-sm">*</span>
 				</label>
-				<div class="mt-2.5 flex md:flex-row gap-[20px]">
-					<div class="flex md:flex-row items-center">
+				<div class="mt-2.5 flex gap-[100px]">
+					<div class="flex items-center">
 						<input
 							id="internal-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-                            bind:checked={showInternal}
+							bind:checked={showInternal}
 						/>
-						<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
-							>Internal</label
-						>
+						<label for="internal-checkbox" class="lms-label">Internal</label>
 					</div>
-					<div class="flex md:flex-row items-center">
+					<div class="flex items-center">
 						<input
 							id="external-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-                            bind:checked={showExternal}
+							bind:checked={showExternal}
 						/>
-						<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
-							>External</label
-						>
+						<label for="external-checkbox" class="lms-label">External</label>
 					</div>
 				</div>
-				<div class="grid grid-row-2 items-center mt-2 gap-4">
-					{#if showInternal}
-						<DynamicSelect
-							isRequired={true}
-							placeholder="Internal Authors"
-							options={getEnternalAuthors(internal)}
-							bind:selectedOptions={obj.internal_authors}
-							isMultiSelect={true}
-						/>
-					{/if}
-					{#if showExternal}
-						<DynamicSelect
-							isRequired={true}
-							placeholder="External Authors"
-							options={getExternalAuthors(external)}
-							bind:selectedOptions={obj.external_authors}
-							isMultiSelect={true}
-						/>
-					{/if}
+
+				<div class="mt-6 flex items-center gap-8">
+					<div>
+						{#if showInternalFaculty}
+							<DynamicSelect
+								isRequired={true}
+								placeholder="Internal Authors"
+								options={getEnternalAuthors(internal)}
+								bind:selectedOptions={obj.internal_authors}
+								isMultiSelect={true}
+							/>
+						{/if}
+					</div>
+
+					<div>
+						{#if showExternalFaculty}
+							<DynamicSelect
+								isRequired={true}
+								placeholder="External Authors"
+								options={getExternalAuthors(external)}
+								bind:selectedOptions={obj.external_authors}
+								isMultiSelect={true}
+							/>
+						{/if}
+					</div>
 				</div>
 			</div>
-            <div class="flex flex-row gap-[40px] p-4">
-				<DatePicker
-					on:change={handleDateChange}
-					bind:selectedDateTime={publicationDate}
-					disabled={(publicationDate) =>
-						publicationDate.getTime() < new Date().setHours(0, 0, 0, 0)}
-				>
-					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-						<SelectDateIcon />
-						<span class="text-body-2 font-bold">
-                           Add Patent Filed Date </span>
-					</div>
-				</DatePicker>
-				{#if publicationFormattedDate}
-					{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
-					<div
-						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-						in:fly={{ x: -100, duration: 300 }}
-						out:fly={{ x: 100, duration: 300 }}
+			<div>
+				<div class="flex flex-row gap-[10px] p-4">
+					<DatePicker
+						on:change={handleDateChange}
+						bind:selectedDateTime={publicationDate}
+						disabled={(publicationDate) =>
+							publicationDate.getTime() < new Date().setHours(0, 0, 0, 0)}
 					>
-						<p class="m-0 p-0">{formattedDate}</p>
-						<button
-							use:tooltip={{
-								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-							}}
-							on:click={() => {
-								// remove the current date
-								publicationFormattedDate = '';
-							}}
+						<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+							<SelectDateIcon />
+							<span class="text-body-2 font-bold">Add Date of Filing/Grant/Published</span>
+						</div>
+					</DatePicker>
+					{#if publicationFormattedDate}
+						{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
+						<div
+							class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+							in:fly={{ x: -100, duration: 300 }}
+							out:fly={{ x: 100, duration: 300 }}
 						>
-							<XIcon />
-						</button>
-					</div>
-				{/if}
+							<p class="m-0 p-0">{formattedDate}</p>
+							<button
+								use:tooltip={{
+									content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+								}}
+								on:click={() => {
+									// remove the current date
+									publicationFormattedDate = '';
+								}}
+							>
+								<XIcon />
+							</button>
+						</div>
+					{/if}
+				</div>
 			</div>
+		</div>
+	</div>
 
-           
-
-        </div>
-       
-
-    </div>
-
-    <div class="flex flex-row gap-[20px] p-4">
-
-
-        <button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Update</button>
-
-    </div>
-
+	<div class="flex flex-row gap-[20px] p-4">
+		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Update</button>
+	</div>
 </Card>

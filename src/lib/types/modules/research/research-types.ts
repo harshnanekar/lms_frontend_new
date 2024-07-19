@@ -1,301 +1,274 @@
 export type JournalPaper = {
-	 nmims_school : string[],
-	 nmims_campus : string[],
-	 publish_year : number,
-	 policy_cadre : number[],
-	 all_authors : number[],
-	 total_authors : number,
-	 nmims_authors : number[],
-	 nmims_author_count : number,
-	 journal_name : string,
-	 uid : string,
-	 publisher : string,
-	 other_authors : number[],
-	 page_no : string,
-	 issn_no : string,
-	 scopus_site_score : number,
-	 impact_factor : number,
-     doi_no : string,
-	 publication_date : Date,
-	 title : string,
-	 gs_indexed : string,
-	 paper_type : number,
-	 nationality_type : number,
-	 wos_indexed : boolean,
-	 abdc_indexed : number,
-	 ugc_indexed : boolean,
-	 scs_indexed:boolean,
-	 foreign_authors_count : number,
-	 foreign_authors : number[],
-	 student_authors_count : number,
-	 student_authors : number[],
-	 scopus_indexed : boolean,
-	 supporting_documents : string[],
-	 journal_type : number
- }
+	nmims_school: string[];
+	nmims_campus: string[];
+	publish_year: number;
+	policy_cadre: number[];
+	all_authors: number[];
+	total_authors: number;
+	nmims_authors: number[];
+	nmims_author_count: number;
+	journal_name: string;
+	uid: string;
+	publisher: string;
+	other_authors: number[];
+	page_no: string;
+	issn_no: string;
+	scopus_site_score: number;
+	impact_factor: number;
+	doi_no: string;
+	publication_date: Date;
+	title: string;
+	gs_indexed: string;
+	paper_type: number;
+	nationality_type: number;
+	wos_indexed: boolean;
+	abdc_indexed: number;
+	ugc_indexed: boolean;
+	scs_indexed: boolean;
+	foreign_authors_count: number;
+	foreign_authors: number[];
+	student_authors_count: number;
+	student_authors: number[];
+	scopus_indexed: boolean;
+	supporting_documents: string[];
+	journal_type: number;
+};
 
- export type JournalView = {
-	 nmims_school : string[],
-	 nmims_campus : string[],
-	 publish_year :  number,
-	 policy_cadre : string[],
-	 total_authors : number,
-	 journal_name : string,
-	 publisher : string,
-	 impact_factor : number,
- } 
-
-
+export type JournalView = {
+	nmims_school: string[];
+	nmims_campus: string[];
+	publish_year: number;
+	policy_cadre: string[];
+	total_authors: number;
+	journal_name: string;
+	publisher: string;
+	impact_factor: number;
+};
 
 export type BookPublicationRender = {
-	all_authors: string[],
-	nmims_school: string[],
-    nmims_campus: string[],
-	publish_year: number,
-	title: string,
-	isbn_no: string,
-	publisher: string,
-}
-
+	id: number;
+	all_authors: string[];
+	nmims_school: string[];
+	nmims_campus: string[];
+	publish_year: number;
+	title: string;
+	isbn_no: string;
+	publisher: string;
+};
 
 export type BookPublicationDetails = {
-	nmims_school: string[],
-    nmims_campus: string[],
-	all_authors: number[],
-	title: string,
-    edition: string,
-    volume_no: string,
-    publisher: string,
-	publisher_category: number,
-	publish_year: number,
-    web_link: string,
-	isbn_no: string,
-    doi_no: string,
-    publication_place: string,
-    nmims_authors_count: number,
-    nmims_authors: number[],
-    supporting_documents: string[],
-}
+	nmims_school: string[];
+	nmims_campus: string[];
+	all_authors: number[];
+	title: string;
+	edition: string;
+	volume_no: string;
+	publisher: string;
+	publisher_category: number;
+	publish_year: number;
+	web_link: string;
+	isbn_no: string;
+	doi_no: string;
+	publication_place: string;
+	nmims_authors_count: number;
+	nmims_authors: number[];
+	supporting_documents: string[];
+};
 
 export type BookChapterRender = {
-	all_authors: string[],
-	nmims_school: string[],
-    nmims_campus: string[],
-	publish_year: number,
-	book_title: string,
-	isbn_no: string,
-	publisher: string,
-}
-
-
+	id: number;
+	all_authors: string[];
+	nmims_school: string[];
+	nmims_campus: string[];
+	publish_year: number;
+	book_title: string;
+	isbn_no: string;
+	publisher: string;
+};
 
 export type BookChapterDetails = {
-	nmims_school: string[],
-    nmims_campus: string[],
-	all_authors: number[],
-	book_title: string,
+	nmims_school: string[];
+	nmims_campus: string[];
+	all_authors: number[];
+	book_title: string;
 	chapter_title: string;
-    edition: string,
-    volume_no: string,
+	edition: string;
+	volume_no: string;
 	page_no: string;
-    publisher: string,
-	publisher_category: number,
-	publish_year: number,
-    web_link: string,
-	isbn_no: string,
-    doi_no: string,
-    publication_place: string,
-    nmims_authors_count: number,
-    nmims_authors: number[],
-	book_editors: number[],
-    supporting_documents: string[],
+	publisher: string;
+	publisher_category: number;
+	publish_year: number;
+	web_link: string;
+	isbn_no: string;
+	doi_no: string;
+	publication_place: string;
+	nmims_authors_count: number;
+	nmims_authors: number[];
+	book_editors: number[];
+	supporting_documents: string[];
+};
 
-}
+export type TeachingView = {
+	pedagogy_innovation: string;
+	fdp_program: string;
+	student_workshops: string;
+	niche: string;
+	program_orientation: string;
+};
 
- export type TeachingView =  {
-	 pedagogy_innovation : string,
-	 fdp_program :string,
-     student_workshops :string,
-     niche : string,
-	 program_orientation :string
- }
+export type MeetingView = {
+	ranking: string;
+	accreditation: string;
+	achievements: string;
+	convocation: string;
+	inaugral_program: string;
+	events: string;
+};
 
- export type MeetingView = {
-	ranking:string,
-	accreditation:string,
-	achievements :string,
-	convocation :string,
-	inaugral_program:string,
-	events :string
- }
+export type brandingView = {
+	faculty_recognition: string;
+	faculty_awards: string;
+	staff_awards: string;
+	alumni_awards: string;
+	student_awards: string;
+	international_ventures: string;
+	conference_participation: string;
+	organizing_conference: string;
+	newspaper_article: string;
+	student_event: string;
+};
 
- export type brandingView = {
-    faculty_recognition : string,
-	faculty_awards : string,
-	staff_awards : string,
-	alumni_awards : string,
-	student_awards :string,
-	international_ventures : string,
-	conference_participation : string,
-	organizing_conference : string,
-	newspaper_article : string,
-	student_event : string
- }
-
-
- export type ConferenceRender = {
-	paper_title: string,
-	nmims_school: string[],
-    nmims_campus: string[],
-	conference_name: string,
-	proceeding_published: string,
-	issn_no: string 
-} 
-
+export type ConferenceRender = {
+	id: number;
+	paper_title: string;
+	nmims_school: string[];
+	nmims_campus: string[];
+	conference_name: string;
+	proceeding_published: string;
+	issn_no: string;
+};
 
 export type conferenceDetails = {
-   paper_title: string;
-   conference_name: string;
-   place: string;
-   presenting_author: string;
-   proceeding_published: string;
-   conference_type: number;
-   issn_no: string;
-   publication_date: string;
-   sponsored: number;
-   doi_no: string;
-   publication_place: string;
-   amount: number;
-   nmims_authors_count: number;
-   volume_no: string;
-   organizing_body: string;
-   all_authors: number[];
-   faculty_id: number[];
-   nmims_school: string[];
-   nmims_campus: string[];
-}
-
-
+	paper_title: string;
+	conference_name: string;
+	place: string;
+	presenting_author: string;
+	proceeding_published: string;
+	conference_type: number;
+	issn_no: string;
+	publication_date: string;
+	sponsored: number;
+	doi_no: string;
+	publication_place: string;
+	amount: number;
+	nmims_authors_count: number;
+	volume_no: string;
+	organizing_body: string;
+	all_authors: number[];
+	faculty_id: number[];
+	nmims_school: string[];
+	nmims_campus: string[];
+};
 
 export type IPRRender = {
 	id: number;
 
-    nmims_school : string[],
+	nmims_school: string[];
 
-    nmims_campus : string[],
+	nmims_campus: string[];
 
-    title :string,
+	title: string;
 
-    appln_no :number,
+	appln_no: number;
 
-    institute_affiliation :string,
+	institute_affiliation: string;
 
-    filed_date:string,
+	filed_date: string;
+};
 
+export type IPRData = {
+	title: string;
 
+	appln_no: number;
 
+	filed_date: string;
 
- }; 
+	grant_date: string;
 
+	published_date: string;
 
- export type IPRData = {
+	publication_no: number;
 
-    title: string;
+	granted_no: number;
 
-    appln_no: number
+	institue_affiliation: string;
 
-    filed_date:string;
+	patent_status: number;
 
-    grant_date:string;  
+	invention_type: number[];
 
-    published_date: string;
+	sdg_goals: number[];
 
-    publication_no: number;
+	applicant_names: number[];
 
-    granted_no: number;
+	nmims_school: string[];
 
-    institue_affiliation: string;
+	nmims_campus: string[];
 
-    patent_status: number;
+	inventors_id: number[];
 
-    invention_type : number[];
-
-    sdg_goals : number[];
-
-    applicant_names :number[];
-
-    nmims_school : string[];
-
-    nmims_campus:string[];  
-
-    inventors_id: number[];
-
-    supporting_documents:string[];
-
-}; 
-
+	supporting_documents: string[];
+};
 
 export type patentRender = {
 	id: number;
 
 	title: string;
 
-    appln_no: number
+	appln_no: number;
 
-    publication_date: string;
+	publication_date: string;
 
-    patent_status: number;
+	patent_status: number;
 
-    invention_type : number[];
+	invention_type: number[];
+};
 
+export type patentData = {
+	title: string;
 
- };   
+	appln_no: number;
 
+	publication_date: string;
 
+	patent_status: number;
 
- export type patentData = {
+	invention_type: number[];
 
-    title: string;
+	sdg_goals: number[];
 
-    appln_no: number
+	inventors_id: number[];
 
-    publication_date: string;
-
-    patent_status: number;
-
-    invention_type : number[];
-
-    sdg_goals : number[];
-
-
-    inventors_id: number[];
-
-    supporting_documents:string[];
-
-}; 
-
-
+	supporting_documents: string[];
+};
 
 export type ResearchProjectRender = {
 	id: number;
 
-    nmims_school : string[],
+	nmims_school: string[];
 
-    nmims_campus : string[],
+	nmims_campus: string[];
 
-    title :string,
+	title: string;
 
-    funding_amount :number,
+	funding_amount: number;
 
-    funding_agency :string,
+	funding_agency: string;
 
-    thrust_area:string,
-
-
- };
+	thrust_area: string;
+};
 
 export type ResearchProjectData = {
-
 	title: string;
 	grant_proposal: number;
 	grant_type: number;
@@ -312,5 +285,114 @@ export type ResearchProjectData = {
 	supporting_documents: string[];
 	nmims_school: string[];
 	nmims_campus: string[];
+};
 
+export type conferenceStatus = {
+	insert_conference : {
+		status: number;
+		status_code: number;
+		message: string;
+	};
+
+}; 
+
+export type updateConferenceStatus = {
+	upsert_conference : {
+		status: number;
+		status_code: number;
+		message: string;
+	};
+
+};
+
+
+
+export type patentStatus = {
+	insert_patent_grant: {
+		status: number;
+		status_code: number;
+		message: string;
+	};
+	
+}; 
+
+export type updatePatentStatus = {
+
+	upsert_patent_grant: {
+		status: number;
+		status_code: number;
+		message: string;
+	};
+};
+
+export type iprStatus = {
+	insert_ipr: {
+		status: number;
+		status_code: number;
+		message: string;
+	};
+	
+}; 
+
+export type updateIprStatus = {
+
+	upsert_ipr: {
+		status: number;
+		status_code: number;
+		message: string;
+	};
+};
+
+export type bookPublicationStatus = {
+	insert_book_publication: {
+		status: number;
+		status_code: number;
+		message: string;
+	};
+
+};
+
+
+export type updateBookPublicationStatus =  {
+	upsert_book_publication: {
+		status: number;
+		status_code: number;
+		message: string;
+	};
+
+}
+export type bookChapterStatus = {
+	insert_book_chapter: {
+		status: number;
+		status_code: number;
+		message: string;
+	};
+
+};
+
+
+export type updateBookChapterStatus = {
+	upsert_book_chapter: {
+		status: number;
+		status_code: number;
+		message: string;
+	};
+
+}
+export type researchProjectStatus = {
+	insert_research_project: {
+		status: number;
+		status_code: number;
+		message: string;
+	};
+
+};
+
+export type updatedResearchProjectStatus = {
+
+	upsert_research_project: {
+		status: number;
+		status_code: number;
+		message: string;
+	};
 };

@@ -9,7 +9,7 @@
 	import {
 		getSchool,
 		getCampus,
-        getNmimsAuthor,
+		getNmimsAuthor,
 		getMasterAllAuthors,
 		getMasterNmimsAuthors,
 		getEditors
@@ -25,6 +25,7 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import { any } from 'zod';
 	import { goto } from '$app/navigation';
+	import type { bookChapterStatus } from '$lib/types/modules/research/research-types';
 
 	export let data: any;
 	let isRequired = false;
@@ -34,15 +35,15 @@
 
 	let nmimsSchool = data?.bookChapterData?.school?.message;
 	let nmimsCampus = data?.bookChapterData?.campus?.message;
-    let nmimsAuthors = data?.bookChapterData?.nmimsAuthors?.message;
-    let allAuthors = data?.bookChapterData?.allAuthors?.message;
-    let allEditors = data?.bookChapterData?.editor?.message;
-	
-    console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool)
-    console.log('allEditors ankit mishra ===>>>>>', allEditors)
+	let nmimsAuthors = data?.bookChapterData?.nmimsAuthors?.message;
+	let allAuthors = data?.bookChapterData?.allAuthors?.message;
+	let allEditors = data?.bookChapterData?.editor?.message;
 
-    $: school = nmimsSchool;
-    $: nmimsAuth = nmimsAuthors;
+	console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool);
+	console.log('allEditors ankit mishra ===>>>>>', allEditors);
+
+	$: school = nmimsSchool;
+	$: nmimsAuth = nmimsAuthors;
 	$: allAuth = allAuthors;
 	$: campus = nmimsCampus;
 	$: editors = allEditors;
@@ -106,7 +107,7 @@
 			nmims_authors_count: Number(obj.nmims_authors_count)
 		};
 
-		const fileObject: FileReq = {
+		const fileObject = {
 			documents: Array.from(files)
 		};
 		const fileresult = validateWithZod(fileSchema, fileObject);
@@ -124,7 +125,7 @@
 		formData.append('book_publication', JSON.stringify(bookChapterObj));
 
 		// Append each file to the FormData
-		Array.from(files).forEach((file) => {
+		Array.from(files).forEach((file: any) => {
 			formData.append('supporting_documents', file);
 		});
 
@@ -146,7 +147,7 @@
 
 		console.log('validated data', JSON.stringify(result.data));
 
-		const { error, json } = await fetchFormApi({
+		const { error, json } = await fetchFormApi<bookChapterStatus[]>({
 			url: `${PUBLIC_API_BASE_URL}/book-chapter-publication-insert`,
 			method: 'POST',
 			body: formData

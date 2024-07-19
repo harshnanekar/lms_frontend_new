@@ -1,4 +1,4 @@
-import type { PageServerLoad } from "./$types";
+import type { PageServerLoad } from './$types';
 
 import { PRIVATE_API_BASE_URL } from '$env/static/private';
 
@@ -6,45 +6,26 @@ import { fetchApiServer } from '$lib/server/utils/fetcher';
 
 import { fail } from '@sveltejs/kit';
 
-
-
-
 export const load: PageServerLoad = async ({ cookies, fetch }) => {
+	const { error, json } = await fetchApiServer({
+		url: `${PRIVATE_API_BASE_URL}/patent-submission-and-grant-render`,
 
-    const { error, json } = await fetchApiServer({
+		_fetch: fetch,
 
-        url: `${PRIVATE_API_BASE_URL}/patent-submission-and-grant-render`,
+		cookies: cookies,
 
-        _fetch: fetch,
+		method: 'GET'
+	});
 
-        cookies: cookies,
+	if (error) {
+		fail(500, {
+			message: error.message
+		});
+	}
 
-        method: 'GET'
+	console.log('json ', json);
 
-    });
-
-
-
-
-    if (error) {
-
-        fail(500, {
-
-            message: error.message
-
-        });
-
-    }
-
-
-
-
-    console.log('json ',json);
-
-    return {
-
-        patentDataList: json
-
-    };
-
+	return {
+		patentDataList: json
+	};
 };

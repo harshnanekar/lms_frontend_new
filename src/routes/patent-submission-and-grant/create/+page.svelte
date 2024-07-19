@@ -21,7 +21,10 @@
 
 	import { validateWithZod } from '$lib/utils/validations';
 
-	import { patentDetails, type patentDetailsReq } from '$lib/schemas/modules/research/master-validations';
+	import {
+		patentDetails,
+		type patentDetailsReq
+	} from '$lib/schemas/modules/research/master-validations';
 
 	import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
 
@@ -35,6 +38,7 @@
 
 	import { goto } from '$app/navigation';
 	import { json } from '@sveltejs/kit';
+	import type { patentStatus } from '$lib/types/modules/research/research-types';
 
 	export let data: any;
 
@@ -71,19 +75,18 @@
 		patent_status: null,
 		title: '',
 		appln_no: '',
-		publication_date: null,
+		publication_date: '',
 		internal_authors: null,
 		external_authors: null
 	};
 
-
-	let publicationDate: Date | null  = new Date();
+	let publicationDate: Date | null = new Date();
 	publicationDate = null;
-	$: publicationFormattedDate = publicationDate ? formatDate(publicationDate) : null;
+	$: publicationFormattedDate = publicationDate ? formatDate(publicationDate) : '';
 
 	function handleDateChange(e: CustomEvent<any>) {
 		if (!publicationDate) return;
-		publicationFormattedDate = publicationDate;
+		publicationFormattedDate = formatDate(publicationDate);
 		console.log('publication date ', publicationDate);
 	}
 
@@ -92,13 +95,10 @@
 	let showInternal = false;
 	let showExternal = false;
 
-
-
 	//submit function for sending data
 
 	async function handleSubmit() {
 		const patentObject: patentDetailsReq = {
-			
 			invention_type: obj.invention_type != null ? Number((obj.invention_type as any).value) : 0,
 			sdg_goals:
 				obj.sdg_goals != null
@@ -135,7 +135,7 @@
 		const formData = new FormData();
 		formData.append('patent_data', JSON.stringify(patentObject));
 
-		Array.from(files).forEach((file : any) => {
+		Array.from(files).forEach((file: any) => {
 			formData.append('supporting_documents', file);
 		});
 
@@ -155,7 +155,7 @@
 
 		console.log('validated data', JSON.stringify(result.data));
 
-		const { error, json } = await fetchFormApi({
+		const { error, json } = await fetchFormApi<patentStatus[]>({
 			url: `${PUBLIC_API_BASE_URL}/patent-submission-and-grant-insert`,
 			method: 'POST',
 			body: formData
@@ -184,7 +184,7 @@
 			patent_status: null,
 			title: '',
 			appln_no: '',
-			publication_date: null,
+			publication_date: '',
 			internal_authors: null,
 			external_authors: null
 		};
@@ -194,7 +194,7 @@
 <Card {title}>
 	<div class="modal-content p-4">
 		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-            <Input type="text" placeholder="Title of Patent / Invention" bind:value={obj.title} />
+			<Input type="text" placeholder="Title of Patent / Invention" bind:value={obj.title} />
 
 			<DynamicSelect
 				isRequired={true}
@@ -203,7 +203,6 @@
 				bind:selectedOptions={obj.invention_type}
 				isMultiSelect={false}
 			/>
-          
 
 			<DynamicSelect
 				isRequired={true}
@@ -215,27 +214,24 @@
 		</div>
 
 		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-            <DynamicSelect
-                isRequired={true}
-                placeholder="Sustainable Development Goals (SDG)?"
-                options={getSdgGoals(sdgGoals)}
-                bind:selectedOptions={obj.sdg_goals}
-                isMultiSelect={true}
-        />
+			<DynamicSelect
+				isRequired={true}
+				placeholder="Sustainable Development Goals (SDG)?"
+				options={getSdgGoals(sdgGoals)}
+				bind:selectedOptions={obj.sdg_goals}
+				isMultiSelect={true}
+			/>
 
-            <Input
+			<Input
 				type="number"
 				placeholder="Patent/Invention Application Number"
 				bind:value={obj.appln_no}
 			/>
-            <input type="file" bind:files multiple />
-
-         
+			<input type="file" bind:files multiple />
 		</div>
 
 		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-			
-            <div class="ml-2">
+			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
 					>Details of Other Inventors<span class="text-danger text-sm">*</span>
@@ -246,7 +242,7 @@
 							id="internal-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-                            bind:checked={showInternal}
+							bind:checked={showInternal}
 						/>
 						<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
 							>Internal</label
@@ -257,7 +253,7 @@
 							id="external-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
-                            bind:checked={showExternal}
+							bind:checked={showExternal}
 						/>
 						<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
 							>External</label
@@ -284,8 +280,8 @@
 						/>
 					{/if}
 				</div>
-			</div> 
-            <div class="flex flex-row gap-[40px] p-4">
+			</div>
+			<div class="flex flex-row gap-[40px] p-4">
 				<DatePicker
 					on:change={handleDateChange}
 					bind:selectedDateTime={publicationDate}
@@ -310,7 +306,7 @@
 							}}
 							on:click={() => {
 								// remove the current date
-								publicationFormattedDate = null;
+								publicationFormattedDate = '';
 							}}
 						>
 							<XIcon />
@@ -318,11 +314,7 @@
 					</div>
 				{/if}
 			</div>
-
-		
 		</div>
-
-		
 	</div>
 
 	<div class="flex flex-row gap-[20px] p-4">

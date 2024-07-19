@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { ActionIcon } from '$lib/components/icons';
+	import { ActionIcon } from '$lib/components/icons';
 
 	import { Modal } from '$lib/components/ui';
 

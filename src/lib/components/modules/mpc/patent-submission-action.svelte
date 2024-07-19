@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { ActionIcon } from '$lib/components/icons';
+	import { ActionIcon } from '$lib/components/icons';
 
 	import { Modal } from '$lib/components/ui';
 
@@ -108,9 +108,12 @@
 		console.log('delete button clicked', patentId);
 		isOpen.set(false);
 
-		const response = await fetch(`${PUBLIC_API_BASE_URL}/patent-submission-and-grant-delete?id=${patentId}`, {
-			method: 'POST'
-		});
+		const response = await fetch(
+			`${PUBLIC_API_BASE_URL}/patent-submission-and-grant-delete?id=${patentId}`,
+			{
+				method: 'POST'
+			}
+		);
 
 		const { error, json } = await response.json();
 
