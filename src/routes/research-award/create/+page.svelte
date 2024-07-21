@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { Input, DatePicker, DynamicSelect,File } from '$lib/components/ui';
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
 	import { fly } from 'svelte/transition';
 	import { Card } from '$lib/components/ui';
-
+    import { fileDataStore } from '$lib/stores/modules/research/master.store';
 	import { getSchool, getCampus } from '$lib/utils/select.helper';
 	import { validateWithZod } from '$lib/utils/validations';
 	import {
@@ -51,6 +51,7 @@
 	};
 
 	let files: any = [];
+	fileDataStore.set(files)
 
 	async function handleSubmit() {
 		const researchAward: researchAwardReq = {
@@ -68,7 +69,9 @@
 		};
 
 		const fileObject: FileReq = {
-			documents: Array.from(files)
+			documents: files.map((f: any) => {
+				return f.file;
+			})
 		};
 
 		console.log('files object ', files);
@@ -86,7 +89,7 @@
 
 		// Append each file to the FormData
 		Array.from(files).forEach((file: any) => {
-			formData.append('supporting_documents', file);
+			formData.append('supporting_documents', file.file);
 		});
 
 		const result = validateWithZod(researchAwardObj, researchAward);
@@ -135,13 +138,24 @@
 			award_category: null
 		};
 		publicationDate = null;
+		files = [];
+		fileDataStore.set(files);
+	}
+
+	function handleFiles(event: CustomEvent<File[]>) {
+		files = event.detail;
+		console.log('files details', files);
+	}
+
+	function handleDeleteFiles(event: CustomEvent) {
+		files = event.detail;
 	}
 </script>
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
 <Card {title}>
 	<div class="modal-content p-4">
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims School"
@@ -159,7 +173,7 @@
 			<Input type="text" placeholder="Faculty Name" bind:value={obj.faculty_name} />
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="Award Name" bind:value={obj.award_name} />
 			<Input type="text" placeholder="Award Details" bind:value={obj.award_details} />
 			<Input
@@ -169,7 +183,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="Award Place" bind:value={obj.award_place} />
 			<div class="ml-2">
 				<label class="text-sm text-[#888888]"> Award Category<span>*</span> </label>
@@ -199,7 +213,14 @@
 					</div>
 				</div>
 			</div>
-			<input type="file" bind:files multiple />
+
+			<div class="space-y-2">
+				<label class="lms-label"
+					>Upload Supporting Documents<span class="text-primary">*</span></label
+				>
+				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+			</div>		
+		
 		</div>
 
 		<div class="flex gap-4 p-4 md:flex-row">

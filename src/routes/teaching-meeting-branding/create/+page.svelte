@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DynamicSelect from '$lib/components/ui/select/dynamic-select.svelte';
 	import { PlusIcon, MinusIcon } from '$lib/components/icons';
-	import { Input } from '$lib/components/ui/input';
+	import { Input,File } from '$lib/components/ui/input';
 	import {
 		getTeachingDropdown,
 		getMeetingDropdown,
@@ -26,25 +26,29 @@
 	import { goto } from '$app/navigation';
 	import { Accordion, AccordionItem } from '$lib/components/ui';
 	import Accordian from '$lib/components/ui/accordian/accordian.svelte';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 
 	export let data: any;
 
-	let teachingItems: { id: number; type: any; description: string; link: string; file: File[] }[] =
+	let teachingItems: { id: number; type: any; description: string; link: string; file: any }[] =
 		[];
-	let meetingItems: { id: number; type: any; description: string; link: string; file: File[] }[] =
+	let meetingItems: { id: number; type: any; description: string; link: string; file: any }[] =
 		[];
-	let brandingItems: { id: number; type: any; description: string; link: string; file: File[] }[] =
+	let brandingItems: { id: number; type: any; description: string; link: string; file: any }[] =
 		[];
 
 	let teachingDropdown = data.inputData.teaching.message;
 	let meetingDropdown = data.inputData.meeting.message;
 	let brandingDropdown = data.inputData.branding.message;
 
+	fileDataStore.set([]);
+
 	function addTeachingRow() {
 		teachingItems = [
 			...teachingItems,
 			{ id: teachingItems.length, type: null, description: '', link: '', file: [] }
 		];
+
 	}
 
 	function removeTeachingRow(id: number) {
@@ -56,6 +60,31 @@
 			item.id === id ? { ...item, [field]: value } : item
 		);
 	}
+
+	function handleFiles(event: CustomEvent<{ files: File[] }>, itemId: number) {
+		const files  = event.detail;
+		teachingItems = teachingItems.map(item =>
+			item.id === itemId ? { ...item, file : files } : item,
+		);
+	}
+
+   function handleDeleteFiles(event: CustomEvent<{ files: File[] }>, itemId: number) {
+    const  files  = event.detail;
+	console.log('delete files ',files)
+	updateTeachingItem(itemId, 'file', files);
+	}
+
+	let selectPreviewedfiles : any = [];
+
+	function previewFiles (itemId : number){
+		 selectPreviewedfiles = teachingItems.filter(data => data.id === itemId).map(dt => dt.file)[0];
+		console.log('selected teaching files ',selectPreviewedfiles);
+		fileDataStore.set(selectPreviewedfiles);
+
+	}
+
+	// $: 	fileDataStore.set(selectPreviewedfiles);
+
 
 	function addMeetingRow() {
 		meetingItems = [
@@ -74,6 +103,29 @@
 		);
 	}
 
+	function handleMeetingFiles(event: CustomEvent<{ files: File[] }>, itemId: number) {
+		const files  = event.detail;
+		meetingItems = meetingItems.map(item =>
+			item.id === itemId ? { ...item, file : files } : item,
+		);
+	}
+
+   function handleMeetingDeleteFiles(event: CustomEvent<{ files: File[] }>, itemId: number) {
+    const  files  = event.detail;
+	console.log('delete files ',files)
+	updateMeetingItem(itemId, 'file', files);
+	}
+
+	let selectMeetingPreviewedfiles : any = [];
+
+	function previewMeetingFiles (itemId : number){
+		selectMeetingPreviewedfiles = meetingItems.filter(data => data.id === itemId).map(dt => dt.file)[0];
+		console.log('selected meeting files ',selectMeetingPreviewedfiles);
+		fileDataStore.set(selectMeetingPreviewedfiles);
+	}
+
+	// $: 	fileDataStore.set(selectMeetingPreviewedfiles);
+
 	function addBrandingRow() {
 		brandingItems = [
 			...brandingItems,
@@ -90,6 +142,28 @@
 			item.id === id ? { ...item, [field]: value } : item
 		);
 	}
+
+	function handleBrandingFiles(event: CustomEvent<{ files: File[] }>, itemId: number) {
+		const files  = event.detail;
+		brandingItems = brandingItems.map(item =>
+			item.id === itemId ? { ...item, file : files } : item,
+		);
+	}
+
+   function handleBrandingDeleteFiles(event: CustomEvent<{ files: File[] }>, itemId: number) {
+    const  files  = event.detail;
+	console.log('delete files ',files)
+	updateBrandingItem(itemId, 'file', files);
+	}
+
+	let selectBrandingPreviewedfiles : any = [];
+
+	function previewBrandingFiles (itemId : number){
+		selectBrandingPreviewedfiles = brandingItems.filter(data => data.id === itemId).map(dt => dt.file)[0];
+		console.log('selected meeting files ',selectBrandingPreviewedfiles);
+		fileDataStore.set(selectBrandingPreviewedfiles);
+	}
+
 
 	function getAllFiles(): File[] {
 		return teachingItems.flatMap((item) => item.file);
@@ -138,7 +212,8 @@
 	let brandingformData = new FormData();
 
 	async function submitTeachingItems() {
-		console.log('Teaching Items:', JSON.stringify(teachingItems));
+
+		console.log('Teaching Items:', JSON.stringify(updatedTeachingItems));
 
 		const result = validateWithZod(teachingItemsSchema, teaching_json);
 
@@ -153,9 +228,19 @@
 
 		if (result.success) {
 			for (const [index, data] of updatedTeachingItems.entries()) {
-				const fileResult = validateWithZod(fileSchema, { documents: data.file });
+
+				const dispFiles : any = [...data.file];
+				console.log('view files ',JSON.stringify(dispFiles))
+			  	
+				const fileResult = validateWithZod(fileSchema, 
+				{ 
+				documents: dispFiles.map((f: any) => {
+				return f.file;
+			    })
+			    });
+
 				if (fileResult.errors) {
-					console.log(fileResult.errors);
+					console.log('frontend error' ,fileResult.errors);
 					const [firstPath, firstMessage] = Object.entries(fileResult.errors)[0];
 					toast.error('ALERT!', {
 						description: firstMessage
@@ -165,7 +250,7 @@
 
 				for (const file of data.file) {
 					let abbr = data.type.value;
-					formData.append(`${abbr}`, file);
+					formData.append(`${abbr}`, file.file);
 				}
 			}
 
@@ -188,6 +273,7 @@
 			if (json[0].insert_teaching_excellance.status === '200') {
 				toast.success('Inserted Successfully!');
 				teachingItems = [];
+				fileDataStore.set([]);
 				goto('/teaching-meeting-branding');
 			}
 		}
@@ -209,7 +295,13 @@
 
 		if (result.success) {
 			for (const [index, data] of updatedMeetingItems.entries()) {
-				const fileResult = validateWithZod(fileSchema, { documents: data.file });
+				const dispFiles : any = [...data.file];
+
+				const fileResult = validateWithZod(fileSchema, 
+				{ documents: dispFiles.map((f: any) => {
+					return f.file
+				 })});
+
 				if (fileResult.errors) {
 					console.log(fileResult.errors);
 					const [firstPath, firstMessage] = Object.entries(fileResult.errors)[0];
@@ -221,7 +313,7 @@
 
 				for (const file of data.file) {
 					let abbr = data.type.value;
-					meetingformData.append(`${abbr}`, file);
+					meetingformData.append(`${abbr}`, file.file);
 				}
 			}
 
@@ -245,6 +337,7 @@
 			if (json[0].insert_meeting_stackholder.status === '200') {
 				toast.success('Inserted Successfully!');
 				meetingItems = [];
+				fileDataStore.set([]);
 				goto('/teaching-meeting-branding');
 			}
 		}
@@ -266,7 +359,14 @@
 
 		if (result.success) {
 			for (const [index, data] of updatedBrandingItems.entries()) {
-				const fileResult = validateWithZod(fileSchema, { documents: data.file });
+
+				const dispFiles : any = [...data.file];
+
+				const fileResult = validateWithZod(fileSchema, 
+				{ documents: dispFiles.map((f: any) => {
+					return f.file
+				 })});
+
 				if (fileResult.errors) {
 					console.log(fileResult.errors);
 					const [firstPath, firstMessage] = Object.entries(fileResult.errors)[0];
@@ -278,7 +378,7 @@
 
 				for (const file of data.file) {
 					let abbr = data.type.value;
-					brandingformData.append(`${abbr}`, file);
+					brandingformData.append(`${abbr}`, file.file);
 				}
 			}
 
@@ -301,13 +401,13 @@
 			console.log('inserted json ', JSON.stringify(json));
 			if (json[0].insert_branding_advertising.status === '200') {
 				toast.success('Inserted Successfully!');
-				meetingItems = [];
+				brandingItems = [];
+				fileDataStore.set([]);
 				goto('/teaching-meeting-branding');
 			}
 		}
 	}
 
-	// Function to get available options for each row
 	function getAvailableTeachingDropdown(selectedOptions: any[]) {
 		const selectedValues = selectedOptions.map((option) => (option.type ? option.type.value : ''));
 		return getTeachingDropdown(teachingDropdown).filter(
@@ -315,7 +415,6 @@
 		);
 	}
 
-	// Function to get available options for meeting dropdowns
 	function getAvailableMeetingDropdown(selectedOptions: any[]) {
 		const selectedValues = selectedOptions.map((option) => (option.type ? option.type.value : ''));
 		return getMeetingDropdown(meetingDropdown).filter(
@@ -323,7 +422,6 @@
 		);
 	}
 
-	// Function to get available options for branding dropdowns
 	function getAvailableBrandingDropdown(selectedOptions: any[]) {
 		const selectedValues = selectedOptions.map((option) => (option.type ? option.type.value : ''));
 		return getBrandingDropdown(brandingDropdown).filter(
@@ -388,12 +486,21 @@
 											/>
 										</td>
 										<td>
-											<input
+											<!-- <input
 												type="file"
 												multiple
 												on:change={(e) =>
 													updateTeachingItem(item.id, 'file', [...e?.target?.files])}
-											/>
+											/> -->
+											<div class="space-y-2">
+												<File
+													isView={false}
+													isCombine={true}
+													on:filesSelected={(e) => handleFiles(e,item.id)}
+													on:deletedFiles={(e) => handleDeleteFiles(e,item.id)}
+													on:previewFile={() => previewFiles(item.id)}
+												/>									
+											</div>	
 										</td>
 										<td>
 											<Input
@@ -481,11 +588,20 @@
 											/>
 										</td>
 										<td>
-											<input
+											<!-- <input
 												type="file"
 												multiple
 												on:change={(e) => updateMeetingItem(item.id, 'file', [...e?.target?.files])}
-											/>
+											/> -->
+											<div class="space-y-2">
+												<File
+													isView={false}
+													isCombine={true}
+													on:filesSelected={(e) => handleMeetingFiles(e,item.id)}
+													on:deletedFiles={(e) => handleMeetingDeleteFiles(e,item.id)}
+													on:previewFile={() => previewMeetingFiles(item.id)}
+												/>									
+											</div>	
 										</td>
 										<td>
 											<Input
@@ -577,12 +693,21 @@
 											/>
 										</td>
 										<td>
-											<input
+											<!-- <input
 												type="file"
 												multiple
 												on:change={(e) =>
 													updateBrandingItem(item.id, 'file', [...e?.target?.files])}
-											/>
+											/> -->
+											<div class="space-y-2">
+												<File
+													isView={false}
+													isCombine={true}
+													on:filesSelected={(e) => handleBrandingFiles(e,item.id)}
+													on:deletedFiles={(e) => handleBrandingDeleteFiles(e,item.id)}
+													on:previewFile={() => previewBrandingFiles(item.id)}
+												/>									
+											</div>	
 										</td>
 										<td>
 											<Input

@@ -39,12 +39,12 @@
 {#if checkData}
 <Card {title} >
     <div class="modal-content p-4">
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
             <Input type="text" placeholder="Name Of Faculty" value={obj.faculty_name} {disabled}/>
 			<Input type="text" placeholder="Name of the module developed" value={obj.module} {disabled}/>
 			<Input type="text" placeholder="Platform on which module is developed" value={obj.module_platform} {disabled}/>
         </div>
-        <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+        <div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="Link to relevant document and facility available in institution" value={obj.document_link} {disabled}/>
 			<Input type="text" placeholder="List of the e-content development facility available" value={obj.facility_list} {disabled}/>
 			<Input type="text" placeholder="Provide link to videos of media centre and recording facility" value={obj.media_link} {disabled}/>

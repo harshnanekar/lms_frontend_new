@@ -3,26 +3,30 @@
 	import { Modal } from '$lib/components/ui';
 	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
 	import { writable } from 'svelte/store';
-	import { DeleteIcon, EyeIcon, CloseEyeIcon } from '$lib/components/icons';
+	import { DeleteIcon,EyeIcon,PreviewIcon } from '$lib/components/icons';
 	import { createEventDispatcher } from 'svelte';
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 
 	const dispatch = createEventDispatcher();
 	const isOpen = writable(false);
 	const isPreviewOpen = writable(false);
-	const isEyeIconChange = writable(false);
 	let modalwidthPercent: ModalSizes = 'md';
 	let fileUrl = '';
 	let files: any = [];
 	export let isView: boolean = false;
-	export let isEdit: boolean = false;
+	export let isCombine: boolean = false;
+
 
 	$: selectedFileUrl = fileUrl;
 	$: fileData = $fileDataStore;
 
+	$: console.log('files stores ',$fileDataStore)
+
 	function previewFile() {
 		isOpen.set(true);
-		isEyeIconChange.set(true);
+		if(isCombine){
+			dispatch('previewFile')
+		}
 	}
 
 	function previewParticularFile(url: string) {
@@ -34,12 +38,10 @@
 
 	const closeModal = () => {
 		isOpen.set(false);
-		isEyeIconChange.set(false);
 	};
 
 	const closePreviewModal = () => {
 		isPreviewOpen.set(false);
-		isEyeIconChange.set(false);
 	};
 
 	$: console.log('filename ', fileData);
@@ -48,39 +50,30 @@
 		const input: any = event.target as HTMLInputElement;
 		const fileData = Array.from(input.files || []);
 
-		if (!isEdit) {
 			files = fileData.map((file: any) => ({
 				file,
 				name: file.name,
 				url: URL.createObjectURL(file),
 				id: generateRandomUUID()
 			}));
-		} else {
-			const storedFiles = $fileDataStore;
-			files = [
-				...storedFiles,
-				...fileData.map((file: any) => ({
-					file,
-					name: file.name,
-					url: URL.createObjectURL(file),
-					id: generateRandomUUID()
-				}))
-			];
-		}
-
+		
 		fileDataStore.set(files);
 		dispatch('filesSelected', files);
 	}
 
 	function handleDelete(file: any) {
+
 		files = files.filter((f: any) => f.id !== file);
 		console.log('files display ', files);
 		fileDataStore.update((files) => files.filter((f: any) => f.id !== file));
 		dispatch('deletedFiles', files);
+
 	}
 </script>
 
-<div class="flex items-center">
+<div class="flex items-center">	
+
+	{#if !isView}
 	<div
 		class="md:rounded-1 flex items-center justify-center rounded-[6px] border-2 border-red-200 sm:h-5 sm:w-full sm:py-6 md:h-5 md:w-24 md:px-16 md:py-4 lg:h-3 lg:w-36 lg:px-14 lg:py-5"
 	>
@@ -107,16 +100,17 @@
 			</div>
 		</label>
 	</div>
-
 	<div class="ml-2 mt-2">
 		<button on:click={previewFile}>
-			{#if $isEyeIconChange}
-				<CloseEyeIcon />
-			{:else}
-				<EyeIcon />
-			{/if}
+			<PreviewIcon />
 		</button>
 	</div>
+    {:else}
+	<button class="lms-btn lms-secondary-btn" on:click={previewFile}>
+    <PreviewIcon/>Preview Files 
+	</button>
+	{/if}
+
 </div>
 
 <Modal bind:isOpen={$isOpen} size={modalwidthPercent} on:close={closeModal}>
@@ -147,7 +141,7 @@
 										><EyeIcon width="20" height="20" /></button
 									>
 								</td>
-							</tr>
+							</tr>	
 						{/each}
 					{:else}
 						<tr><td colspan="3" class="py-4 text-center !text-[15px]">No Files Found!</td></tr>

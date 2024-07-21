@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { Input, DatePicker, DynamicSelect,File } from '$lib/components/ui';
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
 	import { fly } from 'svelte/transition';
 	import { Card } from '$lib/components/ui';
-
+    import { fileDataStore } from '$lib/stores/modules/research/master.store';
 	import { getSchool, getCampus } from '$lib/utils/select.helper';
 	import { validateWithZod } from '$lib/utils/validations';
 	import {
@@ -83,6 +83,7 @@
 	};
 
 	let files: any = [];
+	fileDataStore.set(files);
 
 	async function handleSubmit() {
 		const researchAward: researchAwardReq = {
@@ -95,12 +96,14 @@
 			award_details: obj.award_details,
 			award_organization: obj.award_organization,
 			award_place: obj.award_place,
-			award_category: obj.award_category != null ? Number(obj.award_category) : null,
+			award_category: Number(obj.award_category) ,
 			award_date: publicationFormattedDate != null ? formatDate(publicationFormattedDate) : ''
 		};
 
 		const fileObject: FileReq = {
-			documents: Array.from(files)
+			documents: files.map((f: any) => {
+				return f.file;
+			})
 		};
 
 		console.log('files object ', files);
@@ -119,9 +122,8 @@
 
 		const formData = new FormData();
 
-		// Append each file to the FormData
 		Array.from(files).forEach((file : any) => {
-			formData.append('supporting_documents', file);
+			formData.append('supporting_documents', file.file);
 		});
 
 		const result = validateWithZod(researchAwardObj, researchAward);
@@ -154,6 +156,8 @@
 
 		if (json[0].upsert_research_award.status == 200) {
 			toast.success('Updated Successfully');
+			files = [];
+			fileDataStore.set(files);
 			goto('/research-award');
 		}
 	}
@@ -182,12 +186,23 @@
 				});
 			});
 	}
+
+	function handleFiles(event: CustomEvent<File[]>) {
+		files = event.detail;
+		console.log('files details', files);
+	}
+
+	function handleDeleteFiles(event: CustomEvent) {
+		files = event.detail;
+	}
+
+
 </script>
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
 <Card {title}>
 	<div class="modal-content p-4">
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims School"
@@ -205,7 +220,7 @@
 			<Input type="text" placeholder="Faculty Name" bind:value={obj.faculty_name} />
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="Award Name" bind:value={obj.award_name} />
 			<Input type="text" placeholder="Award Details" bind:value={obj.award_details} />
 			<Input
@@ -215,7 +230,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="Award Place" bind:value={obj.award_place} />
 			<div class="ml-2">
 				<label class="text-sm text-[#888888]"> Award Category<span>*</span> </label>
@@ -246,13 +261,19 @@
 					</div>
 				</div>
 			</div>
-			<div>
-				<label for="supporting-documents"
+			<div class="space-y-4">
+				<label for="supporting-documents" class="lms-label"
 					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
 				>
-				<label>Click To Upload New File <input type="checkbox" bind:checked={isChecked} /></label>
+				<label class="lms-label"
+					>Click To Upload New File <input type="checkbox" bind:checked={isChecked} class="accent-primary"/></label
+				>
 				{#if checkVal}
-					<input type="file" bind:files multiple />
+					<File
+						on:filesSelected={handleFiles}
+						on:deletedFiles={handleDeleteFiles}
+						isView={false}
+					/>
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-md"></i></button

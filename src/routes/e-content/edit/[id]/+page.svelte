@@ -26,7 +26,7 @@
 		publicationFormattedDate = publicationDate;
 	}
 
-	let checkData =  data.eContentData.length > 0 : true ? false
+	let checkData =  data.eContentData.length > 0 ? true : false
 	let obj = {
 		eContentId:checkData ? data.eContentData[0].id : null,
 		faculty_name:
@@ -113,7 +113,7 @@
 
 <Card {title}>
 	<div class="modal-content p-4">
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="Name Of Faculty" bind:value={obj.faculty_name} />
 			<Input type="text" placeholder="Name of the module developed" bind:value={obj.module} />
 			<Input
@@ -122,7 +122,7 @@
 				bind:value={obj.module_platform}
 			/>
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input
 				type="text"
 				placeholder="Link to relevant document and facility available in institution"

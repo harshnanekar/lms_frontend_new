@@ -1,53 +1,57 @@
 <script lang="ts">
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
-	import { Card, Input } from '$lib/components/ui';
+	import { Card, Input ,File } from '$lib/components/ui';
 	import { toast } from 'svelte-sonner';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
+	import { createFileUrl } from '$lib/utils/helper';
 	export let data: any;
 	let title = 'Case Study';
 	console.log('case study data ', JSON.stringify(data.caseData));
 
-	let checkData = data.caseData.length > 0 ? true : false;
+	let checkData = data.caseData.caseData.length > 0 ? true : false;
+	let files = data.caseData.files.length > 0 ? createFileUrl(data.caseData.files) : [];
+	fileDataStore.set(files);
 
 	let obj = {
-		case_study_id: checkData ? data.caseData[0].id : null,
+		case_study_id: checkData ? data.caseData.caseData[0].id : null,
 		nmims_school:
-		checkData && data.caseData[0].nmims_school
-				? data.caseData[0].nmims_school
+		checkData && data.caseData.caseData[0].nmims_school
+				? data.caseData.caseData[0].nmims_school
 				: [],
 		nmims_campus:
-		checkData && data.caseData[0].nmims_campus
-				? data.caseData[0].nmims_campus
+		checkData && data.caseData.caseData[0].nmims_campus
+				? data.caseData.caseData[0].nmims_campus
 				: [],
 		all_authors:
-		checkData && data.caseData[0].all_authors ? data.caseData[0].all_authors : [],
+		checkData && data.caseData.caseData[0].all_authors ? data.caseData.caseData[0].all_authors : [],
 		nmims_authors:
-		checkData && data.caseData[0].nmims_authors
-				? data.caseData[0].nmims_authors
+		checkData && data.caseData.caseData[0].nmims_authors
+				? data.caseData.caseData[0].nmims_authors
 				: [],
-		title: checkData && data.caseData[0].title ? data.caseData[0].title : '',
-		edition: checkData && data.caseData[0].edition ? data.caseData[0].edition : '',
+		title: checkData && data.caseData.caseData[0].title ? data.caseData.caseData[0].title : '',
+		edition: checkData && data.caseData.caseData[0].edition ? data.caseData.caseData[0].edition : '',
 		publish_year:
-		checkData && data.caseData[0].publish_year
-				? data.caseData[0].publish_year
+		checkData && data.caseData.caseData[0].publish_year
+				? data.caseData.caseData[0].publish_year
 				: '',
 		publisher:
-		checkData && data.caseData[0].publisher ? data.caseData[0].publisher : '',
+		checkData && data.caseData.caseData[0].publisher ? data.caseData.caseData[0].publisher : '',
 		publisher_category:
-		checkData && data.caseData[0].publisher_category
-				? Number(data.caseData[0].publisher_category)
+		checkData && data.caseData.caseData[0].publisher_category
+				? Number(data.caseData.caseData[0].publisher_category)
 				: null,
-		url:checkData && data.caseData[0].url ? data.caseData[0].url : '',
-		page_no: checkData && data.caseData[0].page_no ? data.caseData[0].page_no : '',
+		url:checkData && data.caseData.caseData[0].url ? data.caseData.caseData[0].url : '',
+		page_no: checkData && data.caseData.caseData[0].page_no ? data.caseData.caseData[0].page_no : '',
 		nmims_authors_count:
-		checkData && data.caseData[0].nmims_authors_count
-				? data.caseData[0].nmims_authors_count
+		checkData && data.caseData.caseData[0].nmims_authors_count
+				? data.caseData.caseData[0].nmims_authors_count
 				: '',
 		supporting_documents:
-		checkData && data.caseData[0].supporting_documents
-				? data.caseData[0].supporting_documents
+		checkData && data.caseData.caseData[0].supporting_documents
+				? data.caseData.caseData[0].supporting_documents
 				: '',
 		volume_no:
-		checkData && data.caseData[0].volume_no ? data.caseData[0].volume_no : ''
+		checkData && data.caseData.caseData[0].volume_no ? data.caseData.caseData[0].volume_no : ''
 	};
 
 	let disabled = true;
@@ -82,25 +86,25 @@
 	<Card {title}>
 		<div class="modal-content p-4">
 			<!-- Adjust max-height as needed -->
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input type="text" placeholder="Nmims School" value={obj.nmims_school} {disabled} />
 				<Input type="text" placeholder="Nmims Campus" value={obj.nmims_campus} {disabled} />
 				<Input type="text" placeholder="All Authors" value={obj.all_authors} {disabled} />
 			</div>
 
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input type="text" placeholder="Nmims Authors" value={obj.nmims_authors} {disabled} />
 				<Input type="text" placeholder="Title Of Case Study" value={obj.title} {disabled} />
 				<Input type="text" placeholder="Edition" value={obj.edition} {disabled} />
 			</div>
 
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input type="text" placeholder="Page Number" value={obj.page_no} {disabled} />
 				<Input type="text" placeholder="Volume No." value={obj.volume_no} {disabled} />
 				<Input type="text" placeholder="Publisher" value={obj.publisher} {disabled} />
 			</div>
 
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input type="number" placeholder="Publication Year" value={obj.publish_year} {disabled} />
 				<div class="ml-2">
 					<label class="text-sm text-[#888888]">
@@ -136,28 +140,24 @@
 				<Input type="text" placeholder="Url" value={obj.url} {disabled} />
 			</div>
 
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 items-center p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input
 					type="number"
 					placeholder="No. Of Nmims Authors"
 					value={obj.nmims_authors_count}
 					{disabled}
 				/>
-				<div class="lms-input-container flex flex-row gap-2">
-					<input
-						id="documents"
-						class="lms-input"
-						placeholder=""
-						value={obj.supporting_documents}
-						{disabled}
-					/>
-					<label for="documents" class="lms-placeholder"
-						>Supporting Documents
+				<div class="space-y-2">
+					<label for="documents" class="lms-label"
+						>Download Supporting Documents
 						<span>*</span>
 					</label>
+					<div class="flex items-center gap-2">
+					<File isView={true} />	
 					<button class="lms-btn lms-primary-btn" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-lg"></i></button
 					>
+					</div>
 				</div>
 			</div>
 		</div>

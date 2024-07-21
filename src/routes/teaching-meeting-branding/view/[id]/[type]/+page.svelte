@@ -11,7 +11,7 @@
 
 {#if abbr === 'te'}
 	<TeachingExcellance
-		teachingData={data.inputData.teaching_data}
+		teachingData={data.inputData}
 		teachingId={data.inputData.teachingId}
 	/>
 {:else if abbr === 'ms'}

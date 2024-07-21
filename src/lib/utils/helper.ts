@@ -7,17 +7,19 @@ export function generateRandomUUID() {
 }
 
 
-export function createFile(files : any) {
-	 const filesData = files.map((file : any)=> {
-			const blob = new Blob([], { type: 'application/octet-stream' }); 
-			const newFile = new File([blob], file.name, { type: 'application/octet-stream', lastModified: new Date(file.lastModified).getTime() });
-			return {
-				file: newFile,
-				name: file.name,
-				url: file.url,
-				id: generateRandomUUID(),
-			};
-		});
+export function createFileUrl(files: any) {
 
-		return filesData;
+    const filesData = files.map((file: any) => {
+     
+        // const blob = new Blob([], { type: 'application/octet-stream' });
+        // const newFile = new File([blob], file.name, { type: 'application/octet-stream', lastModified: new Date(file.lastModified).getTime() });
+        return {
+            file: [],
+            name: file.name,
+            url: file.url,
+            id: generateRandomUUID(),
+        };
+    });
+
+    return filesData;
 }

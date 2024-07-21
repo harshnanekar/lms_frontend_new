@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { Input, File, DynamicSelect } from '$lib/components/ui';
 	import { Card } from '$lib/components/ui';
 
 	import {
@@ -16,6 +16,7 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 
 	export let data: any;
 	let isRequired = false;
@@ -105,6 +106,7 @@
 	};
 
 	let files: any = [];
+	fileDataStore.set(files);
 
 	async function handleSubmit() {
 		const caseStudyObject: caseStudyReq = {
@@ -132,7 +134,9 @@
 		};
 
 		const fileObject: FileReq = {
-			documents: Array.from(files)
+			documents:  files.map((f: any) => {
+				return f.file;
+			})
 		};
 
 		console.log('files object ', files);
@@ -152,7 +156,7 @@
 
 		// Append each file to the FormData
 		Array.from(files).forEach((file: any) => {
-			formData.append('supporting_documents', file);
+			formData.append('supporting_documents', file.file);
 		});
 
 		for (let [key, value] of formData.entries()) {
@@ -190,6 +194,8 @@
 
 		if (json[0].upsert_case_study.status == 200) {
 			toast.success('Updated Successfully');
+			files = [];
+			fileDataStore.set(files);
 			goto('/case-study');
 		}
 	}
@@ -218,13 +224,23 @@
 				});
 			});
 	}
+
+	function handleFiles(event: CustomEvent<File[]>) {
+		files = event.detail;
+		console.log('files details', files);
+	}
+
+	function handleDeleteFiles(event: CustomEvent) {
+		files = event.detail;
+	}
+
 </script>
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
 <Card {title}>
 	<div class="modal-content p-4">
 		<!-- Adjust max-height as needed -->
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims School"
@@ -248,7 +264,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims Authors"
@@ -260,13 +276,13 @@
 			<Input type="text" {isRequired} placeholder="Edition" bind:value={obj.edition} />
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" {isRequired} placeholder="Page No." bind:value={obj.page_no} />
 			<Input type="text" placeholder="Volume No." bind:value={obj.volume_no} />
 			<Input type="text" placeholder="Publisher" bind:value={obj.publisher} />
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="number" placeholder="Publication Year" bind:value={obj.publish_year} />
 			<div class="ml-2">
 				<label class="text-sm text-[#888888]">
@@ -301,19 +317,25 @@
 			<Input type="text" placeholder="Url" bind:value={obj.url} />
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input
 				type="number"
 				placeholder="No. Of Nmims Authors"
 				bind:value={obj.nmims_authors_count}
 			/>
-			<div>
-				<label for="supporting-documents"
+			<div class="space-y-4">
+				<label for="supporting-documents" class="lms-label"
 					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
 				>
-				<label>Click To Upload New File <input type="checkbox" bind:checked={isChecked} /></label>
+				<label class="lms-label"
+					>Click To Upload New File <input type="checkbox" bind:checked={isChecked} class="accent-primary"/></label
+				>
 				{#if checkVal}
-					<input type="file" bind:files multiple />
+					<File
+						on:filesSelected={handleFiles}
+						on:deletedFiles={handleDeleteFiles}
+						isView={false}
+					/>
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-md"></i></button
