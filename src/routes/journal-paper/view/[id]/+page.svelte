@@ -1,127 +1,125 @@
 <script lang="ts">
+	import { createFileUrl } from '$lib/utils/helper';
 	import { Card } from '$lib/components/ui';
-	import type { JournalPaper } from '$lib/types/modules/research/research-types.ts';
-	import { Input } from '$lib/components/ui';
-	import { SelectDateIcon, XIcon } from '$lib/components/icons';
+	import { Input , File} from '$lib/components/ui';
+	import { SelectDateIcon } from '$lib/components/icons';
 	import { formatDateTimeShort } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
 	import { fly } from 'svelte/transition';
 	import { fetchApi } from '$lib/utils/fetcher';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import { toast } from 'svelte-sonner';
-	import { Toaster } from '$lib/components/ui/sonner';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 
 	export let data: any;
-	let campus: string = '';
 	let disabled: boolean = true;
-	let checkData = data.journalData.length > 0 ? true : false;
-
-	console.log('journal data ', JSON.stringify(data.journalData[0]));
+	let checkData = data.journalData.journalData.length > 0 ? true : false;
+	
+	let fileUrls = data.journalData.files.length > 0 ? createFileUrl( data.journalData.files) : [];
+	fileDataStore.set(fileUrls);
 
 	let obj = {
-		journal_paper_id: checkData ? data.journalData[0].journal_paper_id : null,
-		journal_name:
-		checkData && data.journalData[0].journal_name
-				? data.journalData[0].journal_name
+		journal_paper_id: checkData ? data.journalData.journalData[0].journal_paper_id : null,
+		journal_name:checkData && data.journalData.journalData[0].journal_name
+				? data.journalData.journalData[0].journal_name
 				: '',
-		title:
-		checkData && data.journalData[0].title ? data.journalData[0].title : '',
+		title:checkData && data.journalData.journalData[0].title ? data.journalData.journalData[0].title : '',
 		publish_year:
-		checkData && data.journalData[0].publish_year
-				? data.journalData[0].publish_year
+		checkData && data.journalData.journalData[0].publish_year
+				? data.journalData.journalData[0].publish_year
 				: null,
 		total_authors:
-		checkData && data.journalData[0].total_authors
-				? data.journalData[0].total_authors
+		checkData && data.journalData.journalData[0].total_authors
+				? data.journalData.journalData[0].total_authors
 				: null,
 		nmims_author_count:
-		checkData && data.journalData[0].nmims_authors_count
-				? data.journalData[0].nmims_authors_count
+		checkData && data.journalData.journalData[0].nmims_authors_count
+				? data.journalData.journalData[0].nmims_authors_count
 				: null,
-		uid: checkData && data.journalData[0].uid ? data.journalData[0].uid : '',
+		uid: checkData && data.journalData.journalData[0].uid ? data.journalData.journalData[0].uid : '',
 		doi_no:
-		checkData&& data.journalData[0].doi_no ? data.journalData[0].doi_no : '',
+		checkData&& data.journalData.journalData[0].doi_no ? data.journalData.journalData[0].doi_no : '',
 		publisher:
-		checkData && data.journalData[0].publisher
-				? data.journalData[0].publisher
+		checkData && data.journalData.journalData[0].publisher
+				? data.journalData.journalData[0].publisher
 				: '',
 		publication_date:
-		checkData ? new Date(data.journalData[0].publishing_date) : null,
+		checkData ? new Date(data.journalData.journalData[0].publishing_date) : null,
 		issn_no:
-		checkData && data.journalData[0].issn_no ? data.journalData[0].issn_no : '',
+		checkData && data.journalData.journalData[0].issn_no ? data.journalData.journalData[0].issn_no : '',
 		scopus_site_score:
-		checkData && data.journalData[0].scopus_site_score
-				? data.journalData[0].scopus_site_score
+		checkData && data.journalData.journalData[0].scopus_site_score
+				? data.journalData.journalData[0].scopus_site_score
 				: null,
 		gs_indexed:
-		checkData && data.journalData[0].gs_indexed
-				? data.journalData[0].gs_indexed
+		checkData && data.journalData.journalData[0].gs_indexed
+				? data.journalData.journalData[0].gs_indexed
 				: null,
 		journal_type:
-		checkData && data.journalData[0].journal_type
-				? Number(data.journalData[0].journal_type)
+		checkData && data.journalData.journalData[0].journal_type
+				? Number(data.journalData.journalData[0].journal_type)
 				: null,
-		ugc_indexed: checkData ? data.journalData[0].ugc_indexed : null,
-		scs_indexed: checkData ? data.journalData[0].scs_indexed : null,
-		wos_indexed: checkData ? data.journalData[0].wos_indexed : null,
+		ugc_indexed: checkData ? data.journalData.journalData[0].ugc_indexed : null,
+		scs_indexed: checkData ? data.journalData.journalData[0].scs_indexed : null,
+		wos_indexed: checkData ? data.journalData.journalData[0].wos_indexed : null,
 		foreign_authors_count:
-		checkData && data.journalData[0].foreign_authors_count
-				? data.journalData[0].foreign_authors_count
+		checkData && data.journalData.journalData[0].foreign_authors_count
+				? data.journalData.journalData[0].foreign_authors_count
 				: null,
 		student_authors_count:
-		checkData && data.journalData[0].student_authors_count
-				? data.journalData[0].student_authors_count
+		checkData && data.journalData.journalData[0].student_authors_count
+				? data.journalData.journalData[0].student_authors_count
 				: null,
 		impact_factor:
-		checkData && data.journalData[0].impact_factor
-				? data.journalData[0].impact_factor
+		checkData && data.journalData.journalData[0].impact_factor
+				? data.journalData.journalData[0].impact_factor
 				: null,
 		page_no:
-		checkData && data.journalData[0].page_no ? data.journalData[0].page_no : '',
+		checkData && data.journalData.journalData[0].page_no ? data.journalData.journalData[0].page_no : '',
 		paper_type:
-		checkData && data.journalData[0].paper_name
-				? data.journalData[0].paper_name
+		checkData && data.journalData.journalData[0].paper_name
+				? data.journalData.journalData[0].paper_name
 				: '',
 		nmims_school:
-		checkData && data.journalData[0].nmims_school
-				? data.journalData[0].nmims_school
+		checkData && data.journalData.journalData[0].nmims_school
+				? data.journalData.journalData[0].nmims_school
 				: '',
 		nmims_campus:
-		checkData && data.journalData[0].nmims_campus
-				? data.journalData[0].nmims_campus
+		checkData && data.journalData.journalData[0].nmims_campus
+				? data.journalData.journalData[0].nmims_campus
 				: '',
-		abdc_indexed: checkData ? data.journalData[0].abdc_indexed : '',
+		abdc_indexed: checkData ? data.journalData.journalData[0].abdc_indexed : '',
 		policy_cadre:
-		checkData && data.journalData[0].policy_names
-				? data.journalData[0].policy_names
+		checkData && data.journalData.journalData[0].policy_names
+				? data.journalData.journalData[0].policy_names
 				: '',
 		all_authors:
-		checkData && data.journalData[0].all_authors
-				? data.journalData[0].all_authors
+		checkData && data.journalData.journalData[0].all_authors
+				? data.journalData.journalData[0].all_authors
 				: '',
 		nmims_authors:
-		checkData && data.journalData[0].nmims_authors
-				? data.journalData[0].nmims_authors
+		checkData && data.journalData.journalData[0].nmims_authors
+				? data.journalData.journalData[0].nmims_authors
 				: '',
 		foreign_authors:
-		checkData && data.journalData[0].foreign_authors
-				? data.journalData[0].foreign_authors
+		checkData && data.journalData.journalData[0].foreign_authors
+				? data.journalData.journalData[0].foreign_authors
 				: '',
 		other_authors:
-		checkData && data.journalData[0].other_authors
-				? data.journalData[0].other_authors
+		checkData && data.journalData.journalData[0].other_authors
+				? data.journalData.journalData[0].other_authors
 				: '',
 		student_authors:
-		checkData && data.journalData[0].student_authors
-				? data.journalData[0].student_authors
+		checkData && data.journalData.journalData[0].student_authors
+				? data.journalData.journalData[0].student_authors
 				: '',
 		supporting_documents:
-		checkData && data.journalData[0].supporting_documents
-				? data.journalData[0].supporting_documents
+		checkData && data.journalData.journalData[0].supporting_documents
+				? data.journalData.journalData[0].supporting_documents
 				: '',
 		filename:
-		checkData && data.journalData[0].filename
-				? data.journalData[0].filename
+		checkData && data.journalData.journalData[0].filename
+				? data.journalData.journalData[0].filename
 				: ''
 	};
 
@@ -162,12 +160,12 @@
 		<div class="p-4">
 			<div class="modal-content">
 				<!-- Adjust max-height as needed -->
-				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input type="text" placeholder="Nmims School" value={obj.nmims_school} {disabled} />
 					<Input type="text" placeholder="Nmims Campus" value={obj.nmims_campus} {disabled} />
 					<Input type="number" placeholder="Publishing Year" value={obj.publish_year} {disabled} />
 				</div>
-				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input type="text" placeholder="Policy Cadre" value={obj.policy_cadre} {disabled} />
 					<Input type="text" placeholder="Name Of All Authors" value={obj.all_authors} {disabled} />
 					<Input
@@ -177,7 +175,7 @@
 						{disabled}
 					/>
 				</div>
-				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input
 						type="text"
 						placeholder="Name Of Nmims Authors"
@@ -192,7 +190,7 @@
 					/>
 					<Input type="text" placeholder="Journal Name" value={obj.journal_name} {disabled} />
 				</div>
-				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input type="text" placeholder="UID" value={obj.uid} {disabled} />
 					<Input type="text" placeholder="Publisher" value={obj.publisher} {disabled} />
 					<Input
@@ -202,7 +200,7 @@
 						{disabled}
 					/>
 				</div>
-				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input type="text" placeholder="Vol,Issue,Page No." value={obj.page_no} {disabled} />
 					<Input type="text" placeholder="ISSN No." value={obj.issn_no} {disabled} />
 					<Input
@@ -212,7 +210,7 @@
 						{disabled}
 					/>
 				</div>
-				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input
 						type="number"
 						placeholder="Impact factor by Clarivate Analytics"
@@ -223,7 +221,7 @@
 					<Input type="text" placeholder="Title Of Paper" value={obj.title} {disabled} />
 				</div>
 
-				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input type="text" placeholder="GS Indexed" value={obj.gs_indexed} {disabled} />
 					<div class="ml-2">
 						<label class="text-sm text-[#888888]"
@@ -289,7 +287,7 @@
 					</div>
 				</div>
 
-				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input type="text" placeholder="Abdc Indexed" value={obj.abdc_indexed} {disabled} />
 					<div class="ml-2">
 						<label class="text-sm text-[#888888]"
@@ -325,7 +323,7 @@
 					<Input type="text" placeholder="Paper Type" value={obj.paper_type} {disabled} />
 				</div>
 
-				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input type="text" placeholder="Foreign Authors" value={obj.foreign_authors} {disabled} />
 					<Input
 						type="number"
@@ -336,7 +334,7 @@
 					<Input type="text" placeholder="Student Authors" value={obj.student_authors} {disabled} />
 				</div>
 
-				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input
 						type="text"
 						placeholder="No. Of Student Authors"
@@ -377,21 +375,17 @@
 						</div>
 					</div>
 
-					<div class="lms-input-container flex flex-row gap-2">
-						<input
-							id="documents"
-							class="lms-input"
-							placeholder=""
-							value={obj.filename}
-							{disabled}
-						/>
-						<label for="documents" class="lms-placeholder"
-							>Supporting Documents
+					<div class="space-y-2">
+						<label for="documents" class="lms-label"
+							>Download Supporting Documents
 							<span>*</span>
 						</label>
+						<div class="flex items-center gap-2">
+						<File isView={true} />	
 						<button class="lms-btn lms-primary-btn" on:click={downLoadFiles}
 							><i class="fa-solid fa-download text-lg"></i></button
 						>
+				    	</div>
 					</div>
 				</div>
 

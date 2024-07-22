@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let data: any;
-	import { Card, Input } from '$lib/components/ui';
+	import { Card, Input ,File } from '$lib/components/ui';
 	import { SelectDateIcon } from '$lib/components/icons';
 	import { formatDateTimeShort } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
@@ -8,85 +8,88 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import { downloadFetch } from '$lib/utils/fetcher';
 	import { toast } from 'svelte-sonner';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
+	import { createFileUrl } from '$lib/utils/helper';
 
 	let disabled: boolean = true;
-	let checkData = data.researchSeminarData.length > 0 ? true : false;
+	let checkData = data.researchSeminarData.researchSeminarData.length > 0 ? true : false;
+	let files = data.researchSeminarData.files.length > 0 ? createFileUrl(data.researchSeminarData.files) : [];
+	fileDataStore.set(files);
 	let title = 'Research Seminars';
-	console.log('research data ', JSON.stringify(data.researchSeminarData));
 
 	let obj = {
 		research_seminar_id:
-			data.researchSeminarData.length > 0 ? data.researchSeminarData[0].id : null,
+			data.researchSeminarData.researchSeminarData.length > 0 ? data.researchSeminarData.researchSeminarData[0].id : null,
 		nmims_school:
-			data.researchSeminarData.length > 0 && data.researchSeminarData[0].nmims_school != null
-				? data.researchSeminarData[0].nmims_school
+			data.researchSeminarData.researchSeminarData.length > 0 && data.researchSeminarData.researchSeminarData[0].nmims_school != null
+				? data.researchSeminarData.researchSeminarData[0].nmims_school
 				: null,
 		nmims_campus:
-			data.researchSeminarData.length > 0 && data.researchSeminarData[0].nmims_campus != null
-				? data.researchSeminarData[0].nmims_campus
+			data.researchSeminarData.researchSeminarData.length > 0 && data.researchSeminarData.researchSeminarData[0].nmims_campus != null
+				? data.researchSeminarData.researchSeminarData[0].nmims_campus
 				: null,
 		topic:
-			data.researchSeminarData.length > 0 && data.researchSeminarData[0].topic
-				? data.researchSeminarData[0].topic
+			data.researchSeminarData.researchSeminarData.length > 0 && data.researchSeminarData.researchSeminarData[0].topic
+				? data.researchSeminarData.researchSeminarData[0].topic
 				: '',
 		resource_person:
-			data.researchSeminarData.length > 0 ? data.researchSeminarData[0].resource_person : '',
+			data.researchSeminarData.researchSeminarData.length > 0 ? data.researchSeminarData.researchSeminarData[0].resource_person : '',
 		nmims_authors:
-			data.researchSeminarData.length > 0 && data.researchSeminarData[0].nmims_authors != null
-				? data.researchSeminarData[0].nmims_authors
+			data.researchSeminarData.researchSeminarData.length > 0 && data.researchSeminarData.researchSeminarData[0].nmims_authors != null
+				? data.researchSeminarData.researchSeminarData[0].nmims_authors
 				: null,
 		paper_title:
-			data.researchSeminarData.length > 0 && data.researchSeminarData[0].paper_title
-				? data.researchSeminarData[0].paper_title
+			data.researchSeminarData.researchSeminarData.length > 0 && data.researchSeminarData.researchSeminarData[0].paper_title
+				? data.researchSeminarData.researchSeminarData[0].paper_title
 				: '',
 		journal_name:
-			data.researchSeminarData.length > 0 && data.researchSeminarData[0].journal_name
-				? data.researchSeminarData[0].journal_name
+			data.researchSeminarData.researchSeminarData.length > 0 && data.researchSeminarData.researchSeminarData[0].journal_name
+				? data.researchSeminarData.researchSeminarData[0].journal_name
 				: '',
 		publisher:
-			data.researchSeminarData.length > 0 && data.researchSeminarData[0].publisher
-				? data.researchSeminarData[0].publisher
+			data.researchSeminarData.researchSeminarData.length > 0 && data.researchSeminarData.researchSeminarData[0].publisher
+				? data.researchSeminarData.researchSeminarData[0].publisher
 				: '',
 		publisher_category:
-			data.researchSeminarData.length > 0 && data.researchSeminarData[0].publisher_category != null
-				? Number(data.researchSeminarData[0].publisher_category)
+			data.researchSeminarData.researchSeminarData.length > 0 && data.researchSeminarData.researchSeminarData[0].publisher_category != null
+				? Number(data.researchSeminarData.researchSeminarData[0].publisher_category)
 				: null,
-		volume_no: data.researchSeminarData.length > 0 ? data.researchSeminarData[0].volume_no : '',
-		issn_no: data.researchSeminarData.length > 0 ? data.researchSeminarData[0].issn_no : '',
-		scopus_site_score: data.researchSeminarData[0].scopus_site_score,
+		volume_no: data.researchSeminarData.researchSeminarData.length > 0 ? data.researchSeminarData.researchSeminarData[0].volume_no : '',
+		issn_no: data.researchSeminarData.researchSeminarData.length > 0 ? data.researchSeminarData.researchSeminarData[0].issn_no : '',
+		scopus_site_score: data.researchSeminarData.researchSeminarData[0].scopus_site_score,
 		impact_factor:
-			data.researchSeminarData.length > 0 && data.researchSeminarData[0].impact_factor
-				? Number(data.researchSeminarData[0].impact_factor)
+			data.researchSeminarData.researchSeminarData.length > 0 && data.researchSeminarData.researchSeminarData[0].impact_factor
+				? Number(data.researchSeminarData.researchSeminarData[0].impact_factor)
 				: 0,
 		scs_indexed:
-			data.researchSeminarData.length > 0 ? data.researchSeminarData[0].scs_indexed : null,
+			data.researchSeminarData.researchSeminarData.length > 0 ? data.researchSeminarData.researchSeminarData[0].scs_indexed : null,
 		wos_indexed:
-			data.researchSeminarData.length > 0 ? data.researchSeminarData[0].wos_indexed : null,
-		gs_indexed: data.researchSeminarData.length > 0 ? data.researchSeminarData[0].gs_indexed : '',
+			data.researchSeminarData.researchSeminarData.length > 0 ? data.researchSeminarData.researchSeminarData[0].wos_indexed : null,
+		gs_indexed: data.researchSeminarData.researchSeminarData.length > 0 ? data.researchSeminarData.researchSeminarData[0].gs_indexed : '',
 		abdc_indexed:
-			data.researchSeminarData.length > 0 ? data.researchSeminarData[0].abdc_indexed : null,
+			data.researchSeminarData.researchSeminarData.length > 0 ? data.researchSeminarData.researchSeminarData[0].abdc_indexed : null,
 		ugc_indexed:
-			data.researchSeminarData.length > 0 ? data.researchSeminarData[0].ugc_indexed : null,
-		doi_no: data.researchSeminarData.length > 0 ? data.researchSeminarData[0].doi_no : '',
+			data.researchSeminarData.researchSeminarData.length > 0 ? data.researchSeminarData.researchSeminarData[0].ugc_indexed : null,
+		doi_no: data.researchSeminarData.researchSeminarData.length > 0 ? data.researchSeminarData.researchSeminarData[0].doi_no : '',
 		uid:
-			data.researchSeminarData.length > 0 && data.researchSeminarData[0].uid
-				? data.researchSeminarData[0].uid
+			data.researchSeminarData.researchSeminarData.length > 0 && data.researchSeminarData.researchSeminarData[0].uid
+				? data.researchSeminarData.researchSeminarData[0].uid
 				: '',
 		supporting_documents:
-			data.researchSeminarData.length > 0 && data.researchSeminarData[0].filename
-				? data.researchSeminarData[0].filename
+			data.researchSeminarData.researchSeminarData.length > 0 && data.researchSeminarData.researchSeminarData[0].filename
+				? data.researchSeminarData.researchSeminarData[0].filename
 				: ''
 	};
 
 	let publicationDate: Date | null = new Date();
-	publicationDate = data.researchSeminarData[0].publication_date
-		? data.researchSeminarData[0].publication_date
+	publicationDate = data.researchSeminarData.researchSeminarData[0].publication_date
+		? data.researchSeminarData.researchSeminarData[0].publication_date
 		: null;
 	$: publicationFormattedDate = publicationDate;
 
 	let researchDate: Date | null = new Date();
-	researchDate = data.researchSeminarData[0].research_date
-		? data.researchSeminarData[0].research_date
+	researchDate = data.researchSeminarData.researchSeminarData[0].research_date
+		? data.researchSeminarData.researchSeminarData[0].research_date
 		: null;
 	$: researchFormattedDate = researchDate;
 
@@ -131,7 +134,7 @@
 {#if checkData}
 	<Card {title}>
 		<div class="modal-content p-4">
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input
 					type="text"
 					placeholder="Nmims School"
@@ -155,7 +158,7 @@
 				/>
 			</div>
 
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input
 					type="text"
 					placeholder="Resource Person"
@@ -179,7 +182,7 @@
 				/>
 			</div>
 
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input
 					type="text"
 					placeholder="Journal Name"
@@ -226,7 +229,7 @@
 				</div>
 			</div>
 
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input
 					type="text"
 					isRequired={false}
@@ -250,7 +253,7 @@
 				/>
 			</div>
 
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input
 					type="number"
 					isRequired={false}
@@ -296,7 +299,7 @@
 				/>
 			</div>
 
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input
 					type="text"
 					isRequired={false}
@@ -344,7 +347,7 @@
 				</div>
 			</div>
 
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 				<Input
 					type="text"
 					isRequired={false}
@@ -353,21 +356,17 @@
 					{disabled}
 				/>
 				<Input type="text" isRequired={true} placeholder="UID" bind:value={obj.uid} {disabled} />
-				<div class="lms-input-container flex flex-row gap-2">
-					<input
-						id="documents"
-						class="lms-input"
-						placeholder=""
-						value={obj.supporting_documents}
-						{disabled}
-					/>
-					<label for="documents" class="lms-placeholder"
-						>Supporting Documents
+				<div class="space-y-2">
+					<label for="documents" class="lms-label"
+						>Download Supporting Documents
 						<span>*</span>
 					</label>
+					<div class="flex items-center gap-2">
+					<File isView={true} />	
 					<button class="lms-btn lms-primary-btn" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-lg"></i></button
 					>
+					</div>
 				</div>
 			</div>
 

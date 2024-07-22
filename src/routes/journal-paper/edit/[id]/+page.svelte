@@ -30,7 +30,6 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
-	import { createFile } from '$lib/utils/helper';
 
 	export let data: any;
 	let isRequired = false;
@@ -64,8 +63,6 @@
 	$: campus = nmimsCampus;
 
 	let checkData = data.journalData.journalData.length > 0 ? true : false;
-
-	console.log(JSON.stringify(data.journalData.files));
 
 	let publicationDate: Date | null = new Date();
 	publicationDate = checkData ? data.journalData.journalData[0].publishing_date : null;
@@ -204,15 +201,8 @@
 				: null
 	};
 
-	// fetchMultipleFiles();
-	let files: any = checkData ? createFile(data.journalData.files) : [];
+	let files: any = [];
 	$: console.log('retrieved files ', files);
-
-	// async function fetchMultipleFiles() {
-	// 	files = await fetchFiles(`${PUBLIC_API_BASE_URL}/journal-files/?id=${obj.journal_paper_id}`);
-	// }
-
-	console.log('files uploaded ', files);
 	fileDataStore.set(files);
 
 	async function handleSubmit() {
@@ -334,6 +324,7 @@
 		} else {
 			toast.success('Updated Successfully');
 			files = [];
+		    fileDataStore.set(files);
 			isChecked = false;
 			goto('/journal-paper');
 		}
@@ -382,7 +373,7 @@
 <Card {title}>
 	<div class="modal-content p-4">
 		<!-- Adjust max-height as needed -->
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims School"
@@ -400,7 +391,7 @@
 			<Input type="number" placeholder="Publishing Year" bind:value={obj.publish_year} />
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Policy Cadre"
@@ -418,7 +409,7 @@
 			<Input type="number" placeholder="Total No. Of Authors" bind:value={obj.total_authors} />
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims Authors"
@@ -429,7 +420,7 @@
 			<Input type="number" placeholder="No. Of Nmims Authors" bind:value={obj.nmims_author_count} />
 			<Input type="text" placeholder="Journal Name" bind:value={obj.journal_name} />
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="UID" bind:value={obj.uid} />
 			<Input type="text" placeholder="Publisher" bind:value={obj.publisher} />
 			<DynamicSelect
@@ -440,7 +431,7 @@
 				isMultiSelect={true}
 			/>
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" {isRequired} placeholder="Vol,Issue,Page No." bind:value={obj.page_no} />
 			<Input type="text" {isRequired} placeholder="ISSN No." bind:value={obj.issn_no} />
 			<Input
@@ -450,7 +441,7 @@
 				bind:value={obj.scopus_site_score}
 			/>
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input
 				type="number"
 				placeholder="Impact factor by Clarivate Analytics"
@@ -459,7 +450,7 @@
 			<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} />
 			<Input type="text" placeholder="Title Of Paper" bind:value={obj.title} />
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" {isRequired} placeholder="GS Indexed" bind:value={obj.gs_indexed} />
 			<div class="ml-2">
 				<label class="text-sm text-[#888888]">Journal Type<span>*</span></label>
@@ -520,7 +511,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={false}
 				placeholder="ABDC Indexed"
@@ -566,7 +557,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={false}
 				placeholder="Foreign Authors"
@@ -589,7 +580,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input
 				{isRequired}
 				type="number"
@@ -626,19 +617,18 @@
 				</div>
 			</div>
 
-			<div>
+			<div class="space-y-4">
 				<label for="supporting-documents" class="lms-label"
 					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
 				>
 				<label class="lms-label"
-					>Click To Upload New File <input type="checkbox" bind:checked={isChecked} /></label
+					>Click To Upload New File <input type="checkbox" bind:checked={isChecked} class="accent-primary"/></label
 				>
 				{#if checkVal}
 					<File
 						on:filesSelected={handleFiles}
 						on:deletedFiles={handleDeleteFiles}
 						isView={false}
-						isEdit={true}
 					/>
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}

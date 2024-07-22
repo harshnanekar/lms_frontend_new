@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { Input, DatePicker, DynamicSelect,File } from '$lib/components/ui';
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
@@ -9,8 +9,6 @@
 	import {
 		getSchool,
 		getCampus,
-		getAllAuthor,
-		getNmimsAuthor,
 		getMasterAllAuthors,
 		getMasterNmimsAuthors,
 		getEditors
@@ -27,10 +25,12 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 
 	let campus: string = '';
 	let title = 'Book Chapter Publication';
 	let files: any = [];
+	fileDataStore.set(files);
 
 	export let data: any;
 
@@ -162,7 +162,9 @@
 
 		if (checkVal) {
 			const fileObject: FileReq = {
-				documents: Array.from(files)
+				documents: files.map((f: any) => {
+				return f.file;
+			})
 			};
 			const fileresult = validateWithZod(fileSchema, fileObject);
 			if (fileresult.errors) {
@@ -183,7 +185,7 @@
 
 		// Append each file to the FormData
 		Array.from(files).forEach((file) => {
-			formData.append('supporting_documents', file);
+			formData.append('supporting_documents', file.file);
 		});
 
 		for (let [key, value] of formData.entries()) {
@@ -224,6 +226,7 @@
 		} else {
 			toast.success('Updated Successfully');
 			files = [];
+			fileDataStore.set(files);		
 			isChecked = false;
 			goto('/book-chapter-publication');
 		}
@@ -253,11 +256,21 @@
 				});
 			});
 	}
+
+	function handleFiles(event: CustomEvent<File[]>) {
+		files = event.detail;
+		console.log('files details', files);
+	}
+
+	function handleDeleteFiles(event: CustomEvent) {
+		files = event.detail;
+	}
 </script>
 
 <Card {title}>
 	<!-- Adjust max-height as needed -->
-	<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+	 <div class="modal-content p-4">
+	<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 		<DynamicSelect
 			isRequired={true}
 			placeholder="Nmims School"
@@ -282,7 +295,7 @@
 		/>
 	</div>
 
-	<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+	<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 		<DynamicSelect
 			isRequired={true}
 			placeholder="Name Of NMIMS Authors"
@@ -299,7 +312,7 @@
 		/>
 		<Input type="text" placeholder="Title Of Chapter" bind:value={obj.chapter_title} />
 	</div>
-	<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+	<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 		<Input type="text" placeholder="Title Of The Book" bind:value={obj.book_title} />
 		<Input type="text" placeholder="Edition (if it isn't the first) " bind:value={obj.edition} />
 		<Input
@@ -308,7 +321,7 @@
 			bind:value={obj.chapter_page_no}
 		/>
 	</div>
-	<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+	<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 		<Input type="text" placeholder="Volume Number" bind:value={obj.volume_no} />
 		<div class="ml-2">
 			<label class="text-sm text-[#888888]"
@@ -343,32 +356,45 @@
 		</div>
 		<Input type="number" placeholder="Publication Year" bind:value={obj.publish_year} />
 	</div>
-	<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+	<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 		<Input type="text" placeholder="Publisher Name " bind:value={obj.publisher} />
 		<Input type="text" placeholder="Weblink Of the Book" bind:value={obj.web_link} />
 		<Input type="text" placeholder="ISBN Number" bind:value={obj.isbn_no} />
 	</div>
-	<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+	<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 		<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} />
 
 		<Input type="text" placeholder="Place Of Publication" bind:value={obj.publication_place} />
 		<Input type="number" placeholder="No. Of NMIMS Authors" bind:value={obj.nmims_authors_count} />
-		<div>
-			<label for="supporting-documents"
+	</div>
+
+    <div class="grid grid-cols-1 items-center gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="space-y-4">
+			<label for="supporting-documents" class="lms-label"
 				>Upload Supporting Documents <i style="color: red;">*</i><br /></label
 			>
-			<label>Click To Upload New File <input type="checkbox" bind:checked={isChecked} /></label>
+			<label class="lms-label"
+				>Click To Upload New File <input type="checkbox" bind:checked={isChecked} class="accent-primary"/></label
+			>
 			{#if checkVal}
-				<input type="file" bind:files multiple />
+				<File
+					on:filesSelected={handleFiles}
+					on:deletedFiles={handleDeleteFiles}
+					isView={false}
+				/>
 			{:else}
 				<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
-					><i class="fa-solid fa-download text-lg"></i></button
+					><i class="fa-solid fa-download text-md"></i></button
 				>
 			{/if}
 		</div>
 	</div>
 
+
+
 	<div class="flex flex-col gap-4 p-4 md:flex-row">
 		<button on:click={handleSubmit} class="lms-btn lms-primary-btn">Update</button>
 	</div>
+
+</div>
 </Card>
