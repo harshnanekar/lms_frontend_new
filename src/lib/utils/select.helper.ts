@@ -182,3 +182,12 @@ export function getCommonDropdownData(data:any) : CustomOptions[] {
   
 	return inputFieldsArr;
 }
+
+export function getFacultyType(data:any) : CustomOptions[] {
+	let inputFieldsArr : any[] = [];
+	data.forEach((item : any) => {
+		inputFieldsArr.push({value: item.id, label: item.faculty_type});
+	});
+  
+	return inputFieldsArr;
+}
