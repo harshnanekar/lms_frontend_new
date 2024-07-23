@@ -632,7 +632,7 @@ export const ConferenceHeaders: TableHeaders<ConferenceRender>[] = [
 		label: 'Nmims Campus',
 		key: 'nmims_campus',
 		sortable: false,
-		classes: 'whitespace-nowrap',
+		classes: '',
 		showTooltip: false
 	},
 
