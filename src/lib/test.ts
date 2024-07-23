@@ -9,12 +9,14 @@ import type {
 	brandingView,
 	MeetingView,
 	TeachingView,
+	CaseStudyView,
+	ResearchSeminarView,
+	EContentView,
+	ResearchAwardView,
 	ConferenceRender,
-	conferenceDetails,
 	IPRRender,
-	ResearchProjectRender,
 	patentRender
-} from './types/modules/research/research-types';
+ } from './types/modules/research/research-types';
 
 export const SIDEBAR_URL = [
 	{
@@ -53,7 +55,7 @@ export const SIDEBAR_URL = [
 		label: 'Book Chapter Publication',
 		module: null,
 		child: []
-	},
+	}, 
 
 	{
 		url: '/conference',
@@ -98,11 +100,38 @@ export const SIDEBAR_URL = [
 
 		child: []
 	},
-
 	{
 		url: '/teaching-meeting-branding',
 		icon: 'test',
 		label: 'Teaching-Meeting-Branding',
+		module: null,
+		child: []
+	},
+	{
+		url: '/case-study',
+		icon: 'test',
+		label: 'Case Study',
+		module: null,
+		child: []
+	},
+	{
+		url: '/research-seminars',
+		icon: 'test',
+		label: 'Research Seminars',
+		module: null,
+		child: []
+	},
+	{
+		url: '/e-content',
+		icon: 'test',
+		label: 'E-Content Development',
+		module: null,
+		child: []
+	},
+	{
+		url: '/research-award',
+		icon: 'test',
+		label: 'Research Award',
 		module: null,
 		child: []
 	},
@@ -617,8 +646,209 @@ export const brandingHeaders: TableHeaders<brandingView>[] = [
 		sortable: false,
 		classes: '',
 		showTooltip: false
+	},
+
+
+
+ ];
+
+
+
+export const CaseStudyHeaders : TableHeaders<CaseStudyView>[] = [
+  
+	{
+	   label: 'All Authors Names',
+	   key: 'all_authors',
+	   sortable: false,
+	   classes: 'id',
+	   showTooltip: false
+   },
+   {
+	   label: 'Title',
+	   key: 'title',
+	   sortable: false,
+	   classes: '',
+	   showTooltip: false
+   },
+   {
+	   label: 'Edition',
+	   key: 'edition',
+	   sortable: false,
+	   classes: 'whitespace-nowrap',
+	   showTooltip: false
+   },
+   {
+	   label: 'Publisher',
+	   key: 'publisher',
+	   sortable: false,
+	   classes: '',
+	   showTooltip: false
+   },
+   {
+	   label: 'Publication Year',
+	   key: 'publish_year',
+	   sortable: false,
+	   classes: '',
+	   showTooltip: false
+   },
+    {
+	   label: 'Volume No',
+	   key: 'volume_no',
+	   sortable: false,
+	   classes: '',
+	   showTooltip: false
+   },
+]; 
+
+
+export const researchSeminarHeaders : TableHeaders<ResearchSeminarView>[] = [
+
+   {
+	   label: 'Nmims Campus',
+	   key: 'nmims_campus',
+	   sortable: false,
+	   classes: 'id',
+	   showTooltip: false
+   },
+  
+   
+   {
+	   label: 'Nmims School',
+	   key: 'nmims_school',
+	   sortable: false,
+	   classes: 'id',
+	   showTooltip: false
+   },
+
+   
+   {
+	   label: 'Research Date',
+	   key: 'research_date',
+	   sortable: false,
+	   classes: 'id',
+	   showTooltip: false
+   },
+
+   
+   {
+	   label: 'Publisher',
+	   key: 'publisher',
+	   sortable: false,
+	   classes: 'id',
+	   showTooltip: false
+   },
+
+   
+   {
+	   label: 'Journal Name',
+	   key: 'journal_name',
+	   sortable: false,
+	   classes: 'id',
+	   showTooltip: false
+   },
+
+      {
+	   label: 'NMIMS Authors',
+	   key: 'nmims_authors',
+	   sortable: false,
+	   classes: 'id',
+	   showTooltip: false
+   }
+
+];
+
+export const econtentHeaders : TableHeaders<EContentView>[] = [
+	{
+		label: 'Name of the Faculty',
+		key: 'faculty_name',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Name of the module developed',
+		key: 'module',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Platform on which module is developed',
+		key: 'module_platform',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Link to the relevant document and facility available in the institution',
+		key: 'document_link',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'List of the e-content development facility available',
+		key: 'facility_list',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Provide link to videos of the media centre and recording facility',
+		key: 'media_link',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
 	}
 ];
+
+export const ResearchAwardHeaders : TableHeaders<ResearchAwardView>[] = [
+	{
+		label: 'Nmims School',
+		key: 'nmims_school',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Nmims Campus',
+		key: 'nmims_campus',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Faculty Name',
+		key: 'faculty_name',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Award Name',
+		key: 'award_name',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Award Details',
+		key: 'award_details',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Name Of Organization Conferring The Award',
+		key: 'award_organization',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	}
+
+]; 
+
+
 
 export const ConferenceHeaders: TableHeaders<ConferenceRender>[] = [
 	{
@@ -632,7 +862,7 @@ export const ConferenceHeaders: TableHeaders<ConferenceRender>[] = [
 		label: 'Nmims Campus',
 		key: 'nmims_campus',
 		sortable: false,
-		classes: '',
+		classes: 'whitespace-nowrap',
 		showTooltip: false
 	},
 
@@ -667,7 +897,29 @@ export const ConferenceHeaders: TableHeaders<ConferenceRender>[] = [
 		classes: '',
 		showTooltip: false
 	}
-];
+]; 
+
+
+
+
+export type ResearchProjectRender = {
+	id: number;
+
+	nmims_school: string[];
+
+	nmims_campus: string[];
+
+	title: string;
+
+	funding_amount: number;
+
+	funding_agency: string;
+
+	thrust_area: string;
+}; 
+
+
+
 
 export const IPRHeaders: TableHeaders<IPRRender>[] = [
 	{

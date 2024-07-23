@@ -176,6 +176,16 @@ export function getMasterNmimsAuthors(data:any) : CustomOptions[] {
     return inputFieldsArr;
 } 
 
+export function getCommonDropdownData(data:any) : CustomOptions[] {
+	let inputFieldsArr : any[] = [];
+	data.forEach((item : any) => {
+		inputFieldsArr.push({value: item.abbr, label: item.input});
+	});
+  
+	return inputFieldsArr;
+} 
+
+
 
 export function getExternalAuthors(data:any) : CustomOptions[] {
     let inputFieldsArr : any[] = [];
@@ -194,6 +204,18 @@ export function getEnternalAuthors(data:any) : CustomOptions[] {
   
     return inputFieldsArr;
 }  
+
+
+
+export function getResearchStatus(data : any) :CustomOptions[] {
+	let statusArr : any[] = [];
+	data.forEach((item : any) => {
+		statusArr.push({value: item.id, label: item.status});
+	});
+  
+	return statusArr;
+} 
+
 
 
 export function getSdgGoals(data : any) :CustomOptions[] {
@@ -222,7 +244,8 @@ export function getInventionType(data : any) :CustomOptions[] {
 	});
   
 	return inventionArr;
-}
+} 
+
 
 
 export function getApplicantNames(data : any) :CustomOptions[] {
@@ -233,14 +256,3 @@ export function getApplicantNames(data : any) :CustomOptions[] {
   
 	return statusArr;
 }  
-
-
-
-export function getResearchStatus(data : any) :CustomOptions[] {
-	let statusArr : any[] = [];
-	data.forEach((item : any) => {
-		statusArr.push({value: item.id, label: item.status});
-	});
-  
-	return statusArr;
-} 

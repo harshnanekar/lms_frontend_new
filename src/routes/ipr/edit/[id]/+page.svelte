@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { Input, DatePicker, DynamicSelect, File } from '$lib/components/ui';
 
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 
@@ -38,6 +38,7 @@
 
 	import { goto } from '$app/navigation';
 	import type { updateIprStatus } from '$lib/types/modules/research/research-types';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 
 	export let data: any;
 
@@ -218,6 +219,7 @@
 	}
 
 	let files: any = [];
+	fileDataStore.set(files);
 
 	let showInternal = false;
 	let showExternal = false;
@@ -268,10 +270,11 @@
 		};
 
 		if (checkVal) {
-			const fileObject = {
-				documents: Array.from(files)
+			const fileObject: FileReq = {
+				documents: files.map((f: any) => {
+				return f.file;
+			})
 			};
-
 			const fileresult = validateWithZod(fileSchema, fileObject);
 			if (fileresult.errors) {
 				console.log(fileresult.errors);
@@ -351,6 +354,15 @@
 					description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
 				});
 			});
+	} 
+
+	function handleFiles(event: CustomEvent<File[]>) {
+		files = event.detail;
+		console.log('files details', files);
+	}
+
+	function handleDeleteFiles(event: CustomEvent) {
+		files = event.detail;
 	}
 </script>
 
@@ -433,13 +445,19 @@
 				bind:selectedOptions={obj.applicant_names}
 				isMultiSelect={true}
 			/>
-			<div>
-				<label for="supporting-documents"
+			<div class="space-y-4">
+				<label for="supporting-documents" class="lms-label"
 					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
 				>
-				<label>Click To Upload New File <input type="checkbox" bind:checked={isChecked} /></label>
+				<label class="lms-label">Click To Upload New File
+					 <input type="checkbox" bind:checked={isChecked} class="accent-primary"/>
+					 </label>
 				{#if checkVal}
-					<input type="file" bind:files multiple />
+					<File
+						on:filesSelected={handleFiles}
+						on:deletedFiles={handleDeleteFiles}
+						isView={false}
+					/>
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-md"></i></button

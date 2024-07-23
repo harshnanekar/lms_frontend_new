@@ -1,58 +1,87 @@
 <script lang="ts">
 	import { Card } from '$lib/components/ui';
-	import type { JournalPaper } from '$lib/types/modules/research/research-types.ts';
-	import { Input } from '$lib/components/ui';
-	import { SelectDateIcon, XIcon } from '$lib/components/icons';
-	import { formatDateTimeShort } from '$lib/utils/date-formatter';
-	import { tooltip } from '$lib/utils/tooltip';
-	import { fly } from 'svelte/transition';
-	import { fetchApi } from '$lib/utils/fetcher';
+	import { Input , File} from '$lib/components/ui';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import { toast } from 'svelte-sonner';
-	import { Toaster } from '$lib/components/ui/sonner';
-	import { json } from '@sveltejs/kit';
+	import { createFileUrl } from '$lib/utils/helper';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 
 	export let data: any;
-	let campus: string = '';
-	let disabled: boolean = true;
-	let checkData = data.bookPublicationData.length > 0 ? true : false;
 
-	console.log('data in view comming from backend ===>>>>', JSON.stringify(data));
+	let disabled: boolean = true;
+	let checkData = data.bookPublicationData.bookPublicationData.length > 0 ? true : false;
+	let files = data.bookPublicationData.files.length > 0 ? createFileUrl(data.bookPublicationData.files) : [];
+    fileDataStore.set(files);
 
 	let obj = {
-		book_pulication_id: parseInt(data.bookPublicationData[0].book_publication_id),
-		nmims_school: data.bookPublicationData[0].nmims_school
-			? data.bookPublicationData[0].nmims_school
-			: '',
-		nmims_campus: data.bookPublicationData[0].nmims_campus
-			? data.bookPublicationData[0].nmims_campus
-			: '',
-		all_authors: data.bookPublicationData[0].all_authors
-			? data.bookPublicationData[0].all_authors
-			: '',
-		nmims_authors: data.bookPublicationData[0].nmims_authors
-			? data.bookPublicationData[0].nmims_authors
-			: '',
-		title: data.bookPublicationData[0].title ? data.bookPublicationData[0].title : '',
-		edition: data.bookPublicationData[0].edition ? data.bookPublicationData[0].edition : '',
-		publish_year: data.bookPublicationData[0].publish_year
-			? data.bookPublicationData[0].publish_year
-			: '',
-		volume_no: data.bookPublicationData[0].volume_no ? data.bookPublicationData[0].volume_no : '',
-		publisher: data.bookPublicationData[0].publisher ? data.bookPublicationData[0].publisher : '',
-		web_link: data.bookPublicationData[0].web_link ? data.bookPublicationData[0].web_link : '',
-		doi_no: data.bookPublicationData[0].doi_no ? data.bookPublicationData[0].doi_no : '',
-		publication_place: data.bookPublicationData[0].publication_place
-			? data.bookPublicationData[0].publication_place
-			: '',
-		isbn_no: data.bookPublicationData[0].isbn_no ? data.bookPublicationData[0].isbn_no : '',
-		nmims_authors_count: data.bookPublicationData[0].nmims_authors_count
-			? data.bookPublicationData[0].nmims_authors_count
-			: '',
-		publisher_category: Number(data.bookPublicationData[0].publisher_category),
-		filename: data.bookPublicationData[0].supporting_documents
-			? data.bookPublicationData[0].supporting_documents
-			: ''
+		book_pulication_id:
+		checkData
+				? parseInt(data.bookPublicationData.bookPublicationData[0].book_publication_id)
+				: null,
+		nmims_school:
+		checkData && data.bookPublicationData.bookPublicationData[0].nmims_school != null
+				? data.bookPublicationData.bookPublicationData[0].nmims_school
+				: '',
+		nmims_campus:
+		checkData && data.bookPublicationData.bookPublicationData[0].nmims_campus != null
+				? data.bookPublicationData.bookPublicationData[0].nmims_campus
+				: '',
+		all_authors:
+		checkData && data.bookPublicationData.bookPublicationData[0].all_authors != null
+				? data.bookPublicationData.bookPublicationData[0].all_authors
+				: '',
+		nmims_authors:
+		checkData && data.bookPublicationData.bookPublicationData[0].nmims_authors != null
+				? data.bookPublicationData.bookPublicationData[0].nmims_authors
+				: '',
+		title:
+		checkData && data.bookPublicationData.bookPublicationData[0].title
+				? data.bookPublicationData.bookPublicationData[0].title
+				: '',
+		edition:
+		checkData && data.bookPublicationData.bookPublicationData[0].edition
+				? data.bookPublicationData.bookPublicationData[0].edition
+				: '',
+		publish_year:
+		checkData && data.bookPublicationData.bookPublicationData[0].publish_year
+				? data.bookPublicationData.bookPublicationData[0].publish_year
+				: '',
+		volume_no:
+		checkData && data.bookPublicationData.bookPublicationData[0].volume_no
+				? data.bookPublicationData.bookPublicationData[0].volume_no
+				: '',
+		publisher:
+		checkData && data.bookPublicationData.bookPublicationData[0].publisher
+				? data.bookPublicationData.bookPublicationData[0].publisher
+				: '',
+		web_link:
+		checkData && data.bookPublicationData.bookPublicationData[0].web_link
+				? data.bookPublicationData.bookPublicationData[0].web_link
+				: '',
+		doi_no:
+		checkData && data.bookPublicationData.bookPublicationData[0].doi_no
+				? data.bookPublicationData.bookPublicationData[0].doi_no
+				: '',
+		publication_place:
+		checkData && data.bookPublicationData.bookPublicationData[0].publication_place
+				? data.bookPublicationData.bookPublicationData[0].publication_place
+				: '',
+		isbn_no:
+		checkData && data.bookPublicationData.bookPublicationData[0].isbn_no
+				? data.bookPublicationData.bookPublicationData[0].isbn_no
+				: '',
+		nmims_authors_count:
+		checkData && data.bookPublicationData.bookPublicationData[0].nmims_authors_count
+				? data.bookPublicationData.bookPublicationData[0].nmims_authors_count
+				: '',
+		publisher_category:
+		checkData
+				? Number(data.bookPublicationData.bookPublicationData[0].publisher_category)
+				: null,
+		filename:
+		checkData && data.bookPublicationData.bookPublicationData[0].supporting_documents
+				? data.bookPublicationData.bookPublicationData[0].supporting_documents
+				: ''
 	};
 
 	let title = 'Book Publication ';
@@ -89,14 +118,14 @@
 
 {#if checkData}
 	<Card {title}>
-		<div class="scroll modal-content max-h-[70vh] min-h-[50vh] overflow-auto">
+		<div class="modal-content p-4">
 			<!-- Adjust max-height as needed -->
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input type="text" placeholder="Nmims School" value={obj.nmims_school} {disabled} />
 				<Input type="text" placeholder="Nmims Campus" value={obj.nmims_campus} {disabled} />
 				<Input type="text" placeholder="Name Of All Authors" value={obj.all_authors} {disabled} />
 			</div>
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input
 					type="text"
 					placeholder="Name Of Nmims Authors"
@@ -111,10 +140,11 @@
 					{disabled}
 				/>
 			</div>
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input type="text" placeholder="Title Of Book" bind:value={obj.title} {disabled} />
 				<Input type="text" placeholder="Volume Number" bind:value={obj.volume_no} {disabled} />
 				<div class="ml-2">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="text-sm text-[#888888]"
 						>Publisher Category<span class="text-danger text-sm">*</span></label
 					>
@@ -148,7 +178,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input
 					type="number"
 					placeholder="Publication Year"
@@ -158,7 +188,7 @@
 				<Input type="text" placeholder="Publisher Name" bind:value={obj.publisher} {disabled} />
 				<Input type="text" placeholder="Website link" bind:value={obj.web_link} {disabled} />
 			</div>
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input type="text" placeholder="ISBN Number" bind:value={obj.isbn_no} {disabled} />
 				<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} {disabled} />
 				<Input
@@ -168,16 +198,18 @@
 					{disabled}
 				/>
 			</div>
-			<div class="grid grid-cols-3 gap-[40px] p-4">
-				<div class="lms-input-container flex flex-row gap-2">
-					<input id="documents" class="lms-input" placeholder="" value={obj.filename} {disabled} />
-					<label for="documents" class="lms-placeholder"
-						>Supporting Documents
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<div class="space-y-2">
+					<label for="documents" class="lms-label"
+						>Download Supporting Documents
 						<span>*</span>
 					</label>
+					<div class="flex items-center gap-2">
+					<File isView={true} />	
 					<button class="lms-btn lms-primary-btn" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-lg"></i></button
 					>
+					</div>
 				</div>
 			</div>
 		</div>

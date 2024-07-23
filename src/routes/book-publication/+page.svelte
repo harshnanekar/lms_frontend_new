@@ -1,19 +1,14 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import BookPublicationTable from '$lib/components/modules/mpc/main-table/book-publication-table.svelte';
-	import { activeSidebarModule } from '$lib/components/layout/sidebar/store';
-	import { Input } from '$lib/components/ui';
-	import { Header } from '$lib/components/researchHeader';
-	import { PlusIcon } from '$lib/components/icons';
-	import { Card, DynamicSelect, Modal } from '$lib/components/ui';
-	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
-	import { writable } from 'svelte/store';
-	import type { BookPublicationRender } from '$lib/types/modules/research/research-types';
-	import type { TableHeaders } from '$lib/types/layout/table';
-	import { PaginateDynamic } from '$lib/components/layout/pagination';
-	import { BookPublicationHeaders } from '$lib/test';
-	import BookPublicationAction from '$lib/components/modules/mpc/book-publication-action.svelte';
-	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
+    import { goto } from '$app/navigation';
+
+    import { Header } from "$lib/components/researchHeader";
+    import { PlusIcon } from '$lib/components/icons';
+
+    import type { BookPublicationRender } from '$lib/types/modules/research/research-types';
+    import { PaginateDynamic } from '$lib/components/layout/pagination';
+    import {BookPublicationHeaders} from "$lib/test";
+    import { BookPublicationAction } from '$lib/components/modules/mpc';
+    import { paginateUrl } from '$lib/stores/modules/research/master.store';
 
 	let dynamicUrl = 'http://localhost:9090/research/book-publication-paginate';
 	const url = new URL(dynamicUrl);

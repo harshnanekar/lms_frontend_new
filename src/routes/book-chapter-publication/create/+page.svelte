@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { Input, DatePicker, DynamicSelect , File } from '$lib/components/ui';
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 	import { formatDateTimeShort } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
@@ -25,6 +25,7 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import { any } from 'zod';
 	import { goto } from '$app/navigation';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 	import type { bookChapterStatus } from '$lib/types/modules/research/research-types';
 
 	export let data: any;
@@ -73,6 +74,8 @@
 	};
 
 	let files: any = [];
+	fileDataStore.set(files);
+
 
 	async function handleSubmit() {
 		const bookChapterObj: bookChapterPublicationReq = {
@@ -107,8 +110,10 @@
 			nmims_authors_count: Number(obj.nmims_authors_count)
 		};
 
-		const fileObject = {
-			documents: Array.from(files)
+		const fileObject: FileReq = {
+			documents: files.map((f: any) => {
+				return f.file;
+			})
 		};
 		const fileresult = validateWithZod(fileSchema, fileObject);
 		if (fileresult.errors) {
@@ -125,8 +130,8 @@
 		formData.append('book_publication', JSON.stringify(bookChapterObj));
 
 		// Append each file to the FormData
-		Array.from(files).forEach((file: any) => {
-			formData.append('supporting_documents', file);
+		Array.from(files).forEach((file : any) => {
+			formData.append('supporting_documents', file.file);
 		});
 
 		for (let [key, value] of formData.entries()) {
@@ -193,14 +198,24 @@
 			nmims_authors_count: ''
 		};
 		files = [];
+		fileDataStore.set(files);
+	}
+
+	function handleFiles(event: CustomEvent<File[]>) {
+		files = event.detail;
+		console.log('files details', files);
+	}
+
+	function handleDeleteFiles(event: CustomEvent) {
+		files = event.detail;
 	}
 </script>
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
 <Card {title}>
-	<div class="scroll modal-content max-h-[70vh] min-h-[50vh] overflow-auto p-4">
+	<div class="modal-content p-4">
 		<!-- Adjust max-height as needed -->
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims School"
@@ -225,7 +240,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Name Of NMIMS Authors"
@@ -242,7 +257,7 @@
 			/>
 			<Input type="text" placeholder="Title Of Chapter" bind:value={obj.chapter_title} />
 		</div>
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="Title Of The Book" bind:value={obj.book_title} />
 			<Input type="text" placeholder="Edition (if it isn't the first) " bind:value={obj.edition} />
 			<Input
@@ -251,9 +266,10 @@
 				bind:value={obj.chapter_page_no}
 			/>
 		</div>
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="Volume Number" bind:value={obj.volume_no} />
 			<div class="ml-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
 					>Publisher Category<span class="text-danger text-sm">*</span>
 				</label>
@@ -285,12 +301,12 @@
 			</div>
 			<Input type="number" placeholder="Publication Year" bind:value={obj.publish_year} />
 		</div>
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="Publisher Name " bind:value={obj.publisher} />
 			<Input type="text" placeholder="Weblink Of the Book" bind:value={obj.web_link} />
 			<Input type="text" placeholder="ISBN Number" bind:value={obj.isbn_no} />
 		</div>
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 items-center gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} />
 
 			<Input type="text" placeholder="Place Of Publication" bind:value={obj.publication_place} />
@@ -299,10 +315,19 @@
 				placeholder="No. Of NMIMS Authors"
 				bind:value={obj.nmims_authors_count}
 			/>
-			<input type="file" bind:files multiple />
+		
+		</div>
+		<div class="grid grid-cols-1 items-center gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<div class="space-y-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<label class="lms-label"
+					>Upload Supporting Documents<span class="text-primary">*</span></label
+				>
+				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+			</div>		
 		</div>
 	</div>
-	<div class="flex flex-row gap-[20px] p-4">
+	<div class="flex flex-col gap-4 p-4 md:flex-row">
 		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
 		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
 	</div>

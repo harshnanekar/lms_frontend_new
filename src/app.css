@@ -277,7 +277,7 @@
 	
 	
 		.lms-label {
-			color: var(--lms--color-black);
+			color: var(--lms--color-grey-450);
 			font-family: var(--lms--font-family);
 			font-size: var(--lms-fs-body-14);
 			font-weight: var(--lms-fw-400);

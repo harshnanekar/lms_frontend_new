@@ -125,20 +125,60 @@ export type MeetingView = {
 	events: string;
 };
 
-export type brandingView = {
-	faculty_recognition: string;
-	faculty_awards: string;
-	staff_awards: string;
-	alumni_awards: string;
-	student_awards: string;
-	international_ventures: string;
-	conference_participation: string;
-	organizing_conference: string;
-	newspaper_article: string;
-	student_event: string;
-};
+ export type brandingView = {
+	id: number;
+    faculty_recognition : string,
+	faculty_awards : string,
+	staff_awards : string,
+	alumni_awards : string,
+	student_awards :string,
+	international_ventures : string,
+	conference_participation : string,
+	organizing_conference : string,
+	newspaper_article : string,
+	student_event : string
+ }
 
-export type ConferenceRender = {
+ export type CaseStudyView = {
+   title:string,
+   all_authors :string,
+   edition :string,
+   publisher :string,
+   publish_year:number,
+   volume_no : string
+ }
+
+ export type ResearchSeminarView = {
+	nmims_school : string[],
+	nmims_campus : string[],
+	research_date : Date,
+	publisher : string,
+	journal_name : string
+	nmims_authors : string[],
+ }
+
+ export type EContentView = {
+	faculty_name : string,
+	module : string,
+	module_platform : string,
+	document_link : string,
+	facility_list :string
+	media_link : string,
+ }
+
+ export type ResearchAwardView = {
+ nmims_school : string[],
+ nmims_campus : string[],
+ faculty_name : string,
+ award_name : string,
+ award_details : string,
+ award_organization: string,
+ }
+
+
+
+
+ export type ConferenceRender = {
 	id: number;
 	paper_title: string;
 	nmims_school: string[];
@@ -287,7 +327,12 @@ export type ResearchProjectData = {
 	nmims_campus: string[];
 };
 
-export type conferenceStatus = {
+
+
+
+
+
+ export type conferenceStatus = {
 	insert_conference : {
 		status: number;
 		status_code: number;

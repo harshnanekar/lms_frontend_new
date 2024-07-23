@@ -179,7 +179,7 @@
 				<thead>
 					<tr>
 						{#each header as column}
-							<th>
+							<th class="!text-[14px]">
 								{column.label}
 								{#if column.sortable}
 									{@const sortOrder =
@@ -190,7 +190,7 @@
 								{/if}
 							</th>
 						{/each}
-						<th>Actions</th>
+						<th class="!text-[14px]">Actions</th>
 					</tr>
 				</thead>
 				<tbody>

@@ -28,7 +28,7 @@
 	import PatentActions from '$lib/components/modules/mpc/patent-submission-action.svelte';
 	import IprActions from '$lib/components/modules/mpc/patent-submission-action.svelte';
 
-	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
+	import { paginateUrl } from '$lib/stores/modules/research/master.store';
 
 	let dynamicUrl = 'http://localhost:9090/research/patent-submission-and-grant-paginate';
 

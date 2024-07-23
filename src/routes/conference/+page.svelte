@@ -13,7 +13,7 @@
 	import { PaginateDynamic } from '$lib/components/layout/pagination';
 	import { ConferenceHeaders } from '$lib/test';
 	import ConferenceAction from '$lib/components/modules/mpc/conference-action.svelte';
-	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
+	import { paginateUrl } from '$lib/stores/modules/research/master.store';
 
 	let dynamicUrl = 'http://localhost:9090/research/conference-paginate';
 	const url = new URL(dynamicUrl);

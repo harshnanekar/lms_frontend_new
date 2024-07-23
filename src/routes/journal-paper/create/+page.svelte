@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { Input, DatePicker, DynamicSelect, File } from '$lib/components/ui';
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
@@ -29,6 +29,7 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 
 	export let data: any;
 	let isRequired = false;
@@ -58,7 +59,6 @@
 	$: school = nmimsSchool;
 	$: campus = nmimsCampus;
 
-
 	let publicationDate: Date | null = new Date();
 	publicationDate = null;
 	$: publicationFormattedDate = publicationDate;
@@ -68,7 +68,7 @@
 		console.log('publication date ', publicationDate);
 	}
 
-	let obj = {
+	let obj: any = {
 		nmims_school: null,
 		nmims_campus: null,
 		publish_year: null,
@@ -101,7 +101,9 @@
 	};
 
 	let files: any = [];
-	console.log('indexes type ', obj.ugc_indexed, obj.gs_indexed, obj.wos_indexed);
+	fileDataStore.set(files);
+
+	$: console.log('deleted files ', files);
 
 	async function handleSubmit() {
 		const journalObject: JournalPaperReq = {
@@ -141,25 +143,31 @@
 			gs_indexed: obj.gs_indexed,
 			paper_type: obj.paper_type != null ? Number(obj.paper_type.value) : 0,
 			wos_indexed: obj.wos_indexed,
-			abdc_indexed: obj.abdc_indexed != null ? Number(obj.abdc_indexed.value) : 0,
+			abdc_indexed: obj.abdc_indexed != null ? Number(obj.abdc_indexed.value) : null,
 			ugc_indexed: obj.ugc_indexed,
 			scs_indexed: obj.scs_indexed,
 			foreign_authors_count: Number(obj.foreign_authors_count),
 			foreign_authors:
-				obj.foreign_authors != null ? obj.foreign_authors.map((data) => Number(data.value)) : [],
+				obj.foreign_authors != null
+					? obj.foreign_authors.map((data: any) => Number(data.value))
+					: [],
 			student_authors_count: Number(obj.student_authors_count),
 			student_authors:
-				obj.student_authors != null ? obj.student_authors.map((data) => Number(data.value)) : [],
-
-			// supporting_documents: Array.from(files),
+				obj.student_authors != null
+					? obj.student_authors.map((data: any) => Number(data.value))
+					: [],
 			journal_type: Number(obj.journal_type)
 		};
 
-		const fileObject: FileReq = {
-			documents: Array.from(files)
-		};
+		console.log('files object ', files);
 
-		console.log('files object ',files)
+		const fileObject: FileReq = {
+			documents: files.map((f: any) => {
+				return f.file;
+			})
+		};
+		console.log('fileObject ', fileObject);
+
 		const fileresult = validateWithZod(fileSchema, fileObject);
 		if (fileresult.errors) {
 			console.log(fileresult.errors);
@@ -169,14 +177,13 @@
 			});
 			return;
 		}
+		// }
 
 		const formData = new FormData();
-
 		formData.append('journal_paper', JSON.stringify(journalObject));
 
-		// Append each file to the FormData
-		Array.from(files).forEach((file) => {
-			formData.append('supporting_documents', file);
+		Array.from(files).forEach((file: any) => {
+			formData.append('supporting_documents', file.file);
 		});
 
 		for (let [key, value] of formData.entries()) {
@@ -222,6 +229,15 @@
 		}
 	}
 
+	function handleFiles(event: CustomEvent<File[]>) {
+		files = event.detail;
+		console.log('files details', files);
+
+		files.forEach((file: any) => {
+			console.log('File instance:', file instanceof File);
+		});
+	}
+
 	function clearForm() {
 		obj = {
 			nmims_school: null,
@@ -244,26 +260,29 @@
 			title: '',
 			gs_indexed: '',
 			paper_type: null,
-			wos_indexed: true,
 			abdc_indexed: null,
-			ugc_indexed: true,
-			scs_indexed: true,
 			foreign_authors_count: null,
 			foreign_authors: null,
 			student_authors_count: null,
 			student_authors: null,
-			journal_type: 1
+			journal_type: null
 		};
 
-		publicationFormattedDate = null;
+		publicationDate = null;
+		files = [];
+		fileDataStore.set(files);
+	}
+
+	function handleDeleteFiles(event: CustomEvent) {
+		files = event.detail;
 	}
 </script>
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
 <Card {title}>
-	<div class="scroll small-scrollbar modal-content max-h-[70vh] min-h-[50vh] overflow-auto p-4">
+	<div class="modal-content p-4">
 		<!-- Adjust max-height as needed -->
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims School"
@@ -281,7 +300,7 @@
 			<Input type="number" placeholder="Publishing Year" bind:value={obj.publish_year} />
 		</div>
 
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Policy Cadre"
@@ -299,7 +318,7 @@
 			<Input type="number" placeholder="Total No. Of Authors" bind:value={obj.total_authors} />
 		</div>
 
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims Authors"
@@ -310,7 +329,7 @@
 			<Input type="number" placeholder="No. Of Nmims Authors" bind:value={obj.nmims_author_count} />
 			<Input type="text" placeholder="Journal Name" bind:value={obj.journal_name} />
 		</div>
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="UID" bind:value={obj.uid} />
 			<Input type="text" placeholder="Publisher" bind:value={obj.publisher} />
 			<DynamicSelect
@@ -321,7 +340,7 @@
 				isMultiSelect={true}
 			/>
 		</div>
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" {isRequired} placeholder="Vol,Issue,Page No." bind:value={obj.page_no} />
 			<Input type="text" {isRequired} placeholder="ISSN No." bind:value={obj.issn_no} />
 			<Input
@@ -331,7 +350,7 @@
 				bind:value={obj.scopus_site_score}
 			/>
 		</div>
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input
 				type="number"
 				placeholder="Impact factor by Clarivate Analytics"
@@ -340,12 +359,10 @@
 			<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} />
 			<Input type="text" placeholder="Title Of Paper" bind:value={obj.title} />
 		</div>
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input type="text" {isRequired} placeholder="GS Indexed" bind:value={obj.gs_indexed} />
 			<div class="ml-2">
-				<label class="text-sm text-[#888888]"
-					>International/National Journal<span class="text-danger text-sm">*</span></label
-				>
+				<label class="text-sm text-[#888888]">Journal Type<span>*</span></label>
 				<div class="mt-2.5 flex flex-row gap-[20px]">
 					<div class="flex flex-row">
 						<input
@@ -354,8 +371,8 @@
 							class="lms-input-radio w-4"
 							name="radio-button-national"
 							bind:group={obj.journal_type}
-							checked
 							value={1}
+							checked
 						/>
 						<span class="text-sm text-[#888888]">International</span>
 					</div>
@@ -373,9 +390,7 @@
 				</div>
 			</div>
 			<div class="ml-2">
-				<label class="text-sm text-[#888888]"
-					>Wos Indexed<span class="text-danger text-sm">*</span></label
-				>
+				<label class="text-sm text-[#888888]">Wos Indexed<span>*</span></label>
 				<div class="mt-2 flex flex-row gap-[20px]">
 					<div class="flex flex-row">
 						<input
@@ -384,8 +399,8 @@
 							class="lms-input-radio w-4"
 							name="radio-button-wos"
 							bind:group={obj.wos_indexed}
-							checked
 							value={true}
+							checked
 						/>
 						<span class="text-sm text-[#888888]">Yes</span>
 					</div>
@@ -403,18 +418,16 @@
 				</div>
 			</div>
 		</div>
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
-				isRequired={true}
+				isRequired={false}
 				placeholder="ABDC Indexed"
 				options={getAbdcIndexed(abdcTypes)}
 				bind:selectedOptions={obj.abdc_indexed}
 				isMultiSelect={false}
 			/>
 			<div class="ml-2">
-				<label class="text-sm text-[#888888]"
-					>UGC Indexed<span class="text-danger text-sm">*</span></label
-				>
+				<label class="text-sm text-[#888888]">UGC Indexed<span>*</span></label>
 				<div class="mt-2 flex flex-row gap-[20px]">
 					<div class="flex flex-row">
 						<input
@@ -423,8 +436,8 @@
 							class="lms-input-radio w-4"
 							name="radio-button-ugc"
 							bind:group={obj.ugc_indexed}
-							checked
 							value={true}
+							checked
 						/>
 						<span class="text-sm text-[#888888]">Yes</span>
 					</div>
@@ -450,7 +463,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={false}
 				placeholder="Foreign Authors"
@@ -473,7 +486,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input
 				{isRequired}
 				type="number"
@@ -481,9 +494,7 @@
 				bind:value={obj.student_authors_count}
 			/>
 			<div class="ml-2">
-				<label class="text-sm text-[#888888]"
-					>Scopus Site Indexed<span class="text-danger text-sm">*</span></label
-				>
+				<label class="text-sm text-[#888888]">Scopus Site Indexed<span>*</span></label>
 				<div class="mt-2 flex flex-row gap-[20px]">
 					<div class="flex flex-row">
 						<input
@@ -510,10 +521,15 @@
 					</div>
 				</div>
 			</div>
-			<input type="file" bind:files multiple />
+			<div class="space-y-2">
+				<label class="lms-label"
+					>Upload Supporting Documents<span class="text-primary">*</span></label
+				>
+				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+			</div>
 		</div>
 
-		<div class="flex flex-row gap-[40px] p-4">
+		<div class="flex gap-4 md:flex-row">
 			<DatePicker
 				on:change={handleDateChange}
 				bind:selectedDateTime={publicationDate}
@@ -537,7 +553,6 @@
 							content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
 						}}
 						on:click={() => {
-							// remove the current date
 							publicationFormattedDate = null;
 						}}
 					>
@@ -547,7 +562,7 @@
 			{/if}
 		</div>
 	</div>
-	<div class="flex flex-row gap-[20px] p-4">
+	<div class="flex flex-col gap-4 p-4 md:flex-row">
 		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
 		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
 	</div>

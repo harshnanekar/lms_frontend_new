@@ -31,6 +31,8 @@
 				});
 			});
 	}
+
+	let count = 0;
 </script>
 
 <Card {title}>
@@ -38,18 +40,18 @@
 		<div class="lms-table-wrapper rounded-2xl p-4">
 			<table class="lms-table">
 				<thead>
-					<th>Branding Advertisement Type</th>
-					<th>Description</th>
-					<th>Link</th>
-					<th>Documents</th>
+					<th class="!text-[15px]">Branding Advertisement Type</th>
+					<th class="!text-[15px]">Description</th>
+					<th class="!text-[15px]">Link</th>
+					<th class="!text-[15px]">Documents</th>
 				</thead>
 				<tbody>
 					{#if brandingData.length > 0}
 						{#each brandingData as ba}
 							<tr>
-								<td><Input isRequired={false} value={ba.type.label} {disabled} /></td>
-								<td><Input isRequired={false} value={ba.description} {disabled} /></td>
-								<td><Input isRequired={false} value={ba.link} {disabled} /></td>
+								<td class="!text-[15px]">{ba.type.label}</td>
+								<td class="!text-[15px]">{ba.description}</td>
+								<td class="!text-[15px]">{ba.link}</td>
 								<td
 									><button
 										class="lms-btn lms-primary-btn"

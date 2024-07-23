@@ -27,7 +27,7 @@
 
 	import IprActions from '$lib/components/modules/mpc/ipr-action.svelte';
 
-	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
+	import { paginateUrl } from '$lib/stores/modules/research/master.store';
 
 	let dynamicUrl = 'http://localhost:9090/research/ipr-paginate';
 

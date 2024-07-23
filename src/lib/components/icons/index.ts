@@ -15,7 +15,10 @@ import {
 	AttendanceIcon,
 	SuccessIcon,
 	DeleteIcon,
-	MinusIcon
+	MinusIcon,
+	EyeIcon,
+	CloseEyeIcon,
+	PreviewIcon
 } from './base';
 import { MeetingIcon, ScheduledIcon } from './modules';
 
@@ -40,5 +43,8 @@ export {
 	AttendanceIcon,
 	SuccessIcon,
 	DeleteIcon,
-	MinusIcon
+	MinusIcon,
+	EyeIcon,
+	CloseEyeIcon,
+	PreviewIcon
 };

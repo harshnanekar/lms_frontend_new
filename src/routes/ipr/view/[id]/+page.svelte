@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { Input, DatePicker, DynamicSelect, File } from '$lib/components/ui';
 
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 
@@ -27,48 +27,61 @@
 
 	import { goto } from '$app/navigation';
 
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
+
+	import { createFileUrl } from '$lib/utils/helper';
+
+
 	export let data: any;
 
 	// let isRequired = false;
 	let disabled: boolean = true;
 	let title = 'IPR';
-	let checkData = data.iprDataList.length > 0 ? true : false;
+	console.log('data ===>>>>>>', data)
+	let checkData = data.iprDataList.iprDataList.length > 0 ? true : false;
+	console.log('iprDataList ==>>>>', data.iprDataList.files.length);
+	console.log('checkData ===>>>>>', checkData);
+	let files = data.iprDataList.files.length > 0 ? createFileUrl(data.iprDataList.files) : [];
+	
+    fileDataStore.set(files);
 
 	console.log('data in view comming from backend ===>>>>', JSON.stringify(data));
-	console.log('render iprDataList', data.iprDataList);
+	console.log('render iprDataList', data.iprDataList.iprDataList[0]);
 
 	let obj: any = {
-		ipr_id: parseInt(data.iprDataList[0].ipr_id),
-		nmims_school: data.iprDataList[0].nmims_school ? data.iprDataList[0].nmims_school : '',
-		nmims_campus: data.iprDataList[0].nmims_campus ? data.iprDataList[0].nmims_campus : '',
-		invention_type: data.iprDataList[0].invention_type ? data.iprDataList[0].invention_type : '',
-		sdg_goals: data.iprDataList[0].sdg_goals ? data.iprDataList[0].sdg_goals : '',
-		patent_status: data.iprDataList[0].patent_status ? data.iprDataList[0].patent_status : '',
-		title: data.iprDataList[0].title ? data.iprDataList[0].title : '',
-		appln_no: data.iprDataList[0].appln_no ? data.iprDataList[0].appln_no : '',
-		publication_no: data.iprDataList[0].publication_no ? data.iprDataList[0].publication_no : '',
-		granted_no: data.iprDataList[0].granted_no ? data.iprDataList[0].granted_no : '',
-		institute_affiliation: data.iprDataList[0].institute_affiliation
-			? data.iprDataList[0].institute_affiliation
+		ipr_id: parseInt(data.iprDataList.iprDataList[0].ipr_id),
+		nmims_school: checkData && data.iprDataList.iprDataList[0].nmims_school ? data.iprDataList.iprDataList[0].nmims_school : '',
+		nmims_campus: data.iprDataList.iprDataList[0].nmims_campus ? data.iprDataList.iprDataList[0].nmims_campus : '',
+		invention_type: data.iprDataList.iprDataList[0].invention_type ? data.iprDataList.iprDataList[0].invention_type : '',
+		sdg_goals: data.iprDataList.iprDataList[0].sdg_goals ? data.iprDataList.iprDataList[0].sdg_goals : '',
+		patent_status: data.iprDataList.iprDataList[0].patent_status ? data.iprDataList.iprDataList[0].patent_status : '',
+		title: data.iprDataList.iprDataList[0].title ? data.iprDataList.iprDataList[0].title : '',
+		appln_no: data.iprDataList.iprDataList[0].appln_no ? data.iprDataList.iprDataList[0].appln_no : '',
+		publication_no: data.iprDataList.iprDataList[0].publication_no ? data.iprDataList.iprDataList[0].publication_no : '',
+		granted_no: data.iprDataList.iprDataList[0].granted_no ? data.iprDataList.iprDataList[0].granted_no : '',
+		institute_affiliation: data.iprDataList.iprDataList[0].institute_affiliation
+			? data.iprDataList.iprDataList[0].institute_affiliation
 			: '',
-		applicants_names: data.iprDataList[0].applicants_names
-			? data.iprDataList[0].applicants_names
+		applicants_names: data.iprDataList.iprDataList[0].applicants_names
+			? data.iprDataList.iprDataList[0].applicants_names
 			: '',
-		external_faculty_details: data.iprDataList[0].external_faculty_details
-			? data.iprDataList[0].external_faculty_details
+		external_faculty_details: data.iprDataList.iprDataList[0].external_faculty_details
+			? data.iprDataList.iprDataList[0].external_faculty_details
 			: '',
-		internal_faculty_details: data.iprDataList[0].internal_faculty_details
-			? data.iprDataList[0].internal_faculty_details
+		internal_faculty_details: data.iprDataList.iprDataList[0].internal_faculty_details
+			? data.iprDataList.iprDataList[0].internal_faculty_details
 			: '',
-		filename: data.iprDataList[0].supporting_documents
-			? data.iprDataList[0].supporting_documents
+		filename: data.iprDataList.iprDataList[0].supporting_documents
+			? data.iprDataList.iprDataList[0].supporting_documents
 			: '',
-		filed_date: data.iprDataList[0].filed_date ? new Date(data.iprDataList[0].filed_date) : null,
-		grant_date: data.iprDataList[0].grant_date ? new Date(data.iprDataList[0].grant_date) : null,
-		published_date: data.iprDataList[0].published_date
-			? new Date(data.iprDataList[0].published_date)
+		filed_date: data.iprDataList.iprDataList[0].filed_date ? new Date(data.iprDataList.iprDataList[0].filed_date) : null,
+		grant_date: data.iprDataList.iprDataList[0].grant_date ? new Date(data.iprDataList.iprDataList[0].grant_date) : null,
+		published_date: data.iprDataList.iprDataList[0].published_date
+			? new Date(data.iprDataList.iprDataList[0].published_date)
 			: null
 	};
+
+	console.log('boj ===>>>>', obj)
 
 	let filedDate: Date | null = new Date();
 	filedDate = obj.filed_date;
@@ -82,8 +95,10 @@
 	publishedDate = obj.published_date;
 	$: publishedFormattedDate = publishedDate;
 
+
+
 	async function downLoadFiles() {
-		fetch(`${PUBLIC_API_BASE_URL}/ipr-download-files?id=${obj.ipr_id}`)
+		fetch(`${PUBLIC_API_BASE_URL}/book-publication-download-file?id=${obj.book_pulication_id}`)
 			.then((response) => {
 				if (response.ok) {
 					return response.blob();
@@ -106,6 +121,7 @@
 				});
 			});
 	}
+	console.log('checkData ===>>>>>>', checkData);
 </script>
 
 {#if checkData}
@@ -176,95 +192,105 @@
 					value={obj.internal_faculty_details}
 					{disabled}
 				/>
+				
 			</div>
 
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input
 					type="text"
 					placeholder="Names Of External Inventors"
 					value={obj.external_faculty_details}
 					{disabled}
 				/>
-				<div class="lms-input-container flex flex-row gap-2">
-					<input id="documents" class="lms-input" placeholder="" value={obj.filename} {disabled} />
-					<label for="documents" class="lms-placeholder"
-						>Supporting Documents
+				<div class="space-y-2">
+					<label for="documents" class="lms-label"
+						>Download Supporting Documents
 						<span>*</span>
 					</label>
+					<div class="flex items-center gap-2">
+					<File isView={true} />	
 					<button class="lms-btn lms-primary-btn" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-lg"></i></button
 					>
+					</div>
+				</div>
+
+				<div class="grid">
+					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+						<SelectDateIcon />
+						<span class="text-body-2 font-bold">Patent Filed Date</span>
+					</div>
+					{#if filedFormattedDate}
+						{@const formattedDate = formatDateTimeShort(new Date(filedFormattedDate))}
+						<div
+							class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+							in:fly={{ x: -100, duration: 300 }}
+							out:fly={{ x: 100, duration: 300 }}
+						>
+							<p class="m-0 p-0">{formattedDate}</p>
+							<button
+								use:tooltip={{
+									content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+								}}
+							>
+							</button>
+						</div>
+					{/if}
 				</div>
 			</div>
-			<div class="grid grid-cols-4 gap-[40px] p-4">
-				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-					<SelectDateIcon />
-					<span class="text-body-2 font-bold">Patent Filed Date</span>
-				</div>
-				{#if filedFormattedDate}
-					{@const formattedDate = formatDateTimeShort(new Date(filedFormattedDate))}
-					<div
-						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-						in:fly={{ x: -100, duration: 300 }}
-						out:fly={{ x: 100, duration: 300 }}
-					>
-						<p class="m-0 p-0">{formattedDate}</p>
-						<button
-							use:tooltip={{
-								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-							}}
-						>
-						</button>
-					</div>
-				{/if}
+		
 
-				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-					<SelectDateIcon />
-					<span class="text-body-2 font-bold">Patent Grant Date</span>
-				</div>
-				{#if grantformattedDate}
-					{@const formattedDate = formatDateTimeShort(new Date(grantformattedDate))}
-					<div
-						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-						in:fly={{ x: -100, duration: 300 }}
-						out:fly={{ x: 100, duration: 300 }}
-					>
-						<p class="m-0 p-0">{formattedDate}</p>
-						<button
-							use:tooltip={{
-								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-							}}
-						>
-						</button>
-					</div>
-				{:else}
-					<p>No Data Found</p>
-				{/if}
-			</div>
+			<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+				<div class="grid">
 
-			<div class="grid grid-cols-3 gap-[10] p-4">
-				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-					<SelectDateIcon />
-					<span class="text-body-2 font-bold">Patent /Invention Published Date</span>
-				</div>
-				{#if publishedFormattedDate}
-					{@const formattedDate = formatDateTimeShort(new Date(publishedFormattedDate))}
-					<div
-						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-						in:fly={{ x: -100, duration: 300 }}
-						out:fly={{ x: 100, duration: 300 }}
-					>
-						<p class="m-0 p-0">{formattedDate}</p>
-						<button
-							use:tooltip={{
-								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-							}}
-						>
-						</button>
+					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+						<SelectDateIcon />
+						<span class="text-body-2 font-bold">Patent Grant Date</span>
 					</div>
-				{:else}
-					<p>No Data Found</p>
-				{/if}
+					{#if grantformattedDate}
+						{@const formattedDate = formatDateTimeShort(new Date(grantformattedDate))}
+						<div
+							class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+							in:fly={{ x: -100, duration: 300 }}
+							out:fly={{ x: 100, duration: 300 }}
+						>
+							<p class="m-0 p-0">{formattedDate}</p>
+							<button
+								use:tooltip={{
+									content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+								}}
+							>
+							</button>
+						</div>
+					{:else}
+						<p>No Data Found</p>
+					{/if}
+				</div>
+				<div class="grid">
+					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+						<SelectDateIcon />
+						<span class="text-body-2 font-bold">Patent /Invention Published Date</span>
+					</div>
+					{#if publishedFormattedDate}
+						{@const formattedDate = formatDateTimeShort(new Date(publishedFormattedDate))}
+						<div
+							class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+							in:fly={{ x: -100, duration: 300 }}
+							out:fly={{ x: 100, duration: 300 }}
+						>
+							<p class="m-0 p-0">{formattedDate}</p>
+							<button
+								use:tooltip={{
+									content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+								}}
+							>
+							</button>
+						</div>
+					{:else}
+						<p>No Data Found</p>
+					{/if}
+				</div>
+			
 			</div>
 		</div>
 	</Card>

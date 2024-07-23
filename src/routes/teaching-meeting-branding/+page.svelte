@@ -73,12 +73,10 @@
 
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Header } from '$lib/components/researchHeader';
 	import { PlusIcon } from '$lib/components/icons';
 	import { PaginateDynamic } from '$lib/components/layout/pagination';
 	import { teachingHeaders, meetingHeaders, brandingHeaders } from '$lib/test';
 	import {
-		ResearchAction,
 		MeetingStakHolderAction,
 		BrandingAction,
 		TeachingAction
@@ -88,7 +86,7 @@
 		optionStore,
 		meetPaginateUrl,
 		brandPaginateUrl
-	} from '$lib/stores/modules/mpc/master.store';
+	} from '$lib/stores/modules/research/master.store';
 	import { Accordion, AccordionItem, DynamicSelect } from '$lib/components/ui';
 	import { Card } from '$lib/components/ui';
 
@@ -106,6 +104,7 @@
 	function navigateToCreate() {
 		goto('/teaching-meeting-branding/create');
 	}
+	let open = true;
 </script>
 
 <button
@@ -121,9 +120,9 @@
 	<Accordion collapse spaceBetween>
 		<AccordionItem>
 			<svelte:fragment slot="title">
-				<div class="flex flex-row gap-4 p-2.5">
-					<i class="fa-solid fa-graduation-cap text-[30px]"></i>
-					<h1 class="text-lg font-semibold">Teaching Excellance</h1>
+				<div class="flex gap-4 p-2.5 md:flex-row">
+					<i class="fa-solid fa-graduation-cap xs:text-[30px] sm:text-[30px] md:text-[30px]"></i>
+					<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Teaching Excellance</h1>
 				</div>
 			</svelte:fragment>
 			<svelte:fragment slot="content" let:open>
@@ -137,9 +136,9 @@
 	<Accordion collapse spaceBetween>
 		<AccordionItem>
 			<svelte:fragment slot="title">
-				<div class="flex flex-row gap-4 p-2.5">
-					<i class="fa-solid fa-people-arrows text-[30px]"></i>
-					<h1 class="text-lg font-semibold">Meeting Stakeholders</h1>
+				<div class="flex gap-4 p-2.5 md:flex-row">
+					<i class="fa-solid fa-people-arrows xs:text-[30px] sm:text-[30px] md:text-[30px]"></i>
+					<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Meeting Stakeholders</h1>
 				</div>
 			</svelte:fragment>
 			<svelte:fragment slot="content" let:open>
@@ -153,9 +152,9 @@
 	<Accordion collapse spaceBetween>
 		<AccordionItem>
 			<svelte:fragment slot="title">
-				<div class="flex flex-row gap-4 p-2.5">
-					<i class="fa-solid fa-bullhorn text-[30px]"></i>
-					<h1 class="text-lg font-semibold">Branding & Advertisement</h1>
+				<div class="flex gap-4 p-2.5 md:flex-row">
+					<i class="fa-solid fa-bullhorn xs:text-[30px] sm:text-[30px] md:text-[30px]"></i>
+					<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Branding & Advertisement</h1>
 				</div>
 			</svelte:fragment>
 			<svelte:fragment slot="content" let:open>
