@@ -16,12 +16,12 @@
 	/>
 {:else if abbr === 'ms'}
 	<MeetingStakeholders
-		meetingData={data.inputData.meeting_data}
+		meetingData={data.inputData}
 		meetingId={data.inputData.meetingId}
 	/>
 {:else}
 	<BrandingAdvertisement
-		brandingData={data.inputData.branding_data}
+		brandingData={data.inputData}
 		brandingId={data.inputData.brandingId}
 	/>
 {/if}

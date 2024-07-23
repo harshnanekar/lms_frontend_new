@@ -25,3 +25,9 @@ export type Sort = {
 	column: string;
 	order: 'asc' | 'desc';
 };
+
+export type InfiniteScrollResult<T> = {
+	data : T[],
+	total: number,
+	nextCursor: string | null 
+}
