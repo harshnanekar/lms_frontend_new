@@ -291,3 +291,21 @@ export const EContentObj = z.object({
   });
 
   export type researchAwardReq = z.infer<typeof researchAwardObj>;
+
+
+   const Faculty = z.object({
+	faculty_id : z.number(),
+    first_name : z.string().min(1,{message:'Faculty firstname is required'}),
+	last_name : z.string().min(1,{message:'Faculty lastname is required'}),
+	username : z.string().min(1,{message:'Faculty username is required'}),
+    institute : z.string().min(1,{message :'Faculty institute name is required'}),
+	address : z.string().min(1,{message:'Faculty address is required'}),
+	designation : z.string().min(1,{message:'Faculty designation is required'}),
+    faculty_type : z.number().refine(data => data != 0,'Faculty type is required'),
+  })
+
+  export const facultyObj = z.array(Faculty).min(1,{message:'Faculty details are required'});
+
+  export type facultyReq = z.infer<typeof facultyObj>;
+
+
