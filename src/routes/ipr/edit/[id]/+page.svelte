@@ -38,6 +38,7 @@
 
 	import { goto } from '$app/navigation';
 	import type { updateIprStatus } from '$lib/types/modules/research/research-types';
+
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 
 	export let data: any;

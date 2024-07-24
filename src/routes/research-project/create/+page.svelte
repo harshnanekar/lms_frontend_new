@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { Input, DatePicker, DynamicSelect, File } from '$lib/components/ui';
 
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 
@@ -10,6 +10,9 @@
 	import { fly } from 'svelte/transition';
 
 	import { Card } from '$lib/components/ui';
+
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
+
 
 	import {
 		getEnternalAuthors,
@@ -108,6 +111,7 @@
 	}
 
 	let files: any = [];
+	fileDataStore.set(files);
 
 	let showInternal = false;
 	let showExternal = false;
@@ -118,6 +122,16 @@
 
 	function handleExternalChange(event: { target: { checked: boolean } }) {
 		showExternal = event.target.checked;
+	} 
+
+	// for file view and delete
+	function handleFiles(event: CustomEvent<File[]>) {
+		files = event.detail;
+		console.log('files details', files);
+	}
+
+	function handleDeleteFiles(event: CustomEvent) {
+		files = event.detail;
 	}
 
 	//submit function for sending data
@@ -154,25 +168,27 @@
 					: []
 		};
 
-		const fileObject = {
-			documents: Array.from(files)
+		const fileObject: FileReq = {
+			documents: files.map((f: any) => {
+				return f.file;
+			})
 		};
-
-		console.log('files object ', files);
-
 		const fileresult = validateWithZod(fileSchema, fileObject);
 		if (fileresult.errors) {
 			console.log(fileresult.errors);
 			const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
-			toast.error('ALERT!', { description: firstMessage });
+			toast.error('ALERT!', {
+				description: firstMessage
+			});
 			return;
 		}
 
 		const formData = new FormData();
 		formData.append('ipr_data', JSON.stringify(researchProjectObj));
 
+		// Append each file to the FormData
 		Array.from(files).forEach((file: any) => {
-			formData.append('supporting_documents', file);
+			formData.append('supporting_documents', file.file);
 		});
 
 		for (let [key, value] of formData.entries()) {
@@ -232,6 +248,8 @@
 			internal_authors: null,
 			external_authors: null
 		};
+		files = [];
+		fileDataStore.set(files);
 	}
 </script>
 
@@ -347,7 +365,13 @@
 			<Input type="number" placeholder="Amount Received" bind:value={obj.received_amount} />
 		</div>
 		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-			<input type="file" bind:files multiple />
+			<div class="space-y-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<label class="lms-label"
+					>Upload Supporting Documents<span class="text-primary">*</span></label
+				>
+				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+			</div>
 
 			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
@@ -400,7 +424,10 @@
 				</div>
 			</div>
 
-			<div class="flex flex-row gap-[40px] p-4">
+			
+		</div>
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
+			<div class="flex gap-4 md:flex-row">
 				<DatePicker
 					on:change={handleDateChange1}
 					bind:selectedDateTime={grantDate}
@@ -408,13 +435,13 @@
 				>
 					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 						<SelectDateIcon />
-						<span class="text-body-2 font-bold">Add Submission/Grant Date</span>
+						<span class="text-body-2 font-bold gap[10px] text-inline">Submission/Grant Date</span>
 					</div>
 				</DatePicker>
 				{#if grantFormattedDate}
 					{@const formattedDate = formatDateTimeShort(new Date(grantFormattedDate))}
 					<div
-						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap[10px] rounded-3xl px-4 py-1 font-medium text-black md:py-3"
 						in:fly={{ x: -100, duration: 300 }}
 						out:fly={{ x: 100, duration: 300 }}
 					>
@@ -433,17 +460,15 @@
 					</div>
 				{/if}
 			</div>
-		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-			<div class="flex flex-row gap-[40px] p-4">
+			<div class="flex gap[10px] md:flex-row">
 				<DatePicker
 					on:change={handleDateChange2}
 					bind:selectedDateTime={paymentDate}
 					disabled={(paymentDate) => paymentDate.getTime() < new Date().setHours(0, 0, 0, 0)}
 				>
-					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+					<div class="text-primary hover:bg-base flex items-center gap[10px] rounded-lg px-3 py-2">
 						<SelectDateIcon />
-						<span class="text-body-2 font-bold">Add Add Annual Payment Date</span>
+						<span class="text-body-2 font-bold">Annual Payment Date</span>
 					</div>
 				</DatePicker>
 				{#if paymentFormattedDate}

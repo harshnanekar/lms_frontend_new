@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { Input, DatePicker, DynamicSelect, File } from '$lib/components/ui';
 
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 
@@ -30,38 +30,64 @@
 
 	import { goto } from '$app/navigation';
 
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
+
+	import { createFileUrl } from '$lib/utils/helper';
+
 	export let data: any;
 
 	// let isRequired = false;
 	let disabled: boolean = true;
 	let title = 'Patent Submission And Grant';
-	let checkData = data.patentDataList.length > 0 ? true : false;
-
+	let checkData = data.patentDataList.patentDataList.length > 0 ? true : false;
+	console.log('checkData ===>>>>>', checkData);
 	console.log('data in view comming from backend ===>>>>', JSON.stringify(data));
-	console.log('render patentDataList', data.patentDataList);
+	console.log('render patentDataList', data);
+
+	let files = data.patentDataList.files.length > 0 ? createFileUrl(data.patentDataList.files) : [];
+
+	fileDataStore.set(files);
 
 	let obj: any = {
-		patent_id: parseInt(data.patentDataList[0].patent_id),
-		title: data.patentDataList[0].title ? data.patentDataList[0].title : '',
-		invention_type: data.patentDataList[0].invention_type
-			? data.patentDataList[0].invention_type
-			: '',
-		sdg_goals: data.patentDataList[0].sdg_goals ? data.patentDataList[0].sdg_goals : '',
-		patent_status: data.patentDataList[0].patent_status ? data.patentDataList[0].patent_status : '',
-		appln_no: data.patentDataList[0].appln_no ? data.patentDataList[0].appln_no : '',
+		patent_id: parseInt(data.patentDataList.patentDataList[0].patent_id),
+		title:
+			checkData && data.patentDataList.patentDataList[0].title
+				? data.patentDataList.patentDataList[0].title
+				: '',
+		invention_type:
+			checkData && data.patentDataList.patentDataList[0].invention_type
+				? data.patentDataList.patentDataList[0].invention_type
+				: '',
+		sdg_goals:
+			checkData && data.patentDataList.patentDataList[0].sdg_goals
+				? data.patentDataList.patentDataList[0].sdg_goals
+				: '',
+		patent_status:
+			checkData && data.patentDataList.patentDataList[0].patent_status
+				? data.patentDataList.patentDataList[0].patent_status
+				: '',
+		appln_no:
+			checkData && data.patentDataList.patentDataList[0].appln_no
+				? data.patentDataList.patentDataList[0].appln_no
+				: '',
 
-		external_faculty_details: data.patentDataList[0].external_faculty_details
-			? data.patentDataList[0].external_faculty_details
-			: '',
-		internal_faculty_details: data.patentDataList[0].internal_faculty_details
-			? data.patentDataList[0].internal_faculty_details
-			: '',
-		filename: data.patentDataList[0].supporting_documents
-			? data.patentDataList[0].supporting_documents
-			: '',
-		publication_date: data.patentDataList[0].publication_date
-			? new Date(data.patentDataList[0].publication_date)
-			: null
+		external_faculty_details:
+			checkData && data.patentDataList.patentDataList[0].external_faculty_details
+				? data.patentDataList.patentDataList[0].external_faculty_details
+				: '',
+		internal_faculty_details:
+			checkData && data.patentDataList.patentDataList[0].internal_faculty_details
+				? data.patentDataList.patentDataList[0].internal_faculty_details
+				: '',
+		filename:
+			checkData && data.patentDataList.patentDataList[0].supporting_documents
+				? data.patentDataList.patentDataList[0].supporting_documents
+				: '',
+
+		publication_date:
+			checkData && data.patentDataList.patentDataList[0].publication_date
+				? new Date(data.patentDataList.patentDataList[0].publication_date)
+				: null
 	};
 
 	let publicationDate: Date | null = new Date();
@@ -81,7 +107,7 @@
 				const a = document.createElement('a');
 				a.style.display = 'none';
 				a.href = url;
-				a.download = 'patent_document.zip';
+				a.download = 'patent_submission_document.zip';
 				document.body.appendChild(a);
 				a.click();
 				window.URL.revokeObjectURL(url);
@@ -126,15 +152,17 @@
 					bind:value={obj.appln_no}
 					{disabled}
 				/>
-				<div class="lms-input-container flex flex-row gap-2">
-					<input id="documents" class="lms-input" placeholder="" value={obj.filename} {disabled} />
-					<label for="documents" class="lms-placeholder"
-						>Supporting Documents
+				<div class="space-y-2">
+					<label for="documents" class="lms-label"
+						>Download Supporting Documents
 						<span>*</span>
 					</label>
-					<button class="lms-btn lms-primary-btn" on:click={downLoadFiles}
-						><i class="fa-solid fa-download text-lg"></i></button
-					>
+					<div class="flex items-center gap-2">
+						<File isView={true} />
+						<button class="lms-btn lms-primary-btn" on:click={downLoadFiles}
+							><i class="fa-solid fa-download text-lg"></i></button
+						>
+					</div>
 				</div>
 			</div>
 

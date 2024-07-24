@@ -98,7 +98,7 @@
 
 
 	async function downLoadFiles() {
-		fetch(`${PUBLIC_API_BASE_URL}/book-publication-download-file?id=${obj.book_pulication_id}`)
+		fetch(`${PUBLIC_API_BASE_URL}/ipr-download-files?id=${obj.ipr_id}`)
 			.then((response) => {
 				if (response.ok) {
 					return response.blob();

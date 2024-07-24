@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { Input, DatePicker, DynamicSelect, File } from '$lib/components/ui';
 
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 
@@ -12,84 +12,96 @@
 	import { Card } from '$lib/components/ui';
 	import { toast } from 'svelte-sonner';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
+	import { createFileUrl } from '$lib/utils/helper';
 
 	export let data: any;
 
 	// let isRequired = false;
 	let disabled: boolean = true;
 	let title = 'Research Project';
-	let checkData = data.researchProjectDataList.length > 0 ? true : false;
+	let checkData = data.researchProjectDataList.researchProjectDataList.length > 0 ? true : false;
+	console.log('checkData ===>>>>', checkData);
 
 	console.log('data in view comming from backend ===>>>>', JSON.stringify(data));
 	console.log('render researchProjectDataList', data.researchProjectDataList);
 
+	let files =
+		data.researchProjectDataList.files.length > 0
+			? createFileUrl(data.researchProjectDataList.files)
+			: [];
+
+	fileDataStore.set(files);
+
 	let obj: any = {
-		research_project_id: parseInt(data.researchProjectDataList[0].research_project_id),
+		research_project_id: parseInt(
+			data.researchProjectDataList.researchProjectDataList[0].research_project_id
+		),
 		nmims_school:
-			checkData && data.researchProjectDataList[0].nmims_school
-				? data.researchProjectDataList[0].nmims_school
+			checkData && data.researchProjectDataList.researchProjectDataList[0].nmims_school
+				? data.researchProjectDataList.researchProjectDataList[0].nmims_school
 				: '',
 		nmims_campus:
-			checkData && data.researchProjectDataList[0].nmims_campus
-				? data.researchProjectDataList[0].nmims_campus
+			checkData && data.researchProjectDataList.researchProjectDataList[0].nmims_campus
+				? data.researchProjectDataList.researchProjectDataList[0].nmims_campus
 				: '',
 		research_status:
-			checkData && data.researchProjectDataList[0].research_status
-				? data.researchProjectDataList[0].research_status
+			checkData && data.researchProjectDataList.researchProjectDataList[0].research_status
+				? data.researchProjectDataList.researchProjectDataList[0].research_status
 				: '',
 		title:
-			checkData && data.researchProjectDataList[0].title
-				? data.researchProjectDataList[0].title
+			checkData && data.researchProjectDataList.researchProjectDataList[0].title
+				? data.researchProjectDataList.researchProjectDataList[0].title
 				: '',
-		thrust_area: data.researchProjectDataList[0].appln_no
-			? data.researchProjectDataList[0].thrust_area
+		thrust_area: data.researchProjectDataList.researchProjectDataList[0].appln_no
+			? data.researchProjectDataList.researchProjectDataList[0].thrust_area
 			: '',
 		grant_proposal:
-			checkData && data.researchProjectDataList[0].grant_proposal
-				? Number(data.researchProjectDataList[0].grant_proposal)
+			checkData && data.researchProjectDataList.researchProjectDataList[0].grant_proposal
+				? Number(data.researchProjectDataList.researchProjectDataList[0].grant_proposal)
 				: '',
 		grant_type:
-			checkData && data.researchProjectDataList[0].grant_type
-				? Number(data.researchProjectDataList[0].grant_type)
+			checkData && data.researchProjectDataList.researchProjectDataList[0].grant_type
+				? Number(data.researchProjectDataList.researchProjectDataList[0].grant_type)
 				: '',
 		funding_amount:
-			checkData && data.researchProjectDataList[0].funding_amount
-				? data.researchProjectDataList[0].funding_amount
+			checkData && data.researchProjectDataList.researchProjectDataList[0].funding_amount
+				? data.researchProjectDataList.researchProjectDataList[0].funding_amount
 				: '',
 		funding_agency:
-			checkData && data.researchProjectDataList[0].funding_agency
-				? data.researchProjectDataList[0].funding_agency
+			checkData && data.researchProjectDataList.researchProjectDataList[0].funding_agency
+				? data.researchProjectDataList.researchProjectDataList[0].funding_agency
 				: '',
 		scheme:
-			checkData && data.researchProjectDataList[0].scheme
-				? data.researchProjectDataList[0].scheme
+			checkData && data.researchProjectDataList.researchProjectDataList[0].scheme
+				? data.researchProjectDataList.researchProjectDataList[0].scheme
 				: '',
-		received_amount: data.researchProjectDataList[0].received_amount
-			? data.researchProjectDataList[0].received_amount
+		received_amount: data.researchProjectDataList.researchProjectDataList[0].received_amount
+			? data.researchProjectDataList.researchProjectDataList[0].received_amount
 			: '',
 		duration:
-			checkData && data.researchProjectDataList[0].duration
-				? data.researchProjectDataList[0].duration
+			checkData && data.researchProjectDataList.researchProjectDataList[0].duration
+				? data.researchProjectDataList.researchProjectDataList[0].duration
 				: '',
 		external_faculty_details:
-			checkData && data.researchProjectDataList[0].external_faculty_details
-				? data.researchProjectDataList[0].external_faculty_details
+			checkData && data.researchProjectDataList.researchProjectDataList[0].external_faculty_details
+				? data.researchProjectDataList.researchProjectDataList[0].external_faculty_details
 				: '',
 		internal_faculty_details:
-			checkData && data.researchProjectDataList[0].internal_faculty_details
-				? data.researchProjectDataList[0].internal_faculty_details
+			checkData && data.researchProjectDataList.researchProjectDataList[0].internal_faculty_details
+				? data.researchProjectDataList.researchProjectDataList[0].internal_faculty_details
 				: '',
 		filename:
-			checkData && data.researchProjectDataList[0].supporting_documents
-				? data.researchProjectDataList[0].supporting_documents
+			checkData && data.researchProjectDataList.researchProjectDataList[0].supporting_documents
+				? data.researchProjectDataList.researchProjectDataList[0].supporting_documents
 				: '',
 		grant_date:
-			checkData && data.researchProjectDataList[0].grant_date
-				? new Date(data.researchProjectDataList[0].grant_date)
+			checkData && data.researchProjectDataList.researchProjectDataList[0].grant_date
+				? new Date(data.researchProjectDataList.researchProjectDataList[0].grant_date)
 				: null,
 		payment_date:
-			checkData && data.researchProjectDataList[0].payment_date
-				? new Date(data.researchProjectDataList[0].payment_date)
+			checkData && data.researchProjectDataList.researchProjectDataList[0].payment_date
+				? new Date(data.researchProjectDataList.researchProjectDataList[0].payment_date)
 				: null
 	};
 
@@ -248,15 +260,17 @@
 					value={obj.external_faculty_details}
 					{disabled}
 				/>
-				<div class="lms-input-container flex flex-row gap-2">
-					<input id="documents" class="lms-input" placeholder="" value={obj.filename} {disabled} />
-					<label for="documents" class="lms-placeholder"
-						>Supporting Documents
+				<div class="space-y-2">
+					<label for="documents" class="lms-label"
+						>Download Supporting Documents
 						<span>*</span>
 					</label>
-					<button class="lms-btn lms-primary-btn" on:click={downLoadFiles}
-						><i class="fa-solid fa-download text-lg"></i></button
-					>
+					<div class="flex items-center gap-2">
+						<File isView={true} />
+						<button class="lms-btn lms-primary-btn" on:click={downLoadFiles}
+							><i class="fa-solid fa-download text-lg"></i></button
+						>
+					</div>
 				</div>
 			</div>
 

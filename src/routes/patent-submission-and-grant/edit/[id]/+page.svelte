@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { Input, DatePicker, DynamicSelect, File } from '$lib/components/ui';
 
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 
@@ -10,6 +10,8 @@
 	import { fly } from 'svelte/transition';
 
 	import { Card } from '$lib/components/ui';
+
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 
 	import {
 		getEnternalAuthors,
@@ -74,6 +76,9 @@
 		'data.patentDataList.iprdata[0].patent_id ==>>',
 		data.patentDataList.patentDataList[0].patent_id
 	);
+
+	let files: any = [];
+	fileDataStore.set(files);
 
 	let obj: any = {
 		patent_id: parseInt(data.patentDataList.patentDataList[0].patent_id),
@@ -146,8 +151,6 @@
 		console.log('publication date ', publicationDate);
 	}
 
-	let files: any = [];
-
 	let showInternal = false;
 	let showExternal = false;
 
@@ -184,10 +187,11 @@
 		};
 
 		if (checkVal) {
-			const fileObject = {
-				documents: Array.from(files)
+			const fileObject: FileReq = {
+				documents: files.map((f: any) => {
+					return f.file;
+				})
 			};
-
 			const fileresult = validateWithZod(fileSchema, fileObject);
 			if (fileresult.errors) {
 				console.log(fileresult.errors);
@@ -206,7 +210,6 @@
 		Array.from(files).forEach((file: any) => {
 			formData.append('supporting_documents', file);
 		});
-
 		for (let [key, value] of formData.entries()) {
 			console.log(`${key}: ${value}`);
 		}
@@ -268,6 +271,15 @@
 				});
 			});
 	}
+
+	function handleFiles(event: CustomEvent<File[]>) {
+		files = event.detail;
+		console.log('files details', files);
+	}
+
+	function handleDeleteFiles(event: CustomEvent) {
+		files = event.detail;
+	}
 </script>
 
 <Card {title}>
@@ -305,13 +317,16 @@
 				placeholder="Patent/Invention Application Number"
 				bind:value={obj.appln_no}
 			/>
-			<div>
-				<label for="supporting-documents"
+			<div class="space-y-4">
+				<label for="supporting-documents" class="lms-label"
 					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
 				>
-				<label>Click To Upload New File <input type="checkbox" bind:checked={isChecked} /></label>
+				<label class="lms-label"
+					>Click To Upload New File
+					<input type="checkbox" bind:checked={isChecked} class="accent-primary" />
+				</label>
 				{#if checkVal}
-					<input type="file" bind:files multiple />
+					<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-md"></i></button
@@ -319,8 +334,8 @@
 				{/if}
 			</div>
 		</div>
-
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
+		
+		<div class="flex flex-row gap-[40px] p-4">
 			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
@@ -373,42 +388,41 @@
 					</div>
 				</div>
 			</div>
-			<div>
-				<div class="flex flex-row gap-[10px] p-4">
-					<DatePicker
-						on:change={handleDateChange}
-						bind:selectedDateTime={publicationDate}
-						disabled={(publicationDate) =>
-							publicationDate.getTime() < new Date().setHours(0, 0, 0, 0)}
+			
+		</div> 
+		<div class="flex flex-row gap-[10px] p-4">
+				<DatePicker
+					on:change={handleDateChange}
+					bind:selectedDateTime={publicationDate}
+					disabled={(publicationDate) =>
+						publicationDate.getTime() < new Date().setHours(0, 0, 0, 0)}
+				>
+					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+						<SelectDateIcon />
+						<span class="text-body-2 font-bold">Add Date of Filing/Grant/Published</span>
+					</div>
+				</DatePicker>
+				{#if publicationFormattedDate}
+					{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
+					<div
+						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+						in:fly={{ x: -100, duration: 300 }}
+						out:fly={{ x: 100, duration: 300 }}
 					>
-						<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-							<SelectDateIcon />
-							<span class="text-body-2 font-bold">Add Date of Filing/Grant/Published</span>
-						</div>
-					</DatePicker>
-					{#if publicationFormattedDate}
-						{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
-						<div
-							class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-							in:fly={{ x: -100, duration: 300 }}
-							out:fly={{ x: 100, duration: 300 }}
+						<p class="m-0 p-0">{formattedDate}</p>
+						<button
+							use:tooltip={{
+								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+							}}
+							on:click={() => {
+								// remove the current date
+								publicationFormattedDate = '';
+							}}
 						>
-							<p class="m-0 p-0">{formattedDate}</p>
-							<button
-								use:tooltip={{
-									content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-								}}
-								on:click={() => {
-									// remove the current date
-									publicationFormattedDate = '';
-								}}
-							>
-								<XIcon />
-							</button>
-						</div>
-					{/if}
-				</div>
-			</div>
+							<XIcon />
+						</button>
+					</div>
+				{/if}
 		</div>
 	</div>
 
