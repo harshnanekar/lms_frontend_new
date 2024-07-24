@@ -15,6 +15,7 @@ import CaseStudyAction from './case-study-action.svelte'
 import ResearchSeminarAction from './research-seminar-action.svelte'
 import EContent from './e-content-action.svelte'
 import ResearchAwardAction from './research-award-action.svelte'
+import FacultyAction from './faculty-action.svelte'
 import { userList, AddAnchor, AddAttendees } from './master-form';
 
 export {
@@ -37,5 +38,6 @@ export {
 	CaseStudyAction,
 	ResearchSeminarAction,
 	EContent,
-	ResearchAwardAction
+	ResearchAwardAction,
+	FacultyAction
 };

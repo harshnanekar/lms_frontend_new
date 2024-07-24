@@ -6,7 +6,7 @@
 	import type { FacultyView } from '$lib/types/modules/research/research-types';
 	import { PaginateDynamic } from '$lib/components/layout/pagination';
 	import { FacultyHeaders } from '$lib/test';
-	import { EContent } from '$lib/components/modules/mpc';
+	import { FacultyAction } from '$lib/components/modules/mpc';
 	import { paginateUrl } from '$lib/stores/modules/research/master.store';
 
 	let dynamicUrl = 'http://localhost:9090/research/faculty-paginate';
@@ -35,6 +35,6 @@
 
 <div class="shadow-card mt-[5%] rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 sm:p-6">
 	<PaginateDynamic url={$paginateUrl} header={FacultyHeaders} let:actionData>
-		<EContent {actionData} />
+		<FacultyAction {actionData} />
 	</PaginateDynamic>
 </div>
