@@ -192,4 +192,7 @@ export type BookChapterDetails = {
 	first_name : string,
 	last_name : string,
 	username : string,
+	institute ?: string;
+	address ?: string,
+	faculty_type ?: number;
  }[]
