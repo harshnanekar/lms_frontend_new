@@ -318,5 +318,11 @@ export const EContentObj = z.object({
 
   export type facultyUpdReq = z.infer<typeof facultyUpd>;
 
+  export const loginCredentials = z.object({
+	username : z.string().min(1,{message:'Username is required'}),
+	password : z.string().min(1,{message:'Password is required'}),
+  })
+
+  export type loginReq = z.infer<typeof loginCredentials>;
 
 
