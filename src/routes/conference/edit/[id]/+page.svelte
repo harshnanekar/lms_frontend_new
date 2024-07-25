@@ -1,10 +1,12 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { Input, DatePicker, DynamicSelect, File } from '$lib/components/ui';
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
 	import { fly } from 'svelte/transition';
 	import { Card } from '$lib/components/ui';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
+
 	import type {
 		conferenceStatus,
 		updateConferenceStatus
@@ -32,6 +34,10 @@
 	export let data: any;
 	let isRequired = false;
 	let title = 'Conference';
+
+	type FileReq = {
+		documents: [File, ...File[]];
+	};
 
 	let nmimsSchool = data?.conferenceDetails?.school?.message;
 	let nmimsCampus = data?.conferenceDetails?.campus?.message;
@@ -157,6 +163,11 @@
 	let showInternal = false;
 	let showExternal = false;
 
+	let fileArr: any = [];
+
+	let selectedConferencePreviewFile: any = [];
+	let selectedAwardPreviewFile: any = [];
+
 	$: console.log('final obj ', JSON.stringify(obj));
 
 	showInternal = obj.internal_authors != null ? true : false;
@@ -167,6 +178,51 @@
 
 	let conferenceFiles: any = [];
 	let awardFiles: any = [];
+
+	// function for preview file award and documents
+
+	function previewConferenceFile() {
+		selectedConferencePreviewFile = fileArr
+			.filter((data: any) => data.abbr === 'cd')
+			.map((dt: any) => dt.file)[0];
+		fileDataStore.set(selectedConferencePreviewFile);
+	}
+
+	function previewAwardFile() {
+		selectedAwardPreviewFile = fileArr
+			.filter((data: any) => data.abbr === 'ad')
+			.map((dt: any) => dt.file)[0];
+		fileDataStore.set(selectedAwardPreviewFile);
+	}
+
+	export function updateFiles(newFiles: any, abbr: string) {
+		newFiles = newFiles
+			.filter((item: { abbr: string }) => item.abbr === abbr)
+			.map((data: any) => data.file)[0];
+		fileDataStore.set(newFiles);
+	}
+
+	// function for handling the file for conference and award
+	function handleConferenceFiles(event: CustomEvent<File[]>, abbr: string) {
+		conferenceFiles = event.detail;
+		fileArr.push({ abbr: abbr, file: conferenceFiles });
+		updateFiles(fileArr, abbr);
+	}
+
+	function handleAwardFiles(event: CustomEvent<File[]>, abbr: string) {
+		console.log('award files called');
+		awardFiles = event.detail;
+		fileArr.push({ abbr: abbr, file: awardFiles });
+		updateFiles(fileArr, abbr);
+	}
+
+	function handleDeleteFiles(event: CustomEvent<File[]>, abbr: string) {
+		const updatedFiles = event.detail;
+		fileArr = fileArr.map((item: { abbr: string }) =>
+			item.abbr === abbr ? { ...item, file: updatedFiles } : item
+		);
+		updateFiles(fileArr, abbr);
+	}
 
 	async function handleSubmit() {
 		const conferenceObj: conferenceReq = {
@@ -220,41 +276,38 @@
 		formData.append('conference_id', JSON.stringify(obj.conference_id));
 
 		if (checkDoc) {
-			const fileObject = {
-				documents: Array.from(conferenceFiles)
-			};
-			const fileresult = validateWithZod(fileSchema, fileObject);
-			if (fileresult.errors) {
-				console.log(fileresult.errors);
-				const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
+			const conferenceFileObject = { documents: conferenceFiles.map((f: any) => f.file) };
+			const conferenceFileResult = validateWithZod(fileSchema, conferenceFileObject);
+
+			// Check for validation errors in conference files
+			if (conferenceFileResult.errors) {
+				const [firstPath, firstMessage] = Object.entries(conferenceFileResult.errors)[0];
 				toast.error('ALERT!', {
 					description: firstMessage as string
 				});
 				return;
 			}
-			Array.from(conferenceFiles).forEach((file: any) => {
-				formData.append(conference_abbr, file);
+			conferenceFiles.forEach((file: any) => {
+				formData.append(conference_abbr, file.file);
 			});
 		}
 
 		if (checkAward) {
-			// const fileObject: FileReq = {
-			// 	documents: Array.from(awardFiles)
-			// };
-			const fileObject = {
-				documents: Array.from(awardFiles)
-			};
-			const fileresult = validateWithZod(fileSchema, fileObject);
-			if (fileresult.errors) {
-				console.log(fileresult.errors);
-				const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
+			// Validate award files
+			const awardFileObject = { documents: awardFiles.map((f: any) => f.file) };
+			const awardFileResult = validateWithZod(fileSchema, awardFileObject);
+
+			// Check for validation errors in award files
+			if (awardFileResult.errors) {
+				const [firstPath, firstMessage] = Object.entries(awardFileResult.errors)[0];
 				toast.error('ALERT!', {
 					description: firstMessage as string
 				});
 				return;
 			}
-			Array.from(awardFiles).forEach((file: any) => {
-				formData.append(award_abbr, file);
+			// Append award files to formData
+			awardFiles.forEach((file: any) => {
+				formData.append(award_abbr, file.file);
 			});
 		}
 
@@ -499,15 +552,23 @@
 				</div>
 			</div>
 			<!-- Upload Conference Documents -->
-			<div>
-				<label
-					>Click To Upload Conference Documents <input
-						type="checkbox"
-						bind:checked={isCheckedDoc}
-					/></label
+			<!-- Upload Conference Documents -->
+			<div class="space-y-4">
+				<label for="text-sm text-[#888888]" class="lms-label"
+					>Upload Conference Documents <i style="color: red;">*</i><br /></label
 				>
+				<label class="lms-label"
+					>Click To Upload Conference Documents File
+					<input type="checkbox" bind:checked={isCheckedDoc} class="accent-primary" />
+				</label>
 				{#if checkDoc}
-					<input type="file" bind:files={conferenceFiles} multiple />
+					<File
+						isCombine={true}
+						on:filesSelected={(event) => handleConferenceFiles(event, 'cd')}
+						on:deletedFiles={(event) => handleDeleteFiles(event, 'cd')}
+						on:previewFile={previewConferenceFile}
+						isView={false}
+					/>
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={() => downLoadFiles('cd')}
 						><i class="fa-solid fa-download text-md"></i></button
@@ -516,17 +577,24 @@
 			</div>
 			<!-- svelte-ignore a11y-label-has-associated-control -->
 			<!-- Upload Conference Documents Any Award -->
-			<div>
-				<label
-					>Click To Upload Conference Award File <input
-						type="checkbox"
-						bind:checked={isCheckedaward}
-					/></label
+			<div class="space-y-4">
+				<label for="text-sm text-[#888888]" class="lms-label"
+					>Upload Award Documents <i style="color: red;">*</i><br /></label
 				>
-				{#if isCheckedaward}
-					<input type="file" bind:files={awardFiles} multiple />
+				<label class="lms-label"
+					>Click To Upload Award Documents
+					<input type="checkbox" bind:checked={isCheckedaward} class="accent-primary" />
+				</label>
+				{#if checkAward}
+					<File
+						isCombine={true}
+						on:filesSelected={(event) => handleAwardFiles(event, 'ad')}
+						on:deletedFiles={(event) => handleDeleteFiles(event, 'ad')}
+						on:previewFile={previewAwardFile}
+						isView={false}
+					/>
 				{:else}
-					<button class="lms-primary-btn mt-2" on:click={() => downLoadFiles('ad')}
+					<button class="lms-primary-btn mt-2" on:click={() => downLoadFiles('cd')}
 						><i class="fa-solid fa-download text-md"></i></button
 					>
 				{/if}

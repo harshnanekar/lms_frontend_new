@@ -210,8 +210,7 @@
 					<div class="flex items-center gap-2">
 					<File isView={true} />	
 					<button class="lms-btn lms-primary-btn" on:click={downLoadFiles}
-						><i class="fa-solid fa-download text-lg"></i></button
-					>
+						><i class="fa-solid fa-download text-lg"></i></button>
 					</div>
 				</div>
 

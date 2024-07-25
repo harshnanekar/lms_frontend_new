@@ -57,7 +57,7 @@ export const journalPaper = z.object({
 	volume_no: z.string().min(1, 'Volume number is required'),
 	publisher_category: z.number().min(1, 'Publisher category is required'),
 	publish_year: z.number().refine((data) => {
-	  return data >= 1900 && data <= 3000;
+	  return data >= 1900 && data <= 3000 ;
 	}, {
 	  message: 'Invalid Year'
 	}),
@@ -128,7 +128,7 @@ export const conferenceData = z.object({
     sponsored: z.number().min(1, 'Sponsored by NMIMS/Other is required'),
     amount: z.string().min(1, 'Amount spent in RS. by NMIMS is required'),
     publication_date: z.string().refine(date => {
-        return date !== '1970-01-01';
+        return date !== '1970-01-01' && date !== '';
     }, {
         message: 'Publication date is required',
     }),

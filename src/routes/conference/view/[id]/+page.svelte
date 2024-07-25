@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect } from '$lib/components/ui';
+	import { Input, DatePicker, DynamicSelect,File } from '$lib/components/ui';
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
@@ -22,12 +22,12 @@
 	let isRequired = false;
 	let title = 'Conference';
 	let disabled: boolean = true;
-	let checkData = data.conferenceDetails.length > 0 ? true : false;
+	let checkData = data.conferenceDetails.conferenceDetails.length > 0 ? true : false;
 
-	console.log('data detaisl ===>>>', data.conferenceDetails);
+	console.log('data detaisl ===>>>', data.conferenceDetails.conferenceDetails[0]);
 	console.log(
 		'data.conferenceDetails.conferenceDetails[0].conference_name  ==>>',
-		data.conferenceDetails[0].nmims_school
+		data.conferenceDetails.conferenceDetails[0].nmims_school
 	);
 
 	let conferenceFiles: any = [];
@@ -37,47 +37,47 @@
 	let showExternal = false;
 
 	let obj: any = {
-		conference_id: checkData ? parseInt(data.conferenceDetails[0].conference_id) : null,
+		conference_id: checkData ? parseInt(data.conferenceDetails.conferenceDetails[0].conference_id) : null,
 		nmims_school:
-			checkData && data.conferenceDetails[0].nmims_school
-				? data.conferenceDetails[0].nmims_school
+			checkData && data.conferenceDetails.conferenceDetails[0].nmims_school
+				? data.conferenceDetails.conferenceDetails[0].nmims_school
 				: '',
-		nmims_campus: data.conferenceDetails[0].nmims_campus
-			? data.conferenceDetails[0].nmims_campus
+		nmims_campus: data.conferenceDetails.conferenceDetails[0].nmims_campus
+			? data.conferenceDetails.conferenceDetails[0].nmims_campus
 			: '',
-		paper_title: data.conferenceDetails[0].paper_title ? data.conferenceDetails[0].paper_title : '',
-		all_authors: data.conferenceDetails[0].all_authors ? data.conferenceDetails[0].all_authors : '',
-		conference_name: data.conferenceDetails[0].conference_name
-			? data.conferenceDetails[0].conference_name
+		paper_title: data.conferenceDetails.conferenceDetails[0].paper_title ? data.conferenceDetails.conferenceDetails[0].paper_title : '',
+		all_authors: data.conferenceDetails.conferenceDetails[0].all_authors ? data.conferenceDetails.conferenceDetails[0].all_authors : '',
+		conference_name: data.conferenceDetails.conferenceDetails[0].conference_name
+			? data.conferenceDetails.conferenceDetails[0].conference_name
 			: '',
-		place: data.conferenceDetails[0].place ? data.conferenceDetails[0].place : '',
-		proceeding_published: data.conferenceDetails[0].proceeding_published,
-		conference_type: Number(data.conferenceDetails[0].conference_type),
-		presenting_author: data.conferenceDetails[0].presenting_author
-			? data.conferenceDetails[0].presenting_author
+		place: data.conferenceDetails.conferenceDetails[0].place ? data.conferenceDetails.conferenceDetails[0].place : '',
+		proceeding_published: data.conferenceDetails.conferenceDetails[0].proceeding_published,
+		conference_type: Number(data.conferenceDetails.conferenceDetails[0].conference_type),
+		presenting_author: data.conferenceDetails.conferenceDetails[0].presenting_author
+			? data.conferenceDetails.conferenceDetails[0].presenting_author
 			: '',
-		organizing_body: data.conferenceDetails[0].organizing_body
-			? data.conferenceDetails[0].organizing_body
+		organizing_body: data.conferenceDetails.conferenceDetails[0].organizing_body
+			? data.conferenceDetails.conferenceDetails[0].organizing_body
 			: '',
-		volume_no: data.conferenceDetails[0].volume_no ? data.conferenceDetails[0].volume_no : '',
-		issn_no: data.conferenceDetails[0].issn_no ? data.conferenceDetails[0].issn_no : '',
-		sponsored: Number(data.conferenceDetails[0].sponsored),
-		doi_no: data.conferenceDetails[0].doi_no ? data.conferenceDetails[0].doi_no : '',
-		amount: data.conferenceDetails[0].amount ? data.conferenceDetails[0].amount : '',
-		publication_date: data.conferenceDetails[0].publication_date
-			? new Date(data.conferenceDetails[0].publication_date)
+		volume_no: data.conferenceDetails.conferenceDetails[0].volume_no ? data.conferenceDetails.conferenceDetails[0].volume_no : '',
+		issn_no: data.conferenceDetails.conferenceDetails[0].issn_no ? data.conferenceDetails.conferenceDetails[0].issn_no : '',
+		sponsored: Number(data.conferenceDetails.conferenceDetails[0].sponsored),
+		doi_no: data.conferenceDetails.conferenceDetails[0].doi_no ? data.conferenceDetails.conferenceDetails[0].doi_no : '',
+		amount: data.conferenceDetails.conferenceDetails[0].amount ? data.conferenceDetails.conferenceDetails[0].amount : '',
+		publication_date: data.conferenceDetails.conferenceDetails[0].publication_date
+			? new Date(data.conferenceDetails.conferenceDetails[0].publication_date)
 			: null,
-		internal_faculty_details: data.conferenceDetails[0].internal_faculty_details
-			? data.conferenceDetails[0].internal_faculty_details
+		internal_faculty_details: data.conferenceDetails.conferenceDetails[0].internal_faculty_details
+			? data.conferenceDetails.conferenceDetails[0].internal_faculty_details
 			: '',
-		external_faculty_details: data.conferenceDetails[0].external_faculty_details
-			? data.conferenceDetails[0].external_faculty_details
+		external_faculty_details: data.conferenceDetails.conferenceDetails[0].external_faculty_details
+			? data.conferenceDetails.conferenceDetails[0].external_faculty_details
 			: '',
-		conference_documents: data.conferenceDetails[0].conference_documents
-			? data.conferenceDetails[0].conference_documents
+		conference_documents: data.conferenceDetails.conferenceDetails[0].conference_documents
+			? data.conferenceDetails.conferenceDetails[0].conference_documents
 			: '',
-		conference_awards: data.conferenceDetails[0].conference_awards
-			? data.conferenceDetails[0].conference_awards
+		conference_awards: data.conferenceDetails.conferenceDetails[0].conference_awards
+			? data.conferenceDetails.conferenceDetails[0].conference_awards
 			: ''
 	};
 	console.log('boj ankit  ===>>>>', obj);
@@ -271,63 +271,56 @@
 					value={obj.external_faculty_details}
 					{disabled}
 				/>
-				<div class="lms-input-container flex flex-row gap-2">
-					<input
-						id="documents"
-						class="lms-input"
-						placeholder=""
-						value={obj.conference_documents}
-						{disabled}
-					/>
-					<label for="documents" class="lms-placeholder"
-						>Conference Documents
-						<span>*</span>
-					</label>
-					<button class="lms-btn lms-primary-btn" on:click={() => downLoadFiles('cd')}
-						><i class="fa-solid fa-download text-lg"></i></button
-					>
-				</div>
+				
+
 			</div>
 			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
-				<div class="lms-input-container flex flex-row gap-2">
-					<input
-						id="documents"
-						class="lms-input"
-						placeholder=""
-						value={obj.conference_awards}
-						{disabled}
-					/>
-					<label for="documents" class="lms-placeholder">
-						Conference Awards
+				<div class="space-y-2">
+					<label for="documents" class="lms-label"
+						>Download Conference Documents
 						<span>*</span>
 					</label>
-					<button class="lms-btn lms-primary-btn" on:click={() => downLoadFiles('ad')}
-						><i class="fa-solid fa-download text-lg"></i></button
-					>
+					<div class="flex items-center gap-2">
+					<File isView={true} />	
+					<button class="lms-btn lms-primary-btn" on:click={() => downLoadFiles('cd')}
+						><i class="fa-solid fa-download text-lg"></i></button>
+					</div>
 				</div>
 
-				<div class="flex gap-4 md:flex-row">
-					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-						<SelectDateIcon />
-						<span class="text-body-2 font-bold">Publication Date</span>
+				<div class="space-y-2">
+					<label for="documents" class="lms-label"
+						>Download Conference Awards 
+						<span>*</span>
+					</label>
+					<div class="flex items-center gap-2">
+					<File isView={true} />	
+					<button class="lms-btn lms-primary-btn" on:click={() => downLoadFiles('ad')}
+						><i class="fa-solid fa-download text-lg"></i></button>
 					</div>
-					{#if publicationFormattedDate}
-						{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
-						<div
-							class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-							in:fly={{ x: -100, duration: 300 }}
-							out:fly={{ x: 100, duration: 300 }}
-						>
-							<p class="m-0 p-0">{formattedDate}</p>
-							<button
-								use:tooltip={{
-									content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-								}}
-							>
-							</button>
-						</div>
-					{/if}
 				</div>
+
+			</div> 
+			<div class="flex gap-4 md:flex-row">
+				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+					<SelectDateIcon />
+					<span class="text-body-2 font-bold">Publication Date</span>
+				</div>
+				{#if publicationFormattedDate}
+					{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
+					<div
+						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+						in:fly={{ x: -100, duration: 300 }}
+						out:fly={{ x: 100, duration: 300 }}
+					>
+						<p class="m-0 p-0">{formattedDate}</p>
+						<button
+							use:tooltip={{
+								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+							}}
+						>
+						</button>
+					</div>
+				{/if}
 			</div>
 		</div>
 		<div class="flex flex-col gap-4 p-4 md:flex-row"></div>

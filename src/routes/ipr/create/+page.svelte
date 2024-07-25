@@ -148,7 +148,6 @@
 	}
 
 	//submit function for sending data
-
 	async function handleSubmit() {
 		const iprObject: iprDetailsReq = {
 			nmims_school:
