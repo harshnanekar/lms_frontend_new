@@ -74,10 +74,8 @@
 
 		console.log('json ', JSON.stringify(json));
 
-		if (json.status == 403) {
-			toast.error('ALERT!', {
-				description: json.message
-			});
+		if (json.status === 401) {
+			goto('/login')
 		} else {
 			toast.success('Inserted Successfully');
 			publicationFormattedDate = null;
