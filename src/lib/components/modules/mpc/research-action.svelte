@@ -103,6 +103,7 @@
 		});
 
 		if (error) {
+
 			toast.error(error.message || 'Something went wrong!', {
 				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
 			});

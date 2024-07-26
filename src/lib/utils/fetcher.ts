@@ -42,7 +42,7 @@ export const fetchApi = async <T>({
 			if(errorData.status === 401){
 			 goto('/login');
 			}
-			
+
 			return { json: null, error: errorData };
 		}
 
@@ -89,6 +89,9 @@ export const fetchFormApi = async <T>({
 				errorData = await response.json();
 			} catch {
 				errorData = { message: 'Error' };
+			}
+			if(errorData.status === 401){
+				goto('/login');
 			}
 			return { json: null, error: errorData };
 		}

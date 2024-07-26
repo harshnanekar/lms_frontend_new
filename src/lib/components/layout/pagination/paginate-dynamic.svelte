@@ -5,6 +5,10 @@
 	import { debounce } from '$lib/utils/debounce';
 	import { writable } from 'svelte/store';
 	import ResearchAction from '$lib/components/modules/mpc/research-action.svelte';
+	import { goto } from '$app/navigation';
+	import { fetchApi } from '$lib/utils/fetcher';
+	import type { PaginationResult } from '$lib/types/request.types';
+	import SearchIcon from '$lib/components/icons/base/search-icon.svelte';
 
 	interface FilterOption {
 		name: string;
@@ -54,23 +58,43 @@
 				url.searchParams.delete('search');
 			}
 
-			const response = await fetch(url);
-			if (!response.ok) {
-				// check if message key in json else default message
-				const result = await response.json();
-				error.set(result.message || 'An unknown error occurred');
+			// const response = await fetch(url);
+			const {error : responseErr,json} = await fetchApi<PaginationResult<any>>({
+				url : url.href,
+				method : 'GET'
+			});
+
+			if(responseErr){
+				console.log('error in paginate ',responseErr)
+				error.set(responseErr.message || 'An unknown error occurred');
 				return;
 			}
-			const result = await response.json();
+
+
+			// if (!response.ok) {
+				// check if message key in json else default message
+				// const result = await response.json();
+				// console.log('result paginate ',result)
+
+				// if(result.status === 401){
+				// 	goto('/login');
+				// }
+				
+				// error.set(result.message || 'An unknown error occurred');
+				// return;
+			// }
+
+			// const result = await response.json();
 			// data.set({
 			// 	items: result.data,
 			// 	total: result.totat
 			// });
 			data.set({
-				items: result.data,
-				total: result.total
+				items: json.data,
+				total: json.total
 			});
-			tableData = result.data;
+
+			tableData = json.data;
 		} catch (err) {
 			error.set(err instanceof Error && err.message ? err.message : 'An unknown error occurred');
 		} finally {
@@ -149,12 +173,17 @@
 <div>
 	<div class="filters">
 		{#if showSearch}
+		<!-- <div class="relative w-1/2"> -->
 			<input
-				class="lms-input h-6.5 mt-4 w-[15%]"
+				class="lms-input h-6.5 mt-4 w-[25%]"
 				type="text"
 				placeholder="Search..."
 				on:input={handleInput}
 			/>
+			<!-- <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+				<SearchIcon />
+			</div> -->
+		<!-- </div> -->
 		{/if}
 		{#each filterOptions as filter}
 			<div class="filter">

@@ -20,6 +20,10 @@
 	}
 
 	let actionData: JournalView;
+	let filters = {
+		name : 'Journal',
+		options : [{value:1,name:'Harsh'},{value:2,name:'Harsh'}]
+	}
 </script>
 
 <div class="flex items-center justify-between">
@@ -34,7 +38,7 @@
 </div>
 
 <div class="shadow-card mt-[5%] rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 sm:p-6">
-	<PaginateDynamic url={$paginateUrl} header={paginationHeaders} let:actionData>
+	<PaginateDynamic url={$paginateUrl} header={paginationHeaders} filterOptions={filters} let:actionData>
 		<ResearchAction {actionData} />
 	</PaginateDynamic>
 </div>
