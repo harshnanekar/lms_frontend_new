@@ -210,7 +210,7 @@
 
 <Card {title}>
 	<div class="modal-content p-4">
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input type="text" placeholder="Title of Patent / Invention" bind:value={obj.title} />
 
 			<DynamicSelect
@@ -230,7 +230,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Sustainable Development Goals (SDG)?"
@@ -253,7 +253,7 @@
 			</div>
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
@@ -306,7 +306,7 @@
 			</div>
 			
 		</div>
-		<div class="flex gap-4 md:flex-row">
+		<div class="flex gap-8 md:flex-row">
 			<DatePicker
 				on:change={handleDateChange}
 				bind:selectedDateTime={publicationDate}

@@ -128,7 +128,7 @@
 	<Card {title}>
 		<div class="scroll modal-content max-h-[70vh] min-h-[50vh] overflow-auto">
 			<!-- Adjust max-height as needed -->
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-3 gap-8 items-center p-4">
 				<Input type="text" placeholder="Nmims School" value={obj.nmims_school} {disabled} />
 				<Input type="text" placeholder="Nmims Campus" value={obj.nmims_campus} {disabled} />
 				<Input
@@ -138,7 +138,7 @@
 					{disabled}
 				/>
 			</div>
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-3 gap-8 items-center p-4">
 				<Input
 					type="text"
 					placeholder="Sustainable Development Goals"
@@ -153,7 +153,7 @@
 					{disabled}
 				/>
 			</div>
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-3 gap-8 p-4">
 				<Input
 					type="number"
 					placeholder="Patent/Invention Application Number"
@@ -173,7 +173,7 @@
 					{disabled}
 				/>
 			</div>
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-3 gap-8 p-4">
 				<Input
 					type="text"
 					placeholder="Institute Affiliation"
@@ -238,7 +238,6 @@
 				</div>
 			</div>
 		
-
 			<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<div class="grid">
 

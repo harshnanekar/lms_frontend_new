@@ -284,7 +284,7 @@
 
 <Card {title}>
 	<div class="modal-content p-4">
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input type="text" placeholder="Title of Invention" bind:value={obj.title} />
 
 			<DynamicSelect
@@ -303,7 +303,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Sustainable Development Goals (SDG)?"
@@ -390,7 +390,7 @@
 			</div>
 			
 		</div> 
-		<div class="flex flex-row gap-[10px] p-4">
+		<div class="flex flex-row gap-8 p-4">
 				<DatePicker
 					on:change={handleDateChange}
 					bind:selectedDateTime={publicationDate}

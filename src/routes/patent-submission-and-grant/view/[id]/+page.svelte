@@ -124,7 +124,7 @@
 	<Card {title}>
 		<div class="modal-content p-4">
 			<!-- Adjust max-height as needed -->
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-3 gap-8 items-center p-4">
 				<Input
 					type="text"
 					placeholder="Title of Patent / Invention"
@@ -139,7 +139,7 @@
 				/>
 				<Input type="text" placeholder="Patent Status" bind:value={obj.patent_status} {disabled} />
 			</div>
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-3 gap-8 items-center p-4">
 				<Input
 					type="text"
 					placeholder="Sustainable Development Goals"
@@ -166,7 +166,7 @@
 				</div>
 			</div>
 
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-3 gap-8 items-center p-4">
 				<Input
 					type="text"
 					placeholder="Names Of  Internal  Inventors"
@@ -180,7 +180,7 @@
 					{disabled}
 				/>
 			</div>
-			<div class="grid grid-cols-4 gap-[40px] p-4">
+			<div class="flex flex-row gap-[40px] p-4">
 				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 					<SelectDateIcon />
 					<span class="text-body-2 font-bold">Date of Filing/Grant/Published</span>
@@ -202,6 +202,7 @@
 					</div>
 				{/if}
 			</div>
+			
 		</div>
 	</Card>
 {:else}

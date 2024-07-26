@@ -369,7 +369,7 @@
 
 <Card {title}>
 	<div class="modal-content p-4">
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims School"
@@ -395,7 +395,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Sustainable Development Goals (SDG)?"
@@ -415,7 +415,7 @@
 			<Input type="text" placeholder="Title of Patent / Invention" bind:value={obj.title} />
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input
 				type="number"
 				placeholder="Patent/Invention Application Number"
@@ -433,7 +433,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input
 				type="text"
 				placeholder="Institute Affiliation"
@@ -466,8 +466,8 @@
 				{/if}
 			</div>
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
-			<div class="ml-2">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
+			<div class="ml-2 gap-8">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
 					>Name Of Co-Authors<span class="text-danger text-sm">*</span>
@@ -557,7 +557,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
 			<div>
 				<div class="flex flex-row gap-[10px] p-4">
 					<DatePicker

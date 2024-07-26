@@ -368,7 +368,7 @@
 <Card {title}>
 	<div class="modal-content p-4">
 		<!-- Adjust max-height as needed -->
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims School"
@@ -386,7 +386,7 @@
 			<Input type="text" placeholder="Title Of The Paper" bind:value={obj.paper_title} />
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input type="text" placeholder="Name of Conference" bind:value={obj.conference_name} />
 			<DynamicSelect
 				isRequired={true}
@@ -397,7 +397,7 @@
 			/>
 			<Input type="text" placeholder="Place of Conference" bind:value={obj.place} />
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
@@ -457,12 +457,12 @@
 			</div>
 			<Input type="text" placeholder="Presenting Author " bind:value={obj.presenting_author} />
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input type="text" placeholder="Organizing Body" bind:value={obj.organizing_body} />
 			<Input type="text" placeholder="Vol and issue no [e.g 9 (12)]" bind:value={obj.volume_no} />
 			<Input type="text" placeholder="ISSN/ISNB No." bind:value={obj.issn_no} />
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
@@ -498,7 +498,7 @@
 			<Input type="number" placeholder="Amount Spent In RS. By NMIMS" bind:value={obj.amount} />
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p- md:grid-cols-2 lg:grid-cols-3">
 			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
@@ -551,14 +551,12 @@
 					</div>
 				</div>
 			</div>
-			<!-- Upload Conference Documents -->
-			<!-- Upload Conference Documents -->
 			<div class="space-y-4">
 				<label for="text-sm text-[#888888]" class="lms-label"
 					>Upload Conference Documents <i style="color: red;">*</i><br /></label
 				>
 				<label class="lms-label"
-					>Click To Upload Conference Documents File
+					>Click To Upload
 					<input type="checkbox" bind:checked={isCheckedDoc} class="accent-primary" />
 				</label>
 				{#if checkDoc}
@@ -582,7 +580,7 @@
 					>Upload Award Documents <i style="color: red;">*</i><br /></label
 				>
 				<label class="lms-label"
-					>Click To Upload Award Documents
+					>Click To Upload
 					<input type="checkbox" bind:checked={isCheckedaward} class="accent-primary" />
 				</label>
 				{#if checkAward}
@@ -599,9 +597,14 @@
 					>
 				{/if}
 			</div>
+			
+		</div >
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
+			<!-- Upload Conference Documents -->
+			<!-- Upload Conference Documents -->
+		
 		</div>
-
-		<div class="flex flex-row gap-[10px] p-4">
+		<div class="flex flex-row gap-[40px] p-4">
 			<DatePicker
 				on:change={handleDateChange}
 				bind:selectedDateTime={publicationDate}
@@ -609,16 +612,16 @@
 			>
 				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 					<SelectDateIcon />
-					<span class="text-body-2 font-bold">Date of Filing/Grant/Published </span>
+					<span class="text-body-2 font-bold">Publication Date </span>
 				</div>
 			</DatePicker>
 			{#if publicationFormattedDate}
 				{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
 				<div
-					class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-					in:fly={{ x: -100, duration: 300 }}
-					out:fly={{ x: 100, duration: 300 }}
-				>
+						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+						in:fly={{ x: -100, duration: 300 }}
+						out:fly={{ x: 100, duration: 300 }}
+					>
 					<p class="m-0 p-0">{formattedDate}</p>
 					<button
 						use:tooltip={{
@@ -634,6 +637,8 @@
 				</div>
 			{/if}
 		</div>
+
+		
 	</div>
 	<div class="flex flex-col gap-4 p-4 md:flex-row">
 		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Update</button>

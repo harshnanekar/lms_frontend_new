@@ -345,7 +345,7 @@
 
 <Card {title}>
 	<div class="modal-content p-4">
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims School"
@@ -371,7 +371,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input type="text" placeholder="Title of Project" bind:value={obj.title} />
 			<Input type="text" placeholder="Thrust area of Research" bind:value={obj.thrust_area} />
 			<div class="ml-2">
@@ -404,7 +404,7 @@
 			</div>
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
@@ -446,13 +446,13 @@
 			<Input type="number" placeholder="Funding Amount" bind:value={obj.funding_amount} />
 			<Input type="text" placeholder="Name of Funding Agency " bind:value={obj.funding_agency} />
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input type="text" placeholder="Duration Of Project In Months" bind:value={obj.duration} />
 			<Input type="text" placeholder="Scheme" bind:value={obj.scheme} />
 			<Input type="number" placeholder="Amount Received" bind:value={obj.received_amount} />
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<div class="space-y-4">
 				<label for="supporting-documents" class="lms-label"
 					>Upload Supporting Documents <i style="color: red;">*</i><br /></label

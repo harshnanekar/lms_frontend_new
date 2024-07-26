@@ -17,6 +17,10 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
+	import { createFileUrl, createFileUrlFilter } from '$lib/utils/helper';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
+	import { writable } from 'svelte/store';
+
 
 	export let data: any;
 	let isRequired = false;
@@ -24,14 +28,29 @@
 	let disabled: boolean = true;
 	let checkData = data.conferenceDetails.conferenceDetails.length > 0 ? true : false;
 
-	console.log('data detaisl ===>>>', data.conferenceDetails.conferenceDetails[0]);
-	console.log(
-		'data.conferenceDetails.conferenceDetails[0].conference_name  ==>>',
-		data.conferenceDetails.conferenceDetails[0].nmims_school
-	);
+	console.log('data details ===>>>', data.conferenceDetails.conferenceDetails[0]);
+	
 
-	let conferenceFiles: any = [];
-	let awardFiles: any = [];
+	let conferenceFiles: any = data.conferenceDetails.files.length > 0 ? data.conferenceDetails.files.filter((file: any) => file.type_abbr === 'cd') : [];
+	let awardFiles: any = data.conferenceDetails.files.length > 0 ? data.conferenceDetails.files.filter((file: any) => file.type_abbr === 'ad') : [];
+
+	const conferenceDocFiles = createFileUrl(conferenceFiles);
+	const awardDocFiles = createFileUrl(awardFiles);
+
+	console.log('conferenceDocFiles ===>>>>', conferenceDocFiles)
+	console.log('awardDocFiles ===>>>>', awardDocFiles)
+
+	function previewConferenceFile(){
+		fileDataStore.set(conferenceDocFiles)
+	}
+
+	function previewAwardFile(){
+		fileDataStore.set(awardDocFiles);
+	}
+
+	
+
+	console.log('data comming from backend ===>>>>', data)
 
 	let showInternal = false;
 	let showExternal = false;
@@ -42,41 +61,41 @@
 			checkData && data.conferenceDetails.conferenceDetails[0].nmims_school
 				? data.conferenceDetails.conferenceDetails[0].nmims_school
 				: '',
-		nmims_campus: data.conferenceDetails.conferenceDetails[0].nmims_campus
+		nmims_campus: checkData && data.conferenceDetails.conferenceDetails[0].nmims_campus
 			? data.conferenceDetails.conferenceDetails[0].nmims_campus
 			: '',
-		paper_title: data.conferenceDetails.conferenceDetails[0].paper_title ? data.conferenceDetails.conferenceDetails[0].paper_title : '',
-		all_authors: data.conferenceDetails.conferenceDetails[0].all_authors ? data.conferenceDetails.conferenceDetails[0].all_authors : '',
-		conference_name: data.conferenceDetails.conferenceDetails[0].conference_name
+		paper_title:  checkData && data.conferenceDetails.conferenceDetails[0].paper_title ? data.conferenceDetails.conferenceDetails[0].paper_title : '',
+		all_authors:  checkData && data.conferenceDetails.conferenceDetails[0].all_authors ? data.conferenceDetails.conferenceDetails[0].all_authors : '',
+		conference_name:  checkData && data.conferenceDetails.conferenceDetails[0].conference_name
 			? data.conferenceDetails.conferenceDetails[0].conference_name
 			: '',
-		place: data.conferenceDetails.conferenceDetails[0].place ? data.conferenceDetails.conferenceDetails[0].place : '',
-		proceeding_published: data.conferenceDetails.conferenceDetails[0].proceeding_published,
+		place:  checkData && data.conferenceDetails.conferenceDetails[0].place ? data.conferenceDetails.conferenceDetails[0].place : '',
+		proceeding_published:  checkData && data.conferenceDetails.conferenceDetails[0].proceeding_published,
 		conference_type: Number(data.conferenceDetails.conferenceDetails[0].conference_type),
-		presenting_author: data.conferenceDetails.conferenceDetails[0].presenting_author
+		presenting_author:  checkData && data.conferenceDetails.conferenceDetails[0].presenting_author
 			? data.conferenceDetails.conferenceDetails[0].presenting_author
 			: '',
-		organizing_body: data.conferenceDetails.conferenceDetails[0].organizing_body
+		organizing_body:  checkData && data.conferenceDetails.conferenceDetails[0].organizing_body
 			? data.conferenceDetails.conferenceDetails[0].organizing_body
 			: '',
-		volume_no: data.conferenceDetails.conferenceDetails[0].volume_no ? data.conferenceDetails.conferenceDetails[0].volume_no : '',
-		issn_no: data.conferenceDetails.conferenceDetails[0].issn_no ? data.conferenceDetails.conferenceDetails[0].issn_no : '',
+		volume_no:  checkData && data.conferenceDetails.conferenceDetails[0].volume_no ? data.conferenceDetails.conferenceDetails[0].volume_no : '',
+		issn_no:  checkData && data.conferenceDetails.conferenceDetails[0].issn_no ? data.conferenceDetails.conferenceDetails[0].issn_no : '',
 		sponsored: Number(data.conferenceDetails.conferenceDetails[0].sponsored),
-		doi_no: data.conferenceDetails.conferenceDetails[0].doi_no ? data.conferenceDetails.conferenceDetails[0].doi_no : '',
-		amount: data.conferenceDetails.conferenceDetails[0].amount ? data.conferenceDetails.conferenceDetails[0].amount : '',
-		publication_date: data.conferenceDetails.conferenceDetails[0].publication_date
+		doi_no:  checkData && data.conferenceDetails.conferenceDetails[0].doi_no ? data.conferenceDetails.conferenceDetails[0].doi_no : '',
+		amount:  checkData && data.conferenceDetails.conferenceDetails[0].amount ? data.conferenceDetails.conferenceDetails[0].amount : '',
+		publication_date:  checkData && data.conferenceDetails.conferenceDetails[0].publication_date
 			? new Date(data.conferenceDetails.conferenceDetails[0].publication_date)
 			: null,
-		internal_faculty_details: data.conferenceDetails.conferenceDetails[0].internal_faculty_details
+		internal_faculty_details:  checkData && data.conferenceDetails.conferenceDetails[0].internal_faculty_details
 			? data.conferenceDetails.conferenceDetails[0].internal_faculty_details
 			: '',
-		external_faculty_details: data.conferenceDetails.conferenceDetails[0].external_faculty_details
+		external_faculty_details:  checkData && data.conferenceDetails.conferenceDetails[0].external_faculty_details
 			? data.conferenceDetails.conferenceDetails[0].external_faculty_details
 			: '',
-		conference_documents: data.conferenceDetails.conferenceDetails[0].conference_documents
+		conference_documents:  checkData && data.conferenceDetails.conferenceDetails[0].conference_documents
 			? data.conferenceDetails.conferenceDetails[0].conference_documents
 			: '',
-		conference_awards: data.conferenceDetails.conferenceDetails[0].conference_awards
+		conference_awards:  checkData && data.conferenceDetails.conferenceDetails[0].conference_awards
 			? data.conferenceDetails.conferenceDetails[0].conference_awards
 			: ''
 	};
@@ -115,7 +134,7 @@
 	<Card {title}>
 		<div class="modal-content p-4">
 			<!-- Adjust max-height as needed -->
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 items-center p-4 md:grid-cols-2 lg:grid-cols-3">
 				<Input type="text" placeholder="Nmims School" value={obj.nmims_school} {disabled} />
 				<Input type="text" placeholder="Nmims Campus" value={obj.nmims_campus} {disabled} />
 				<Input
@@ -126,7 +145,7 @@
 				/>
 			</div>
 
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 items-center p-4 md:grid-cols-2 lg:grid-cols-3">
 				<Input
 					type="text"
 					placeholder="Name of Conference"
@@ -136,14 +155,14 @@
 				<Input type="text" placeholder="All Authors Names" value={obj.all_authors} {disabled} />
 				<Input type="text" placeholder="Place of Conference" bind:value={obj.place} {disabled} />
 			</div>
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 items-center p-4 md:grid-cols-2 lg:grid-cols-3">
 				<div class="ml-2">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="text-sm text-[#888888]"
 						>Proceedings published<span class="text-danger text-sm">*</span>
 					</label>
 					<div class="mt-2.5 flex flex-row gap-[20px]">
-						<div class="flex flex-row">
+						<div class="flex items-center">
 							<input
 								type="radio"
 								class="lms-input-radio w-4"
@@ -154,7 +173,7 @@
 							/>
 							<span class="text-sm text-[#888888]">Yes</span>
 						</div>
-						<div class="flex flex-row">
+						<div class="flex items-center">
 							<input
 								type="radio"
 								class="lms-input-radio w-4"
@@ -174,7 +193,7 @@
 						>Type Of Conference<span class="text-danger text-sm">*</span>
 					</label>
 					<div class="mt-2.5 flex flex-row gap-[20px]">
-						<div class="flex flex-row">
+						<div class="flex items-center">
 							<input
 								type="radio"
 								class="lms-input-radio w-4"
@@ -185,7 +204,7 @@
 							/>
 							<span class="text-sm text-[#888888]">International </span>
 						</div>
-						<div class="flex flex-row">
+						<div class="flex items-center">
 							<input
 								type="radio"
 								class="lms-input-radio w-4"
@@ -200,7 +219,7 @@
 				</div>
 				<Input type="text" placeholder="Presenting Author " bind:value={obj.presenting_author} />
 			</div>
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 items-center p-4 md:grid-cols-2 lg:grid-cols-3">
 				<Input
 					type="text"
 					placeholder="Organizing Body"
@@ -215,14 +234,14 @@
 				/>
 				<Input type="text" placeholder="ISSN/ISNB No." bind:value={obj.issn_no} {disabled} />
 			</div>
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 items-center p-4 md:grid-cols-2 lg:grid-cols-3">
 				<div class="ml-2">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="text-sm text-[#888888]"
 						>Sponsored By NMIMS/Other<span class="text-danger text-sm">*</span>
 					</label>
 					<div class="mt-2.5 flex flex-row gap-[20px]">
-						<div class="flex flex-row">
+						<div class="flex items-center">
 							<input
 								type="radio"
 								id="html"
@@ -234,7 +253,7 @@
 							/>
 							<span class="text-sm text-[#888888]">NMIMS </span>
 						</div>
-						<div class="flex flex-row">
+						<div class="flex items-center">
 							<input
 								type="radio"
 								id="html"
@@ -257,7 +276,7 @@
 				/>
 			</div>
 
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<Input
 					type="text"
@@ -274,14 +293,15 @@
 				
 
 			</div>
-			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
 				<div class="space-y-2">
 					<label for="documents" class="lms-label"
-						>Download Conference Documents
+						> Conference Documents
 						<span>*</span>
 					</label>
 					<div class="flex items-center gap-2">
-					<File isView={true} />	
+					<File isView={true}
+					isCombine={true} on:previewFile={previewConferenceFile} />	
 					<button class="lms-btn lms-primary-btn" on:click={() => downLoadFiles('cd')}
 						><i class="fa-solid fa-download text-lg"></i></button>
 					</div>
@@ -289,18 +309,20 @@
 
 				<div class="space-y-2">
 					<label for="documents" class="lms-label"
-						>Download Conference Awards 
+						> Conference Awards 
 						<span>*</span>
 					</label>
 					<div class="flex items-center gap-2">
-					<File isView={true} />	
+					<File isView={true} isCombine={true} 
+					on:previewFile={previewAwardFile}/>	
 					<button class="lms-btn lms-primary-btn" on:click={() => downLoadFiles('ad')}
 						><i class="fa-solid fa-download text-lg"></i></button>
 					</div>
 				</div>
 
 			</div> 
-			<div class="flex gap-4 md:flex-row">
+
+			<div class="flex flex-row gap-[40px] p-4">
 				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 					<SelectDateIcon />
 					<span class="text-body-2 font-bold">Publication Date</span>
@@ -322,6 +344,8 @@
 					</div>
 				{/if}
 			</div>
+		
+
 		</div>
 		<div class="flex flex-col gap-4 p-4 md:flex-row"></div>
 	</Card>

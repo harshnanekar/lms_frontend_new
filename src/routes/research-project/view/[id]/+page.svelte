@@ -143,12 +143,12 @@
 	<Card {title}>
 		<div class="scroll modal-content max-h-[70vh] min-h-[50vh] overflow-auto">
 			<!-- Adjust max-height as needed -->
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-3 gap-8 items-center p-4">
 				<Input type="text" placeholder="Nmims School" value={obj.nmims_school} {disabled} />
 				<Input type="text" placeholder="Nmims Campus" value={obj.nmims_campus} {disabled} />
 				<Input type="text" placeholder="Patent Status" value={obj.research_status} {disabled} />
 			</div>
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-3 gap-8 items-center p-4">
 				<Input type="text" placeholder="Title of Project" value={obj.title} {disabled} />
 				<Input
 					type="text"
@@ -187,7 +187,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-3 gap-8 items-center p-4">
 				<div class="ml-2">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="text-sm text-[#888888]"
@@ -237,7 +237,7 @@
 					{disabled}
 				/>
 			</div>
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-3 gap-8 items-center p-4">
 				<Input
 					type="text"
 					placeholder="Duration Of Project In Months"
@@ -247,7 +247,7 @@
 				<Input type="text" placeholder="Scheme" value={obj.scheme} {disabled} />
 				<Input type="number" placeholder="Amount Received" value={obj.received_amount} {disabled} />
 			</div>
-			<div class="grid grid-cols-3 gap-[40px] p-4">
+			<div class="grid grid-cols-3 gap-8 items-center p-4">
 				<Input
 					type="text"
 					placeholder="Names Of  Internal  Inventors"
@@ -274,7 +274,7 @@
 				</div>
 			</div>
 
-			<div class="grid grid-cols-4 gap-[40px] p-4">
+			<div class="grid grid-cols-4 gap-8 items-center p-4">
 				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 					<SelectDateIcon />
 					<span class="text-body-2 font-bold">Submission Grant Date</span>

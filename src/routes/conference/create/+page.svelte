@@ -306,7 +306,7 @@
 <Card {title}>
 	<div class="modal-content p-4">
 		<!-- Adjust max-height as needed -->
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims School"
@@ -324,7 +324,7 @@
 			<Input type="text" placeholder="Title Of The Paper" bind:value={obj.paper_title} />
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input type="text" placeholder="Name of Conference" bind:value={obj.conference_name} />
 			<DynamicSelect
 				isRequired={true}
@@ -335,7 +335,7 @@
 			/>
 			<Input type="text" placeholder="Place of Conference" bind:value={obj.place} />
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
@@ -395,12 +395,12 @@
 			</div>
 			<Input type="text" placeholder="Presenting Author " bind:value={obj.presenting_author} />
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input type="text" placeholder="Organizing Body" bind:value={obj.organizing_body} />
 			<Input type="text" placeholder="Vol and issue no [e.g 9 (12)]" bind:value={obj.volume_no} />
 			<Input type="text" placeholder="ISSN/ISNB No." bind:value={obj.issn_no} />
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
@@ -435,7 +435,7 @@
 			<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} />
 			<Input type="number" placeholder="Amount Spent In RS. By NMIMS" bind:value={obj.amount} />
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
@@ -520,7 +520,7 @@
 				/>
 			</div>
 		</div>
-		<!-- <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3"> -->
+		<!-- <div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3"> -->
 		<div class="flex flex-row gap-[40px] p-4">
 			<DatePicker
 				on:change={handleDateChange}
@@ -555,7 +555,7 @@
 		</div>
 		<!-- </div> -->
 	</div>
-	<div class="flex flex-col gap-4 p-4 md:flex-row">
+	<div class="flex flex-col gap-8 p-4 md:flex-row">
 		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
 		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
 	</div>

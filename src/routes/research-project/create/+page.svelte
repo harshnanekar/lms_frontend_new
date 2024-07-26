@@ -13,7 +13,6 @@
 
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 
-
 	import {
 		getEnternalAuthors,
 		getExternalAuthors,
@@ -122,7 +121,7 @@
 
 	function handleExternalChange(event: { target: { checked: boolean } }) {
 		showExternal = event.target.checked;
-	} 
+	}
 
 	// for file view and delete
 	function handleFiles(event: CustomEvent<File[]>) {
@@ -255,7 +254,7 @@
 
 <Card {title}>
 	<div class="modal-content p-4">
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims School"
@@ -281,7 +280,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input type="text" placeholder="Title of Project" bind:value={obj.title} />
 			<Input type="text" placeholder="Thrust area of Research" bind:value={obj.thrust_area} />
 			<div class="ml-2">
@@ -325,7 +324,7 @@
 			</div>
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<!-- svelte-ignore a11y-label-has-associated-control -->
 			<div class="ml-2">
 				<label class="text-sm text-[#888888]"
@@ -359,12 +358,12 @@
 			<Input type="text" placeholder="Name of Funding Agency" bind:value={obj.funding_agency} />
 		</div>
 
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input type="text" placeholder="Duration Of Project In Months" bind:value={obj.duration} />
 			<Input type="text" placeholder="Scheme " bind:value={obj.scheme} />
 			<Input type="number" placeholder="Amount Received" bind:value={obj.received_amount} />
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<div class="space-y-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="lms-label"
@@ -423,10 +422,8 @@
 					{/if}
 				</div>
 			</div>
-
-			
 		</div>
-		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
 			<div class="flex gap-4 md:flex-row">
 				<DatePicker
 					on:change={handleDateChange1}
@@ -435,13 +432,13 @@
 				>
 					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 						<SelectDateIcon />
-						<span class="text-body-2 font-bold gap[10px] text-inline">Submission/Grant Date</span>
+						<span class="text-body-2 gap[10px] text-inline font-bold">Submission/Grant Date</span>
 					</div>
 				</DatePicker>
 				{#if grantFormattedDate}
 					{@const formattedDate = formatDateTimeShort(new Date(grantFormattedDate))}
 					<div
-						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap[10px] rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
 						in:fly={{ x: -100, duration: 300 }}
 						out:fly={{ x: 100, duration: 300 }}
 					>
@@ -460,13 +457,13 @@
 					</div>
 				{/if}
 			</div>
-			<div class="flex gap[10px] md:flex-row">
+			<div class="gap[10px] flex md:flex-row">
 				<DatePicker
 					on:change={handleDateChange2}
 					bind:selectedDateTime={paymentDate}
 					disabled={(paymentDate) => paymentDate.getTime() < new Date().setHours(0, 0, 0, 0)}
 				>
-					<div class="text-primary hover:bg-base flex items-center gap[10px] rounded-lg px-3 py-2">
+					<div class="text-primary hover:bg-base gap[10px] flex items-center rounded-lg px-3 py-2">
 						<SelectDateIcon />
 						<span class="text-body-2 font-bold">Annual Payment Date</span>
 					</div>
