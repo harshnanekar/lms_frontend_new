@@ -411,7 +411,9 @@ export type bookPublicationStatus = {
 		message: string;
 	};
 
-};
+}; 
+
+
 
 
 export type updateBookPublicationStatus =  {
@@ -456,4 +458,29 @@ export type updatedResearchProjectStatus = {
 		status_code: number;
 		message: string;
 	};
-};
+}; 
+
+
+
+export type masterInputView = {
+	id: number;
+	first_name : string,
+	master_type : string,
+
+ }
+
+ export type InfiniteMasterDataView = {
+	id : number,
+	first_name : string,
+	master_type : string
+ }[] 
+
+
+ export type masterStatus = {
+	insert_master_data: {
+		status: number;
+		message: string;
+	};
+	
+
+ }

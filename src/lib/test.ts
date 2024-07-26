@@ -16,7 +16,8 @@ import type {
 	FacultyView,
 	ConferenceRender,
 	IPRRender,
-	patentRender
+	patentRender,
+	masterInputView
  } from './types/modules/research/research-types';
 
 export const SIDEBAR_URL = [
@@ -1168,4 +1169,26 @@ export const ResearchProjectHeaders: TableHeaders<ResearchProjectRender>[] = [
 
 		showTooltip: false
 	}
-];
+]; 
+
+
+
+export const MasterHeaders : TableHeaders<masterInputView>[] = [
+	{
+		label: ' First Name',
+		key: 'first_name',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Type',
+		key: 'master_type',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+
+
+
+]; 
