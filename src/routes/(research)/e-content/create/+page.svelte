@@ -66,6 +66,8 @@
 		});
 
 		if (error) {
+			console.log('error json ',JSON.stringify(error))
+			
 			toast.error(error.message || 'Something went wrong!', {
 				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
 			});
@@ -74,14 +76,10 @@
 
 		console.log('json ', JSON.stringify(json));
 
-		if (json.status === 401) {
-			goto('/login')
-		} else {
 			toast.success('Inserted Successfully');
 			publicationFormattedDate = null;
 			clearForm();
 			goto('/e-content');
-		}
 	}
 
 	function clearForm() {

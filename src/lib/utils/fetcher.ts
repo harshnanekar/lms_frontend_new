@@ -1,3 +1,4 @@
+import { goto } from '$app/navigation';
 import type { ApiResponse } from '$lib/types/request.types';
 import type { HttpMethod } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';
@@ -37,17 +38,19 @@ export const fetchApi = async <T>({
 			} catch {
 				errorData = { message: 'Error' };
 			}
+
+			if(errorData.status === 401){
+			 goto('/login');
+			}
+			
 			return { json: null, error: errorData };
 		}
 
 		const json = (await response.json()) as T;
 		return { json, error: null };
+
 	} catch (error: unknown | any) {
 		console.log('Network error:', error);
-		if(error.status === 401){
-			console.log('inside error')
-			redirect(301,'/login');
-		}
 		return { json: null, error: { message: 'Network error or something went wrong' } };
 	}
 };
@@ -60,7 +63,7 @@ export const fetchFormApi = async <T>({
 }: {
 	url: string;
 	method: HttpMethod;
-	body?: FormData | null; // Change the type to FormData
+	body?: FormData | null; 
 	customOptions?: RequestInit;
 }): Promise<ApiResponse<T>> => {
 	try {

@@ -9,7 +9,13 @@ export type ApiResponse<T> =
 	| {
 			json: T;
 			error: null;
-	  };
+	  }
+	  
+	| {
+         json: null;
+		 error: null;
+	  }
+	 ;
 
 export type Filter = {
 	key: string;
