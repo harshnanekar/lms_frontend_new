@@ -9,7 +9,13 @@ export type ApiResponse<T> =
 	| {
 			json: T;
 			error: null;
-	  };
+	  }
+	  
+	| {
+         json: null;
+		 error: null;
+	  }
+	 ;
 
 export type Filter = {
 	key: string;
@@ -25,3 +31,9 @@ export type Sort = {
 	column: string;
 	order: 'asc' | 'desc';
 };
+
+export type InfiniteScrollResult<T> = {
+	data : T[],
+	total: number,
+	nextCursor: string | null 
+}

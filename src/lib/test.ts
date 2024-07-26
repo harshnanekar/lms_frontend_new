@@ -13,6 +13,7 @@ import type {
 	ResearchSeminarView,
 	EContentView,
 	ResearchAwardView,
+	FacultyView,
 	ConferenceRender,
 	IPRRender,
 	patentRender
@@ -846,8 +847,46 @@ export const ResearchAwardHeaders : TableHeaders<ResearchAwardView>[] = [
 		showTooltip: false
 	}
 
-]; 
+];
 
+
+export const FacultyHeaders : TableHeaders<FacultyView>[] = [
+	{
+		label: 'Name Of Faculty',
+		key: 'faculty_name',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Institue',
+		key: 'institute_name',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Address',
+		key: 'address',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Designation',
+		key: 'designation',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Faculty Type',
+		key: 'faculty_type',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	}
+]; 
 
 
 export const ConferenceHeaders: TableHeaders<ConferenceRender>[] = [

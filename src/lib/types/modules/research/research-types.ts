@@ -175,6 +175,22 @@ export type MeetingView = {
  award_organization: string,
  }
 
+ export type FacultyView = {
+ 
+	faculty_name : string,
+	institute_name : string,
+    address : string,
+	designation : string,
+    faculty_type : string
+
+ }
+
+ export type InfiniteFacultyView = {
+	id : number,
+	first_name : string,
+	last_name : string,
+	username : string
+ }[]
 
 
 
