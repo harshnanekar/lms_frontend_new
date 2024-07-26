@@ -436,7 +436,7 @@
 		<AccordionItem>
 			<svelte:fragment slot="title">
 				<div class="flex items-center gap-4 md:flex-row">
-					<i class="fa-solid fa-graduation-cap xs:text-[30px] sm:text-[30px] md:text-[30px]"></i>
+					<!-- <i class="fa-solid fa-graduation-cap xs:text-[30px] sm:text-[30px] md:text-[30px]"></i> -->
 					<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Teaching Excellance</h1>
 				</div>
 			</svelte:fragment>
@@ -541,7 +541,7 @@
 		<AccordionItem>
 			<svelte:fragment slot="title">
 				<div class="flex items-center gap-4 md:flex-row">
-					<i class="fa-solid fa-people-arrows xs:text-[30px] sm:text-[30px] md:text-[30px]"></i>
+					<!-- <i class="fa-solid fa-people-arrows xs:text-[30px] sm:text-[30px] md:text-[30px]"></i> -->
 					<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Meeting Stakeholders</h1>
 				</div>
 			</svelte:fragment>
@@ -643,7 +643,7 @@
 			<!-- <div class="flex items-center justify-between rounded-2xl border border-[#e5e9f1] p-6"> -->
 			<svelte:fragment slot="title">
 				<div class="flex items-center gap-4 md:flex-row">
-					<i class="fa-solid fa-bullhorn xs:text-[30px] sm:text-[30px] md:text-[30px]"></i>
+					<!-- <i class="fa-solid fa-bullhorn xs:text-[30px] sm:text-[30px] md:text-[30px]"></i> -->
 					<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Branding & Advertisement</h1>
 				</div>
 			</svelte:fragment>
