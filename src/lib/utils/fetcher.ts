@@ -1,5 +1,6 @@
 import type { ApiResponse } from '$lib/types/request.types';
 import type { HttpMethod } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 
 export const fetchApi = async <T>({
 	url,
@@ -41,8 +42,12 @@ export const fetchApi = async <T>({
 
 		const json = (await response.json()) as T;
 		return { json, error: null };
-	} catch (error: unknown) {
+	} catch (error: unknown | any) {
 		console.log('Network error:', error);
+		if(error.status === 401){
+			console.log('inside error')
+			redirect(301,'/login');
+		}
 		return { json: null, error: { message: 'Network error or something went wrong' } };
 	}
 };

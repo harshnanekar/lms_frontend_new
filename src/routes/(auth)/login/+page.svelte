@@ -85,7 +85,7 @@ async function handleSubmit() {
                 />
                 <button
                     disabled={isLoading}
-                    class="lms-btn w-full rounded-2xl bg-[#274EA6] py-4 text-center text-white"
+                    class="lms-btn w-full rounded-2xl bg-[#D2232A] py-4 text-center text-white"
                 >
                     Login
                 </button>
@@ -95,7 +95,7 @@ async function handleSubmit() {
         <div class="mt-4 text-center md:mt-8">
             <a
                 href="/forgot-password"
-                class="text-label-md md:text-label-lg text-[15px] font-bold text-[#021A99]"
+                class="text-label-md md:text-label-lg text-[15px] font-bold text-[#D2232A]"
             >
                 Forgot Password 
             </a>
@@ -120,7 +120,7 @@ async function handleSubmit() {
 
 <style>
     .right-box {
-        background-image: url('/images/auth/login/svkm-login-lg-bg.png');
+        background-image: url('/images/auth/login/nmims-logo-lg-bg.png');
         background-position: center;
         background-repeat: no-repeat;
         background-color: #90aae4;
@@ -128,7 +128,7 @@ async function handleSubmit() {
 
     @media screen and (max-width: 767px) {
         .right-box {
-            background-image: url('/images/auth/login/svkm-login-sm-bg.png');
+            background-image: url('/images/auth/login/nmims-login-sm-bg.png');
             background-color: transparent;
             max-height: 50vh;
             min-height: 35vh;
