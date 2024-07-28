@@ -39,6 +39,7 @@ export const journalPaper = z.object({
     }, {
         message: 'Publication date is required',
     }),
+	isSaveDraft : z.boolean()
 });
 
 

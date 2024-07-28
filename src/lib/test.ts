@@ -88,6 +88,20 @@ export const SIDEBAR_URL = [
 		child: []
 	},
 	{
+		url: '/form-approval',
+		icon: 'test',
+		label: 'Admin Form Approval',
+		module: null,
+		child: []
+	},
+	{
+		url: '/form-report',
+		icon: 'test',
+		label: 'Admin Form Report',
+		module: null,
+		child: []
+	},
+	{
 		url: '/page',
 		icon: 'Mpc',
 		label: 'Mpc',
@@ -316,7 +330,14 @@ export const paginationHeaders : TableHeaders<JournalView>[] = [
 		sortable: false,
 		classes: '',
 		showTooltip: false
-	}
+	},
+	{
+		label: 'Status',
+		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ]; 
 
 

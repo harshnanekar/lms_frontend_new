@@ -29,7 +29,7 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
-	import { fileDataStore } from '$lib/stores/modules/research/master.store';
+	import { actionStore, confirmStore, fileDataStore } from '$lib/stores/modules/research/master.store';
 
 	export let data: any;
 	let isRequired = false;
@@ -97,7 +97,8 @@
 		foreign_authors: null,
 		student_authors_count: null,
 		student_authors: null,
-		journal_type: 1
+		journal_type: 1 ,
+		isSaveDraft : false
 	};
 
 	let files: any = [];
@@ -106,6 +107,7 @@
 	$: console.log('deleted files ', files);
 
 	async function handleSubmit() {
+
 		const journalObject: JournalPaperReq = {
 			nmims_school:
 				obj.nmims_school != null ? obj.nmims_school.map((data: { value: any }) => data.value) : [],
@@ -156,7 +158,8 @@
 				obj.student_authors != null
 					? obj.student_authors.map((data: any) => Number(data.value))
 					: [],
-			journal_type: Number(obj.journal_type)
+			journal_type: Number(obj.journal_type),
+			isSaveDraft : obj.isSaveDraft
 		};
 
 		console.log('files object ', files);
@@ -276,6 +279,22 @@
 	function handleDeleteFiles(event: CustomEvent) {
 		files = event.detail;
 	}
+
+	// function handleSaveDraft(){
+	// 	const message = 'Are you sure you want to save this form as draft?';
+	// 		confirmStore.set({
+	// 			isVisible:true,
+	// 			confirmText:message
+	// 		})
+
+	// 		actionStore.set({
+	// 				callback: saveDarft
+	// 		});	
+	// }
+
+    // async function saveDarft(){
+    //  console.log('save draft ',JSON.stringify(journalObject));
+	// }
 </script>
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
@@ -563,7 +582,12 @@
 		</div>
 	</div>
 	<div class="flex flex-col gap-4 p-4 md:flex-row">
-		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
-		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
+		<div class="flex gap-4">
+			<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
+			<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
+		</div>
+		<div class="md:ml-auto">
+			<!-- <button class="lms-btn lms-primary-btn" on:click={handleSaveDraft}>Save As Draft</button> -->
+		</div>
 	</div>
 </Card>

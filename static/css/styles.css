@@ -205,6 +205,7 @@ lms-view-input{
 
 .lms-input:disabled {
 	background-color: white;
+	cursor: not-allowed;
 }
 
 .lms-input.error ~ .lms-placeholder {

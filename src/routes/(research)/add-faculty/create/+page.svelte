@@ -110,7 +110,7 @@
                             <td>
                                 <input
                                     class="lms-input"
-                                    disabled={true}
+                                    disabled={false}
                                     value={faculty.first_name}
                                     on:input={(e) => updateTeachingItem(faculty.id, 'first_name', e?.target?.value)}
                                 />
@@ -118,7 +118,7 @@
                             <td>
                                 <input
                                     class="lms-input"
-                                    disabled={true}
+                                    disabled={false}
                                     value={faculty.last_name}
                                     on:input={(e) => updateTeachingItem(faculty.id, 'last_name', e?.target?.value)}
                                 />
