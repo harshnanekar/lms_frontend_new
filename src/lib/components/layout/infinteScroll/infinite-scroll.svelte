@@ -1,6 +1,7 @@
 <script lang="ts">
     import { browser } from '$app/environment';
     import { SearchIcon } from '$lib/components/icons';
+	import { DynamicSelect } from '$lib/components/ui';
     import type { InfiniteScrollResult } from '$lib/types/request.types';
     import { debounce } from '$lib/utils/debounce';
     import { fetchApi } from '$lib/utils/fetcher';
@@ -174,6 +175,11 @@
                         <option value={option.value}>{option.label}</option>
                     {/each}
                 </select>
+
+                <DynamicSelect 
+                on:change = {(e) => handleChange(e,filter)}
+                />
+
             </div>
         {/each}
         {:else}
