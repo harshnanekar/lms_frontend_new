@@ -432,7 +432,7 @@
 			selectedOptions = selected;
 			closeDropdown();
 		}
-		dispatch('change');
+		dispatch('change',{value:selectedOptions});
 	}
 
 	function removeOption(option: CustomOptions) {
