@@ -191,3 +191,12 @@ export function getFacultyType(data:any) : CustomOptions[] {
   
 	return inputFieldsArr;
 }
+
+export function getFormLevel(data:any) : CustomOptions[] {
+	let inputFieldsArr : any[] = [];
+	data.forEach((item : any) => {
+		inputFieldsArr.push({value: item.id, label: item.status});
+	});
+  
+	return inputFieldsArr;
+}

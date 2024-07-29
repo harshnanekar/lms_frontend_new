@@ -449,9 +449,10 @@
 		}
 	}
 	$: checkOptions = selectedOptions;
+	export let inputClass= '';
 </script>
 
-<div class="lms-custom-select-wrapper relative inline-block">
+<div class="lms-custom-select-wrapper relative inline-block {inputClass}">
 	<div>
 		<button
 			type="button"

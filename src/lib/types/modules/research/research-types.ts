@@ -199,5 +199,4 @@ export type BookChapterDetails = {
     id : number,
 	faculty_name : string,
 	username : string,
-	campus_name : string,
  }[]
