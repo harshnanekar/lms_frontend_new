@@ -9,6 +9,7 @@
 	import { fetchApi } from '$lib/utils/fetcher';
 	import type { PaginationResult } from '$lib/types/request.types';
 	import SearchIcon from '$lib/components/icons/base/search-icon.svelte';
+	import { FormStatus } from '$lib/components/ui';
 
 	interface FilterOption {
 		name: string;
@@ -226,7 +227,11 @@
 					{#each $data.items as item (item.id)}
 						<tr>
 							{#each header as column}
+							    {#if column.key === 'status'}
+								<FormStatus status={item[column.key]} />
+								{:else}
 								<td class={column.classes}>{item[column.key]}</td>
+								{/if}
 							{/each}
 							<td>
 								<slot actionData={item} />

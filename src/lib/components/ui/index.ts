@@ -6,6 +6,7 @@ import { Input, Textarea, Toggle ,File } from './input';
 import Image from './image.svelte';
 import DatePicker from './date-picker.svelte';
 import { skeletonLoader } from './loaders';
+import { FormStatus } from './status';
 
 export {
 	Accordion,
@@ -19,5 +20,6 @@ export {
 	DatePicker,
 	Toggle,
 	skeletonLoader,
-	File
+	File,
+	FormStatus
 };

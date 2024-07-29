@@ -43,6 +43,7 @@ export type JournalPaper = {
 	 journal_name : string,
 	 publisher : string,
 	 impact_factor : number,
+	 status :string
  } 
 
 
@@ -192,4 +193,11 @@ export type BookChapterDetails = {
 	first_name : string,
 	last_name : string,
 	username : string
+ }[]
+
+ export type InfiniteAdminView = {
+    id : number,
+	faculty_name : string,
+	username : string,
+	campus_name : string,
  }[]
