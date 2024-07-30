@@ -200,3 +200,13 @@ export function getFormLevel(data:any) : CustomOptions[] {
   
 	return inputFieldsArr;
 }
+
+export function getDynamicDropdown(data:any) : CustomOptions[] {
+	console.log('dynamic dropdown',JSON.stringify(data))
+	let inputFieldsArr : any[] = [];
+	data.forEach((item : any) => {
+		inputFieldsArr.push({value: item.value, label: item.label});
+	});
+  
+	return inputFieldsArr;
+}

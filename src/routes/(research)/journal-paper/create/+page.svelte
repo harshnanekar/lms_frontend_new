@@ -159,7 +159,7 @@
 					? obj.student_authors.map((data: any) => Number(data.value))
 					: [],
 			journal_type: Number(obj.journal_type),
-			isSaveDraft : obj.isSaveDraft
+			// isSaveDraft : obj.isSaveDraft
 		};
 
 		console.log('files object ', files);

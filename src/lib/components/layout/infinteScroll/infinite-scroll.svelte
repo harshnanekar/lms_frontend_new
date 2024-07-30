@@ -5,6 +5,7 @@
     import type { InfiniteScrollResult } from '$lib/types/request.types';
     import { debounce } from '$lib/utils/debounce';
     import { fetchApi } from '$lib/utils/fetcher';
+	import { getDynamicDropdown } from '$lib/utils/select.helper';
     import { onMount } from 'svelte';
     import { writable } from 'svelte/store';
 
@@ -101,8 +102,22 @@
         1000
     );
 
-    const handleChange = (e: Event, filter: FilterOption) => {
-        const target = e.target as HTMLSelectElement;
+    // const handleChange = (e: Event, filter: FilterOption) => {
+    //     const target = e.target as HTMLSelectElement;
+    //     console.log('target ',target,filter)
+    //     filters.update((currentFilters) => ({ ...currentFilters, [filter.name]: target.value }));
+    //     data = {
+    //         data: [],
+    //         total: 0,
+    //         nextCursor: null
+    //     };
+    //     fetchData(false, true);
+    // };
+
+
+const handleChange = (e: any, filter: FilterOption) => {
+        const target = e?.detail?.value ;
+        console.log('target ',e?.detail?.value,filter)
         filters.update((currentFilters) => ({ ...currentFilters, [filter.name]: target.value }));
         data = {
             data: [],
@@ -111,6 +126,7 @@
         };
         fetchData(false, true);
     };
+
 
     let sentinel: HTMLDivElement | null = null;
 
@@ -139,7 +155,7 @@
 </script>
 
 <div>
-    <div class="filters">
+    <div class="filters space-x-8">
         {#if showSearch}
             <!-- <div class="relative w-full">
                 <input
@@ -168,17 +184,21 @@
         {#if filterOptions.length > 0}
         {#each filterOptions as filter}
             <div class="filter space-y-2">
-                <label class="lms-label" for={filter.name}>{filter.label}</label>
+                <!-- <label class="lms-label" for={filter.name}>{filter.label}</label>
                 <select id={filter.name} on:change={(e) => handleChange(e, filter)} class="dynamicSelect border border-gray-300 rounded-2xl text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none">
                     <option value="All">All</option>
                     {#each filter.options as option}
                         <option value={option.value}>{option.label}</option>
                     {/each}
-                </select>
+                </select> -->
 
-                <DynamicSelect 
-                on:change = {(e) => handleChange(e,filter)}
-                />
+                <DynamicSelect
+                isMultiSelect={false}
+                placeholder={filter.label}
+                inputClass='w-[full]'
+                options={getDynamicDropdown(filter.options)}
+                on:change={(e) => handleChange(e,filter)}
+               />
 
             </div>
         {/each}

@@ -20,8 +20,8 @@
         nextCursor: null
     };
 
-    let school = data.adminData && data.adminData.school.length > 0 ? data.adminData.school  : [];
-    let campus = data.adminData && data.adminData.campus.length > 0 ? data.adminData.campus  : [];
+    let school = data.adminData && data.adminData.school.length > 0 ? [{id:'All',organization_name:'All'},...data.adminData.school]  : [];
+    let campus = data.adminData && data.adminData.campus.length > 0 ? [{id:'All',campus_name:'All'},...data.adminData.campus] : [];
     console.log('nmims school ',JSON.stringify(school))
 
     let filters = [{
