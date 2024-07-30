@@ -1175,15 +1175,15 @@ export const ResearchProjectHeaders: TableHeaders<ResearchProjectRender>[] = [
 
 export const MasterHeaders : TableHeaders<masterInputView>[] = [
 	{
-		label: ' First Name',
-		key: 'first_name',
+		label: 'Name',
+		key: 'master_input_name',
 		sortable: false,
 		classes: 'id',
 		showTooltip: false
 	},
 	{
 		label: 'Type',
-		key: 'master_type',
+		key: 'input_data_type',
 		sortable: false,
 		classes: 'id',
 		showTooltip: false

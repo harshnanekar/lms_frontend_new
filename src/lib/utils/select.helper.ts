@@ -265,4 +265,16 @@ export function getApplicantNames(data : any) :CustomOptions[] {
 	});
   
 	return statusArr;
-}  
+}   
+
+
+export function getMasterInputType(data : any) :CustomOptions[] {
+	let statusArr : any[] = [];
+	data.forEach((item : any) => {
+		statusArr.push({value: item.id, label: item.name});
+	});
+  
+	return statusArr;
+} 
+
+

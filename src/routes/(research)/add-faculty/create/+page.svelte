@@ -21,6 +21,7 @@
         nextCursor: null
     };
 
+    console.log('responseData.data ===>>> ===>>>>>', responseData.data)
    
     let facultyData: any = [];
 
@@ -33,6 +34,7 @@
         facultyData = facultyData.map((item: { id: number; }) =>
             item.id === id ? { ...item, [field]: value, changed: true } : item
         );
+        console.log('')
     }
 
     
@@ -135,7 +137,7 @@
                                 <input
                                     class="lms-input"
                                     disabled={false}
-                                    on:input={(e) => updateTeachingItem(faculty.id, 'institute', e?.target?.value)}
+                                    on:input={(e) => updateTeachingItem((faculty.id), 'institute', e?.target?.value)}
                                 />
                             </td>
                             <td>

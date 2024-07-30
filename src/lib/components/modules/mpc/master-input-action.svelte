@@ -97,7 +97,7 @@
 		console.log('delete', facultyId);
 		isOpen.set(false);
 		const { error, json } = await fetchApi({
-			url: `${PUBLIC_API_BASE_URL}/faculty-delete?id=${facultyId}`,
+			url: `${PUBLIC_API_BASE_URL}/master-input-data-delete?id=${facultyId}`,
 			method: 'GET'
 		});
 
@@ -110,7 +110,7 @@
       
             if (json.status == 200) {
 			toast.success('Deleted Successfully !');
-			let url: URL = new URL('http://localhost:9090/research/faculty-paginate');
+			let url: URL = new URL('http://localhost:9090/research/master-input-data-paginate');
 			paginateUrl.set(url);
 		} else {
 			toast.error(json.message);
@@ -134,12 +134,12 @@
 		>
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 				<a
-					href="/add-faculty/view/{actionData.id}"
+					href="/master-input-data/view/{actionData.id}"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">View</a
 				>
 				<a
-					href="/faculty-id/edit/{actionData.id}"
+					href="/master-input-data/edit/{actionData.id}"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">Edit</a
 				>

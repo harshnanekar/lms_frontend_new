@@ -6,17 +6,18 @@
 	import type { FacultyView } from '$lib/types/modules/research/research-types';
 	import { PaginateDynamic } from '$lib/components/layout/pagination';
 	import { FacultyHeaders, MasterHeaders } from '$lib/test';
-	import { FacultyAction } from '$lib/components/modules/mpc';
+	// import { MasterDataAction  } from '$lib/components/modules/mpc/master-input-action.svelte';
+    import { MasterDataAction } from '$lib/components/modules/mpc';
 	import { paginateUrl } from '$lib/stores/modules/research/master.store';
 
-	let dynamicUrl = 'http://localhost:9090/research/faculty-paginate';
+	let dynamicUrl = 'http://localhost:9090/research/master-input-data-paginate';
 	const url = new URL(dynamicUrl);
 	paginateUrl.set(url);
 
 	const label = 'Add Master Data';
 
 	function navigateToCreate() {
-		goto('/add-faculty/create');
+		goto('/master-input-data/create');
 	}
 
 	let actionData: FacultyView;
@@ -35,6 +36,6 @@
 
 <div class="shadow-card mt-[5%] rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 sm:p-6">
 	<PaginateDynamic url={$paginateUrl} header={MasterHeaders} let:actionData>
-		<FacultyAction {actionData} />
+		<MasterDataAction {actionData} />
 	</PaginateDynamic>
 </div>

@@ -194,6 +194,8 @@ export type MeetingView = {
 
 
 
+
+
  export type ConferenceRender = {
 	id: number;
 	paper_title: string;
@@ -464,15 +466,17 @@ export type updatedResearchProjectStatus = {
 
 export type masterInputView = {
 	id: number;
-	first_name : string,
-	master_type : string,
+	master_input_name : string,
+	input_data_type : string,
 
  }
 
  export type InfiniteMasterDataView = {
+	username: any;
 	id : number,
 	first_name : string,
-	master_type : string
+	last_name : string,
+	input_data_type : number
  }[] 
 
 

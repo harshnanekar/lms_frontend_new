@@ -439,3 +439,28 @@ export type ResearchProjectDetailsReq = z.infer<typeof researchProjectDetails>;
 
 
 
+export const masterDataObj = z.object({
+	master_id : z.number(),
+    first_name : z.string().min(1,{message:'Faculty firstname is required'}),
+	last_name : z.string().min(1,{message:'Faculty lastname is required'}),
+	username : z.string().min(1,{message:'Faculty username is required'}),
+    input_data_type :  z.number().min(1, {message:'Master Data is required'}),
+
+  });
+
+
+  export const masterObj = z.array(masterDataObj).min(1,{message:'Master data details are required'});
+  export type masterDataReq = z.infer<typeof masterObj>;
+
+
+
+export const updMasterDataDetails = z.object({
+    master_input_name : z.string().min(1,{message:'Name  is required'}),
+    master_type :  z.number().min(1, {message:'Master type is required'}).refine(data => data != 0,'Master type is required'),
+
+  });
+
+export type updMasterDataReq = z.infer<typeof updMasterDataDetails>; 
+
+
+
