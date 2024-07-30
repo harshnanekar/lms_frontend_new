@@ -82,8 +82,17 @@
     }
 
     $: {
+        console.log("INSIDE REACTIVE STATEMENT>>>>>>>>>");
+        
         if (browser) {
             fetchData(true);
+        }
+    }
+
+    $: {
+        if(url) {
+            data.nextCursor = null
+            fetchData(false, true)
         }
     }
 
@@ -155,7 +164,7 @@ const handleChange = (e: any, filter: FilterOption) => {
 </script>
 
 <div>
-    <div class="filters space-x-8">
+    <div class="filters space-x-10">
         {#if showSearch}
             <!-- <div class="relative w-full">
                 <input
@@ -176,14 +185,14 @@ const handleChange = (e: any, filter: FilterOption) => {
                     on:input={handleInput}
                     class="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none border"
                 />
-                <div class="absolute right-0 top-0 mt-3 mr-4 ">
+                <div class="absolute right-0 top-0 mt-4 mr-4 ">
                     <SearchIcon />
                 </div>
             </div>
         {/if}
         {#if filterOptions.length > 0}
         {#each filterOptions as filter}
-            <div class="filter space-y-2">
+            <div class="mt-2 w-full filter gap-2 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4">
                 <!-- <label class="lms-label" for={filter.name}>{filter.label}</label>
                 <select id={filter.name} on:change={(e) => handleChange(e, filter)} class="dynamicSelect border border-gray-300 rounded-2xl text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none">
                     <option value="All">All</option>
@@ -195,7 +204,6 @@ const handleChange = (e: any, filter: FilterOption) => {
                 <DynamicSelect
                 isMultiSelect={false}
                 placeholder={filter.label}
-                inputClass='w-[full]'
                 options={getDynamicDropdown(filter.options)}
                 on:change={(e) => handleChange(e,filter)}
                />

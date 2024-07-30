@@ -471,9 +471,9 @@
 				<div class="selected-options">
 					{#if Array.isArray(selectedOptions)}
 						<!-- {#if selectedOptions != null} -->
-						{#each selectedOptions as option (option.value)}
+						{#each selectedOptions as option (option?.value)}
 							<div class="selected-option">
-								{option.label}
+								{option?.label}
 								<button class="remove-btn" on:click={() => removeOption(option)}>✕</button>
 							</div>
 						{/each}

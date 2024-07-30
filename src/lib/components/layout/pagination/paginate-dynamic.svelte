@@ -228,7 +228,7 @@
 						<tr>
 							{#each header as column}
 							    {#if column.key === 'status'}
-								<FormStatus status={item[column.key]} />
+								<FormStatus status={item[column.key]} inputClass="mt-4" />
 								{:else}
 								<td class={column.classes}>{item[column.key]}</td>
 								{/if}
