@@ -185,12 +185,12 @@ const handleChange = (e: any, filter: FilterOption) => {
                     on:input={handleInput}
                     class="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none border"
                 />
-                <div class="absolute right-0 top-0 mt-4 mr-4 ">
+                <div class="absolute right-0 top-0 mt-2 mr-4">
                     <SearchIcon />
                 </div>
             </div>
         {/if}
-        {#if filterOptions.length > 0}
+        <!-- {#if filterOptions.length > 0} -->
         {#each filterOptions as filter}
             <div class="mt-2 w-full filter gap-2 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4">
                 <!-- <label class="lms-label" for={filter.name}>{filter.label}</label>
@@ -210,9 +210,9 @@ const handleChange = (e: any, filter: FilterOption) => {
 
             </div>
         {/each}
-        {:else}
+        <!-- {:else}
          <p>No Data Found</p>
-        {/if}
+        {/if} -->
     </div>
 
     {#if data.data}

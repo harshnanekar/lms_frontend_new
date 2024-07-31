@@ -87,13 +87,13 @@ export const SIDEBAR_URL = [
 		module: null,
 		child: []
 	},
-	{
-		url: '/form-approval',
-		icon: 'form-approval',
-		label: 'Admin Form Approval',
-		module: null,
-		child: []
-	},
+	// {
+	// 	url: '/form-approval',
+	// 	icon: 'form-approval',
+	// 	label: 'Admin Form Approval',
+	// 	module: null,
+	// 	child: []
+	// },
 	
 	// {
 	// 	url: '/page',

@@ -77,26 +77,26 @@
 	const openModal = async () => {
 		console.log('click called')
 
-		const { error, json } = await fetchApi({
-			url: `${PUBLIC_API_BASE_URL}/check-journal-form-status?id=${journalId}`,
-			method: 'GET'
-		});
+		// const { error, json } = await fetchApi({
+		// 	url: `${PUBLIC_API_BASE_URL}/check-journal-form-status?id=${journalId}`,
+		// 	method: 'GET'
+		// });
 
-		if (error) {
+		// if (error) {
 
-			toast.error(error.message || 'Something went wrong!', {
-				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
-			});
-			return;
-		}
+		// 	toast.error(error.message || 'Something went wrong!', {
+		// 		description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+		// 	});
+		// 	return;
+		// }
 
-		console.log('form ',JSON.stringify(json))
-        const status = json[0].journal_form_status.message[0].abbr;
-		const message = json[0].journal_form_status.message[0].status;
+		// console.log('form ',JSON.stringify(json))
+        // const status = json[0].journal_form_status.message[0].abbr;
+		// const message = json[0].journal_form_status.message[0].status;
 
-		if(status !== 're'){
-			toast.error(`Cannot delete, as ${message}`);
-		}else{
+		// if(status !== 're'){
+		// 	toast.error(`Cannot delete, as ${message}`);
+		// }else{
 			const message = 'Are you sure you want to delete this?';
 			confirmStore.set({
 				isVisible:true,
@@ -106,7 +106,7 @@
 			actionStore.set({
 					callback: handleDelete
 			});		
-	    }		
+	    // }		
 	};
 
 	const closeModal = () => {
@@ -142,28 +142,28 @@
 	}
 
 	async function handleEdit(){
-		const { error, json } = await fetchApi({
-			url: `${PUBLIC_API_BASE_URL}/check-journal-form-status?id=${journalId}`,
-			method: 'GET'
-		});
+		// const { error, json } = await fetchApi({
+		// 	url: `${PUBLIC_API_BASE_URL}/check-journal-form-status?id=${journalId}`,
+		// 	method: 'GET'
+		// });
 
-		if (error) {
+		// if (error) {
 
-			toast.error(error.message || 'Something went wrong!', {
-				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
-			});
-			return;
-		}
+		// 	toast.error(error.message || 'Something went wrong!', {
+		// 		description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+		// 	});
+		// 	return;
+		// }
 
-		console.log('form ',JSON.stringify(json))
-        const status = json[0].journal_form_status.message[0].abbr;
-		const message = json[0].journal_form_status.message[0].status;
+		// console.log('form ',JSON.stringify(json))
+        // const status = json[0].journal_form_status.message[0].abbr;
+		// const message = json[0].journal_form_status.message[0].status;
 
-		if(status !== 're'){
-			toast.error(`Cannot edit, as ${message}`);
-		}else{
+		// if(status !== 're'){
+		// 	toast.error(`Cannot edit, as ${message}`);
+		// }else{
 			goto(`journal-paper/edit/${journalId}`)
-		}
+		// }
 	}
 
   
