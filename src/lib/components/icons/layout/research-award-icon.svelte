@@ -3,26 +3,16 @@
     export let height="24"
     export let fill = '#7C8798';
 </script>
-<svg
-  xmlns="http://www.w3.org/2000/svg"
- {width}
- {height}
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke={fill}
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <!-- Circle for the Award's Base -->
-  <circle cx="12" cy="8" r="6" fill={fill}/>
-  
-  <!-- Star Icon in the Center -->
-  <polygon
-    points="12 4.5 13.09 7.05 15.8 7.35 13.9 9.11 14.45 11.77 12 10.5 9.55 11.77 10.1 9.11 8.2 7.35 10.91 7.05 12 4.5"
-    fill="white"
-  />
-  
-  <!-- Ribbons -->
-  <path d="M9 14l-3 7 6-4 6 4-3-7" fill={fill} />
-</svg>
+<svg {width} {height} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_252_574)">
+    <path d="M12 17.1112C10.195 17.1113 8.43935 16.5456 7 15.5V20.8473C7 21.6451 7.88828 22.1217 8.55297 21.6805L12 19.3929L15.447 21.6805C16.1117 22.1217 17 21.6451 17 20.8473V15.5C15.5607 16.5456 13.805 17.1113 12 17.1112Z" {fill}/>
+    <path d="M19 9C19 12.866 15.866 16 12 16C8.13401 16 5 12.866 5 9C5 5.13401 8.13401 2 12 2C15.866 2 19 5.13401 19 9Z" {fill}/>
+    <path d="M9.55078 9.35L10.305 10.1043C10.6708 10.47 11.255 10.4965 11.6523 10.1654L15.1508 7.25" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <defs>
+    <clipPath id="clip0_252_574">
+    <rect width="20" height="20" fill="white" transform="translate(2 2)"/>
+    </clipPath>
+    </defs>
+    </svg>
+    

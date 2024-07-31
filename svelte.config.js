@@ -7,7 +7,7 @@ const config = {
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
 	paths : {
-     base : process.env.BASE_URL
+     base : process.env.BASE_URL || ''
 	},
 
 	kit: {

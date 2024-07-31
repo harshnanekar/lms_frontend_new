@@ -1,5 +1,5 @@
 import { DashboardIcon, AnalyticsIcon, MenuBarIcon,JournalIcon,BookPublicationIcon,BookChapterIcon,CaseStudyIcon,ResearchSeminarIcon,
-	EContentICon,ResearchAwardIcon,ConferenceIcon,PatentIcon,ResearchProjectIcon,IprIcon
+	EContentICon,ResearchAwardIcon,ConferenceIcon,PatentIcon,ResearchProjectIcon,IprIcon,FacultyIcon
 } from './layout';
 import {
 	ArrowIcon,
@@ -61,5 +61,6 @@ export {
 	ConferenceIcon,
 	PatentIcon,
 	ResearchProjectIcon,
-	IprIcon
+	IprIcon,
+	FacultyIcon
 };

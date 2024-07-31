@@ -41,6 +41,7 @@
     async function handleSubmit() {
         const changedData = facultyData.filter((item: { changed: any; }) => item.changed);
         console.log('Modified faculty data:', JSON.stringify(changedData));
+        console.log('base url ',paths.base)
 
         let faculty : facultyReq = changedData.map((data : any) => {
             return {
@@ -81,7 +82,7 @@
 			return;
 		}
         toast.success('Inserted Successfully !');
-        goto('/add-faculty');
+        goto(`${paths.base}/add-faculty`);
 
 
     }

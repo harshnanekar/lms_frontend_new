@@ -12,6 +12,7 @@ import ConferenceIcon from './conference-icon.svelte'
 import PatentIcon from './patent-icon.svelte'
 import ResearchProjectIcon from './research-project-icon.svelte'
 import IprIcon from './ipr-icon.svelte'
+import FacultyIcon from './faculty-icon.svelte'
 export { DashboardIcon, AnalyticsIcon, MenuBarIcon,JournalIcon,BookPublicationIcon,BookChapterIcon,CaseStudyIcon,ResearchSeminarIcon,
-    EContentICon,ResearchAwardIcon,ConferenceIcon,PatentIcon,ResearchProjectIcon,IprIcon
+    EContentICon,ResearchAwardIcon,ConferenceIcon,PatentIcon,ResearchProjectIcon,IprIcon,FacultyIcon
 };
