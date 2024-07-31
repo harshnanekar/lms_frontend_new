@@ -21,6 +21,7 @@
 	// let isRequired = false;
 	let isChecked: boolean = false;
 	$: checkVal = isChecked;
+    let disabled: boolean = true;
 
 	let title = 'Master Data ';
 	let masterTypes = data?.masterData?.masterDataList?.message;
@@ -32,6 +33,7 @@
 	let obj: any = {
 		master_id: parseInt(data.masterData.masterDataInput[0].master_id),
 		master_input_name: data.masterData.masterDataInput[0].master_input_name,
+        faculty_lid :Number(data.masterData.masterDataInput[0].faculty_lid),
 		master_type:
 			data.masterData.masterDataInput.length > 0 && data.masterData.masterDataInput[0].input_type
 				? {
@@ -46,6 +48,7 @@
 	async function handleSubmit() {
 		const masterObj: updMasterDataReq = {
 			master_input_name: obj.master_input_name,
+            faculty_lid : obj.faculty_lid,
 			master_type: obj.master_type != null ? Number(obj.master_type.value) : 0
 		};
 
@@ -91,11 +94,17 @@
 
 <Card {title}>
 	<div class="modal-content p-4">
-        <div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
+        <div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input
 				type="text"
 				placeholder="Faculty Name"
 				bind:value={obj.master_input_name}
+			/>
+            <Input
+				type="number"
+				placeholder="Faculty Id"
+				bind:value={obj.faculty_lid}
+                {disabled}
 			/>
             <DynamicSelect
 				isRequired={true}

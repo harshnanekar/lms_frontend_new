@@ -35,6 +35,7 @@
 		documents: [File, ...File[]];
 	};
 
+	console.log('data ===>>>>>', data)
 	let nmimsSchool = data?.conferenceDetails?.school?.message;
 	let nmimsCampus = data?.conferenceDetails?.campus?.message;
 	let masterAllAuthors = data?.conferenceDetails?.masterAllAuthors?.message;
@@ -50,7 +51,7 @@
 	console.log('conference abbr ', conference_abbr, award_abbr);
 
 	console.log(
-		'enternalAuthors ankit mishra ===>>>>>',
+		' aconferenceDetails ===>>>>>',
 		JSON.stringify(data?.conferenceDetails?.conferenceDocumentAbbr)
 	);
 	console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool);
@@ -262,8 +263,8 @@
 			});
 			return;
 		}
-
-		if (json[0].insert_conference.status === 403) {
+		if(json && validateWithZod.length > 0){
+			if (json[0].insert_conference.status === 403) {
 			toast.error('ALERT!', {
 				description: json[0].insert_conference.message
 			});
@@ -272,6 +273,11 @@
 			clearForm();
 			goto('/conference');
 		}
+		}
+		else {
+			toast.error('No response data received');
+		}
+		
 	}
 
 	function clearForm() {
@@ -488,9 +494,11 @@
 					</div>
 				</div>
 			</div>
-			<div>
+			
+		</div>
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 				<!-- Conference Documents -->
-				<div class="mt-6">
+				<div class="space-y-2">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="text-sm text-[#888888]"
 						>Upload Conference Documents<span class="text-danger text-sm">*</span>
@@ -504,10 +512,9 @@
 						on:previewFile={previewConferenceFile}
 					/>
 				</div>
-			</div>
 			<!-- svelte-ignore a11y-label-has-associated-control -->
 			<!-- Award Documents -->
-			<div class="mt-6">
+			<div class="space-y-2">
 				<label class="text-sm text-[#888888]"
 					>Upload Award Documents<span class="text-danger text-sm">*</span>
 				</label>
