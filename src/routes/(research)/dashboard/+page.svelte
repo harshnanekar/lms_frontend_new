@@ -9,8 +9,8 @@ console.log('dashboard modules ',JSON.stringify(data.dashboardData))
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
   {#each dashboard as ds}
   <a href={ds.url}>
-    <div class="p-8 border shadow-card rounded-2xl flex justify-center items-center">
-      <p class="text-center">{ds.module_name}</p>
+    <div class="p-8 border shadow-card rounded-2xl flex justify-center items-center border-[#e5e9f1]">
+      <p class="text-center font-semibold">{ds.module_name}</p>
     </div>
   </a>
   {/each}

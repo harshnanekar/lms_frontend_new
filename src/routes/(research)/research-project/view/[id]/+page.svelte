@@ -274,7 +274,9 @@
 				</div>
 			</div>
 
-			<div class="grid grid-cols-4 gap-8 items-center p-4">
+			<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
+
+			  <div class="flex gap-4 md:flex-row">
 				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 					<SelectDateIcon />
 					<span class="text-body-2 font-bold">Submission Grant Date</span>
@@ -295,7 +297,10 @@
 						</button>
 					</div>
 				{/if}
+			</div>	
 
+
+			<div class="flex gap-4 md:flex-row">
 				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 					<SelectDateIcon />
 					<span class="text-body-2 font-bold">Annual Payment Date</span>
@@ -316,6 +321,7 @@
 						</button>
 					</div>
 				{/if}
+			</div>
 			</div>
 		</div>
 	</Card>
