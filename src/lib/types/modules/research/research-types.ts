@@ -1,3 +1,5 @@
+import { BookChapterIcon, BookPublicationIcon, CaseStudyIcon, DashboardIcon, EContentICon, JournalIcon, PlusIcon, ResearchAwardIcon, ResearchSeminarIcon, SignOutIcon } from "$lib/components/icons"
+
 export type JournalPaper = {
 	 nmims_school : string[],
 	 nmims_campus : string[],
@@ -43,6 +45,7 @@ export type JournalPaper = {
 	 journal_name : string,
 	 publisher : string,
 	 impact_factor : number,
+	 status :string
  } 
 
 
@@ -187,3 +190,47 @@ export type BookChapterDetails = {
  award_details : string,
  award_organization: string,
  }
+
+ export type FacultyView = {
+ 
+	faculty_name : string,
+	institute_name : string,
+    address : string,
+	designation : string,
+    faculty_type : string
+
+ }
+
+ export type InfiniteFacultyView = {
+	id : number,
+	first_name : string,
+	last_name : string,
+	username : string
+ }[]
+
+ export type InfiniteAdminView = {
+    id : number,
+	faculty_name : string,
+	username : string,
+	form_name :string,
+	form_lid : number,
+	form_status : number | null
+ }[]
+
+ type SidebarIcon = {
+	[key: string]: unknown;
+}
+
+export const SIDEBAR_ICON: SidebarIcon = {
+	'dashboard': DashboardIcon,
+	'journal': JournalIcon,
+	'book-publication': BookPublicationIcon,
+	'book-chapter-publication': BookChapterIcon,
+	"case-study" : CaseStudyIcon,
+	"research-seminar": ResearchSeminarIcon,
+	"e-content":EContentICon,
+	"research-award":ResearchAwardIcon,
+	"teaching-meeting-branding":DashboardIcon,
+	"sign-out" : SignOutIcon
+	// "form-approval"
+}

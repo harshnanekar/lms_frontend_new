@@ -8,29 +8,30 @@ import type { JournalPaper, JournalView, BookPublicationRender,
 	CaseStudyView,
 	ResearchSeminarView,
 	EContentView,
-	ResearchAwardView, EditedBookPublicationView
+	ResearchAwardView,
+	FacultyView
  } from './types/modules/research/research-types';
 
 
 
 export const SIDEBAR_URL = [
 	{
-		url: '/',
+		url: '/dashboard',
 		icon: 'dashboard',
 		label: 'Home',
 		module: null,
 		child: []
 	},
-	{
-		url: '/test',
-		icon: 'test',
-		label: 'Research',
-		module: null,
-		child: []
-	},
+	// {
+	// 	url: '/test',
+	// 	icon: 'test',
+	// 	label: 'Research',
+	// 	module: null,
+	// 	child: []
+	// },
 	{
 		url: '/journal-paper',
-		icon: 'test',
+		icon: 'journal',
 		label: 'Journal Articles Published',
 		module: null,
 		child: []
@@ -38,154 +39,154 @@ export const SIDEBAR_URL = [
 
 	{
 		url: '/book-publication',
-		icon: 'test',
+		icon: 'book-publication',
 		label: 'Book Publication',
 		module: null,
 		child: []
 	},
 
 	{
-		url: '/edited-book-publication',
-		icon: 'test',
-		label: 'Edited Book Publication',
-		module: null,
-		child: []
-	},
-
-	{
 		url: '/book-chapter-publication',
-		icon: 'test',
+		icon: 'book-chapter-publication',
 		label: 'Book Chapter Publication',
 		module: null,
 		child: []
 	},
 	{
 		url: '/teaching-meeting-branding',
-		icon: 'test',
+		icon: 'teaching-meeting-branding',
 		label: 'Teaching-Meeting-Branding',
 		module: null,
 		child: []
 	},
 	{
 		url: '/case-study',
-		icon: 'test',
+		icon: 'case-study',
 		label: 'Case Study',
 		module: null,
 		child: []
 	},
 	{
 		url: '/research-seminars',
-		icon: 'test',
+		icon: 'research-seminar',
 		label: 'Research Seminars',
 		module: null,
 		child: []
 	},
 	{
 		url: '/e-content',
-		icon: 'test',
+		icon: 'e-content',
 		label: 'E-Content Development',
 		module: null,
 		child: []
 	},
 	{
 		url: '/research-award',
-		icon: 'test',
+		icon: 'research-award',
 		label: 'Research Award',
 		module: null,
 		child: []
 	},
-	{
-		url: '/page',
-		icon: 'Mpc',
-		label: 'Mpc',
-		module: null,
-		child: []
-	},
-	{
-		url: '#2',
-		icon: 'mpc',
-		label: 'MPC',
-		module: 'mpc',
-		child: [
-			{
-				url: '#3',
-				icon: 'overview',
-				label: 'Overview',
-				module: 'mpc',
-				child: []
-			},
-			{
-				url: '#4',
-				icon: 'forecast',
-				label: 'Forecast',
-				module: 'mpc',
-				child: []
-			},
-			{
-				url: '#5',
-				icon: 'plan',
-				label: 'Plan',
-				module: 'mpc',
-				child: []
-			},
-			{
-				url: '#6',
-				icon: 'execute',
-				label: 'Execute',
-				module: 'mpc',
-				child: []
-			},
-			{
-				url: '#7',
-				icon: 'monitor',
-				label: 'Monitor',
-				module: 'mpc',
-				child: []
-			},
-			{
-				url: '#8',
-				icon: 'plan',
-				label: 'Plan',
-				module: 'mpc',
-				child: []
-			},
-			{
-				url: '#9',
-				icon: 'execute',
-				label: 'Execute',
-				module: 'mpc',
-				child: []
-			},
-			{
-				url: '#10',
-				icon: 'monitor',
-				label: 'Monitor',
-				module: 'mpc',
-				child: []
-			},
-			{
-				url: '#11',
-				icon: 'plan',
-				label: 'Plan',
-				module: 'mpc',
-				child: []
-			},
-			{
-				url: '#12',
-				icon: 'execute',
-				label: 'Execute',
-				module: 'mpc',
-				child: []
-			},
-			{
-				url: '#13',
-				icon: 'monitor',
-				label: 'Monitor',
-				module: 'mpc',
-				child: []
-			}
-		]
-	}
+	// {
+	// 	url: '/form-approval',
+	// 	icon: 'form-approval',
+	// 	label: 'Admin Form Approval',
+	// 	module: null,
+	// 	child: []
+	// },
+	
+	// {
+	// 	url: '/page',
+	// 	icon: 'Mpc',
+	// 	label: 'Mpc',
+	// 	module: null,
+	// 	child: []
+	// },
+	// {
+	// 	url: '#2',
+	// 	icon: 'mpc',
+	// 	label: 'MPC',
+	// 	module: 'mpc',
+	// 	child: [
+	// 		{
+	// 			url: '#3',
+	// 			icon: 'overview',
+	// 			label: 'Overview',
+	// 			module: 'mpc',
+	// 			child: []
+	// 		},
+	// 		{
+	// 			url: '#4',
+	// 			icon: 'forecast',
+	// 			label: 'Forecast',
+	// 			module: 'mpc',
+	// 			child: []
+	// 		},
+	// 		{
+	// 			url: '#5',
+	// 			icon: 'plan',
+	// 			label: 'Plan',
+	// 			module: 'mpc',
+	// 			child: []
+	// 		},
+	// 		{
+	// 			url: '#6',
+	// 			icon: 'execute',
+	// 			label: 'Execute',
+	// 			module: 'mpc',
+	// 			child: []
+	// 		},
+	// 		{
+	// 			url: '#7',
+	// 			icon: 'monitor',
+	// 			label: 'Monitor',
+	// 			module: 'mpc',
+	// 			child: []
+	// 		},
+	// 		{
+	// 			url: '#8',
+	// 			icon: 'plan',
+	// 			label: 'Plan',
+	// 			module: 'mpc',
+	// 			child: []
+	// 		},
+	// 		{
+	// 			url: '#9',
+	// 			icon: 'execute',
+	// 			label: 'Execute',
+	// 			module: 'mpc',
+	// 			child: []
+	// 		},
+	// 		{
+	// 			url: '#10',
+	// 			icon: 'monitor',
+	// 			label: 'Monitor',
+	// 			module: 'mpc',
+	// 			child: []
+	// 		},
+	// 		{
+	// 			url: '#11',
+	// 			icon: 'plan',
+	// 			label: 'Plan',
+	// 			module: 'mpc',
+	// 			child: []
+	// 		},
+	// 		{
+	// 			url: '#12',
+	// 			icon: 'execute',
+	// 			label: 'Execute',
+	// 			module: 'mpc',
+	// 			child: []
+	// 		},
+	// 		{
+	// 			url: '#13',
+	// 			icon: 'monitor',
+	// 			label: 'Monitor',
+	// 			module: 'mpc',
+	// 			child: []
+	// 		}
+	// 	]
+	// }
 ];
 
 export const obj = [
@@ -323,7 +324,14 @@ export const paginationHeaders : TableHeaders<JournalView>[] = [
 		sortable: false,
 		classes: '',
 		showTooltip: false
-	}
+	},
+	{
+		label: 'Status',
+		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ]; 
 
 
@@ -875,4 +883,43 @@ export const ResearchAwardHeaders : TableHeaders<ResearchAwardView>[] = [
 		showTooltip: false
 	}
 
+];
+
+
+export const FacultyHeaders : TableHeaders<FacultyView>[] = [
+	{
+		label: 'Name Of Faculty',
+		key: 'faculty_name',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Institue',
+		key: 'institute_name',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Address',
+		key: 'address',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Designation',
+		key: 'designation',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Faculty Type',
+		key: 'faculty_type',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	}
 ];

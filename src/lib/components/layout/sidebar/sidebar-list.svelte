@@ -3,6 +3,7 @@
 	import { DashboardIcon } from '$lib/components/icons';
 	import type { SidebarListType } from './types';
 	import { isSidebarOverlayOpen } from './store';
+	import { SIDEBAR_ICON } from '$lib/types/modules/research/research-types';
 
 	// TODO: add types properly
 	export let item: SidebarListType;
@@ -16,6 +17,7 @@
 	class:text-primary={isactive}
 	class:active={isactive}
 >
+
 	<a
 		href={item.url}
 		class="sidebar-link flex h-full w-full items-center gap-4 space-x-[10px] px-2 py-[15px] lg:px-5"
@@ -24,11 +26,19 @@
 			$isSidebarOverlayOpen = false;
 		}}
 	>
-		<DashboardIcon
+		<!-- <DashboardIcon
 			fill={isactive ? COLORS.PRIMARY_COLOR : COLORS.ICON_DEFAULT_COLOR}
 			width={20}
 			height={20}
+		/> -->
+
+		<svelte:component
+		this={SIDEBAR_ICON[item.icon]}
+		fill={isactive ? COLORS.PRIMARY_COLOR : COLORS.ICON_DEFAULT_COLOR}
+		width={26}
+		height={22}
 		/>
+		
 		<span
 			class="sidebar-label !m-0 hidden max-w-56 truncate text-[14px] font-semibold text-[#333333] lg:inline"
 			>{item.label}</span

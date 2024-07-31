@@ -1,5 +1,7 @@
+import { goto } from '$app/navigation';
 import type { ApiResponse } from '$lib/types/request.types';
 import type { HttpMethod } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 
 export const fetchApi = async <T>({
 	url,
@@ -36,12 +38,18 @@ export const fetchApi = async <T>({
 			} catch {
 				errorData = { message: 'Error' };
 			}
+
+			if(errorData.status === 401){
+			 goto('/login');
+			}
+
 			return { json: null, error: errorData };
 		}
 
 		const json = (await response.json()) as T;
 		return { json, error: null };
-	} catch (error: unknown) {
+
+	} catch (error: unknown | any) {
 		console.log('Network error:', error);
 		return { json: null, error: { message: 'Network error or something went wrong' } };
 	}
@@ -55,7 +63,7 @@ export const fetchFormApi = async <T>({
 }: {
 	url: string;
 	method: HttpMethod;
-	body?: FormData | null; // Change the type to FormData
+	body?: FormData | null; 
 	customOptions?: RequestInit;
 }): Promise<ApiResponse<T>> => {
 	try {
@@ -81,6 +89,9 @@ export const fetchFormApi = async <T>({
 				errorData = await response.json();
 			} catch {
 				errorData = { message: 'Error' };
+			}
+			if(errorData.status === 401){
+				goto('/login');
 			}
 			return { json: null, error: errorData };
 		}
@@ -156,6 +167,28 @@ export const downloadFetch = async <T>({
         return { json: null, error: { message: 'Network error or something went wrong' } };
     }
 };
+
+
+export async function fetchFiles(url: string) {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch files');
+  }
+
+  const blob = await response.blob();
+  console.log('blob ',blob)
+  const fileName = response.headers.get('Content-Disposition')?.split('filename=')[1] || 'file';
+  const file = new File([blob], fileName, { type: blob.type });
+
+  return {
+    file,
+    name: file.name,
+    url: URL.createObjectURL(file),
+    size: file.size,
+    lastModified: new Date().toISOString() 
+  };
+}
 
 
 // import type { ApiResponse } from '$lib/types/request.types';

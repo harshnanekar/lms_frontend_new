@@ -1,4 +1,6 @@
-import { DashboardIcon, AnalyticsIcon, MenuBarIcon } from './layout';
+import { DashboardIcon, AnalyticsIcon, MenuBarIcon,JournalIcon,BookPublicationIcon,BookChapterIcon,CaseStudyIcon,ResearchSeminarIcon,
+	EContentICon,ResearchAwardIcon
+} from './layout';
 import {
 	ArrowIcon,
 	SortArrowIcon,
@@ -15,7 +17,11 @@ import {
 	AttendanceIcon,
 	SuccessIcon,
 	DeleteIcon,
-	MinusIcon
+	MinusIcon,
+	EyeIcon,
+	CloseEyeIcon,
+	PreviewIcon,
+	SignOutIcon
 } from './base';
 import { MeetingIcon, ScheduledIcon } from './modules';
 
@@ -40,5 +46,16 @@ export {
 	AttendanceIcon,
 	SuccessIcon,
 	DeleteIcon,
-	MinusIcon
+	MinusIcon,
+	EyeIcon,
+	CloseEyeIcon,
+	PreviewIcon,
+	JournalIcon,
+	BookPublicationIcon,
+	BookChapterIcon,
+	CaseStudyIcon,
+	ResearchSeminarIcon,
+	EContentICon,
+	ResearchAwardIcon,
+	SignOutIcon
 };

@@ -1,12 +1,28 @@
 <script lang="ts">
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
-	import { Card, Input } from '$lib/components/ui';
+	import { Card, Input,File } from '$lib/components/ui';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
+	import { generateRandomUUID } from '$lib/utils/helper';
 	import { toast } from 'svelte-sonner';
 	let title = 'Teaching Excellance';
 	let disabled: boolean = true;
 	let count = 0;
 	export let teachingData;
 	export let teachingId: any;
+
+	console.log('teaching data ',JSON.stringify(teachingData.files))
+
+	let files = teachingData.files.length > 0 ? teachingData.files.map((data: any) => {
+		return {
+			file: [],
+			name: data.name,
+			url: data.url,
+			id: generateRandomUUID(),
+			abbr: data.type_abbr 
+		};
+	}) : [];
+
+	let teachData = teachingData.teaching_data.length > 0 ? teachingData.teaching_data : [];
 
 	async function downLoadFiles(abbr: any) {
 		fetch(`${PUBLIC_API_BASE_URL}/teaching-download-files?id=${teachingId}&abbr=${abbr}`)
@@ -32,6 +48,14 @@
 				});
 			});
 	}
+
+	let selectPreviewedfiles
+
+	function previewFiles (abbr : string){
+		selectPreviewedfiles = files.filter((data: any) => data.abbr === abbr).map((dt: any) => dt);
+		console.log('selected teaching files ',files);
+		fileDataStore.set(selectPreviewedfiles);
+	}
 </script>
 
 <Card {title}>
@@ -45,17 +69,23 @@
 					<th class="!text-[15px]">Documents</th>
 				</thead>
 				<tbody>
-					{#if teachingData.length > 0}
-						{#each teachingData as teach}
+					{#if teachData.length > 0}
+						{#each teachData as teach}
 							<tr>
 								<td class="!text-[15px]">{teach.type.label}</td>
 								<td class="!text-[15px]">{teach.description}</td>
 								<td class="!text-[15px]">{teach.link}</td>
 								<td
-									><button
+									>
+									<div class="flex items-center gap-2">
+										<File isView={true}
+										isCombine={true}
+										on:previewFile={() => previewFiles(teach.type.value)}
+										/>	
+									<button
 										class="lms-btn lms-primary-btn"
 										on:click={() => downLoadFiles(teach.type.value)}
-										>{teach.type.label} File <i class="fa-solid fa-download text-md"></i></button
+										><i class="fa-solid fa-download text-lg"></i></button
 									></td
 								>
 							</tr>

@@ -5,3 +5,18 @@ export function generateRandomUUID() {
 		return v.toString(16);
 	});
 }
+
+
+export function createFileUrl(files: any) {
+
+    const filesData = files.map((file: any) => {
+        return {
+            file: [],
+            name: file.name,
+            url: file.url,
+            id: generateRandomUUID(),
+        };
+    });
+
+    return filesData;
+}

@@ -25,24 +25,21 @@ export const journalPaper = z.object({
 	title: z.string().min(1, 'Title is required'),
 	gs_indexed: z.string().optional(),
 	paper_type: z.number().min(1, {message:'Paper type is required'}).refine(data => data != 0,'Paper Type Is Required'),
-	wos_indexed: z.boolean({ required_error: 'WOS indexed is required' }),
-	abdc_indexed: z.number().min(1, 'ABDC indexed is required').refine(data => data != 0,'ABDC Indexed Is Required'),
-	ugc_indexed: z.boolean({ required_error: 'UGC indexed is required' }),
-	scs_indexed: z.boolean({ required_error: 'SCS indexed is required' }),
+	wos_indexed: z.boolean({required_error:'WOS indexed is required'}),
+	abdc_indexed: z.union([z.number(), z.null()]).optional(),
+	ugc_indexed: z.boolean({required_error:'UGC indexed is required'}),
+	scs_indexed: z.boolean({required_error:'Scopus indexed is required'}),
 	foreign_authors_count: z.number().optional(),
 	foreign_authors: z.array(z.number()).optional(),
 	student_authors_count: z.number().optional(),
 	student_authors: z.array(z.number()).optional(),	
-	// supporting_documents: z.array(z.instanceof(File)).nonempty({message:'File is required'})
-	// .max(5, { message: 'A maximum of 5 files can be uploaded' })
-    // .refine((files) => files.every((file) => ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(file.type)), 'Only .pdf, .docx formats are supported'),
     journal_type: z.number().min(1, 'Journal type is required'),
 	publication_date: z.string().refine(date => {
         return date !== '1970-01-01' && date !== '';;
     }, {
         message: 'Publication date is required',
     }),
-	// publication_date: z.date().nullable().refine((date) => date!= null || date != '1970-01-01T00:00:00.000Z', 'Publication date is required')
+	// isSaveDraft : z.boolean()
 });
 
 
@@ -176,11 +173,13 @@ const meetingItemSchema = z.object({
 		  'application/pdf',
 		  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 		  'application/vnd.ms-excel',
-		  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+		  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+		  'application/octet-stream'
 		].includes(file.type)),
 		{ message: 'Only .pdf, .docx, .xls, .xlsx formats are supported' }
 	  ),
   });
+  
   
 	  export type FileReq = z.infer<typeof fileSchema>;
 
@@ -255,16 +254,16 @@ export const researchSeminarObj = z.object({
 	paper_title: z.string().min(1, 'Title is required'),
 	journal_name: z.string().min(1, 'Journal name is required'),
 	publisher: z.string().min(1, 'Publisher is required'),
-	publisher_category: z.union([z.number(), z.null()]).optional(),
+	publisher_category: z.number().min(1, 'Publisher category is required'),
 	volume_no: z.string().optional(),
 	issn_no:z.string().optional(),
 	scopus_site_score: z.string().optional(),
 	impact_factor: z.number().optional(),
 	scs_indexed: z.string().optional(),
-	wos_indexed: z.union([z.boolean(), z.null()]).optional(),
+	wos_indexed: z.boolean({required_error:'WOS indexed is required'}),
 	gs_indexed: z.string().optional(),
 	abdc_indexed: z.union([z.number(), z.null()]).optional(),
-	ugc_indexed: z.union([z.boolean(), z.null()]).optional(),
+	ugc_indexed: z.boolean({required_error:'UGC indexed is required'}),
 	doi_no: z.union([z.string(), z.null()]).optional(),
 	uid: z.string().min(1, 'UID is required'),
 	publication_date: z.string().refine(date => {
@@ -289,7 +288,7 @@ export const EContentObj = z.object({
 	module_platform: z.string().min(1,{message:'Module platform is required'}),
 	document_link: z.string().min(1, {message:'Link for document and facility available is required'}),
 	facility_list: z.string().min(1, {message:'Link for development facility available is required'}),
-	media_link: z.string().min(1, {message:'Link to vieos for media centre is required'}),
+	media_link: z.string().min(1, {message:'Link to videos for media centre is required'}),
 	launching_date: z.string().refine(date => {
         return date !== '1970-01-01' && date !== '';
     }, {
@@ -309,7 +308,7 @@ export const EContentObj = z.object({
 	award_details: z.string().min(1,{message:'Award details is required'}),
 	award_organization : z.string().min(1,{message:'Award organization is required'}),
 	award_place: z.string().min(1,{message:'Award place is required'}),
-	award_category: z.union([z.number(), z.null()]).optional(),
+	award_category: z.number().min(1,{message:'Award category is required'}),
 	award_date : z.string().refine(date => {
         return date !== '1970-01-01' && date !== '';
     }, {
@@ -318,3 +317,50 @@ export const EContentObj = z.object({
   });
 
   export type researchAwardReq = z.infer<typeof researchAwardObj>;
+
+
+   const Faculty = z.object({
+	faculty_id : z.number(),
+    first_name : z.string().min(1,{message:'Faculty firstname is required'}),
+	last_name : z.string().min(1,{message:'Faculty lastname is required'}),
+	username : z.string().min(1,{message:'Faculty username is required'}),
+    institute : z.string().min(1,{message :'Faculty institute name is required'}),
+	address : z.string().min(1,{message:'Faculty address is required'}),
+	designation : z.string().min(1,{message:'Faculty designation is required'}),
+    faculty_type : z.number().refine(data => data != 0,'Faculty type is required'),
+  })
+
+  export const facultyObj = z.array(Faculty).min(1,{message:'Faculty details are required'});
+  export type facultyReq = z.infer<typeof facultyObj>;
+
+  export const facultyUpd = z.object({
+	faculty_id  : z.number(),
+	faculty_name : z.string().min(1,{message:'Faculty name is required'}),
+    institute : z.string().min(1,{message :'Faculty institute name is required'}),
+	address : z.string().min(1,{message:'Faculty address is required'}),
+	designation : z.string().min(1,{message:'Faculty designation is required'}),
+    faculty_type : z.number().refine(data => data != 0,'Faculty type is required'),
+  })
+
+  export type facultyUpdReq = z.infer<typeof facultyUpd>;
+
+  export const loginCredentials = z.object({
+	username : z.string().min(1,{message:'Username is required'}),
+	password : z.string().min(1,{message:'Password is required'}),
+  })
+
+  export type loginReq = z.infer<typeof loginCredentials>;
+
+
+  const facultyApproval = z.object({
+	form_lid : z.number(),
+	form_status : z.number().min(1,{message:'Form status is required'}),
+	level : z.number()
+  })
+
+  export const facultyApprovalObj = z.array(facultyApproval).min(1,{message:'Approval of at least one faculty is required'});
+  export type facultyObjReq = z.infer<typeof facultyApprovalObj>;
+
+
+
+

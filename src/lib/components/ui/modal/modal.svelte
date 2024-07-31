@@ -59,6 +59,6 @@
 		@apply fixed inset-0 z-[999999] flex w-[100vw] justify-center bg-[#576173] bg-opacity-40;
 	}
 	.modal-content {
-		@apply shadow-modal max-h-[90vh] overflow-y-auto rounded-2xl bg-white;
+		@apply shadow-modal rounded-2xl bg-white;
 	}
 </style>
