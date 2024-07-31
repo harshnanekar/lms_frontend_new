@@ -17,8 +17,11 @@
     let level = data.adminData && data.adminData.level.length > 0 ? [{id:'All',status:'All'},...data.adminData.level] : [];
     let modules = data.adminData && data.adminData.modules.length > 0 ? data.adminData.modules[0].url : '';
     let db_url = data.adminData && data.adminData.modules.length > 0 ? data.adminData.modules[0].db_url : '';
+    let formLevel = data.adminData && data.adminData.approvalLevel.length > 0 ? data.adminData.approvalLevel[0].level : '';
 
     let dynamicUrl = new URL(`${PUBLIC_API_BASE_URL}${modules}`);
+
+    console.log('form level ',formLevel)
 
     let responseData: InfiniteScrollResult<InfiniteAdminView> = {
         data: [],
