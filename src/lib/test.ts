@@ -8,7 +8,7 @@ import type { JournalPaper, JournalView, BookPublicationRender,
 	CaseStudyView,
 	ResearchSeminarView,
 	EContentView,
-	ResearchAwardView
+	ResearchAwardView, EditedBookPublicationView
  } from './types/modules/research/research-types';
 
 
@@ -40,6 +40,14 @@ export const SIDEBAR_URL = [
 		url: '/book-publication',
 		icon: 'test',
 		label: 'Book Publication',
+		module: null,
+		child: []
+	},
+
+	{
+		url: '/edited-book-publication',
+		icon: 'test',
+		label: 'Edited Book Publication',
 		module: null,
 		child: []
 	},
@@ -379,6 +387,57 @@ export const BookPublicationHeaders :  TableHeaders<BookPublicationRender>[] = [
 
 ]
 
+export const EditedBookPublicationHeader : TableHeaders<EditedBookPublicationView>[] = [ 
+	{
+		label: 'Author Name',
+        key: 'authors',
+        sortable: false,
+        classes: '',
+        showTooltip: false
+	},
+	{
+		label: 'NMIMS Campus - Author',
+        key: 'campuses',
+        sortable: false,
+        classes: '',
+        showTooltip: false
+	},
+	{
+		label: 'NMIMS School - Author',
+        key: 'schools',
+        sortable: false,
+        classes: '',
+        showTooltip: false
+	},
+	{
+		label: 'Publication Year',
+        key: 'publish_year',
+        sortable: false,
+        classes: '',
+        showTooltip: false
+	},
+	{
+		label: 'Book Title',
+        key: 'title',
+        sortable: false,
+        classes: '',
+        showTooltip: false
+	},
+	{
+		label: 'ISBN Number',
+        key: 'isbn_no',
+        sortable: false,
+        classes: '',
+        showTooltip: false
+	},
+	{
+		label: 'Publisher Name',
+        key: 'publisher',
+        sortable: false,
+        classes: '',
+        showTooltip: false
+	},
+];
 
 
 export const BookChapterHeaders :  TableHeaders<BookChapterRender>[] = [

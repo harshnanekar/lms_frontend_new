@@ -6,9 +6,9 @@ import type { EditedBookPublicationView } from '$lib/types/modules/research/rese
 import type { TableHeaders } from '$lib/types/layout/table';
 import { PaginateDynamic } from '$lib/components/layout/pagination';
 import {EditedBookPublicationHeader} from "$lib/test";
-import ResearchAction from '$lib/components/modules/mpc/research-action.svelte';
+import EditedBookAction from '$lib/components/modules/mpc/edited-book-action.svelte';
 
-const url  =  new URL("http://localhost:9090/research/edited-book-paginate");
+const url  =  new URL("http://localhost:9090/research/edited-book-publication-paginate");
 const label = 'Edited Book Publication';
 
 
@@ -30,6 +30,6 @@ function navigateToCreate(){
  <div class="rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 shadow-card sm:p-6 mt-[5%]">
     <!-- <ResearchTable /> -->
      <PaginateDynamic url={url} header={EditedBookPublicationHeader} let:actionData  >
-        <ResearchAction actionData={actionData}  />
+        <EditedBookAction actionData={actionData}  />
      </PaginateDynamic>
     </div>

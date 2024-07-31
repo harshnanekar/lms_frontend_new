@@ -101,9 +101,7 @@ export const journalPaper = z.object({
 	doi_no: z.string().min(1, 'DOI number is required'),
 	publication_place: z.string().min(1, 'Place Of Publication'),
 	nmims_authors_count: z.number().min(1, { message: 'Author count is required' })
-	
-
-  });
+});
 
   export type bookChapterPublicationReq = z.infer<typeof bookChapterPublication>;
 
@@ -117,14 +115,14 @@ export const editedBookPublication = z.object({
     }),
     all_authors: z.array(z.number()).min(1, {message:'All authors are required'}),
     nmims_authors: z.array(z.number()).min(1, {message:'NMIMS authors are required'}),
-	nmims_author_count: z.number().min(1, { message: 'Author count is required' }),
-    book_title: z.string().min(1, 'Book title is required'),
+	nmims_authors_count: z.number().min(1, { message: 'Author count is required' }),
+    title: z.string().min(1, 'Book title is required'),
     publisher: z.string().min(1, 'Publisher is required'),
 	isbn_no: z.number().min(1, 'Isbn is required'),
 	web_link: z.string().min(1, 'Web link is required'),
 	doi_no: z.string().min(1, 'doi number is required'),
 	edition: z.string().min(1, 'Edition is required'),
-	book_editors: z.string().min(1, 'Editor\'s required'),
+	book_editors: z.array(z.number()).min(1, { message: 'Book Editors are required'}),
 	publication_place: z.string().min(1, 'Publication place is required'),
 	publisher_category: z.number().min(1, 'Publisher category is required').optional(),
 

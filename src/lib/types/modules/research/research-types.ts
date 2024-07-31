@@ -112,6 +112,7 @@ export type BookChapterDetails = {
 }
 
  export type EditedBookPublicationView = {
+	id: number,
 	authors: string[],
 	campuses : string[],
 	schools: string[],
