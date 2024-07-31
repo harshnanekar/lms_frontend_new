@@ -1,4 +1,4 @@
-import { BookChapterIcon, BookPublicationIcon, CaseStudyIcon, DashboardIcon, EContentICon, JournalIcon, PlusIcon, ResearchAwardIcon, ResearchSeminarIcon, SignOutIcon } from "$lib/components/icons"
+import { BookChapterIcon, BookPublicationIcon, CaseStudyIcon, ConferenceIcon, DashboardIcon, EContentICon, IprIcon, JournalIcon, PatentIcon, PlusIcon, ResearchAwardIcon, ResearchProjectIcon, ResearchSeminarIcon, SignOutIcon } from "$lib/components/icons"
 
 export type JournalPaper = {
 	nmims_school: string[];
@@ -37,15 +37,17 @@ export type JournalPaper = {
 };
 
 export type JournalView = {
-	nmims_school: string[];
-	nmims_campus: string[];
-	publish_year: number;
-	policy_cadre: string[];
-	total_authors: number;
-	journal_name: string;
-	publisher: string;
-	impact_factor: number;
-};
+	nmims_school : string[],
+	nmims_campus : string[],
+	publish_year :  number,
+	policy_cadre : string[],
+	total_authors : number,
+	journal_name : string,
+	publisher : string,
+	impact_factor : number,
+	status :string
+} 
+
 
 export type BookPublicationRender = {
 	id: number;
@@ -487,6 +489,330 @@ export type masterInputView = {
 		status: number;
 		message: string;
 	};
-	
 
  }
+
+ export type InfiniteAdminView = {
+    id : number,
+	faculty_name : string,
+	username : string,
+	form_name :string,
+	form_lid : number,
+	form_status : number | null
+ }[]
+
+ type SidebarIcon = {
+	[key: string]: unknown;
+}
+
+export const SIDEBAR_ICON: SidebarIcon = {
+	'dashboard': DashboardIcon,
+	'journal': JournalIcon,
+	'book-publication': BookPublicationIcon,
+	'book-chapter-publication': BookChapterIcon,
+	"case-study" : CaseStudyIcon,
+	"research-seminar": ResearchSeminarIcon,
+	"e-content":EContentICon,
+	"research-award":ResearchAwardIcon,
+	"teaching-meeting-branding":DashboardIcon,
+	"sign-out" : SignOutIcon,
+	"conference":ConferenceIcon,
+	"patent-submission":PatentIcon,
+	"research-project":ResearchProjectIcon,
+	"ipr" : IprIcon
+	// "form-approval"
+}
+
+// export type ConferenceRender = {
+// 	      id: number;
+// 	      paper_title: string;
+// 	      nmims_school: string[];
+// 	      nmims_campus: string[];
+// 	      conference_name: string;
+// 	      proceeding_published: string;
+// 	      issn_no: string;
+// 	};
+	
+	
+	
+	
+// 	export type conferenceDetails = {
+// 	      paper_title: string;
+// 	      conference_name: string;
+// 	      place: string;
+// 	      presenting_author: string;
+// 	      proceeding_published: string;
+// 	      conference_type: number;
+// 	      issn_no: string;
+// 	      publication_date: string;
+// 	      sponsored: number;
+// 	      doi_no: string;
+// 	      publication_place: string;
+// 	      amount: number;
+// 	      nmims_authors_count: number;
+// 	      volume_no: string;
+// 	      organizing_body: string;
+// 	      all_authors: number[];
+// 	      faculty_id: number[];
+// 	      nmims_school: string[];
+// 	      nmims_campus: string[];
+// 	};
+	
+// 	export type IPRRender = {
+// 	      id: number;
+	
+// 	      nmims_school: string[];
+	
+// 	      nmims_campus: string[];
+	
+// 	      title: string;
+	
+// 	      appln_no: number;
+	
+// 	      institute_affiliation: string;
+	
+// 	      filed_date: string;
+// 	};
+	
+// 	export type IPRData = {
+// 	      title: string;
+	
+// 	      appln_no: number;
+	
+// 	      filed_date: string;
+	
+// 	      grant_date: string;
+	
+// 	      published_date: string;
+	
+// 	      publication_no: number;
+	
+// 	      granted_no: number;
+	
+// 	      institue_affiliation: string;
+	
+// 	      patent_status: number;
+	
+// 	      invention_type: number[];
+	
+// 	      sdg_goals: number[];
+	
+// 	      applicant_names: number[];
+	
+// 	      nmims_school: string[];
+	
+// 	      nmims_campus: string[];
+	
+// 	      inventors_id: number[];
+	
+// 	      supporting_documents: string[];
+// 	};
+	
+// 	export type patentRender = {
+// 	      id: number;
+	
+// 	      title: string;
+	
+// 	      appln_no: number;
+	
+// 	      publication_date: string;
+	
+// 	      patent_status: number;
+	
+// 	      invention_type: number[];
+// 	};
+	
+// 	export type patentData = {
+// 	      title: string;
+	
+// 	      appln_no: number;
+	
+// 	      publication_date: string;
+	
+// 	      patent_status: number;
+	
+// 	      invention_type: number[];
+	
+// 	      sdg_goals: number[];
+	
+// 	      inventors_id: number[];
+	
+// 	      supporting_documents: string[];
+// 	};
+	
+// 	export type ResearchProjectRender = {
+// 	      id: number;
+	
+// 	      nmims_school: string[];
+	
+// 	      nmims_campus: string[];
+	
+// 	      title: string;
+	
+// 	      funding_amount: number;
+	
+// 	      funding_agency: string;
+	
+// 	      thrust_area: string;
+// 	};
+	
+// 	export type ResearchProjectData = {
+// 	      title: string;
+// 	      grant_proposal: number;
+// 	      grant_type: number;
+// 	      thrust_area: string;
+// 	      grant_date: string;
+// 	      funding_amount: number;
+// 	      funding_agency: number;
+// 	      duration: string;
+// 	      scheme: number;
+// 	      payment_date: string;
+// 	      received_amount: number;
+// 	      research_status: number;
+// 	      faculty_id: number[];
+// 	      supporting_documents: string[];
+// 	      nmims_school: string[];
+// 	      nmims_campus: string[];
+// 	};
+	
+	
+	
+	
+// 	 export type conferenceStatus = {
+// 	      insert_conference : {
+// 	            status: number;
+// 	            status_code: number;
+// 	            message: string;
+// 	      };
+	
+// 	};
+	
+// 	export type updateConferenceStatus = {
+// 	      upsert_conference : {
+// 	            status: number;
+// 	            status_code: number;
+// 	            message: string;
+// 	      };
+	
+// 	};
+	
+	
+	
+// 	export type patentStatus = {
+// 	      insert_patent_grant: {
+// 	            status: number;
+// 	            status_code: number;
+// 	            message: string;
+// 	      };
+// 	      
+// 	};
+	
+// 	export type updatePatentStatus = {
+	
+// 	      upsert_patent_grant: {
+// 	            status: number;
+// 	            status_code: number;
+// 	            message: string;
+// 	      };
+// 	};
+	
+// 	export type iprStatus = {
+// 	      insert_ipr: {
+// 	            status: number;
+// 	            status_code: number;
+// 	            message: string;
+// 	      };
+// 	      
+// 	};
+	
+// 	export type updateIprStatus = {
+	
+// 	      upsert_ipr: {
+// 	            status: number;
+// 	            status_code: number;
+// 	            message: string;
+// 	      };
+// 	};
+	
+// 	export type bookPublicationStatus = {
+// 	      insert_book_publication: {
+// 	            status: number;
+// 	            status_code: number;
+// 	            message: string;
+// 	      };
+	
+// 	};
+	
+	
+	
+	
+// 	export type updateBookPublicationStatus =  {
+// 	      upsert_book_publication: {
+// 	            status: number;
+// 	            status_code: number;
+// 	            message: string;
+// 	      };
+	
+// 	}
+// 	export type bookChapterStatus = {
+// 	      insert_book_chapter: {
+// 	            status: number;
+// 	            status_code: number;
+// 	            message: string;
+// 	      };
+	
+// 	};
+	
+	
+// 	export type updateBookChapterStatus = {
+// 	      upsert_book_chapter: {
+// 	            status: number;
+// 	            status_code: number;
+// 	            message: string;
+// 	      };
+	
+// 	}
+// 	export type researchProjectStatus = {
+// 	      insert_research_project: {
+// 	            status: number;
+// 	            status_code: number;
+// 	            message: string;
+// 	      };
+	
+// 	};
+	
+// 	export type updatedResearchProjectStatus = {
+	
+// 	      upsert_research_project: {
+// 	            status: number;
+// 	            status_code: number;
+// 	            message: string;
+// 	      };
+// 	};
+	
+	
+	
+// 	export type masterInputView = {
+// 	      id: number;
+// 	      master_input_name : string,
+// 	      input_data_type : string,
+	
+// 	 }
+	
+// 	 export type InfiniteMasterDataView = {
+// 	      username: any;
+// 	      id : number,
+// 	      first_name : string,
+// 	      last_name : string,
+// 	      input_data_type : number
+// 	 }[]
+	
+	
+// 	 export type masterStatus = {
+// 	      insert_master_data: {
+// 	            status: number;
+// 	            message: string;
+// 	      };
+// 	      
+	
+// 	 }

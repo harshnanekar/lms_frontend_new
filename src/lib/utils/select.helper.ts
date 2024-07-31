@@ -190,7 +190,7 @@ export function getFacultyType(data:any) : CustomOptions[] {
 	data.forEach((item : any) => {
 		inputFieldsArr.push({value: item.id, label: item.faculty_type});
 	});
-  
+   return inputFieldsArr;
 } 
 
 
@@ -276,4 +276,32 @@ export function getMasterInputType(data : any) :CustomOptions[] {
 	return statusArr;
 } 
 
+export function getFormLevel(data:any) : CustomOptions[] {
+	let inputFieldsArr : any[] = [];
+	data.forEach((item : any) => {
+		let label = item.abbr === 'cp' ? 'Approve' : 'Reject'
+		inputFieldsArr.push({value: item.id, label: label});
+	});
+  
+	return inputFieldsArr;
+}
 
+export function getDynamicDropdown(data:any) : CustomOptions[] {
+	console.log('dynamic dropdown',JSON.stringify(data))
+	let inputFieldsArr : any[] = [];
+	data.forEach((item : any) => {
+		inputFieldsArr.push({value: item.value, label: item.label});
+	});
+  
+	return inputFieldsArr;
+}
+
+export function getFormModules(data:any) : CustomOptions[] {
+	console.log('dynamic dropdown',JSON.stringify(data))
+	let inputFieldsArr : any[] = [];
+	data.forEach((item : any) => {
+		inputFieldsArr.push({value: item.url, label: item.module_name});
+	});
+  
+	return inputFieldsArr;
+}
