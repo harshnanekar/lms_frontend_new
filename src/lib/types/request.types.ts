@@ -33,7 +33,7 @@ export type Sort = {
 };
 
 export type InfiniteScrollResult<T> = {
-	data : T[],
+	data : T,
 	total: number,
 	nextCursor: string | null 
 }

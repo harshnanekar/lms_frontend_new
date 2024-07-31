@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input, DynamicSelect ,File } from '$lib/components/ui';
+	import { Input, DynamicSelect, File } from '$lib/components/ui';
 	import { Card } from '$lib/components/ui';
 
 	import {
@@ -20,7 +20,7 @@
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
-
+	import type { bookPublicationStatus } from '$lib/types/modules/research/research-types';
 
 	export let data: any;
 	let isRequired = false;
@@ -130,7 +130,7 @@
 
 		console.log('validated data', JSON.stringify(result.data));
 
-		const { error, json } = await fetchFormApi({
+		const { error, json } = await fetchFormApi<bookPublicationStatus[]>({
 			url: `${PUBLIC_API_BASE_URL}/book-publication-insert`,
 			method: 'POST',
 			body: formData
@@ -142,15 +142,18 @@
 			});
 			return;
 		}
-
-		if (json[0].insert_book_publication.status == 403) {
-			toast.error('ALERT!', {
-				description: json[0].insert_book_publication.message
-			});
+		if (json && json.length > 0) {
+			if (json[0].insert_book_publication.status == 403) {
+				toast.error('ALERT!', {
+					description: json[0].insert_book_publication.message
+				});
+			} else {
+				toast.success('Inserted Successfully');
+				clearForm();
+				goto('/book-publication');
+			}
 		} else {
-			toast.success('Inserted Successfully');
-			clearForm();
-			goto('/book-publication');
+			toast.error('No response data received');
 		}
 	}
 
@@ -184,7 +187,6 @@
 	function handleDeleteFiles(event: CustomEvent) {
 		files = event.detail;
 	}
-
 </script>
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
@@ -230,6 +232,7 @@
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="Volume Number" bind:value={obj.volume_no} />
 			<div class="ml-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
 					>Publisher Category<span class="text-danger text-sm">*</span>
 				</label>
@@ -277,16 +280,15 @@
 			/>
 		</div>
 
-        <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<div class="space-y-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="lms-label"
 					>Upload Supporting Documents<span class="text-primary">*</span></label
 				>
 				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
-			</div>	
+			</div>
 		</div>
-
-
 	</div>
 	<div class="flex flex-col gap-4 p-4 md:flex-row">
 		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>

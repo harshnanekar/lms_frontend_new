@@ -9,7 +9,6 @@
 	import {
 		getSchool,
 		getCampus,
-		getAllAuthor,
 		getNmimsAuthor,
 		getMasterAllAuthors,
 		getMasterNmimsAuthors,
@@ -24,9 +23,10 @@
 	import { toast } from 'svelte-sonner';
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
-	import type { any } from 'zod';
+	import { any } from 'zod';
 	import { goto } from '$app/navigation';
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
+	import type { bookChapterStatus } from '$lib/types/modules/research/research-types';
 
 	export let data: any;
 	let isRequired = false;
@@ -130,7 +130,7 @@
 		formData.append('book_publication', JSON.stringify(bookChapterObj));
 
 		// Append each file to the FormData
-		Array.from(files).forEach((file) => {
+		Array.from(files).forEach((file : any) => {
 			formData.append('supporting_documents', file.file);
 		});
 
@@ -152,7 +152,7 @@
 
 		console.log('validated data', JSON.stringify(result.data));
 
-		const { error, json } = await fetchFormApi({
+		const { error, json } = await fetchFormApi<bookChapterStatus[]>({
 			url: `${PUBLIC_API_BASE_URL}/book-chapter-publication-insert`,
 			method: 'POST',
 			body: formData
@@ -164,8 +164,8 @@
 			});
 			return;
 		}
-
-		if (json[0].insert_book_chapter.status == 403) {
+		if(json && json.length > 0){
+			if (json[0].insert_book_chapter.status == 403) {
 			toast.error('ALERT!', {
 				description: json[0].insert_book_chapter.message
 			});
@@ -173,7 +173,13 @@
 			toast.success('Inserted Successfully');
 			clearForm();
 			goto('/book-chapter-publication');
+		} 
+
+		} 
+		else {
+			toast.error('No response data received');
 		}
+	
 	}
 
 	function clearForm() {
@@ -269,6 +275,7 @@
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="Volume Number" bind:value={obj.volume_no} />
 			<div class="ml-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
 					>Publisher Category<span class="text-danger text-sm">*</span>
 				</label>
@@ -318,6 +325,7 @@
 		</div>
 		<div class="grid grid-cols-1 items-center gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<div class="space-y-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="lms-label"
 					>Upload Supporting Documents<span class="text-primary">*</span></label
 				>

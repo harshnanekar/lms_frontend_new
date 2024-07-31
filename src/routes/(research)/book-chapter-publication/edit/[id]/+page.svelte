@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect,File } from '$lib/components/ui';
+	import { Input, DatePicker, DynamicSelect, File } from '$lib/components/ui';
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
 	import { tooltip } from '$lib/utils/tooltip';
@@ -26,6 +26,7 @@
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
+	import type { updateBookChapterStatus } from '$lib/types/modules/research/research-types';
 
 	let campus: string = '';
 	let title = 'Book Chapter Publication';
@@ -62,14 +63,16 @@
 		documents: File[];
 	}
 
-	let checkData = data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? true : false;
+	let checkData =
+		data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? true : false;
 
 	let obj: any = {
-		book_chapter_id:checkData ?  parseInt(
-			data.bookChapterPublicationData.bookChapterPublicationData[0].book_chapter_id 
-		) : null,
+		book_chapter_id: checkData
+			? parseInt(data.bookChapterPublicationData.bookChapterPublicationData[0].book_chapter_id)
+			: null,
 		nmims_school:
-		checkData && data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_school != null
+			checkData &&
+			data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_school != null
 				? data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_school.map(
 						(dt: any) => {
 							return { value: dt, label: dt };
@@ -77,7 +80,8 @@
 					)
 				: [],
 		nmims_campus:
-		checkData && data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_campus != null
+			checkData &&
+			data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_campus != null
 				? data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_campus.map(
 						(dt: any) => {
 							return { value: dt, label: dt };
@@ -85,7 +89,7 @@
 					)
 				: [],
 		all_authors:
-		checkData && data.bookChapterPublicationData.bookChapterPublicationData[0].all_authors != null
+			checkData && data.bookChapterPublicationData.bookChapterPublicationData[0].all_authors != null
 				? data.bookChapterPublicationData.bookChapterPublicationData[0].all_authors.map(
 						(dt: any) => {
 							return { value: dt.id, label: dt.name };
@@ -94,7 +98,8 @@
 				: [],
 
 		nmims_authors:
-		checkData && data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_authors != null
+			checkData &&
+			data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_authors != null
 				? data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_authors.map(
 						(dt: any) => {
 							return { value: dt.id, label: dt.name };
@@ -102,29 +107,47 @@
 					)
 				: [],
 		book_editors:
-	    checkData && data.bookChapterPublicationData.bookChapterPublicationData[0].book_editors != null
+			checkData &&
+			data.bookChapterPublicationData.bookChapterPublicationData[0].book_editors != null
 				? data.bookChapterPublicationData.bookChapterPublicationData[0].book_editors.map(
 						(dt: any) => {
 							return { value: dt.id, label: dt.editor_name };
 						}
 					)
 				: [],
-		book_title: checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].book_title : '',
-		chapter_title: checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].chapter_title : '',
+		book_title: checkData
+			? data.bookChapterPublicationData.bookChapterPublicationData[0].book_title
+			: '',
+		chapter_title: checkData
+			? data.bookChapterPublicationData.bookChapterPublicationData[0].chapter_title
+			: '',
 		edition: checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].edition : '',
-		publish_year:checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].publish_year : null,
-		volume_no:checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].volume_no : '',
-		chapter_page_no:checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].chapter_page_no : '',
-		publisher:checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].publisher : '',
-		web_link:checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].web_link : '',
-		doi_no:checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].doi_no : '',
-		publication_place:checkData ?	data.bookChapterPublicationData.bookChapterPublicationData[0].publication_place : '',
-		isbn_no:checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].isbn_no : '',
-		nmims_authors_count:
-		checkData ?	data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_authors_count : null,
-		publisher_category:checkData ? Number(
-			data.bookChapterPublicationData.bookChapterPublicationData[0].publisher_category
-		) : null
+		publish_year: checkData
+			? data.bookChapterPublicationData.bookChapterPublicationData[0].publish_year
+			: null,
+		volume_no: checkData
+			? data.bookChapterPublicationData.bookChapterPublicationData[0].volume_no
+			: '',
+		chapter_page_no: checkData
+			? data.bookChapterPublicationData.bookChapterPublicationData[0].chapter_page_no
+			: '',
+		publisher: checkData
+			? data.bookChapterPublicationData.bookChapterPublicationData[0].publisher
+			: '',
+		web_link: checkData
+			? data.bookChapterPublicationData.bookChapterPublicationData[0].web_link
+			: '',
+		doi_no: checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].doi_no : '',
+		publication_place: checkData
+			? data.bookChapterPublicationData.bookChapterPublicationData[0].publication_place
+			: '',
+		isbn_no: checkData ? data.bookChapterPublicationData.bookChapterPublicationData[0].isbn_no : '',
+		nmims_authors_count: checkData
+			? data.bookChapterPublicationData.bookChapterPublicationData[0].nmims_authors_count
+			: null,
+		publisher_category: checkData
+			? Number(data.bookChapterPublicationData.bookChapterPublicationData[0].publisher_category)
+			: null
 	};
 
 	async function handleSubmit() {
@@ -163,8 +186,8 @@
 		if (checkVal) {
 			const fileObject: FileReq = {
 				documents: files.map((f: any) => {
-				return f.file;
-			})
+					return f.file;
+				})
 			};
 			const fileresult = validateWithZod(fileSchema, fileObject);
 			if (fileresult.errors) {
@@ -184,7 +207,7 @@
 		formData.append('book_chapter_id', JSON.stringify(obj.book_chapter_id));
 
 		// Append each file to the FormData
-		Array.from(files).forEach((file) => {
+		Array.from(files).forEach((file: any) => {
 			formData.append('supporting_documents', file.file);
 		});
 
@@ -206,7 +229,7 @@
 
 		console.log('validated data', JSON.stringify(result.data));
 
-		const { error, json } = await fetchFormApi({
+		const { error, json } = await fetchFormApi<updateBookChapterStatus[]>({
 			url: `${PUBLIC_API_BASE_URL}/book-chapter-publication-update`,
 			method: 'POST',
 			body: formData
@@ -218,17 +241,20 @@
 			});
 			return;
 		}
-
-		if (json[0].upsert_book_chapter.status == 403) {
-			toast.error('ALERT!', {
-				description: json[0].ups.message
-			});
+		if (json && json.length > 0) {
+			if (json[0].upsert_book_chapter.status == 403) {
+				toast.error('ALERT!', {
+					description: json[0].upsert_book_chapter.message
+				});
+			} else {
+				toast.success('Updated Successfully');
+				files = [];
+				fileDataStore.set(files);
+				isChecked = false;
+				goto('/book-chapter-publication');
+			}
 		} else {
-			toast.success('Updated Successfully');
-			files = [];
-			fileDataStore.set(files);		
-			isChecked = false;
-			goto('/book-chapter-publication');
+			toast.error('No response data received');
 		}
 	}
 
@@ -269,132 +295,136 @@
 
 <Card {title}>
 	<!-- Adjust max-height as needed -->
-	 <div class="modal-content p-4">
-	<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-		<DynamicSelect
-			isRequired={true}
-			placeholder="Nmims School"
-			options={getSchool(school)}
-			bind:selectedOptions={obj.nmims_school}
-			isMultiSelect={true}
-		/>
-		<DynamicSelect
-			isRequired={true}
-			placeholder="Nmims Campus"
-			options={getCampus(campus)}
-			bind:selectedOptions={obj.nmims_campus}
-			isMultiSelect={true}
-		/>
+	<div class="modal-content p-4">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<DynamicSelect
+				isRequired={true}
+				placeholder="Nmims School"
+				options={getSchool(school)}
+				bind:selectedOptions={obj.nmims_school}
+				isMultiSelect={true}
+			/>
+			<DynamicSelect
+				isRequired={true}
+				placeholder="Nmims Campus"
+				options={getCampus(campus)}
+				bind:selectedOptions={obj.nmims_campus}
+				isMultiSelect={true}
+			/>
 
-		<DynamicSelect
-			isRequired={true}
-			placeholder="All Authors Names"
-			options={getMasterAllAuthors(allAuth)}
-			bind:selectedOptions={obj.all_authors}
-			isMultiSelect={true}
-		/>
-	</div>
+			<DynamicSelect
+				isRequired={true}
+				placeholder="All Authors Names"
+				options={getMasterAllAuthors(allAuth)}
+				bind:selectedOptions={obj.all_authors}
+				isMultiSelect={true}
+			/>
+		</div>
 
-	<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-		<DynamicSelect
-			isRequired={true}
-			placeholder="Name Of NMIMS Authors"
-			options={getMasterNmimsAuthors(nmimsAuth)}
-			bind:selectedOptions={obj.nmims_authors}
-			isMultiSelect={true}
-		/>
-		<DynamicSelect
-			isRequired={true}
-			placeholder="Editor(s) Of The Book"
-			options={getEditors(editors)}
-			bind:selectedOptions={obj.book_editors}
-			isMultiSelect={true}
-		/>
-		<Input type="text" placeholder="Title Of Chapter" bind:value={obj.chapter_title} />
-	</div>
-	<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-		<Input type="text" placeholder="Title Of The Book" bind:value={obj.book_title} />
-		<Input type="text" placeholder="Edition (if it isn't the first) " bind:value={obj.edition} />
-		<Input
-			type="text"
-			placeholder="Page Numbers Of The Chapter "
-			bind:value={obj.chapter_page_no}
-		/>
-	</div>
-	<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-		<Input type="text" placeholder="Volume Number" bind:value={obj.volume_no} />
-		<div class="ml-2">
-			<label class="text-sm text-[#888888]"
-				>Publisher Category<span class="text-danger text-sm">*</span>
-			</label>
-			<div class="mt-2.5 flex flex-row gap-[20px]">
-				<div class="flex flex-row">
-					<input
-						type="radio"
-						id="html"
-						class="lms-input-radio w-4"
-						name="radio-button-national"
-						bind:group={obj.publisher_category}
-						checked={obj.publisher_category == 1}
-						value={1}
-					/>
-					<span class="text-sm text-[#888888]">International</span>
-				</div>
-				<div class="flex flex-row">
-					<input
-						type="radio"
-						id="html"
-						class="lms-input-radio w-4"
-						name="radio-button-national"
-						bind:group={obj.publisher_category}
-						checked={obj.publisher_category == 1}
-						value={2}
-					/>
-					<span class="text-sm text-[#888888]">National</span>
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<DynamicSelect
+				isRequired={true}
+				placeholder="Name Of NMIMS Authors"
+				options={getMasterNmimsAuthors(nmimsAuth)}
+				bind:selectedOptions={obj.nmims_authors}
+				isMultiSelect={true}
+			/>
+			<DynamicSelect
+				isRequired={true}
+				placeholder="Editor(s) Of The Book"
+				options={getEditors(editors)}
+				bind:selectedOptions={obj.book_editors}
+				isMultiSelect={true}
+			/>
+			<Input type="text" placeholder="Title Of Chapter" bind:value={obj.chapter_title} />
+		</div>
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<Input type="text" placeholder="Title Of The Book" bind:value={obj.book_title} />
+			<Input type="text" placeholder="Edition (if it isn't the first) " bind:value={obj.edition} />
+			<Input
+				type="text"
+				placeholder="Page Numbers Of The Chapter "
+				bind:value={obj.chapter_page_no}
+			/>
+		</div>
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<Input type="text" placeholder="Volume Number" bind:value={obj.volume_no} />
+			<div class="ml-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<label class="text-sm text-[#888888]"
+					>Publisher Category<span class="text-danger text-sm">*</span>
+				</label>
+				<div class="mt-2.5 flex flex-row gap-[20px]">
+					<div class="flex flex-row">
+						<input
+							type="radio"
+							id="html"
+							class="lms-input-radio w-4"
+							name="radio-button-national"
+							bind:group={obj.publisher_category}
+							checked={obj.publisher_category == 1}
+							value={1}
+						/>
+						<span class="text-sm text-[#888888]">International</span>
+					</div>
+					<div class="flex flex-row">
+						<input
+							type="radio"
+							id="html"
+							class="lms-input-radio w-4"
+							name="radio-button-national"
+							bind:group={obj.publisher_category}
+							checked={obj.publisher_category == 1}
+							value={2}
+						/>
+						<span class="text-sm text-[#888888]">National</span>
+					</div>
 				</div>
 			</div>
+			<Input type="number" placeholder="Publication Year" bind:value={obj.publish_year} />
 		</div>
-		<Input type="number" placeholder="Publication Year" bind:value={obj.publish_year} />
-	</div>
-	<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-		<Input type="text" placeholder="Publisher Name " bind:value={obj.publisher} />
-		<Input type="text" placeholder="Weblink Of the Book" bind:value={obj.web_link} />
-		<Input type="text" placeholder="ISBN Number" bind:value={obj.isbn_no} />
-	</div>
-	<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-		<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} />
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<Input type="text" placeholder="Publisher Name " bind:value={obj.publisher} />
+			<Input type="text" placeholder="Weblink Of the Book" bind:value={obj.web_link} />
+			<Input type="text" placeholder="ISBN Number" bind:value={obj.isbn_no} />
+		</div>
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} />
 
-		<Input type="text" placeholder="Place Of Publication" bind:value={obj.publication_place} />
-		<Input type="number" placeholder="No. Of NMIMS Authors" bind:value={obj.nmims_authors_count} />
-	</div>
+			<Input type="text" placeholder="Place Of Publication" bind:value={obj.publication_place} />
+			<Input
+				type="number"
+				placeholder="No. Of NMIMS Authors"
+				bind:value={obj.nmims_authors_count}
+			/>
+		</div>
 
-    <div class="grid grid-cols-1 items-center gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-		<div class="space-y-4">
-			<label for="supporting-documents" class="lms-label"
-				>Upload Supporting Documents <i style="color: red;">*</i><br /></label
-			>
-			<label class="lms-label"
-				>Click To Upload New File <input type="checkbox" bind:checked={isChecked} class="accent-primary"/></label
-			>
-			{#if checkVal}
-				<File
-					on:filesSelected={handleFiles}
-					on:deletedFiles={handleDeleteFiles}
-					isView={false}
-				/>
-			{:else}
-				<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
-					><i class="fa-solid fa-download text-md"></i></button
+		<div
+			class="grid grid-cols-1 items-center gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3"
+		>
+			<div class="space-y-4">
+				<label for="supporting-documents" class="lms-label"
+					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
 				>
-			{/if}
+				<label class="lms-label"
+					>Click To Upload New File <input
+						type="checkbox"
+						bind:checked={isChecked}
+						class="accent-primary"
+					/></label
+				>
+				{#if checkVal}
+					<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+				{:else}
+					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
+						><i class="fa-solid fa-download text-md"></i></button
+					>
+				{/if}
+			</div>
+		</div>
+
+		<div class="flex flex-col gap-4 p-4 md:flex-row">
+			<button on:click={handleSubmit} class="lms-btn lms-primary-btn">Update</button>
 		</div>
 	</div>
-
-
-
-	<div class="flex flex-col gap-4 p-4 md:flex-row">
-		<button on:click={handleSubmit} class="lms-btn lms-primary-btn">Update</button>
-	</div>
-
-</div>
 </Card>

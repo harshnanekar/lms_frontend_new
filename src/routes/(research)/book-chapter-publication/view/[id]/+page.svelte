@@ -14,6 +14,7 @@
 	export let data: any;
 
 	let checkData = data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? true : false;
+	console.log('data ===>>>>>', data);
 	let files = data.bookChapterPublicationData.bookChapterPublicationData.length > 0 ? createFileUrl(data.bookChapterPublicationData.files) : [];
 	fileDataStore.set(files)
 
@@ -188,6 +189,7 @@
 			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input type="text" placeholder="Volume Number" bind:value={obj.volume_no} {disabled} />
 				<div class="ml-2">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="text-sm text-[#888888]"
 						>Publisher Category<span class="text-danger text-sm">*</span></label
 					>
