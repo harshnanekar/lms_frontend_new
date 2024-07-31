@@ -29,7 +29,6 @@
 	const isLoading = writable(false);
 	const error = writable<string | null>(null);
 
-
 	// Fetch data function
 	async function fetchData() {
 		if ($isLoading === true) return;
@@ -143,14 +142,19 @@
 		return pageNumbers;
 	}
 	function handleCustomEvent(event) {
-    console.log('Received custom event:', event.detail);
-    }
+		console.log('Received custom event:', event.detail);
+	}
 </script>
 
 <div>
 	<div class="filters">
 		{#if showSearch}
-			<input type="text" placeholder="Search..." on:input={handleInput} />
+			<input
+				class="lms-input h-6.5 mt-4 w-[15%]"
+				type="text"
+				placeholder="Search..."
+				on:input={handleInput}
+			/>
 		{/if}
 		{#each filterOptions as filter}
 			<div class="filter">
@@ -175,7 +179,7 @@
 				<thead>
 					<tr>
 						{#each header as column}
-							<th>
+							<th class="!text-[14px]">
 								{column.label}
 								{#if column.sortable}
 									{@const sortOrder =
@@ -186,7 +190,7 @@
 								{/if}
 							</th>
 						{/each}
-						<th>Actions</th>
+						<th class="!text-[14px]">Actions</th>
 					</tr>
 				</thead>
 				<tbody>

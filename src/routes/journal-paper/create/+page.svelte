@@ -58,7 +58,6 @@
 	$: school = nmimsSchool;
 	$: campus = nmimsCampus;
 
-
 	let publicationDate: Date | null = new Date();
 	publicationDate = null;
 	$: publicationFormattedDate = publicationDate;
@@ -159,7 +158,7 @@
 			documents: Array.from(files)
 		};
 
-		console.log('files object ',files)
+		console.log('files object ', files);
 		const fileresult = validateWithZod(fileSchema, fileObject);
 		if (fileresult.errors) {
 			console.log(fileresult.errors);
@@ -255,15 +254,15 @@
 			journal_type: 1
 		};
 
-		publicationFormattedDate = null;
+		publicationDate = null;
 	}
 </script>
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
 <Card {title}>
-	<div class="scroll small-scrollbar modal-content max-h-[70vh] min-h-[50vh] overflow-auto p-4">
+	<div class="modal-content p-4">
 		<!-- Adjust max-height as needed -->
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims School"
@@ -281,7 +280,7 @@
 			<Input type="number" placeholder="Publishing Year" bind:value={obj.publish_year} />
 		</div>
 
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Policy Cadre"
@@ -299,7 +298,7 @@
 			<Input type="number" placeholder="Total No. Of Authors" bind:value={obj.total_authors} />
 		</div>
 
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims Authors"
@@ -310,7 +309,7 @@
 			<Input type="number" placeholder="No. Of Nmims Authors" bind:value={obj.nmims_author_count} />
 			<Input type="text" placeholder="Journal Name" bind:value={obj.journal_name} />
 		</div>
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="UID" bind:value={obj.uid} />
 			<Input type="text" placeholder="Publisher" bind:value={obj.publisher} />
 			<DynamicSelect
@@ -321,7 +320,7 @@
 				isMultiSelect={true}
 			/>
 		</div>
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" {isRequired} placeholder="Vol,Issue,Page No." bind:value={obj.page_no} />
 			<Input type="text" {isRequired} placeholder="ISSN No." bind:value={obj.issn_no} />
 			<Input
@@ -331,7 +330,7 @@
 				bind:value={obj.scopus_site_score}
 			/>
 		</div>
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input
 				type="number"
 				placeholder="Impact factor by Clarivate Analytics"
@@ -340,7 +339,7 @@
 			<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} />
 			<Input type="text" placeholder="Title Of Paper" bind:value={obj.title} />
 		</div>
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input type="text" {isRequired} placeholder="GS Indexed" bind:value={obj.gs_indexed} />
 			<div class="ml-2">
 				<label class="text-sm text-[#888888]"
@@ -403,7 +402,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="ABDC Indexed"
@@ -450,7 +449,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={false}
 				placeholder="Foreign Authors"
@@ -473,7 +472,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-3 gap-[40px] p-4">
+		<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input
 				{isRequired}
 				type="number"
@@ -513,7 +512,7 @@
 			<input type="file" bind:files multiple />
 		</div>
 
-		<div class="flex flex-row gap-[40px] p-4">
+		<div class="flex md:flex-row gap-4">
 			<DatePicker
 				on:change={handleDateChange}
 				bind:selectedDateTime={publicationDate}
@@ -547,7 +546,7 @@
 			{/if}
 		</div>
 	</div>
-	<div class="flex flex-row gap-[20px] p-4">
+	<div class="flex flex-col gap-4 p-4 md:flex-row">
 		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
 		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
 	</div>

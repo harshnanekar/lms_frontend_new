@@ -53,22 +53,3 @@ export const defaultJournalStore = {
 export const journalStore = writable<JournalPaper>(defaultJournalStore);
 export const masterFormStore = writable<MasterMeetingStore>(defaultMasterStoreValue);
 
-let url =new URL("http://localhost:9090/research");
-export const paginateUrl = writable<URL>(url);
-
-export const confirmStore = writable<{ isVisible: boolean, confirmText: string }>({
-	isVisible: false,
-	confirmText: 'Are you sure?'
-});
-
-export const optionStore = writable<CustomOptions>({
-	value : null,
-	label : null
-});
-
-
-export type ActionStore = {
-    callback?: () => void;
-}
-
-export const actionStore = writable<ActionStore>({});

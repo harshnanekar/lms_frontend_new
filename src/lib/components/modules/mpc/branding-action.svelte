@@ -4,7 +4,7 @@
 	import { Modal } from '$lib/components/ui';
 	import type { brandingView } from '$lib/types/modules/research/research-types';
 	// import type { SubjectMeetingDetail } from '$lib/types/modules/mpc/master-form';
-	import {createEventDispatcher,onMount } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
 	import { Popup } from '$lib/components/ui/popup';
@@ -12,9 +12,9 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
-	import { paginateUrl } from '$lib/stores/modules/mpc/master.store';
-	import {confirmStore,actionStore} from "$lib/stores/modules/mpc/master.store"
-	import {showConfirmation} from '$lib/components/ui/popup'
+	import { brandPaginateUrl } from '$lib/stores/modules/research/master.store';
+	import { confirmStore, actionStore } from '$lib/stores/modules/research/master.store';
+	import { showConfirmation } from '$lib/components/ui/popup';
 	export let actionData: brandingView;
 
 	const showMenu = writable<boolean>(false);
@@ -76,17 +76,17 @@
 
 	const openModal = async () => {
 		brandingId = actionData.id;
-		console.log('click called')
-	
-     const message = 'Are you sure you want to delete this?';
-     confirmStore.set({
-		isVisible:true,
-		confirmText:message
-	 })
+		console.log('click called');
 
-	 actionStore.set({
-            callback: handleDelete
-     });
+		const message = 'Are you sure you want to delete this?';
+		confirmStore.set({
+			isVisible: true,
+			confirmText: message
+		});
+
+		actionStore.set({
+			callback: handleDelete
+		});
 	};
 
 	const closeModal = () => {
@@ -94,7 +94,6 @@
 	};
 
 	async function handleDelete() {
-
 		console.log('delete', brandingId);
 		isOpen.set(false);
 		const { error, json } = await fetchApi({
@@ -108,16 +107,14 @@
 			});
 			return;
 		}
-        if(json.status == 200){
-		toast.success('Deleted Successfully !');
-		let url: URL = new URL('http://localhost:9090/research/branding-paginate');
-		paginateUrl.set(url);
-        }else{
-            toast.error(json.message);
-        }
+		if (json.status == 200) {
+			toast.success('Deleted Successfully !');
+			let url: URL = new URL('http://localhost:9090/research/branding-paginate');
+			brandPaginateUrl.set(url);
+		} else {
+			toast.error(json.message);
+		}
 	}
-
-  
 </script>
 
 <div>
@@ -204,7 +201,7 @@
 		position: fixed;
 		z-index: 90000000;
 	}
-	 .backdrop {
+	.backdrop {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -213,7 +210,7 @@
 		background: rgba(0, 0, 0, 0.5);
 		z-index: 1500;
 		transition: background 5000ms ease;
-	} 
+	}
 
 	/*.backdrop {
 		position: fixed;

@@ -101,14 +101,14 @@
 {#if checkData}
 	<Card {title}>
 		<div class="p-4">
-			<div class="scroll small-scrollbar modal-content max-h-[70vh] min-h-[50vh] overflow-auto">
+			<div class="modal-content">
 				<!-- Adjust max-height as needed -->
-				<div class="grid grid-cols-3 gap-[40px] p-4">
+				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input type="text" placeholder="Nmims School" value={obj.nmims_school} {disabled} />
 					<Input type="text" placeholder="Nmims Campus" value={obj.nmims_campus} {disabled} />
 					<Input type="number" placeholder="Publishing Year" value={obj.publish_year} {disabled} />
 				</div>
-				<div class="grid grid-cols-3 gap-[40px] p-4">
+				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input type="text" placeholder="Policy Cadre" value={obj.policy_cadre} {disabled} />
 					<Input type="text" placeholder="Name Of All Authors" value={obj.all_authors} {disabled} />
 					<Input
@@ -118,7 +118,7 @@
 						{disabled}
 					/>
 				</div>
-				<div class="grid grid-cols-3 gap-[40px] p-4">
+				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input
 						type="text"
 						placeholder="Name Of Nmims Authors"
@@ -133,7 +133,7 @@
 					/>
 					<Input type="text" placeholder="Journal Name" value={obj.journal_name} {disabled} />
 				</div>
-				<div class="grid grid-cols-3 gap-[40px] p-4">
+				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input type="text" placeholder="UID" value={obj.uid} {disabled} />
 					<Input type="text" placeholder="Publisher" value={obj.publisher} {disabled} />
 					<Input
@@ -143,7 +143,7 @@
 						{disabled}
 					/>
 				</div>
-				<div class="grid grid-cols-3 gap-[40px] p-4">
+				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input type="text" placeholder="Vol,Issue,Page No." value={obj.page_no} {disabled} />
 					<Input type="text" placeholder="ISSN No." value={obj.issn_no} {disabled} />
 					<Input
@@ -153,7 +153,7 @@
 						{disabled}
 					/>
 				</div>
-				<div class="grid grid-cols-3 gap-[40px] p-4">
+				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input
 						type="number"
 						placeholder="Impact factor by Clarivate Analytics"
@@ -164,7 +164,7 @@
 					<Input type="text" placeholder="Title Of Paper" value={obj.title} {disabled} />
 				</div>
 
-				<div class="grid grid-cols-3 gap-[40px] p-4">
+				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input type="text" placeholder="GS Indexed" value={obj.gs_indexed} {disabled} />
 					<div class="ml-2">
 						<label class="text-sm text-[#888888]"
@@ -230,7 +230,7 @@
 					</div>
 				</div>
 
-				<div class="grid grid-cols-3 gap-[40px] p-4">
+				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input type="text" placeholder="Abdc Indexed" value={obj.abdc_indexed} {disabled} />
 					<div class="ml-2">
 						<label class="text-sm text-[#888888]"
@@ -266,7 +266,7 @@
 					<Input type="text" placeholder="Paper Type" value={obj.paper_type} {disabled} />
 				</div>
 
-				<div class="grid grid-cols-3 gap-[40px] p-4">
+				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input type="text" placeholder="Foreign Authors" value={obj.foreign_authors} {disabled} />
 					<Input
 						type="number"
@@ -277,7 +277,7 @@
 					<Input type="text" placeholder="Student Authors" value={obj.student_authors} {disabled} />
 				</div>
 
-				<div class="grid grid-cols-3 gap-[40px] p-4">
+				<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 					<Input
 						type="text"
 						placeholder="No. Of Student Authors"

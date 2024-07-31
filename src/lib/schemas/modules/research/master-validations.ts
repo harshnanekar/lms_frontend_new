@@ -38,7 +38,7 @@ export const journalPaper = z.object({
     // .refine((files) => files.every((file) => ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(file.type)), 'Only .pdf, .docx formats are supported'),
     journal_type: z.number().min(1, 'Journal type is required'),
 	publication_date: z.string().refine(date => {
-        return date !== '1970-01-01';
+        return date !== '1970-01-01' && date !== '';;
     }, {
         message: 'Publication date is required',
     }),
@@ -46,8 +46,66 @@ export const journalPaper = z.object({
 });
 
 
+
+
   export type JournalPaperReq = z.infer<typeof journalPaper>;
 
+  export const bookPublication = z.object({
+
+	nmims_school : z.array(z.string()).min(1,{message:'School Is Required'}),
+    nmims_campus : z.array(z.string()).min(1,{message:'Campus Is Required'}),
+	all_authors: z.array(z.number()).min(1, {message:'All authors are required'}),
+	nmims_authors: z.array(z.number()).min(1, {message:'NMIMS authors are required'}),
+	title: z.string().min(1, 'Title is required'),
+	edition: z.string().min(1, 'Edition  is required'),
+	volume_no: z.string().min(1, 'Volume number is required'),
+	publisher_category: z.number().min(1, 'Publisher category is required'),
+	publish_year: z.number().refine((data) => {
+	  return data >= 1900 && data <= 3000;
+	}, {
+	  message: 'Invalid Year'
+	}),
+	publisher: z.string().min(1, 'Publisher is required'),
+	web_link: z.string().min(1, 'Website link is required'),
+	isbn_no: z.string().min(1, 'ISBN Number  is required'),
+	doi_no: z.string().min(1, 'DOI number is required'),
+	publication_place: z.string().min(1, 'Place Of Publication'),
+	nmims_authors_count: z.number().min(1, { message: 'Author count is required' })
+
+  })
+
+  export type bookPublicationReq = z.infer<typeof bookPublication>;
+
+
+  export const bookChapterPublication = z.object({
+
+	nmims_school : z.array(z.string()).min(1,{message:'School Is Required'}),
+    nmims_campus : z.array(z.string()).min(1,{message:'Campus Is Required'}),
+	all_authors: z.array(z.number()).min(1, {message:'All authors are required'}),
+	nmims_authors: z.array(z.number()).min(1, {message:'NMIMS authors are required'}),
+	book_editors: z.array(z.number()).min(1, {message:'Book editors are required'}),
+	book_title: z.string().min(1, ' Book Title is required'),
+	chapter_title: z.string().min(1, 'Chapter Title is required'),
+	edition: z.string().min(1, 'Edition  is required'),
+	chapter_page_no: z.string().min(1, 'Page number is required'),
+	volume_no: z.string().min(1, 'Volume number is required'),
+	publisher_category: z.number().min(1, 'Publisher category is required'),
+	publish_year: z.number().refine((data) => {
+	  return data >= 1900 && data <= 3000;
+	}, {
+	  message: 'Invalid Year'
+	}),
+	publisher: z.string().min(1, 'Publisher is required'),
+	web_link: z.string().min(1, 'Website link is required'),
+	isbn_no: z.string().min(1, 'ISBN Number  is required'),
+	doi_no: z.string().min(1, 'DOI number is required'),
+	publication_place: z.string().min(1, 'Place Of Publication'),
+	nmims_authors_count: z.number().min(1, { message: 'Author count is required' })
+	
+
+  });
+
+  export type bookChapterPublicationReq = z.infer<typeof bookChapterPublication>;
 
 export const editedBookPublication = z.object({
 	nmims_school : z.array(z.string()).min(1,{message:'School Is Required'}),
@@ -80,6 +138,8 @@ const teachingItemSchema = z.object({
   link: z.string().min(1,{message:'Link Is Required'}),
 });
 
+
+
 export const teachingItemsSchema = z.array(teachingItemSchema);
 
 export type TeachingItemsReq = z.infer<typeof teachingItemsSchema>;
@@ -109,23 +169,23 @@ const meetingItemSchema = z.object({
 
 
   export const fileSchema = z.object({
-  documents: z.array(z.instanceof(File)).nonempty({ message: 'File is required' })
-    .max(5, { message: 'A maximum of 5 files can be uploaded' })
-    .refine(
-      (files) => files.every((file) => [
-        'application/pdf',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'application/vnd.ms-excel',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      ].includes(file.type)),
-      { message: 'Only .pdf, .docx, .xls, .xlsx formats are supported' }
-    ),
-});
+	documents: z.array(z.instanceof(File)).nonempty({ message: 'File is required' })
+	  .max(5, { message: 'A maximum of 5 files can be uploaded' })
+	  .refine(
+		(files) => files.every((file) => [
+		  'application/pdf',
+		  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+		  'application/vnd.ms-excel',
+		  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+		].includes(file.type)),
+		{ message: 'Only .pdf, .docx, .xls, .xlsx formats are supported' }
+	  ),
+  });
+  
+	  export type FileReq = z.infer<typeof fileSchema>;
 
-    export type FileReq = z.infer<typeof fileSchema>;
 
-
-	const validFileExtensions = ['pdf', 'doc', 'docx', 'xls', 'xlsx'];
+	  const validFileExtensions = ['pdf', 'doc', 'docx', 'xls', 'xlsx'];
 
 	const getFileExtension = (fileName: string): string => {
 	  return fileName.split('.').pop()?.toLowerCase() || '';
@@ -159,3 +219,102 @@ const meetingItemSchema = z.object({
 	  }
 	};
 	
+
+	export const caseStudy = z.object({
+
+	nmims_school : z.array(z.string()).min(1,{message:'School Is Required'}),
+    nmims_campus : z.array(z.string()).min(1,{message:'Campus Is Required'}),
+	all_authors: z.array(z.number()).min(1, {message:'All authors are required'}),
+	nmims_authors: z.array(z.number()).min(1, {message:'NMIMS authors are required'}),
+	title: z.string().min(1, 'Title is required'),
+	edition: z.string().optional(),
+	page_no: z.string().optional(),
+	volume_no: z.string().min(1, 'Volume number is required'),
+	publisher: z.string().min(1, 'Publisher is required'),
+	publish_year: z.number().refine((data) => {
+	  return data >= 1900 && data <= 3000;
+	}, {
+	  message: 'Invalid Year'
+	}),
+	publisher_category: z.number().min(1, 'Publisher category is required'),
+	url: z.string().min(1, 'Url is required'),
+	nmims_authors_count: z.number().min(1, { message: 'Author count is required' })
+	
+  });
+
+  export type caseStudyReq = z.infer<typeof caseStudy>;
+
+
+  
+export const researchSeminarObj = z.object({
+    nmims_school : z.array(z.string()).min(1,{message:'School Is Required'}),
+    nmims_campus : z.array(z.string()).min(1,{message:'Campus Is Required'}),
+	topic : z.string().min(1,{message:'Topic is required'}),
+	resource_person: z.string().optional(),
+	nmims_authors: z.array(z.number()).min(1, {message:'NMIMS authors are required'}),
+	paper_title: z.string().min(1, 'Title is required'),
+	journal_name: z.string().min(1, 'Journal name is required'),
+	publisher: z.string().min(1, 'Publisher is required'),
+	publisher_category: z.union([z.number(), z.null()]).optional(),
+	volume_no: z.string().optional(),
+	issn_no:z.string().optional(),
+	scopus_site_score: z.string().optional(),
+	impact_factor: z.number().optional(),
+	scs_indexed: z.string().optional(),
+	wos_indexed: z.union([z.boolean(), z.null()]).optional(),
+	gs_indexed: z.string().optional(),
+	abdc_indexed: z.union([z.number(), z.null()]).optional(),
+	ugc_indexed: z.union([z.boolean(), z.null()]).optional(),
+	doi_no: z.union([z.string(), z.null()]).optional(),
+	uid: z.string().min(1, 'UID is required'),
+	publication_date: z.string().refine(date => {
+        return date !== '1970-01-01' && date !== '';
+    }, {
+        message: 'Publication date is required',
+    }),
+	research_date: z.string().refine(date => {
+        return date !== '1970-01-01' && date !== ''; 
+    }, {
+        message: 'Research seminar date is required',
+    }),
+});
+
+  export type ResearchSeminarReq = z.infer<typeof researchSeminarObj>;
+
+
+   
+export const EContentObj = z.object({
+	faculty_name : z.string().min(1,{message:'Faculty name is required'}),
+	module: z.string().min(1,{message:'Module developed name is required'}),
+	module_platform: z.string().min(1,{message:'Module platform is required'}),
+	document_link: z.string().min(1, {message:'Link for document and facility available is required'}),
+	facility_list: z.string().min(1, {message:'Link for development facility available is required'}),
+	media_link: z.string().min(1, {message:'Link to vieos for media centre is required'}),
+	launching_date: z.string().refine(date => {
+        return date !== '1970-01-01' && date !== '';
+    }, {
+        message: 'Launching date is required',
+    }),
+
+});
+
+  export type EContentReq = z.infer<typeof EContentObj>;
+
+
+  export const researchAwardObj = z.object({
+	nmims_school : z.array(z.string()).min(1,{message:'School Is Required'}),
+    nmims_campus : z.array(z.string()).min(1,{message:'Campus Is Required'}),
+	faculty_name: z.string().min(1,{message:'Faculty name is required'}),
+	award_name: z.string().min(1,{message:'Award name is required'}),
+	award_details: z.string().min(1,{message:'Award details is required'}),
+	award_organization : z.string().min(1,{message:'Award organization is required'}),
+	award_place: z.string().min(1,{message:'Award place is required'}),
+	award_category: z.union([z.number(), z.null()]).optional(),
+	award_date : z.string().refine(date => {
+        return date !== '1970-01-01' && date !== '';
+    }, {
+        message: 'Award date is required',
+    })
+  });
+
+  export type researchAwardReq = z.infer<typeof researchAwardObj>;

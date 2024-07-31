@@ -43,7 +43,73 @@ export type JournalPaper = {
 	 journal_name : string,
 	 publisher : string,
 	 impact_factor : number,
- }
+ } 
+
+
+
+export type BookPublicationRender = {
+	all_authors: string[],
+	nmims_school: string[],
+    nmims_campus: string[],
+	publish_year: number,
+	title: string,
+	isbn_no: string,
+	publisher: string,
+}
+
+
+export type BookPublicationDetails = {
+	nmims_school: string[],
+    nmims_campus: string[],
+	all_authors: number[],
+	title: string,
+    edition: string,
+    volume_no: string,
+    publisher: string,
+	publisher_category: number,
+	publish_year: number,
+    web_link: string,
+	isbn_no: string,
+    doi_no: string,
+    publication_place: string,
+    nmims_authors_count: number,
+    nmims_authors: number[],
+    supporting_documents: string[],
+}
+
+export type BookChapterRender = {
+	all_authors: string[],
+	nmims_school: string[],
+    nmims_campus: string[],
+	publish_year: number,
+	book_title: string,
+	isbn_no: string,
+	publisher: string,
+}
+
+
+export type BookChapterDetails = {
+	nmims_school: string[],
+    nmims_campus: string[],
+	all_authors: number[],
+	book_title: string,
+	chapter_title: string;
+    edition: string,
+    volume_no: string,
+	page_no: string;
+    publisher: string,
+	publisher_category: number,
+	publish_year: number,
+    web_link: string,
+	isbn_no: string,
+    doi_no: string,
+    publication_place: string,
+    nmims_authors_count: number,
+    nmims_authors: number[],
+	book_editors: number[],
+    supporting_documents: string[],
+
+}
 
  export type EditedBookPublicationView = {
 	authors: string[],
@@ -83,4 +149,40 @@ export type JournalPaper = {
 	organizing_conference : string,
 	newspaper_article : string,
 	student_event : string
+ }
+
+ export type CaseStudyView = {
+   title:string,
+   all_authors :string,
+   edition :string,
+   publisher :string,
+   publish_year:number,
+   volume_no : string
+ }
+
+ export type ResearchSeminarView = {
+	nmims_school : string[],
+	nmims_campus : string[],
+	research_date : Date,
+	publisher : string,
+	journal_name : string
+	nmims_authors : string[],
+ }
+
+ export type EContentView = {
+	faculty_name : string,
+	module : string,
+	module_platform : string,
+	document_link : string,
+	facility_list :string
+	media_link : string,
+ }
+
+ export type ResearchAwardView = {
+ nmims_school : string[],
+ nmims_campus : string[],
+ faculty_name : string,
+ award_name : string,
+ award_details : string,
+ award_organization: string,
  }

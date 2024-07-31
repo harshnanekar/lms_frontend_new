@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
 	import type { TableHeaders } from '$lib/types/layout/table';
 	import { STATUS_COLORS } from '$lib/constants/colors';
 	// import { headers } from '$lib/test';
@@ -53,4 +53,4 @@
 			</td>
 		</tr>
 	{/each}
-</PaginateClient>
+</PaginateClient> -->

@@ -1,4 +1,4 @@
-import { confirmStore } from '$lib/stores/modules/mpc/master.store';
+import { confirmStore } from '$lib/stores/modules/research/master.store';
 let resolveFunc: (value: boolean) => void;
 
 
