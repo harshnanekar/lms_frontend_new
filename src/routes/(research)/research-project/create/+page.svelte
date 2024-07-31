@@ -468,7 +468,7 @@
 					bind:selectedDateTime={paymentDate}
 					disabled={(paymentDate) => paymentDate.getTime() < new Date().setHours(0, 0, 0, 0)}
 				>
-					<div class="text-primary hover:bg-base gap[10px] flex items-center rounded-lg px-3 py-2">
+					<div class="text-primary hover:bg-base gap[10px] flex items-center rounded-lg px-3 py-2 gap-x-4">
 						<SelectDateIcon />
 						<span class="text-body-2 font-bold">Annual Payment Date</span>
 					</div>
