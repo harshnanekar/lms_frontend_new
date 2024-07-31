@@ -1,4 +1,4 @@
-import { BookChapterIcon, BookPublicationIcon, CaseStudyIcon, ConferenceIcon, DashboardIcon, EContentICon, FacultyIcon, IprIcon, JournalIcon, PatentIcon, PlusIcon, ResearchAwardIcon, ResearchProjectIcon, ResearchSeminarIcon, SignOutIcon } from "$lib/components/icons"
+import { AuthorIcon, BookChapterIcon, BookPublicationIcon, CaseStudyIcon, ConferenceIcon, DashboardIcon, EContentICon, EditedBookIcon, FacultyIcon, IprIcon, JournalIcon, MeetingStakeholderIcon, PatentIcon, PlusIcon, PublicationIcon, ResearchAwardIcon, ResearchIcon, ResearchProjectIcon, ResearchSeminarIcon, SignOutIcon, TeachMeetBrandIcon } from "$lib/components/icons"
 
 export type JournalPaper = {
 	nmims_school: string[];
@@ -514,12 +514,17 @@ export const SIDEBAR_ICON: SidebarIcon = {
 	"research-seminar": ResearchSeminarIcon,
 	"e-content":EContentICon,
 	"research-award":ResearchAwardIcon,
-	"teaching-meeting-branding":DashboardIcon,
+	"teaching-meeting-branding":TeachMeetBrandIcon,
 	"sign-out" : SignOutIcon,
 	"conference":ConferenceIcon,
 	"patent-submission":PatentIcon,
 	"research-project":ResearchProjectIcon,
 	"ipr" : IprIcon,
-	"faculty" : FacultyIcon
+	"faculty" : FacultyIcon,
+	"edited-book-publication":EditedBookIcon,
+	"meeting-stakeholder":MeetingStakeholderIcon,
+	"author":AuthorIcon,
+    "research":ResearchIcon,
+	"publication":PublicationIcon
 	// "form-approval"
 }

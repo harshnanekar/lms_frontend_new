@@ -1,7 +1,7 @@
 <script>
 	export let fill = '#D2232A';
-	export let width = 28;
-	export let height = 28;
+	export let width = 36;
+	export let height = 32;
 </script>
 
 <svg {width} {height} viewBox="0 0 {width} {height}" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -32,36 +32,42 @@ export const SIDEBAR_URL = [
 		module: null,
 		child: []
 	},
-	// {
-	// 	url: '/test',
-	// 	icon: 'test',
-	// 	label: 'Research',
-	// 	module: null,
-	// 	child: []
-	// },
-	{
-		url: '/journal-paper',
-		icon: 'journal',
-		label: 'Journal Articles Published',
-		module: null,
-		child: []
-	},
 
 	{
-		url: '/book-publication',
-		icon: 'book-publication',
-		label: 'Book Publication',
-		module: null,
-		child: []
-	},
+	url: '/research',
+	icon: 'research',
+	label: 'Research',
+	module: null,
+	child :[
+		{
+			url: '/journal-paper',
+			icon: 'journal',
+			label: 'Journal Articles Published',
+			module: null,
+			child: []
+		},
 
-	{
-		url: '/book-chapter-publication',
-		icon: 'book-chapter-publication',
-		label: 'Book Chapter Publication',
-		module: null,
-		child: []
-	}, 
+	    {
+			url: '/publications',
+			icon: 'publication',
+			label: 'Book Publications',
+			module: null,
+			child: [ {
+				url: '/book-publication',
+				icon: 'book-publication',
+				label: 'Book Publication',
+				module: null,
+				child: []
+				},
+		
+				{
+				url: '/book-chapter-publication',
+				icon: 'book-chapter-publication',
+				label: 'Book Chapter Publication',
+				module: null,
+				child: []
+			}, ]
+			},
 
 	{
 		url: '/conference',
@@ -134,99 +140,8 @@ export const SIDEBAR_URL = [
 		module: null,
 		child: []
 	}
-	// {
-	// 	url: '/page',
-	// 	icon: 'Mpc',
-	// 	label: 'Mpc',
-	// 	module: null,
-	// 	child: []
-	// },
-	// {
-	// 	url: '#2',
-	// 	icon: 'mpc',
-	// 	label: 'MPC',
-	// 	module: 'mpc',
-	// 	child: [
-	// 		{
-	// 			url: '#3',
-	// 			icon: 'overview',
-	// 			label: 'Overview',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#4',
-	// 			icon: 'forecast',
-	// 			label: 'Forecast',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#5',
-	// 			icon: 'plan',
-	// 			label: 'Plan',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#6',
-	// 			icon: 'execute',
-	// 			label: 'Execute',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#7',
-	// 			icon: 'monitor',
-	// 			label: 'Monitor',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#8',
-	// 			icon: 'plan',
-	// 			label: 'Plan',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#9',
-	// 			icon: 'execute',
-	// 			label: 'Execute',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#10',
-	// 			icon: 'monitor',
-	// 			label: 'Monitor',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#11',
-	// 			icon: 'plan',
-	// 			label: 'Plan',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#12',
-	// 			icon: 'execute',
-	// 			label: 'Execute',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#13',
-	// 			icon: 'monitor',
-	// 			label: 'Monitor',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		}
-	// 	]
-	// }
-
+]
+}
 ];
 
 export const obj = [
