@@ -18,6 +18,7 @@ import type {
 	patentRender,
 	IPRRender,
 	ConferenceRender,
+	EditedBookPublicationView,
 	// ConferenceRender,
 	// IPRRender,
 	// patentRender,
@@ -66,7 +67,15 @@ export const SIDEBAR_URL = [
 				label: 'Book Chapter Publication',
 				module: null,
 				child: []
-			}, ]
+			}, 
+			{
+				url: '/edited-book-publication',
+				icon: 'edited-publication',
+				label: 'Edited Book Publication',
+				module: null,
+				child: []
+			}, 
+		]
 			},
 
 	{
@@ -806,6 +815,7 @@ export const FacultyHeaders : TableHeaders<FacultyView>[] = [
 		sortable: false,
 		classes: 'id',
 		showTooltip: false
+	}
 ]; 
 
 
@@ -1108,6 +1118,56 @@ export const MasterHeaders : TableHeaders<masterInputView>[] = [
 		showTooltip: false
 	},
 
-
-
 ]; 
+
+export const EditedBookPublicationHeader : TableHeaders<EditedBookPublicationView>[] = [ 
+    {
+        label: 'Author Name',
+        key: 'authors',
+        sortable: false,
+        classes: '',
+        showTooltip: false
+    },
+    {
+        label: 'NMIMS Campus - Author',
+        key: 'campuses',
+        sortable: false,
+        classes: '',
+        showTooltip: false
+    },
+    {
+        label: 'NMIMS School - Author',
+        key: 'schools',
+        sortable: false,
+        classes: '',
+        showTooltip: false
+    },
+    {
+        label: 'Publication Year',
+        key: 'publish_year',
+        sortable: false,
+        classes: '',
+        showTooltip: false
+    },
+    {
+        label: 'Book Title',
+        key: 'title',
+        sortable: false,
+        classes: '',
+        showTooltip: false
+    },
+    {
+        label: 'ISBN Number',
+        key: 'isbn_no',
+        sortable: false,
+        classes: '',
+        showTooltip: false
+    },
+    {
+        label: 'Publisher Name',
+        key: 'publisher',
+        sortable: false,
+        classes: '',
+        showTooltip: false
+    },
+];

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Card } from '$lib/components/ui';
     import { Input, DynamicSelect, File } from '$lib/components/ui'
-    import { getAllAuthor, getSchool, getCampus, getNmimsAuthor, getEditors } from '$lib/utils/select.helper';
+    import { getAllAuthor,getMasterAllAuthors,getMasterNmimsAuthors, getSchool, getCampus, getNmimsAuthor, getEditors } from '$lib/utils/select.helper';
     import { editedBookPublication, type editedBookPublicationReq, type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations'
     import { validateWithZod } from '$lib/utils/validations';
     import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
@@ -190,7 +190,7 @@
             isRequired={true}
             placeholder="All Authors Name"
             bind:selectedOptions={obj.authors}
-            options={getAllAuthor(allAuthors)}
+            options={getMasterAllAuthors(allAuthors)}
             isMultiSelect={true}
         />
     </div>    
@@ -200,7 +200,7 @@
         isRequired={true}
         placeholder="Nmims Authors Name"
         bind:selectedOptions={obj.nmimsAuthors}
-        options={getNmimsAuthor(nmimsAuthors)}
+        options={getMasterNmimsAuthors(nmimsAuthors)}
         isMultiSelect={true}
     />
         <DynamicSelect
