@@ -457,7 +457,7 @@
 			<Input type="number" placeholder="Amount Received" bind:value={obj.received_amount} />
 		</div>
 
-		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2">
 			<div class="space-y-4">
 				<label for="supporting-documents" class="lms-label"
 					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
