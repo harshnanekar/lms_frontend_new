@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { union, z } from 'zod';
 
 export const journalPaper = z.object({
     nmims_school : z.array(z.string()).min(1,{message:'School Is Required'}),
@@ -73,6 +73,8 @@ export const journalPaper = z.object({
 
   export type bookPublicationReq = z.infer<typeof bookPublication>;
 
+  
+
 
   export const bookChapterPublication = z.object({
 
@@ -98,11 +100,34 @@ export const journalPaper = z.object({
 	doi_no: z.string().min(1, 'DOI number is required'),
 	publication_place: z.string().min(1, 'Place Of Publication'),
 	nmims_authors_count: z.number().min(1, { message: 'Author count is required' })
-	
-
-  });
+});
 
   export type bookChapterPublicationReq = z.infer<typeof bookChapterPublication>;
+
+export const editedBookPublication = z.object({
+	nmims_school : z.array(z.string()).min(1,{message:'School Is Required'}),
+    nmims_campus : z.array(z.string()).min(1,{message:'Campus Is Required'}),
+    publish_year: z.number().refine((data) => {
+      return data >= 1900 && data <= 3000;
+    }, {
+      message: 'Invalid Year'
+    }),
+    all_authors: z.array(z.number()).min(1, {message:'All authors are required'}),
+    nmims_authors: z.array(z.number()).min(1, {message:'NMIMS authors are required'}),
+	nmims_authors_count: z.number().min(1, { message: 'Author count is required' }),
+    title: z.string().min(1, 'Book title is required'),
+    publisher: z.string().min(1, 'Publisher is required'),
+	isbn_no: z.number().min(1, 'Isbn is required'),
+	web_link: z.string().min(1, 'Web link is required'),
+	doi_no: z.string().min(1, 'doi number is required'),
+	edition: z.string().min(1, 'Edition is required'),
+	book_editors: z.array(z.number()).min(1, { message: 'Book Editors are required'}),
+	publication_place: z.string().min(1, 'Publication place is required'),
+	publisher_category: z.number().min(1, 'Publisher category is required').optional(),
+
+})
+
+export type editedBookPublicationReq = z.infer<typeof editedBookPublication>
 
 const teachingItemSchema = z.object({
   input_type: z.string().min(1,{message:'Teaching Excellance Type Is Required'}),

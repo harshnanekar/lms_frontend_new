@@ -1,9 +1,7 @@
 <script lang="ts">
     import { goto } from '$app/navigation';
-
     import { Header } from "$lib/components/researchHeader";
     import { PlusIcon } from '$lib/components/icons';
-
     import type { BookPublicationRender } from '$lib/types/modules/research/research-types';
     import { PaginateDynamic } from '$lib/components/layout/pagination';
     import {BookPublicationHeaders} from "$lib/test";

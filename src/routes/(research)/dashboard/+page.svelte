@@ -3,7 +3,7 @@
 	import { COLORS } from '$lib/constants/colors';
 
 export let data : any;
-let dashboard = data.dashboardData.length > 0 ? data.dashboardData : [];
+let dashboard = data.dashboardData ? data.dashboardData : [];
 console.log('dashboard modules ',JSON.stringify(data.dashboardData))
 
 </script>

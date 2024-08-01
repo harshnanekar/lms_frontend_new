@@ -46,19 +46,15 @@
 	let isRequired = false;
 
 	let title = 'IPR';
+	
+	console.log('data ',JSON.stringify(data))
 
 	let nmimsSchool = data?.iprDataList?.school?.message;
-
 	let nmimsCampus = data?.iprDataList?.campus?.message;
-
 	let enternalAuthors = data?.iprDataList?.internalAuthors?.message;
-
 	let externalAuthors = data?.iprDataList?.externalAuthors?.message;
-
 	let sdgGoals = data?.iprDataList?.sdgGoals?.message;
-
 	let patetntStatus = data?.iprDataList?.status?.message;
-
 	let inventionType = data?.iprDataList?.inventionType?.message;
 	let applicantNames = data?.iprDataList?.applicantNames?.message;
 

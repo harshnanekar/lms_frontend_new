@@ -1,10 +1,7 @@
 <script lang="ts">
-	// import { conferenceDetails } from 'types/research.types';
-	import { ActionIcon } from '$lib/components/icons';
+    import { ActionIcon } from '$lib/components/icons';
 	import { Modal } from '$lib/components/ui';
-
-	// import { bookPublication } from '$lib/schemas/modules/research/master-validations';
-	import type { ConferenceRender } from '$lib/types/modules/research/research-types';
+	import type { EditedBookPublicationView } from '$lib/types/modules/research/research-types';
 	// import type { SubjectMeetingDetail } from '$lib/types/modules/mpc/master-form';
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
@@ -18,9 +15,10 @@
 	import { confirmStore, actionStore } from '$lib/stores/modules/research/master.store';
 	import { showConfirmation } from '$lib/components/ui/popup';
 
-	export let actionData: ConferenceRender;
 
-	const showMenu = writable<boolean>(false);
+    export let actionData: EditedBookPublicationView
+
+    const showMenu = writable<boolean>(false);
 	const menuPosition = writable<{ top: number; left: number }>({ top: 0, left: 0 });
 
 	let buttonElement: HTMLButtonElement;
@@ -30,7 +28,7 @@
 		showMenu.update((value) => !value);
 	};
 
-	$: if ($showMenu && menuElement) {
+    $: if ($showMenu && menuElement) {
 		const rect = buttonElement.getBoundingClientRect();
 		const menuRect = menuElement.getBoundingClientRect();
 
@@ -55,7 +53,7 @@
 		menuPosition.set({ top, left });
 	}
 
-	const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent) => {
 		if (
 			!buttonElement.contains(event.target as Node) &&
 			(!menuElement || !menuElement.contains(event.target as Node))
@@ -71,13 +69,15 @@
 		};
 	});
 
-	$: console.log('ACTIONDATA Conference Details >>>>>>>>>>>', actionData);
-	const isOpen = writable(false);
-	let modalwidthPercent: ModalSizes = 'md';
-	let conferenceId: number;
 
-	const openModal = async () => {
-		conferenceId = actionData.id;
+    $: console.log('ACTIONDATA edited >>>>>>>>>>>', actionData);
+
+    const isOpen = writable(false);
+	let modalwidthPercent: ModalSizes = 'md';
+	let edited_publication_id: number;
+
+    const openModal = async () => {
+		edited_publication_id = actionData.id;
 		console.log('click called');
 
 		const message = 'Are you sure you want to delete this?';
@@ -86,23 +86,42 @@
 			confirmText: message
 		});
 
-		actionStore.set({
+        actionStore.set({
 			callback: handleDelete
 		});
-	};
+    }
 
-	const closeModal = () => {
+    const closeModal = () => {
 		isOpen.set(false);
 	};
 
-	async function handleDelete() {
-		console.log('delete button clicked', conferenceId);
+    async function handleDelete() {
+		console.log('delete button clicked', edited_publication_id);
 		isOpen.set(false);
 
+		// const response = await fetch(
+		// 	`${PUBLIC_API_BASE_URL}/edited-book-publication-delete?id=${edited_publication_id}`,
+		// 	{
+		// 		method: 'GET'
+		// 	}
+		// );
+
+        // const { error, json } = await response.json();
+
+		// if (error) {
+		// 	toast.error(error.message || 'Something went wrong!', {
+		// 		description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+		// 	});
+		// 	return;
+		// }
+
+		// toast.success('Deleted Successfully!');
+		// let url = new URL('http://localhost:9090/research/edited-book-publication-paginate');
+		// paginateUrl.set(url);
 
 
 		const { error, json } = await fetchApi({
-			url: `${PUBLIC_API_BASE_URL}/conference-delete?id=${conferenceId}`,
+			url: `${PUBLIC_API_BASE_URL}/edited-book-publication-delete?id=${edited_publication_id}`,
 			method: 'GET'
 		});
 
@@ -117,7 +136,7 @@
 		if(json.status == 200){
 			
 		toast.success('Deleted Successfully !');
-		let url: URL = new URL('http://localhost:9090/research/conference-paginate');
+		let url: URL = new URL('http://localhost:9090/research/edited-book-publication-paginate');
 		paginateUrl.set(url);
 
 		}else{
@@ -125,8 +144,7 @@
 		}
 
 
-
-	}
+    }
 </script>
 
 <div>
@@ -142,12 +160,12 @@
 		>
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 				<a
-					href="/conference/view/{actionData.id}"
+					href="/edited-book-publication/view/{actionData.id}"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">View</a
 				>
 				<a
-					href="/conference/edit/{actionData.id}"
+					href="/edited-book-publication/edit/{actionData.id}"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">Edit</a
 				>
@@ -160,6 +178,7 @@
 		</div>
 	{/if}
 </div>
+
 <!-- <Popup /> -->
 
 <Modal bind:isOpen={$isOpen} size={modalwidthPercent} on:close={closeModal}>

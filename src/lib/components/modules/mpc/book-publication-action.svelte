@@ -98,25 +98,29 @@
 		console.log('delete button clicked', bookPublicationId);
 		isOpen.set(false);
 
-		const response = await fetch(
-			`${PUBLIC_API_BASE_URL}/book-publication-delete?id=${bookPublicationId}`,
-			{
-				method: 'POST'
-			}
-		);
-
-		const { error, json } = await response.json();
+        const { error, json } = await fetchApi({
+			url: `${PUBLIC_API_BASE_URL}/book-publication-delete?id=${bookPublicationId}`,
+			method: 'GET'
+		});
 
 		if (error) {
+
 			toast.error(error.message || 'Something went wrong!', {
 				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
 			});
 			return;
 		}
 
-		toast.success('Deleted Successfully!');
-		let url = new URL('http://localhost:9090/research/book-publication-paginate');
+		if(json.status == 200){
+			
+		toast.success('Deleted Successfully !');
+		let url: URL = new URL('http://localhost:9090/research/book-publication-paginate');
 		paginateUrl.set(url);
+
+		}else{
+			toast.error(json.message);
+		}
+
 	}
 </script>
 
