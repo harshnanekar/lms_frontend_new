@@ -37,3 +37,4 @@ export type InfiniteScrollResult<T> = {
 	total: number,
 	nextCursor: string | null 
 }
+export type PaginationResult<T> = {data:T[],total:number};

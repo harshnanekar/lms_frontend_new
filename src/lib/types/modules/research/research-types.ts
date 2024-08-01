@@ -1,3 +1,5 @@
+import { AuthorIcon, BookChapterIcon, BookPublicationIcon, CaseStudyIcon, ConferenceIcon, DashboardIcon, EContentICon, EditedBookIcon, FacultyIcon, IprIcon, JournalIcon, MeetingStakeholderIcon, PatentIcon, PlusIcon, PublicationIcon, ResearchAwardIcon, ResearchIcon, ResearchProjectIcon, ResearchSeminarIcon, SignOutIcon, TeachMeetBrandIcon } from "$lib/components/icons"
+
 export type JournalPaper = {
 	nmims_school: string[];
 	nmims_campus: string[];
@@ -35,15 +37,17 @@ export type JournalPaper = {
 };
 
 export type JournalView = {
-	nmims_school: string[];
-	nmims_campus: string[];
-	publish_year: number;
-	policy_cadre: string[];
-	total_authors: number;
-	journal_name: string;
-	publisher: string;
-	impact_factor: number;
-};
+	nmims_school : string[],
+	nmims_campus : string[],
+	publish_year :  number,
+	policy_cadre : string[],
+	total_authors : number,
+	journal_name : string,
+	publisher : string,
+	impact_factor : number,
+	status :string
+} 
+
 
 export type BookPublicationRender = {
 	id: number;
@@ -485,6 +489,42 @@ export type masterInputView = {
 		status: number;
 		message: string;
 	};
-	
 
  }
+
+ export type InfiniteAdminView = {
+    id : number,
+	faculty_name : string,
+	username : string,
+	form_name :string,
+	form_lid : number,
+	form_status : number | null
+ }[]
+
+ type SidebarIcon = {
+	[key: string]: unknown;
+}
+
+export const SIDEBAR_ICON: SidebarIcon = {
+	'dashboard': DashboardIcon,
+	'journal': JournalIcon,
+	'book-publication': BookPublicationIcon,
+	'book-chapter-publication': BookChapterIcon,
+	"case-study" : CaseStudyIcon,
+	"research-seminar": ResearchSeminarIcon,
+	"e-content":EContentICon,
+	"research-award":ResearchAwardIcon,
+	"teaching-meeting-branding":TeachMeetBrandIcon,
+	"sign-out" : SignOutIcon,
+	"conference":ConferenceIcon,
+	"patent-submission":PatentIcon,
+	"research-project":ResearchProjectIcon,
+	"ipr" : IprIcon,
+	"faculty" : FacultyIcon,
+	"edited-book-publication":EditedBookIcon,
+	"meeting-stakeholder":MeetingStakeholderIcon,
+	"author":AuthorIcon,
+    "research":ResearchIcon,
+	"publication":PublicationIcon
+	// "form-approval"
+}

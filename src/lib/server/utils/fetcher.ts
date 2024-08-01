@@ -1,5 +1,6 @@
+import { goto } from '$app/navigation';
 import type { ApiResponse } from '$lib/types/request.types';
-import type { Cookies, HttpMethod } from '@sveltejs/kit';
+import { redirect, type Cookies, type HttpMethod } from '@sveltejs/kit';
 
 export const fetchApiServer = async <T>({
 	url,
@@ -47,6 +48,7 @@ export const fetchApiServer = async <T>({
 			} catch {
 				errorData = { message: 'Error' };
 			}
+
 			return { json: null, error: errorData };
 		}
 

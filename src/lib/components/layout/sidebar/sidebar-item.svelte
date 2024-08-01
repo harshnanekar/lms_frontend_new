@@ -1,18 +1,23 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { COLORS } from '$lib/constants/colors';
+	import { SIDEBAR_ICON } from '$lib/types/modules/research/research-types';
 	import SidebarList from './sidebar-list.svelte';
 	import type { SidebarListType } from './types';
 
 	export let sidebarList: SidebarListType[] = [];
 </script>
 
-<ul class="pt-[43px]">
+<ul class="pt-[43px] ">
 	{#each sidebarList as item, i}
 		{@const isactive = $page.url.pathname === item.url}
 		<SidebarList index={i} {item} {isactive} />
+
+	
 	{/each}
 	<div class="highlight"></div>
 </ul>
+
 
 <style>
 	ul {

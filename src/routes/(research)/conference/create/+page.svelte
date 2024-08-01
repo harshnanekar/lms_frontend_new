@@ -39,8 +39,8 @@
 	let nmimsSchool = data?.conferenceDetails?.school?.message;
 	let nmimsCampus = data?.conferenceDetails?.campus?.message;
 	let masterAllAuthors = data?.conferenceDetails?.masterAllAuthors?.message;
-	let externalAuthors = data?.conferenceDetails?.externalAuthors?.message;
-	let enternalAuthors = data?.conferenceDetails?.enternalAuthors?.message;
+	let externalAuthors = data?.conferenceDetails?.externalAuthors.message.length > 0 ? data?.conferenceDetails?.externalAuthors?.message : [];
+	let enternalAuthors = data?.conferenceDetails?.enternalAuthors.message.length > 0 ? data?.conferenceDetails?.enternalAuthors?.message : [];
 	let conferenceDocumentAbbr = data?.conferenceDetails?.conferenceDocumentAbbr;
 	let conference_abbr = conferenceDocumentAbbr
 		.filter((data: { abbr: string }) => data.abbr === 'cd')

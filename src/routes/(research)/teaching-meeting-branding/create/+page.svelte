@@ -27,6 +27,8 @@
 	import { Accordion, AccordionItem } from '$lib/components/ui';
 	import Accordian from '$lib/components/ui/accordian/accordian.svelte';
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
+	import TeachingIcon from '$lib/components/icons/layout/teaching-icon.svelte';
+	import MeetingIcon from '$lib/components/icons/modules/mpc/meeting-icon.svelte';
 
 	export let data: any;
 
@@ -437,6 +439,7 @@
 			<svelte:fragment slot="title">
 				<div class="flex items-center gap-4 md:flex-row">
 					<!-- <i class="fa-solid fa-graduation-cap xs:text-[30px] sm:text-[30px] md:text-[30px]"></i> -->
+					 <!-- <TeachingIcon /> -->
 					<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Teaching Excellance</h1>
 				</div>
 			</svelte:fragment>
@@ -542,6 +545,7 @@
 			<svelte:fragment slot="title">
 				<div class="flex items-center gap-4 md:flex-row">
 					<!-- <i class="fa-solid fa-people-arrows xs:text-[30px] sm:text-[30px] md:text-[30px]"></i> -->
+					<!-- <MeetingIcon fill="black" width='36' height='36'/> -->
 					<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Meeting Stakeholders</h1>
 				</div>
 			</svelte:fragment>

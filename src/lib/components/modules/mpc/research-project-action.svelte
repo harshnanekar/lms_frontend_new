@@ -83,10 +83,10 @@
 	$: console.log('ACTIONDATA Ankit >>>>>>>>>>>', actionData);
 	const isOpen = writable(false);
 	let modalwidthPercent: ModalSizes = 'md';
-	let iprId: number;
+	let projectId: number;
 
 	const openModal = async () => {
-		iprId = actionData.id;
+		projectId = actionData.id;
 		console.log('click called');
 
 		const message = 'Are you sure you want to delete this?';
@@ -105,25 +105,51 @@
 	};
 
 	async function handleDelete() {
-		console.log('delete button clicked', iprId);
+		console.log('delete button clicked', projectId);
 		isOpen.set(false);
 
-		const response = await fetch(`${PUBLIC_API_BASE_URL}/research-project-delete?id=${iprId}`, {
-			method: 'POST'
+		// const response = await fetch(`${PUBLIC_API_BASE_URL}/research-project-delete?id=${iprId}`, {
+		// 	method: 'POST'
+		// });
+
+		// const { error, json } = await response.json();
+
+		// if (error) {
+		// 	toast.error(error.message || 'Something went wrong!', {
+		// 		description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+		// 	});
+		// 	return;
+		// }
+
+		// toast.success('Deleted Successfully!');
+		// let url = new URL('http://localhost:9090/research/research-project-paginate');
+		// paginateUrl.set(url);
+
+        const { error, json } = await fetchApi({
+			url: `${PUBLIC_API_BASE_URL}/research-project-delete?id=${projectId}`,
+			method: 'GET'
 		});
 
-		const { error, json } = await response.json();
-
 		if (error) {
+
 			toast.error(error.message || 'Something went wrong!', {
 				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
 			});
 			return;
 		}
 
-		toast.success('Deleted Successfully!');
-		let url = new URL('http://localhost:9090/research/research-project-paginate');
+		if(json.status == 200){
+			
+		toast.success('Deleted Successfully !');
+		let url: URL = new URL('http://localhost:9090/research/research-project-paginate');
 		paginateUrl.set(url);
+
+		}else{
+			toast.error(json.message);
+		}
+
+
+
 	}
 </script>
 

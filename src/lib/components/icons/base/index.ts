@@ -17,3 +17,4 @@ export { default as EyeIcon } from './eye-icon.svelte';
 export { default as MinusIcon } from './minus-icon.svelte'
 export { default as CloseEyeIcon } from './close-eye-icon.svelte';
 export { default as PreviewIcon } from './preview-icon.svelte';
+export { default as SignOutIcon } from './logout-icon.svelte';

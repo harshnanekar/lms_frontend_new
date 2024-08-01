@@ -27,8 +27,9 @@
 	let title = 'Conference';
 	let disabled: boolean = true;
 	let checkData = data.conferenceDetails.conferenceDetails.length > 0 ? true : false;
+	console.log('data comming from backend ===>>>>', JSON.stringify(data))
 
-	console.log('data details ===>>>', data.conferenceDetails.conferenceDetails[0]);
+	// console.log('data details ===>>>', data.conferenceDetails.conferenceDetails[0]);
 	
 
 	let conferenceFiles: any = data.conferenceDetails.files.length > 0 ? data.conferenceDetails.files.filter((file: any) => file.type_abbr === 'cd') : [];
@@ -49,9 +50,6 @@
 	}
 
 	
-
-	console.log('data comming from backend ===>>>>', data)
-
 	let showInternal = false;
 	let showExternal = false;
 

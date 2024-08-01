@@ -432,7 +432,7 @@
 			selectedOptions = selected;
 			closeDropdown();
 		}
-		dispatch('change');
+		dispatch('change',{value:selectedOptions});
 	}
 
 	function removeOption(option: CustomOptions) {
@@ -449,9 +449,10 @@
 		}
 	}
 	$: checkOptions = selectedOptions;
+	export let inputClass= '';
 </script>
 
-<div class="lms-custom-select-wrapper relative inline-block">
+<div class="lms-custom-select-wrapper relative inline-block {inputClass}">
 	<div>
 		<button
 			type="button"
@@ -470,9 +471,9 @@
 				<div class="selected-options">
 					{#if Array.isArray(selectedOptions)}
 						<!-- {#if selectedOptions != null} -->
-						{#each selectedOptions as option (option.value)}
+						{#each selectedOptions as option (option?.value)}
 							<div class="selected-option">
-								{option.label}
+								{option?.label}
 								<button class="remove-btn" on:click={() => removeOption(option)}>✕</button>
 							</div>
 						{/each}
