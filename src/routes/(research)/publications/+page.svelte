@@ -4,7 +4,7 @@
 export let data:any;
 console.log('modules ',JSON.stringify(data))
 
-let dashboard = data.dashboardData.length > 0 ? data.dashboardData : []
+let dashboard = data.dashboardData ? data.dashboardData : []
 </script>
 
 

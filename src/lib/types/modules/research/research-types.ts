@@ -528,3 +528,15 @@ export const SIDEBAR_ICON: SidebarIcon = {
 	"publication":PublicationIcon
 	// "form-approval"
 }
+
+export type EditedBookPublicationView = {
+    id: number,
+    authors: string[],
+    campuses : string[],
+    schools: string[],
+    publish_year: number,
+    title: string,
+    isbn_no: number,
+    publisher: string
+}
+	
