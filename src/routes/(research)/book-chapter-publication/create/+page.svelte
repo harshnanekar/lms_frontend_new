@@ -130,7 +130,7 @@
 		formData.append('book_publication', JSON.stringify(bookChapterObj));
 
 		// Append each file to the FormData
-		Array.from(files).forEach((file) => {
+		Array.from(files).forEach((file : any) => {
 			formData.append('supporting_documents', file.file);
 		});
 

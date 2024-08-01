@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Card } from '$lib/components/ui';
-    import { Input, DynamicSelect } from '$lib/components/ui'
+    import { Input, DynamicSelect, File } from '$lib/components/ui'
     import { getAllAuthor, getSchool, getCampus, getNmimsAuthor, getEditors } from '$lib/utils/select.helper';
     import { editedBookPublication, type editedBookPublicationReq, type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations'
     import { validateWithZod } from '$lib/utils/validations';
@@ -45,6 +45,15 @@
 
         let files: any = [];
 
+        function handleFiles(event: CustomEvent<File[]>) {
+		files = event.detail;
+		console.log('files details', files);
+	}
+
+	function handleDeleteFiles(event: CustomEvent) {
+		files = event.detail;
+	}
+
        async function handleSubmit() {
             const editedBookSubmit: editedBookPublicationReq = {
             nmims_school:
@@ -69,8 +78,10 @@
         }
         
         const fileObject: FileReq = {
-            documents: Array.from(files)
-        }
+			documents: files.map((f: any) => {
+				return f.file;
+			})
+		};
 
         const fileresult = validateWithZod(fileSchema, fileObject);
         
@@ -87,8 +98,8 @@
         formData.append('edited_book_publication', JSON.stringify(editedBookSubmit));
 
 		// Append each file to the FormData
-		Array.from(files).forEach((file) => {
-			formData.append('supporting_documents', file);
+		Array.from(files).forEach((file : any) => {
+			formData.append('supporting_documents', file.file);
 		});
 
         	for (let [key, value] of formData.entries()) {
@@ -156,9 +167,9 @@
 </script>
 
 <Card title={title}>
-    <div class="scroll small-scrollbar modal-content max-h-[70vh] min-h-[50vh] overflow-auto p-4">
+    <div class="modal-content p-4">
 
-        <div class="grid grid-cols-3 gap-[40px] p-4">
+        <div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Nmims School"
@@ -184,7 +195,7 @@
         />
     </div>    
 
-    <div class="grid grid-cols-3 gap-[40px] p-4">
+    <div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
         <DynamicSelect
         isRequired={true}
         placeholder="Nmims Authors Name"
@@ -203,7 +214,7 @@
         
     </div>
 
-    <div class="grid grid-cols-3 gap-[40px] p-4">
+    <div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
         <Input type="text" placeholder="Edition (if it isn't the first)" bind:value={obj.edition} />
         <Input type="text" placeholder="Publisher Name" bind:value={obj.publisher} />
 
@@ -240,18 +251,25 @@
 
     </div>
 
-    <div class="grid grid-cols-3 gap-[40px] p-4">
+    <div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
         <Input type="number" placeholder="Publication Year" bind:value={obj.publish_year} />
         <Input type="number" placeholder="ISBN Number" bind:value={obj.isbn_no} />
         <Input type="text" placeholder="DOI ID/ WebLink" bind:value={obj.doi_no} />
 
     </div>  
 
-    <div class="grid grid-cols-3 gap-[40px] p-4">
+    <div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
         <Input type="text" placeholder="Web Link" bind:value={obj.web_link} />
         <Input type="text" placeholder="Place Of Publication" bind:value={obj.publication_place} />
         <Input type="number" placeholder="No. Of NMIMS Authors" bind:value={obj.nmims_authors_count} />
-        <input type="file" bind:files multiple />
+    </div>
+    <div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+        <div class="space-y-2">
+            <!-- svelte-ignore a11y-label-has-associated-control -->
+            <label class="lms-label item-center">Upload Supporting Documents<span class="text-primary">*</span></label
+            >
+            <File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+        </div>	
     </div>
 
     <div class="flex flex-row gap-[20px] p-4">

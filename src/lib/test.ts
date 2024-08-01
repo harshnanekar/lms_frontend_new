@@ -67,6 +67,13 @@ export const SIDEBAR_URL = [
 		child: []
 	},
 	{
+		url: '/edited-book-publication',
+		icon: 'test',
+		label: 'Edited Book Publication',
+		module: null,
+		child: []
+	},
+	{
 		url: '/research-seminars',
 		icon: 'research-seminar',
 		label: 'Research Seminars',

@@ -7,8 +7,10 @@ import type { TableHeaders } from '$lib/types/layout/table';
 import { PaginateDynamic } from '$lib/components/layout/pagination';
 import {EditedBookPublicationHeader} from "$lib/test";
 import EditedBookAction from '$lib/components/modules/mpc/edited-book-action.svelte';
+import { paginateUrl } from '$lib/stores/modules/research/master.store';
 
 const url  =  new URL("http://localhost:9090/research/edited-book-publication-paginate");
+paginateUrl.set(url);
 const label = 'Edited Book Publication';
 
 
@@ -29,7 +31,7 @@ function navigateToCreate(){
 
  <div class="rounded-2xl border-[1px] border-[#E5E9F1] p-2.5 !pt-0 shadow-card sm:p-6 mt-[5%]">
     <!-- <ResearchTable /> -->
-     <PaginateDynamic url={url} header={EditedBookPublicationHeader} let:actionData  >
+     <PaginateDynamic url={$paginateUrl} header={EditedBookPublicationHeader} let:actionData  >
         <EditedBookAction actionData={actionData}  />
      </PaginateDynamic>
     </div>

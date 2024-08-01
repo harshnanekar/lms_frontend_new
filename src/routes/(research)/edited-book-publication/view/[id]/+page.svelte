@@ -1,69 +1,77 @@
 <script lang="ts">
-    import { Input } from '$lib/components/ui'; 
+    import { Input, File } from '$lib/components/ui'; 
     import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import { toast } from 'svelte-sonner';
 	import Card from '$lib/components/ui/card/card.svelte';
 
     let title  = 'Edited Book Publication'
 
+	import { createFileUrl } from '$lib/utils/helper';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
+
     let disabled: boolean = true;
 
     export let data: any;
+	console.log('data ===>>>', data)
 
-    let checkData = data.editedBookPublicationData.length > 0 ? true : false;
+    let checkData = data.editedBookPublicationData.editedBookPublicationData.length > 0 ? true : false;
 
     let isChecked: boolean = false;
     $: checkVal = isChecked;
 
     console.log('checkbox check ', checkVal);
+	let files = data.editedBookPublicationData.editedBookPublicationData.length > 0 ? createFileUrl(data.editedBookPublicationData.files) : [];
+	fileDataStore.set(files)
+
+	console.log('files ',data.editedBookPublicationData.files)
     
     let obj: any = {
-        edited_book_id: parseInt(data.editedBookPublicationData[0].edited_book_id),
-        nmims_school: data.editedBookPublicationData[0].nmims_school
-             ? data.editedBookPublicationData[0].nmims_school
+        edited_book_id: parseInt(data.editedBookPublicationData.editedBookPublicationData[0].edited_book_id),
+        nmims_school: data.editedBookPublicationData.editedBookPublicationData[0].nmims_school
+             ? data.editedBookPublicationData.editedBookPublicationData[0].nmims_school
              : '',
-        nmims_campus: data.editedBookPublicationData[0].nmims_campus
-             ? data.editedBookPublicationData[0].nmims_campus
+        nmims_campus: data.editedBookPublicationData.editedBookPublicationData[0].nmims_campus
+             ? data.editedBookPublicationData.editedBookPublicationData[0].nmims_campus
              : '',
-        all_authors: data.editedBookPublicationData[0].all_authors
-             ? data.editedBookPublicationData[0].all_authors
+        all_authors: data.editedBookPublicationData.editedBookPublicationData[0].all_authors
+             ? data.editedBookPublicationData.editedBookPublicationData[0].all_authors
              : '',
-        book_editors: data.editedBookPublicationData[0].book_editors
-             ? data.editedBookPublicationData[0].book_editors
+        book_editors: data.editedBookPublicationData.editedBookPublicationData[0].book_editors
+             ? data.editedBookPublicationData.editedBookPublicationData[0].book_editors
              : '',
-        nmims_authors: data.editedBookPublicationData[0].nmims_authors
-			? data.editedBookPublicationData[0].nmims_authors
+        nmims_authors: data.editedBookPublicationData.editedBookPublicationData[0].nmims_authors
+			? data.editedBookPublicationData.editedBookPublicationData[0].nmims_authors
 			: '',
-        book_title: data.editedBookPublicationData[0].title
-			? data.editedBookPublicationData[0].title
+        book_title: data.editedBookPublicationData.editedBookPublicationData[0].title
+			? data.editedBookPublicationData.editedBookPublicationData[0].title
 			: '',
-        edition: data.editedBookPublicationData[0].edition
-			? data.editedBookPublicationData[0].edition
+        edition: data.editedBookPublicationData.editedBookPublicationData[0].edition
+			? data.editedBookPublicationData.editedBookPublicationData[0].edition
 			: '',
-        publish_year: data.editedBookPublicationData[0].publish_year
-			? data.editedBookPublicationData[0].publish_year
+        publish_year: data.editedBookPublicationData.editedBookPublicationData[0].publish_year
+			? data.editedBookPublicationData.editedBookPublicationData[0].publish_year
 			: '',
-        web_link: data.editedBookPublicationData[0].web_link
-			? data.editedBookPublicationData[0].web_link
+        web_link: data.editedBookPublicationData.editedBookPublicationData[0].web_link
+			? data.editedBookPublicationData.editedBookPublicationData[0].web_link
 			: '',
-        doi_no: data.editedBookPublicationData[0].doi_no
-			? data.editedBookPublicationData[0].doi_no
+        doi_no: data.editedBookPublicationData.editedBookPublicationData[0].doi_no
+			? data.editedBookPublicationData.editedBookPublicationData[0].doi_no
 			: '',
-        publication_place: data.editedBookPublicationData[0].publication_place
-			? data.editedBookPublicationData[0].publication_place
+        publication_place: data.editedBookPublicationData.editedBookPublicationData[0].publication_place
+			? data.editedBookPublicationData.editedBookPublicationData[0].publication_place
 			: '',
-        isbn_no: data.editedBookPublicationData[0].isbn_no
-			? data.editedBookPublicationData[0].isbn_no
+        isbn_no: data.editedBookPublicationData.editedBookPublicationData[0].isbn_no
+			? data.editedBookPublicationData.editedBookPublicationData[0].isbn_no
 			: '',
-        publisher: data.editedBookPublicationData[0].publisher
-			? data.editedBookPublicationData[0].publisher
+        publisher: data.editedBookPublicationData.editedBookPublicationData[0].publisher
+			? data.editedBookPublicationData.editedBookPublicationData[0].publisher
 			: '',
-        nmims_authors_count: data.editedBookPublicationData[0].nmims_authors_count
-			? data.editedBookPublicationData[0].nmims_authors_count
+        nmims_authors_count: data.editedBookPublicationData.editedBookPublicationData[0].nmims_authors_count
+			? data.editedBookPublicationData.editedBookPublicationData[0].nmims_authors_count
 			: '',
-        publisher_category: Number(data.editedBookPublicationData[0].publisher_category),
-        filename: data.editedBookPublicationData[0].supporting_documents
-			? data.editedBookPublicationData[0].supporting_documents
+        publisher_category: Number(data.editedBookPublicationData.editedBookPublicationData[0].publisher_category),
+        filename: data.editedBookPublicationData.editedBookPublicationData[0].supporting_documents
+			? data.editedBookPublicationData.editedBookPublicationData[0].supporting_documents
 			: '',
     };
 
@@ -188,15 +196,18 @@
             </div>
 
             <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-                <div class="lms-input-container flex flex-row gap-2">
-					<input id="documents" class="lms-input" placeholder="" value={obj.filename} {disabled} />
-					<label for="documents" class="lms-placeholder"
-						>Supporting Documents
+				<div class="space-y-2">
+					<label for="documents" class="lms-label"
+						>Download Supporting Documents
 						<span>*</span>
 					</label>
+					<div class="flex items-center gap-2">
+					<!-- svelte-ignore missing-declaration -->
+					<File isView={true} />	
 					<button class="lms-btn lms-primary-btn" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-lg"></i></button
 					>
+					</div>
 				</div>
 			</div>
         </div>
