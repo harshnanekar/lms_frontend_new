@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { SIDEBAR_ICON } from '$lib/types/modules/research/research-types';
-	import { COLORS } from '$lib/constants/colors';
+	import { SIDEBAR_ICON } from "$lib/types/modules/research/research-types";
 
-export let data : any;
-let dashboard = data.dashboardData.length > 0 ? data.dashboardData : [];
-console.log('dashboard modules ',JSON.stringify(data.dashboardData))
+export let data:any;
+console.log('modules ',JSON.stringify(data))
 
+let dashboard = data.dashboardData.length > 0 ? data.dashboardData : []
 </script>
+
 
 {#if dashboard.length > 0}
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
