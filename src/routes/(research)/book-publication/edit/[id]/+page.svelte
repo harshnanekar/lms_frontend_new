@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input , DynamicSelect ,File } from '$lib/components/ui';
+	import { Input, DynamicSelect, File } from '$lib/components/ui';
 	import { Card } from '$lib/components/ui';
 	import {
 		getSchool,
@@ -20,7 +20,7 @@
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
-
+	import type { updateBookPublicationStatus } from '$lib/types/modules/research/research-types';
 
 	let campus: string = '';
 	let title = 'Book Publication';
@@ -48,56 +48,64 @@
 
 	console.log('JSON.stringify(school)', JSON.stringify(school));
 	let isChecked: boolean = false;
+
 	$: checkVal = isChecked;
 	console.log('checkbox check ', checkVal);
 
-	let checkData = data.bookPublicationData.bookPublicationData.length > 0 ? true : false
+	let checkData = data.bookPublicationData.bookPublicationData.length > 0 ? true : false;
 
 	let obj: any = {
-		book_publication_id:checkData ? parseInt(
-			data.bookPublicationData.bookPublicationData[0].book_pulication_id 
-		) : null,
+		book_publication_id: checkData
+			? parseInt(data.bookPublicationData.bookPublicationData[0].book_pulication_id)
+			: null,
 		nmims_school:
-		checkData && data.bookPublicationData.bookPublicationData[0].nmims_school != null
+			checkData && data.bookPublicationData.bookPublicationData[0].nmims_school != null
 				? data.bookPublicationData.bookPublicationData[0].nmims_school.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
 				: [],
 		nmims_campus:
-		checkData && data.bookPublicationData.bookPublicationData[0].nmims_campus != null
+			checkData && data.bookPublicationData.bookPublicationData[0].nmims_campus != null
 				? data.bookPublicationData.bookPublicationData[0].nmims_campus.map((dt: any) => {
 						return { value: dt, label: dt };
 					})
 				: [],
 		all_authors:
-		checkData && data.bookPublicationData.bookPublicationData[0].all_authors != null
+			checkData && data.bookPublicationData.bookPublicationData[0].all_authors != null
 				? data.bookPublicationData.bookPublicationData[0].all_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.name };
 					})
 				: [],
 
 		nmims_authors:
-		checkData && data.bookPublicationData.bookPublicationData[0].nmims_authors != null
+			checkData && data.bookPublicationData.bookPublicationData[0].nmims_authors != null
 				? data.bookPublicationData.bookPublicationData[0].nmims_authors.map((dt: any) => {
 						return { value: dt.id, label: dt.name };
 					})
 				: [],
-		title:checkData ? data.bookPublicationData.bookPublicationData[0].title : '',
-		edition:checkData ? data.bookPublicationData.bookPublicationData[0].edition : '',
-		publish_year : checkData ? data.bookPublicationData.bookPublicationData[0].publish_year : null,
-		volume_no : checkData ? data.bookPublicationData.bookPublicationData[0].volume_no : '',
+		title: checkData ? data.bookPublicationData.bookPublicationData[0].title : '',
+		edition: checkData ? data.bookPublicationData.bookPublicationData[0].edition : '',
+		publish_year: checkData ? data.bookPublicationData.bookPublicationData[0].publish_year : null,
+		volume_no: checkData ? data.bookPublicationData.bookPublicationData[0].volume_no : '',
 		publisher: checkData ? data.bookPublicationData.bookPublicationData[0].publisher : '',
 		web_link: checkData ? data.bookPublicationData.bookPublicationData[0].web_link : '',
 		doi_no: checkData ? data.bookPublicationData.bookPublicationData[0].doi_no : '',
-		publication_place: checkData ? data.bookPublicationData.bookPublicationData[0].publication_place : '',
+		publication_place: checkData
+			? data.bookPublicationData.bookPublicationData[0].publication_place
+			: '',
 		isbn_no: checkData ? data.bookPublicationData.bookPublicationData[0].isbn_no : '',
-		nmims_authors_count: checkData ? data.bookPublicationData.bookPublicationData[0].nmims_authors_count : null,
-		publisher_category: checkData ? Number(data.bookPublicationData.bookPublicationData[0].publisher_category) : null
+		nmims_authors_count: checkData
+			? data.bookPublicationData.bookPublicationData[0].nmims_authors_count
+			: null,
+		publisher_category: checkData
+			? Number(data.bookPublicationData.bookPublicationData[0].publisher_category)
+			: null
 	};
 
 	interface FileReq {
 		documents: File[];
 	}
+
 	async function handleSubmit() {
 		const bookPublicationObj: bookPublicationReq = {
 			nmims_school:
@@ -129,8 +137,8 @@
 		if (checkVal) {
 			const fileObject: FileReq = {
 				documents: files.map((f: any) => {
-				return f.file;
-			})
+					return f.file;
+				})
 			};
 			const fileresult = validateWithZod(fileSchema, fileObject);
 			if (fileresult.errors) {
@@ -171,7 +179,7 @@
 
 		console.log('validated data', JSON.stringify(result.data));
 
-		const { error, json } = await fetchFormApi({
+		const { error, json } = await fetchFormApi<updateBookPublicationStatus[]>({
 			url: `${PUBLIC_API_BASE_URL}/book-publication-update`,
 			method: 'POST',
 			body: formData
@@ -183,17 +191,20 @@
 			});
 			return;
 		}
-
-		if (json[0].upsert_book_publication.status == 403) {
-			toast.error('ALERT!', {
-				description: json[0].upsert_book_publication.message
-			});
+		if (json && json.length > 0) {
+			if (json[0].upsert_book_publication.status == 403) {
+				toast.error('ALERT!', {
+					description: json[0].upsert_book_publication.message
+				});
+			} else {
+				toast.success('Updated Successfully');
+				files = [];
+				fileDataStore.set(files);
+				isChecked = false;
+				goto('/book-publication');
+			}
 		} else {
-			toast.success('Updated Successfully');
-			files = [];
-			fileDataStore.set(files);		
-			isChecked = false;
-			goto('/book-publication');
+			toast.error('No response data received');
 		}
 	}
 
@@ -278,6 +289,7 @@
 			/>
 			<Input type="text" placeholder="Volume Number" bind:value={obj.volume_no} />
 			<div class="ml-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
 					>Publisher Category<span class="text-danger text-sm">*</span></label
 				>
@@ -326,14 +338,14 @@
 					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
 				>
 				<label class="lms-label"
-					>Click To Upload New File <input type="checkbox" bind:checked={isChecked} class="accent-primary"/></label
+					>Click To Upload New File <input
+						type="checkbox"
+						bind:checked={isChecked}
+						class="accent-primary"
+					/></label
 				>
 				{#if checkVal}
-					<File
-						on:filesSelected={handleFiles}
-						on:deletedFiles={handleDeleteFiles}
-						isView={false}
-					/>
+					<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-md"></i></button

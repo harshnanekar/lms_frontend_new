@@ -154,25 +154,27 @@ export function getBrandingDropdown(data:any) : CustomOptions[] {
 	});
   
 	return inputFieldsArr;
-}
+} 
+
 
 export function getMasterAllAuthors(data:any) : CustomOptions[] {
-	let inputFieldsArr : any[] = [];
-	data.forEach((item : any) => {
-		inputFieldsArr.push({value: item.id, label: item.name});
-	});
+    let inputFieldsArr : any[] = [];
+    data.forEach((item : any) => {
+        inputFieldsArr.push({value: item.id, label: item.name});
+    });
   
-	return inputFieldsArr;
-}
+    return inputFieldsArr;
+}  
+
 
 export function getMasterNmimsAuthors(data:any) : CustomOptions[] {
-	let inputFieldsArr : any[] = [];
-	data.forEach((item : any) => {
-		inputFieldsArr.push({value: item.id, label: item.name});
-	});
+    let inputFieldsArr : any[] = [];
+    data.forEach((item : any) => {
+        inputFieldsArr.push({value: item.id, label: item.name});
+    });
   
-	return inputFieldsArr;
-}
+    return inputFieldsArr;
+} 
 
 export function getCommonDropdownData(data:any) : CustomOptions[] {
 	let inputFieldsArr : any[] = [];
@@ -188,9 +190,91 @@ export function getFacultyType(data:any) : CustomOptions[] {
 	data.forEach((item : any) => {
 		inputFieldsArr.push({value: item.id, label: item.faculty_type});
 	});
+   return inputFieldsArr;
+} 
+
+
+
+
+export function getExternalAuthors(data:any) : CustomOptions[] {
+    let inputFieldsArr : any[] = [];
+    data.forEach((item : any) => {
+        inputFieldsArr.push({value: item.id, label: item.faculty_name});
+    });
   
-	return inputFieldsArr;
-}
+    return inputFieldsArr;
+} 
+
+export function getEnternalAuthors(data:any) : CustomOptions[] {
+    let inputFieldsArr : any[] = [];
+    data.forEach((item : any) => {
+        inputFieldsArr.push({value: item.id, label: item.faculty_name});
+    });
+  
+    return inputFieldsArr;
+}  
+
+
+
+export function getResearchStatus(data : any) :CustomOptions[] {
+	let statusArr : any[] = [];
+	data.forEach((item : any) => {
+		statusArr.push({value: item.id, label: item.status});
+	});
+  
+	return statusArr;
+} 
+
+
+
+export function getSdgGoals(data : any) :CustomOptions[] {
+	let sgdArr : any[] = [];
+	data.forEach((item : any) => {
+		sgdArr.push({value: item.id, label: item.goals_name});
+	});
+  
+	return sgdArr;
+} 
+
+export function getPatentStatus(data : any) :CustomOptions[] {
+	let statusArr : any[] = [];
+	data.forEach((item : any) => {
+		statusArr.push({value: item.id, label: item.patent_status});
+	});
+  
+	return statusArr;
+} 
+
+
+export function getInventionType(data : any) :CustomOptions[] {
+	let inventionArr : any[] = [];
+	data.forEach((item : any) => {
+		inventionArr.push({value: item.id, label: item.invention_type});
+	});
+  
+	return inventionArr;
+} 
+
+
+
+export function getApplicantNames(data : any) :CustomOptions[] {
+	let statusArr : any[] = [];
+	data.forEach((item : any) => {
+		statusArr.push({value: item.id, label: item.name});
+	});
+  
+	return statusArr;
+}   
+
+
+export function getMasterInputType(data : any) :CustomOptions[] {
+	let statusArr : any[] = [];
+	data.forEach((item : any) => {
+		statusArr.push({value: item.id, label: item.name});
+	});
+  
+	return statusArr;
+} 
 
 export function getFormLevel(data:any) : CustomOptions[] {
 	let inputFieldsArr : any[] = [];

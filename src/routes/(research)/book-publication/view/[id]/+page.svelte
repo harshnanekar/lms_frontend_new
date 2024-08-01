@@ -144,6 +144,7 @@
 				<Input type="text" placeholder="Title Of Book" bind:value={obj.title} {disabled} />
 				<Input type="text" placeholder="Volume Number" bind:value={obj.volume_no} {disabled} />
 				<div class="ml-2">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="text-sm text-[#888888]"
 						>Publisher Category<span class="text-danger text-sm">*</span></label
 					>

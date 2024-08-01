@@ -21,6 +21,7 @@
         nextCursor: null
     };
 
+    console.log('responseData.data ===>>> ===>>>>>', responseData.data)
    
     let facultyData: any = [];
 
@@ -33,12 +34,14 @@
         facultyData = facultyData.map((item: { id: number; }) =>
             item.id === id ? { ...item, [field]: value, changed: true } : item
         );
+        console.log('')
     }
 
     
     async function handleSubmit() {
         const changedData = facultyData.filter((item: { changed: any; }) => item.changed);
         console.log('Modified faculty data:', JSON.stringify(changedData));
+        console.log('base url ',paths.base)
 
         let faculty : facultyReq = changedData.map((data : any) => {
             return {
@@ -79,7 +82,7 @@
 			return;
 		}
         toast.success('Inserted Successfully !');
-        goto('/add-faculty');
+        goto(`${paths.base}/add-faculty`);
 
 
     }
@@ -135,7 +138,7 @@
                                 <input
                                     class="lms-input"
                                     disabled={false}
-                                    on:input={(e) => updateTeachingItem(faculty.id, 'institute', e?.target?.value)}
+                                    on:input={(e) => updateTeachingItem((faculty.id), 'institute', e?.target?.value)}
                                 />
                             </td>
                             <td>

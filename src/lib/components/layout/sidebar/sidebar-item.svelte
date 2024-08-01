@@ -8,7 +8,7 @@
 	export let sidebarList: SidebarListType[] = [];
 </script>
 
-<ul class="pt-[43px]">
+<ul class="pt-[43px] ">
 	{#each sidebarList as item, i}
 		{@const isactive = $page.url.pathname === item.url}
 		<SidebarList index={i} {item} {isactive} />

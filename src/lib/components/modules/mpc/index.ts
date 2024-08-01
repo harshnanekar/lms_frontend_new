@@ -10,12 +10,14 @@ import BookPublicationAction from './book-publication-action.svelte'
 import BookChapterAction from './book-chapter-action.svelte'
 import TeachingAction from './teaching-action.svelte';
 import MeetingStakHolderAction from './meetingStak-action.svelte';
+import ConferenceAction from '$lib/components/modules/mpc/conference-action.svelte';
 import BrandingAction from './branding-action.svelte'
 import CaseStudyAction from './case-study-action.svelte'
 import ResearchSeminarAction from './research-seminar-action.svelte'
 import EContent from './e-content-action.svelte'
 import ResearchAwardAction from './research-award-action.svelte'
 import FacultyAction from './faculty-action.svelte'
+import MasterDataAction from './master-input-action.svelte'
 import { userList, AddAnchor, AddAttendees } from './master-form';
 
 export {
@@ -39,5 +41,6 @@ export {
 	ResearchSeminarAction,
 	EContent,
 	ResearchAwardAction,
-	FacultyAction
+	FacultyAction,
+	 MasterDataAction
 };

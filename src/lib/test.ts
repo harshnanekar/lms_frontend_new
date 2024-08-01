@@ -1,7 +1,11 @@
 import type { TableHeaders } from './types/layout/table';
 import type { SubjectMeetingDetail } from './types/modules/mpc/master-form';
-import type { JournalPaper, JournalView, BookPublicationRender,
-	BookChapterRender, BookChapterDetails,
+import type {
+	JournalPaper,
+	JournalView,
+	BookPublicationRender,
+	BookChapterRender,
+	BookChapterDetails,
 	brandingView,
 	MeetingView,
 	TeachingView,
@@ -9,10 +13,16 @@ import type { JournalPaper, JournalView, BookPublicationRender,
 	ResearchSeminarView,
 	EContentView,
 	ResearchAwardView,
-	FacultyView
+	FacultyView,
+	masterInputView,
+	patentRender,
+	IPRRender,
+	ConferenceRender,
+	// ConferenceRender,
+	// IPRRender,
+	// patentRender,
+	// masterInputView
  } from './types/modules/research/research-types';
-
-
 
 export const SIDEBAR_URL = [
 	{
@@ -22,33 +32,71 @@ export const SIDEBAR_URL = [
 		module: null,
 		child: []
 	},
-	// {
-	// 	url: '/test',
-	// 	icon: 'test',
-	// 	label: 'Research',
-	// 	module: null,
-	// 	child: []
-	// },
+
 	{
-		url: '/journal-paper',
-		icon: 'journal',
-		label: 'Journal Articles Published',
+	url: '/research',
+	icon: 'research',
+	label: 'Research',
+	module: null,
+	child :[
+		{
+			url: '/journal-paper',
+			icon: 'journal',
+			label: 'Journal Articles Published',
+			module: null,
+			child: []
+		},
+
+	    {
+			url: '/publications',
+			icon: 'publication',
+			label: 'Book Publications',
+			module: null,
+			child: [ {
+				url: '/book-publication',
+				icon: 'book-publication',
+				label: 'Book Publication',
+				module: null,
+				child: []
+				},
+		
+				{
+				url: '/book-chapter-publication',
+				icon: 'book-chapter-publication',
+				label: 'Book Chapter Publication',
+				module: null,
+				child: []
+			}, ]
+			},
+
+	{
+		url: '/conference',
+		icon: 'conference',
+		label: 'Conference',
 		module: null,
 		child: []
 	},
 
 	{
-		url: '/book-publication',
-		icon: 'book-publication',
-		label: 'Book Publication',
+		url: '/ipr',
+		icon: 'ipr',
+		label: 'IPR',
 		module: null,
 		child: []
 	},
 
 	{
-		url: '/book-chapter-publication',
-		icon: 'book-chapter-publication',
-		label: 'Book Chapter Publication',
+		url: '/patent-submission-and-grant',
+		icon: 'patent-submission',
+		label: 'Patent Submission And Grant',
+		module: null,
+		child: []
+	},
+
+	{
+		url: '/research-project',
+		icon: 'research-project',
+		label: 'Research Project',
 		module: null,
 		child: []
 	},
@@ -59,27 +107,25 @@ export const SIDEBAR_URL = [
 		module: null,
 		child: []
 	},
+
 	{
 		url: '/case-study',
 		icon: 'case-study',
 		label: 'Case Study',
 		module: null,
+
 		child: []
 	},
-	{
-		url: '/edited-book-publication',
-		icon: 'test',
-		label: 'Edited Book Publication',
-		module: null,
-		child: []
-	},
+
 	{
 		url: '/research-seminars',
 		icon: 'research-seminar',
 		label: 'Research Seminars',
 		module: null,
+
 		child: []
 	},
+
 	{
 		url: '/e-content',
 		icon: 'e-content',
@@ -93,107 +139,9 @@ export const SIDEBAR_URL = [
 		label: 'Research Award',
 		module: null,
 		child: []
-	},
-	// {
-	// 	url: '/form-approval',
-	// 	icon: 'form-approval',
-	// 	label: 'Admin Form Approval',
-	// 	module: null,
-	// 	child: []
-	// },
-	
-	// {
-	// 	url: '/page',
-	// 	icon: 'Mpc',
-	// 	label: 'Mpc',
-	// 	module: null,
-	// 	child: []
-	// },
-	// {
-	// 	url: '#2',
-	// 	icon: 'mpc',
-	// 	label: 'MPC',
-	// 	module: 'mpc',
-	// 	child: [
-	// 		{
-	// 			url: '#3',
-	// 			icon: 'overview',
-	// 			label: 'Overview',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#4',
-	// 			icon: 'forecast',
-	// 			label: 'Forecast',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#5',
-	// 			icon: 'plan',
-	// 			label: 'Plan',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#6',
-	// 			icon: 'execute',
-	// 			label: 'Execute',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#7',
-	// 			icon: 'monitor',
-	// 			label: 'Monitor',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#8',
-	// 			icon: 'plan',
-	// 			label: 'Plan',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#9',
-	// 			icon: 'execute',
-	// 			label: 'Execute',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#10',
-	// 			icon: 'monitor',
-	// 			label: 'Monitor',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#11',
-	// 			icon: 'plan',
-	// 			label: 'Plan',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#12',
-	// 			icon: 'execute',
-	// 			label: 'Execute',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		},
-	// 		{
-	// 			url: '#13',
-	// 			icon: 'monitor',
-	// 			label: 'Monitor',
-	// 			module: 'mpc',
-	// 			child: []
-	// 		}
-	// 	]
-	// }
+	}
+]
+}
 ];
 
 export const obj = [
@@ -273,10 +221,8 @@ export const headers: TableHeaders<SubjectMeetingDetail>[] = [
 	}
 ];
 
-
-export const paginationHeaders : TableHeaders<JournalView>[] = [
-  
- 	{
+export const paginationHeaders: TableHeaders<JournalView>[] = [
+	{
 		label: 'Publishing Year',
 		key: 'publish_year',
 		sortable: false,
@@ -318,33 +264,30 @@ export const paginationHeaders : TableHeaders<JournalView>[] = [
 		classes: '',
 		showTooltip: false
 	},
-    {
+	{
 		label: 'Total No. Of Authors',
 		key: 'total_authors',
 		sortable: false,
 		classes: '',
 		showTooltip: false
 	},
-    {
+	{
 		label: 'Journal Name',
 		key: 'journal_name',
 		sortable: false,
 		classes: '',
 		showTooltip: false
 	},
-	{
-		label: 'Status',
-		key: 'status',
-		sortable: false,
-		classes: '',
-		showTooltip: false
-	},
-]; 
+	// {
+	// 	label: 'Status',
+	// 	key: 'status',
+	// 	sortable: false,
+	// 	classes: '',
+	// 	showTooltip: false
+	// },
+];
 
-
-
-export const BookPublicationHeaders :  TableHeaders<BookPublicationRender>[] = [
-
+export const BookPublicationHeaders: TableHeaders<BookPublicationRender>[] = [
 	{
 		label: 'All Authors Names',
 		key: 'all_authors',
@@ -399,64 +342,9 @@ export const BookPublicationHeaders :  TableHeaders<BookPublicationRender>[] = [
 		classes: '',
 		showTooltip: false
 	}
-
-]
-
-export const EditedBookPublicationHeader : TableHeaders<EditedBookPublicationView>[] = [ 
-	{
-		label: 'Author Name',
-        key: 'authors',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-	},
-	{
-		label: 'NMIMS Campus - Author',
-        key: 'campuses',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-	},
-	{
-		label: 'NMIMS School - Author',
-        key: 'schools',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-	},
-	{
-		label: 'Publication Year',
-        key: 'publish_year',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-	},
-	{
-		label: 'Book Title',
-        key: 'title',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-	},
-	{
-		label: 'ISBN Number',
-        key: 'isbn_no',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-	},
-	{
-		label: 'Publisher Name',
-        key: 'publisher',
-        sortable: false,
-        classes: '',
-        showTooltip: false
-	},
 ];
 
-
-export const BookChapterHeaders :  TableHeaders<BookChapterRender>[] = [
-
+export const BookChapterHeaders: TableHeaders<BookChapterRender>[] = [
 	{
 		label: 'All Authors Names',
 		key: 'all_authors',
@@ -511,52 +399,47 @@ export const BookChapterHeaders :  TableHeaders<BookChapterRender>[] = [
 		classes: '',
 		showTooltip: false
 	}
+];
 
-]
-
-
-export const teachingHeaders : TableHeaders<TeachingView>[] = [
-  
+export const teachingHeaders: TableHeaders<TeachingView>[] = [
 	{
-	   label: 'Peadagogy Innovation',
-	   key: 'pedagogy_innovation',
-	   sortable: false,
-	   classes: 'id',
-	   showTooltip: false
-   },
-   {
-	   label: 'FDP Program On Academic',
-	   key: 'fdp_program',
-	   sortable: false,
-	   classes: '',
-	   showTooltip: false
-   },
-   {
-	   label: 'Workshop For Students',
-	   key: 'student_workshops',
-	   sortable: false,
-	   classes: 'whitespace-nowrap',
-	   showTooltip: false
-   },
-   {
-	   label: 'Inviting Visiting Faculty From The Industry To Handle Niche Workshops',
-	   key: 'niche',
-	   sortable: false,
-	   classes: '',
-	   showTooltip: false
-   },
-   {
-	   label: 'Program Orientation',
-	   key: 'program_orientation',
-	   sortable: false,
-	   classes: '',
-	   showTooltip: false
-   },
-]; 
+		label: 'Peadagogy Innovation',
+		key: 'pedagogy_innovation',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'FDP Program On Academic',
+		key: 'fdp_program',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Workshop For Students',
+		key: 'student_workshops',
+		sortable: false,
+		classes: 'whitespace-nowrap',
+		showTooltip: false
+	},
+	{
+		label: 'Inviting Visiting Faculty From The Industry To Handle Niche Workshops',
+		key: 'niche',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Program Orientation',
+		key: 'program_orientation',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	}
+];
 
-
- export const meetingHeaders : TableHeaders<MeetingView>[]=[
-    
+export const meetingHeaders: TableHeaders<MeetingView>[] = [
 	{
 		label: 'Ranking Description',
 		key: 'ranking',
@@ -603,15 +486,10 @@ export const teachingHeaders : TableHeaders<TeachingView>[] = [
 		sortable: false,
 		classes: '',
 		showTooltip: false
-	},
+	}
+];
 
-
-
- ];
-
-
- export const brandingHeaders : TableHeaders<brandingView>[]=[
-    
+export const brandingHeaders: TableHeaders<brandingView>[] = [
 	{
 		label: 'Faculty Recognition',
 		key: 'faculty_recognition',
@@ -684,7 +562,7 @@ export const teachingHeaders : TableHeaders<TeachingView>[] = [
 		showTooltip: false
 	},
 
-    {
+	{
 		label: 'Newspaper Article',
 		key: 'newspaper_article',
 		sortable: false,
@@ -791,14 +669,14 @@ export const researchSeminarHeaders : TableHeaders<ResearchSeminarView>[] = [
 	   showTooltip: false
    },
 
-      {
+  {
 	   label: 'NMIMS Authors',
 	   key: 'nmims_authors',
 	   sortable: false,
 	   classes: 'id',
 	   showTooltip: false
-   }
-
+   },
+  
 ];
 
 export const econtentHeaders : TableHeaders<EContentView>[] = [
@@ -928,5 +806,308 @@ export const FacultyHeaders : TableHeaders<FacultyView>[] = [
 		sortable: false,
 		classes: 'id',
 		showTooltip: false
+]; 
+
+
+export const ConferenceHeaders: TableHeaders<ConferenceRender>[] = [
+	{
+		label: 'Nmims School',
+		key: 'nmims_school',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Nmims Campus',
+		key: 'nmims_campus',
+		sortable: false,
+		classes: 'whitespace-nowrap',
+		showTooltip: false
+	},
+
+	{
+		label: 'Title Of The Paper',
+		key: 'paper_title',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'Name of Conference ',
+		key: 'conference_name',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'Proceedings published',
+		key: 'proceeding_published',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+
+	{
+		label: 'ISBN Number',
+		key: 'issn_no',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	}
+]; 
+
+
+
+
+export type ResearchProjectRender = {
+	id: number;
+
+	nmims_school: string[];
+
+	nmims_campus: string[];
+
+	title: string;
+
+	funding_amount: number;
+
+	funding_agency: string;
+
+	thrust_area: string;
+}; 
+
+
+
+
+export const IPRHeaders: TableHeaders<IPRRender>[] = [
+	{
+		label: 'Nmims School',
+
+		key: 'nmims_school',
+
+		sortable: false,
+
+		classes: '',
+
+		showTooltip: false
+	},
+
+	{
+		label: 'Nmims Campus',
+
+		key: 'nmims_campus',
+
+		sortable: false,
+
+		classes: '',
+
+		showTooltip: false
+	},
+
+	{
+		label: 'Title of Patent / Invention',
+
+		key: 'title',
+
+		sortable: false,
+
+		classes: '',
+
+		showTooltip: false
+	},
+
+	{
+		label: 'Patent/Invention Application Number',
+
+		key: 'appln_no',
+
+		sortable: false,
+
+		classes: '',
+
+		showTooltip: false
+	},
+
+	{
+		label: 'Institute Affiliation',
+
+		key: 'institute_affiliation',
+
+		sortable: false,
+
+		classes: '',
+
+		showTooltip: false
+	},
+
+	{
+		label: 'Patent Filed Date',
+
+		key: 'filed_date',
+
+		sortable: false,
+
+		classes: '',
+
+		showTooltip: false
 	}
 ];
+
+export const PatentHeaders: TableHeaders<patentRender>[] = [
+	{
+		label: 'Title of Invention',
+
+		key: 'title',
+
+		sortable: false,
+
+		classes: '',
+
+		showTooltip: false
+	},
+
+	{
+		label: 'Type of Invention(IPR)',
+
+		key: 'invention_type',
+
+		sortable: false,
+
+		classes: '',
+
+		showTooltip: false
+	},
+
+	{
+		label: 'Patent Stage',
+
+		key: 'patent_status',
+
+		sortable: false,
+
+		classes: '',
+
+		showTooltip: false
+	},
+
+	{
+		label: 'Application Number',
+
+		key: 'appln_no',
+
+		sortable: false,
+
+		classes: '',
+
+		showTooltip: false
+	},
+
+	{
+		label: 'Date of Filing/Grant/Published',
+
+		key: 'publication_date',
+
+		sortable: false,
+
+		classes: '',
+
+		showTooltip: false
+	}
+];
+
+export const ResearchProjectHeaders: TableHeaders<ResearchProjectRender>[] = [
+	{
+		label: 'Nmims School',
+
+		key: 'nmims_school',
+
+		sortable: false,
+
+		classes: '',
+
+		showTooltip: false
+	},
+
+	{
+		label: 'Nmims Campus',
+
+		key: 'nmims_campus',
+
+		sortable: false,
+
+		classes: '',
+
+		showTooltip: false
+	},
+
+	{
+		label: 'Title of Project',
+
+		key: 'title',
+
+		sortable: false,
+
+		classes: '',
+
+		showTooltip: false
+	},
+
+	{
+		label: 'Funding Amount ',
+
+		key: 'funding_amount',
+
+		sortable: false,
+
+		classes: '',
+
+		showTooltip: false
+	},
+
+	{
+		label: 'Name of Funding Agency',
+
+		key: 'funding_agency',
+
+		sortable: false,
+
+		classes: '',
+
+		showTooltip: false
+	},
+
+	{
+		label: 'Thrust area of Research',
+
+		key: 'thrust_area',
+
+		sortable: false,
+
+		classes: '',
+
+		showTooltip: false
+	}
+]; 
+
+
+
+export const MasterHeaders : TableHeaders<masterInputView>[] = [
+	{
+		label: 'Name',
+		key: 'master_input_name',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Type',
+		key: 'input_data_type',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+
+
+
+]; 
