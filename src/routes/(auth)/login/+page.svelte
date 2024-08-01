@@ -46,7 +46,7 @@ async function handleSubmit() {
         if(json.status !== 200){
             toast.error(json.message);
         }
-        goto('/v2/dashboard')
+        goto('/dashboard')
     }
 
 </script>

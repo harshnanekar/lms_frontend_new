@@ -35,13 +35,13 @@ export const SIDEBAR_URL = [
 	},
 
 	{
-	url: '/research',
+	url: '/v2/research',
 	icon: 'research',
 	label: 'Research',
 	module: null,
 	child :[
 		{
-			url: '/journal-paper',
+			url: '/v2/journal-paper',
 			icon: 'journal',
 			label: 'Journal Articles Published',
 			module: null,
