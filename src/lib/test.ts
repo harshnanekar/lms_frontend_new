@@ -806,7 +806,6 @@ export const FacultyHeaders : TableHeaders<FacultyView>[] = [
 		sortable: false,
 		classes: 'id',
 		showTooltip: false
-	}
 ]; 
 
 
