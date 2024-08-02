@@ -17,7 +17,7 @@
 	const label = 'Research Seminars';
 
 	function navigateToCreate() {
-		goto(`${PUBLIC_BASE_URL}research-seminars/create`);
+		goto(`${PUBLIC_BASE_URL}seminars/create`);
 	}
 
 	let actionData: ResearchSeminarView;

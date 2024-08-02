@@ -17,7 +17,7 @@
 	const label = 'Research Award';
 
 	function navigateToCreate() {
-		goto(`${PUBLIC_BASE_URL}research-award/create`);
+		goto(`${PUBLIC_BASE_URL}award/create`);
 	}
 
 	let actionData: ResearchAwardView;

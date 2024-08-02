@@ -180,7 +180,7 @@
 			toast.success('Inserted Successfully');
 			publicationFormattedDate = null;
 			clearForm();
-			goto(`${PUBLIC_BASE_URL}research-seminars`);
+			goto(`${PUBLIC_BASE_URL}seminars`);
 		}
 	}
 

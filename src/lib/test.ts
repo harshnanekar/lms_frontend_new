@@ -128,7 +128,7 @@ export const SIDEBAR_URL = [
 	},
 
 	{
-		url: `${PUBLIC_BASE_URL}research-seminars`,
+		url: `${PUBLIC_BASE_URL}seminars`,
 		icon: 'research-seminar',
 		label: 'Research Seminars',
 		module: null,
@@ -144,7 +144,7 @@ export const SIDEBAR_URL = [
 		child: []
 	},
 	{
-		url: `${PUBLIC_BASE_URL}research-award`,
+		url: `${PUBLIC_BASE_URL}award`,
 		icon: 'research-award',
 		label: 'Research Award',
 		module: null,

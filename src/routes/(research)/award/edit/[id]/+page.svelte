@@ -158,7 +158,7 @@
 			toast.success('Updated Successfully');
 			files = [];
 			fileDataStore.set(files);
-			goto(`${PUBLIC_BASE_URL}research-award`);
+			goto(`${PUBLIC_BASE_URL}award`);
 		}
 	}
 

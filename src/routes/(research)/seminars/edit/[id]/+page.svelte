@@ -269,7 +269,7 @@
 			publicationFormattedDate = null;
 			files = [];
 			fileDataStore.set(files);
-			goto(`${PUBLIC_BASE_URL}research-seminars`);
+			goto(`${PUBLIC_BASE_URL}seminars`);
 		}
 	}
 
