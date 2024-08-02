@@ -139,12 +139,13 @@
 		} else {
 			toast.success('Inserted Successfully');
 			clearForm();
-			goto('/edited-book-publication');
+			goto(`${PUBLIC_API_BASE_URL}edited-book-publication`);
 		}
     }
 
         function clearForm() {
             obj = { 
+            nmimsAuthors : null,
             authors: null,
             book_title: '',
             campuses: null,

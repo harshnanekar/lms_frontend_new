@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 
-import { PRIVATE_API_BASE_URL } from '$env/static/private';
+import { PRIVATE_API_BASE_URL, PRIVATE_BASE_URL } from '$env/static/private';
 
 import { fetchApiServer } from '$lib/server/utils/fetcher';
 
@@ -24,7 +24,7 @@ export const load: PageServerLoad = async ({ cookies, fetch }) => {
 	// }
 
 	if (err && err.status === 'UNAUTHORIZED') {
-        redirect(303, '/login');
+        redirect(303, `${PRIVATE_BASE_URL}login`);
     }
 
 	if (err) {

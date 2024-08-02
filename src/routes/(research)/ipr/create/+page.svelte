@@ -32,7 +32,7 @@
 
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
 
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
 	import type { any } from 'zod';
 
@@ -239,7 +239,7 @@
 			} else {
 				toast.success('Inserted Successfully');
 				clearForm();
-				goto('/ipr');
+				goto(`${PUBLIC_BASE_URL}ipr`);
 			}
 		} else {
 			toast.error('No response data received');

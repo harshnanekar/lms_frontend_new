@@ -7,7 +7,7 @@
 	import { Card } from '$lib/components/ui';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
 	import { validateWithZod } from '$lib/utils/validations';
 	import { EContentObj, type EContentReq } from '$lib/schemas/modules/research/master-validations';
@@ -106,7 +106,7 @@
 			});
 		} else {
 			toast.success('Updated Successfully');
-			goto('/e-content');
+			goto(`${PUBLIC_BASE_URL}e-content`);
 		}
 	}
 </script>

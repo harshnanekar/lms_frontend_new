@@ -15,7 +15,7 @@
 
 	import { fetchApi } from '$lib/utils/fetcher';
 
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
 	import { toast } from 'svelte-sonner';
 
@@ -141,7 +141,7 @@
 		if(json.status == 200){
 			
 		toast.success('Deleted Successfully !');
-		let url: URL = new URL('http://localhost:9090/research/research-project-paginate');
+		let url: URL = new URL(`${PUBLIC_API_BASE_URL}/research-project-paginate`);
 		paginateUrl.set(url);
 
 		}else{
@@ -166,12 +166,12 @@
 		>
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 				<a
-					href="/research-project/view/{actionData.id}"
+					href="{PUBLIC_BASE_URL}research-project/view/{actionData.id}"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">View</a
 				>
 				<a
-					href="/research-project/edit/{actionData.id}"
+					href="{PUBLIC_BASE_URL}research-project/edit/{actionData.id}"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">Edit</a
 				>

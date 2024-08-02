@@ -8,15 +8,16 @@
 	import { researchSeminarHeaders } from '$lib/test';
 	import { ResearchSeminarAction } from '$lib/components/modules/mpc';
 	import { paginateUrl } from '$lib/stores/modules/research/master.store';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
-	let dynamicUrl = 'http://localhost:9090/research/research-seminar-paginate';
+	let dynamicUrl = `${PUBLIC_API_BASE_URL}/research-seminar-paginate`;
 	const url = new URL(dynamicUrl);
 	paginateUrl.set(url);
 
 	const label = 'Research Seminars';
 
 	function navigateToCreate() {
-		goto('/research-seminars/create');
+		goto(`${PUBLIC_BASE_URL}research-seminars/create`);
 	}
 
 	let actionData: ResearchSeminarView;

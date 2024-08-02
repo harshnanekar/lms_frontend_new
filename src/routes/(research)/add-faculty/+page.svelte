@@ -8,15 +8,16 @@
 	import { FacultyHeaders } from '$lib/test';
 	import { FacultyAction } from '$lib/components/modules/mpc';
 	import { paginateUrl } from '$lib/stores/modules/research/master.store';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
-	let dynamicUrl = 'http://localhost:9090/research/faculty-paginate';
+	let dynamicUrl = `${PUBLIC_API_BASE_URL}/faculty-paginate`;
 	const url = new URL(dynamicUrl);
 	paginateUrl.set(url);
 
 	const label = 'Faculty Details';
 
 	function navigateToCreate() {
-		goto('/add-faculty/create');
+		goto(`${PUBLIC_BASE_URL}add-faculty/create`);
 	}
 
 	let actionData: FacultyView;

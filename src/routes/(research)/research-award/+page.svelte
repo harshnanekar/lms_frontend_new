@@ -8,15 +8,16 @@
 	import { ResearchAwardHeaders } from '$lib/test';
 	import { ResearchAwardAction } from '$lib/components/modules/mpc';
 	import { paginateUrl } from '$lib/stores/modules/research/master.store';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
-	let dynamicUrl = 'http://localhost:9090/research/research-award-paginate';
+	let dynamicUrl = `${PUBLIC_API_BASE_URL}/research-award-paginate`;
 	const url = new URL(dynamicUrl);
 	paginateUrl.set(url);
 
 	const label = 'Research Award';
 
 	function navigateToCreate() {
-		goto('/research-award/create');
+		goto(`${PUBLIC_BASE_URL}research-award/create`);
 	}
 
 	let actionData: ResearchAwardView;

@@ -32,7 +32,7 @@
 
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
 
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 
@@ -304,7 +304,7 @@
 			toast.error('ALERT!', { description: json[0].upsert_research_project.message });
 		} else {
 			toast.success('Updated Successfully');
-			goto('/research-project');
+			goto(`${PUBLIC_BASE_URL}research-project`);
 		}
 		}
 		else {

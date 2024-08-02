@@ -28,8 +28,9 @@
 	import ResearchProjectAction from '$lib/components/modules/mpc/research-project-action.svelte';
 
 	import { paginateUrl } from '$lib/stores/modules/research/master.store';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
-	let dynamicUrl = 'http://localhost:9090/research/research-project-paginate';
+	let dynamicUrl = `${PUBLIC_API_BASE_URL}/research-project-paginate`;
 
 	const url = new URL(dynamicUrl);
 
@@ -40,7 +41,7 @@
 	let title: string = '';
 
 	function navigateToCreate() {
-		goto('/research-project/create');
+		goto(`${PUBLIC_BASE_URL}research-project/create`);
 	}
 
 	let actionData: ResearchProjectRender;

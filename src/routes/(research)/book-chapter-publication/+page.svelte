@@ -7,8 +7,9 @@
 	import { PaginateDynamic } from '$lib/components/layout/pagination';
 	import { BookChapterHeaders } from '$lib/test';
 	import { paginateUrl } from '$lib/stores/modules/research/master.store';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
-	let dynamicUrl = 'http://localhost:9090/research/book-chapter-publication-paginate';
+	let dynamicUrl = `${PUBLIC_API_BASE_URL}/book-chapter-publication-paginate`;
 	const url = new URL(dynamicUrl);
 	paginateUrl.set(url);
 
@@ -20,7 +21,7 @@
 	// export let masterFormList: MeetingListItem[] | null;
 
 	function navigateToCreate() {
-		goto('/book-chapter-publication/create');
+		goto(`${PUBLIC_BASE_URL}book-chapter-publication/create`);
 	}
 
 	let actionData: BookChapterRender;

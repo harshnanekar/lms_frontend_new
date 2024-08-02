@@ -8,15 +8,16 @@ import { PaginateDynamic } from '$lib/components/layout/pagination';
 import {EditedBookPublicationHeader} from "$lib/test";
 import EditedBookAction from '$lib/components/modules/mpc/edited-book-action.svelte';
 import { paginateUrl } from '$lib/stores/modules/research/master.store';
+import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
-const url  =  new URL("http://localhost:9090/research/edited-book-publication-paginate");
+const url  =  new URL(`${PUBLIC_API_BASE_URL}/edited-book-publication-paginate`);
 paginateUrl.set(url);
 const label = 'Edited Book Publication';
 
 
 
 function navigateToCreate(){
-     goto('/edited-book-publication/create');
+     goto(`${PUBLIC_BASE_URL}edited-book-publication/create`);
    }
 
 </script>

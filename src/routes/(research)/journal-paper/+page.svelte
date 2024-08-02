@@ -8,15 +8,16 @@
 	import { paginationHeaders } from '$lib/test';
     import { ResearchAction } from '$lib/components/modules/mpc';
 	import { paginateUrl } from '$lib/stores/modules/research/master.store';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
-	let dynamicUrl = 'http://localhost:9090/research/journal-paginate';
+	let dynamicUrl = `${PUBLIC_API_BASE_URL}/journal-paginate`;
 	const url = new URL(dynamicUrl);
 	paginateUrl.set(url);
 
 	const label = 'Journal Articles Published';
 
 	function navigateToCreate() {
-		goto('/journal-paper/create');
+		goto(`${PUBLIC_BASE_URL}journal-paper/create`);
 	}
 
 	let actionData: JournalView;

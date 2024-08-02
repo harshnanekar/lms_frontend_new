@@ -22,7 +22,7 @@
 	import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
 	import { toast } from 'svelte-sonner';
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
 	import type { conferenceStatus } from '$lib/types/modules/research/research-types';
@@ -271,7 +271,7 @@
 		} else {
 			toast.success('Inserted Successfully');
 			clearForm();
-			goto('/conference');
+			goto(`${PUBLIC_BASE_URL}conference`);
 		}
 		}
 		else {

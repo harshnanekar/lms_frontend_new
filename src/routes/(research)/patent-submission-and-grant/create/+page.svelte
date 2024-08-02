@@ -34,7 +34,7 @@
 
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
 
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
 	import type { any } from 'zod';
 
@@ -188,7 +188,7 @@
 		} else {
 			toast.success('Inserted Successfully');
 			clearForm();
-			goto('/patent-submission-and-grant');
+			goto(`${PUBLIC_BASE_URL}patent-submission-and-grant`);
 		}
 		}
 		else{

@@ -7,7 +7,7 @@
 		InfiniteMasterDataView
 	} from '$lib/types/modules/research/research-types';
 	import type { InfiniteScrollResult } from '$lib/types/request.types';
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import { validateWithZod } from '$lib/utils/validations';
 	import { masterObj, type masterDataReq } from '$lib/schemas/modules/research/master-validations';
 	import { fetchApi } from '$lib/utils/fetcher.js';
@@ -89,7 +89,7 @@
 			return;
 		}
 		toast.success('Inserted Successfully!');
-		goto('/master-input-data');
+		goto(`${PUBLIC_BASE_URL}master-input-data`);
 	}
 </script>
 

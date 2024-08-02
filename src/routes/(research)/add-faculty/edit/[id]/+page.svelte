@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import { Input } from '$lib/components/ui';
 	import { Card } from '$lib/components/ui';
 	import { type facultyUpdReq, facultyUpd } from '$lib/schemas/modules/research/master-validations';
@@ -59,7 +59,7 @@
 			return;
 		}
         toast.success('Updated Successfully !');
-        goto('/add-faculty');
+        goto(`${PUBLIC_BASE_URL}add-faculty`);
 
 
     }

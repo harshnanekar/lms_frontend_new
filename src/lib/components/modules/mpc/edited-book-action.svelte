@@ -8,7 +8,7 @@
 	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
 	import { Popup } from '$lib/components/ui/popup';
 	import { fetchApi } from '$lib/utils/fetcher';
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
 	import { paginateUrl } from '$lib/stores/modules/research/master.store';
@@ -136,7 +136,7 @@
 		if(json.status == 200){
 			
 		toast.success('Deleted Successfully !');
-		let url: URL = new URL('http://localhost:9090/research/edited-book-publication-paginate');
+		let url: URL = new URL(`${PUBLIC_API_BASE_URL}/edited-book-publication-paginate`);
 		paginateUrl.set(url);
 
 		}else{
@@ -160,12 +160,12 @@
 		>
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 				<a
-					href="/edited-book-publication/view/{actionData.id}"
+					href="{PUBLIC_BASE_URL}edited-book-publication/view/{actionData.id}"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">View</a
 				>
 				<a
-					href="/edited-book-publication/edit/{actionData.id}"
+					href="{PUBLIC_BASE_URL}edited-book-publication/edit/{actionData.id}"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">Edit</a
 				>

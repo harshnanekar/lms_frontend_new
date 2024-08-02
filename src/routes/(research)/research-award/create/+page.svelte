@@ -122,7 +122,7 @@
 		if (json[0].insert_research_award.status == 200) {
 			toast.success('Inserted Successfully');
 			clearForm();
-			goto('/research-award');
+			goto(`${PUBLIC_API_BASE_URL}research-award`);
 		}
 	}
 

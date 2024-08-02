@@ -7,15 +7,16 @@
 	import { CaseStudyHeaders } from '$lib/test';
 	import { paginateUrl } from '$lib/stores/modules/research/master.store';
 	import { CaseStudyAction } from '$lib/components/modules/mpc';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
-	let dynamicUrl = 'http://localhost:9090/research/case-study-paginate';
+	let dynamicUrl = `${PUBLIC_API_BASE_URL}/case-study-paginate`;
 	const url = new URL(dynamicUrl);
 	paginateUrl.set(url);
 
 	const label = 'Case Study';
 
 	function navigateToCreate() {
-		goto('/case-study/create');
+		goto(`${PUBLIC_BASE_URL}case-study/create`);
 	}
 
 	let actionData: CaseStudyView;

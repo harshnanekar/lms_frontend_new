@@ -34,7 +34,7 @@
 
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
 
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
 	import type { any } from 'zod';
 
@@ -243,7 +243,7 @@
 				toast.error('ALERT!', { description: json[0].upsert_patent_grant.message });
 			} else {
 				toast.success('Updated Successfully');
-				goto('/patent-submission-and-grant');
+				goto(`${PUBLIC_BASE_URL}patent-submission-and-grant`);
 			}
 		} else {
 			toast.error('No response data received');

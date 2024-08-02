@@ -32,7 +32,7 @@
 
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
 
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
 	import type { any } from 'zod';
 
@@ -328,7 +328,7 @@
 			toast.error('ALERT!', { description: json[0].upsert_ipr.message });
 		} else {
 			toast.success('Updated Successfully');
-			goto('/ipr');
+			goto(`${PUBLIC_BASE_URL}ipr`);
 		}
 
 		} 
