@@ -8,6 +8,7 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { PlusIcon } from "$lib/components/icons";
+	import { PUBLIC_BASE_URL } from '$env/static/public';
 
 
 	$: setActiveSidebarUrl($page.url.pathname, SIDEBAR_URL);
@@ -55,7 +56,7 @@
 		<button
 			class="mt-[33px] flex items-center gap-x-4 py-[10px] text-body-2 font-bold text-primary hover:text-danger-dark md:pl-4 lg:pl-10"
 			on:click={() => {
-				goto('/dashboard').then(() => {
+				goto(`${PUBLIC_BASE_URL}dashboard`).then(() => {
 					$activeSidebarModule = {
 						module: null,
 						label: '',

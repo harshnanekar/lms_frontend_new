@@ -5,7 +5,7 @@
     import { editedBookPublication, type editedBookPublicationReq, type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations'
     import { validateWithZod } from '$lib/utils/validations';
     import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
-    import { PUBLIC_API_BASE_URL } from '$env/static/public';
+    import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
     import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
 
@@ -139,7 +139,7 @@
 		} else {
 			toast.success('Inserted Successfully');
 			clearForm();
-			goto(`${PUBLIC_API_BASE_URL}edited-book-publication`);
+			goto(`${PUBLIC_BASE_URL}edited-book-publication`);
 		}
     }
 
