@@ -224,7 +224,7 @@
 		} else {
 			toast.success('Inserted Successfully');
 			clearForm();
-			goto(`${PUBLIC_BASE_URL}research-project`);
+			goto(`${PUBLIC_BASE_URL}project`);
 		}
 		} 
 		else {
