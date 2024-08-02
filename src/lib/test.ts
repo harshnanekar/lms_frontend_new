@@ -34,12 +34,12 @@ export const SIDEBAR_URL = [
 		child: []
 	},
 
-	{
-	url: '/research',
-	icon: 'research',
-	label: 'Research',
-	module: null,
-	child :[
+	// {
+	// url: '/research',
+	// icon: 'research',
+	// label: 'Research',
+	// module: null,
+	// child :[
 		{
 			url: '/journal-paper',
 			icon: 'journal',
@@ -70,7 +70,7 @@ export const SIDEBAR_URL = [
 			}, 
 			{
 				url: '/edited-book-publication',
-				icon: 'edited-publication',
+				icon: 'edited-book-publication',
 				label: 'Edited Book Publication',
 				module: null,
 				child: []
@@ -148,9 +148,24 @@ export const SIDEBAR_URL = [
 		label: 'Research Award',
 		module: null,
 		child: []
+	},
+
+	{
+		url: '/add-faculty',
+		icon: 'faculty',
+		label: 'Add Faculty',
+		module: null,
+		child: []
+	},
+	{
+		url: '/master-input-data',
+		icon: 'author',
+		label: 'Add Author',
+		module: null,
+		child: []
 	}
-]
-}
+// ]
+// }
 ];
 
 export const obj = [

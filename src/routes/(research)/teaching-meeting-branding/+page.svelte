@@ -124,13 +124,13 @@
 		<AccordionItem>
 			<svelte:fragment slot="title">
 				<div class="flex gap-4 p-2.5 md:flex-row">
-					<i class="fa-solid fa-graduation-cap xs:text-[30px] sm:text-[30px] md:text-[30px]"></i>
+					<!-- <i class="fa-solid fa-graduation-cap xs:text-[30px] sm:text-[30px] md:text-[30px]"></i> -->
+					<TeachingIcon />
 					<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Teaching Excellance</h1>
 				</div>
 			</svelte:fragment>
 			<svelte:fragment slot="content" let:open>
 				<PaginateDynamic url={$paginateUrl} header={teachingHeaders} let:actionData>
-					<TeachingIcon />
 					<TeachingAction {actionData} />
 				</PaginateDynamic>
 			</svelte:fragment>
@@ -158,13 +158,13 @@
 		<AccordionItem>
 			<svelte:fragment slot="title">
 				<div class="flex gap-4 p-2.5 md:flex-row">
-					<i class="fa-solid fa-bullhorn xs:text-[30px] sm:text-[30px] md:text-[30px]"></i>
+					<!-- <i class="fa-solid fa-bullhorn xs:text-[30px] sm:text-[30px] md:text-[30px]"></i> -->
+					<BrandingIcon fill="black" width="36" height="32" />
 					<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Branding & Advertisement</h1>
 				</div>
 			</svelte:fragment>
 			<svelte:fragment slot="content" let:open>
 				<PaginateDynamic url={$brandPaginateUrl} header={brandingHeaders} let:actionData>
-					<BrandingIcon fill="black" width="36" height="32" />
 					<BrandingAction {actionData} />
 				</PaginateDynamic>
 			</svelte:fragment>

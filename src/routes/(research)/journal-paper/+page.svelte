@@ -36,6 +36,7 @@
 </script>
 
 <div class="flex items-center justify-between">
+	
 	<Header header={label} />
 	<button
 		on:click={navigateToCreate}
