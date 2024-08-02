@@ -104,7 +104,7 @@ export const SIDEBAR_URL = [
 	},
 
 	{
-		url: `${PUBLIC_BASE_URL}research-project`,
+		url: `${PUBLIC_BASE_URL}project`,
 		icon: 'research-project',
 		label: 'Research Project',
 		module: null,
