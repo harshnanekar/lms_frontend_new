@@ -529,8 +529,8 @@
 			</div>
 		</div>
 
-		<div class="flex-row">
-			<div class="flex flex-row gap-[10px] p-4">
+		<div class="grid grid-cols md:grid-cols-2 lg:grid-cols-2 mt-4">
+			<div class="flex md:flex-row gap-4 ">
 				<DatePicker
 					on:change={handleDateChange1}
 					bind:selectedDateTime={grantDate}
@@ -564,7 +564,7 @@
 				{/if}
 			</div>
 
-			<div class="flex flex-row gap-[10px] p-4">
+			<div class="flex md:flex-row gap-4">
 				<DatePicker
 					on:change={handleDateChange2}
 					bind:selectedDateTime={paymentDate}

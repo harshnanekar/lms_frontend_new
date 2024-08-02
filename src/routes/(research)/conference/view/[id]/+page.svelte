@@ -274,7 +274,7 @@
 				/>
 			</div>
 
-			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<Input
 					type="text"
@@ -320,7 +320,7 @@
 
 			</div> 
 
-			<div class="flex flex-row gap-[40px] p-4">
+			<div class="flex md:flex-row gap-4 mt-4">
 				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 					<SelectDateIcon />
 					<span class="text-body-2 font-bold">Publication Date</span>

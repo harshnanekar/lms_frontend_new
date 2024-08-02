@@ -439,7 +439,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
 			<Input
 				type="text"
 				placeholder="Institute Affiliation"
@@ -452,7 +452,7 @@
 				bind:selectedOptions={obj.applicant_names}
 				isMultiSelect={true}
 			/>
-			<div class="space-y-4">
+			<!-- <div class="space-y-4">
 				<label for="supporting-documents" class="lms-label"
 					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
 				>
@@ -470,7 +470,7 @@
 						><i class="fa-solid fa-download text-md"></i></button
 					>
 				{/if}
-			</div>
+			</div> -->
 		</div>
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
 			<div class="ml-2 gap-8">
@@ -478,8 +478,8 @@
 				<label class="text-sm text-[#888888]"
 					>Name Of Co-Authors<span class="text-danger text-sm">*</span>
 				</label>
-				<div class="mt-2.5 flex gap-[100px]">
-					<div class="flex items-center">
+				<div class="mt-4 flex items-center gap-8">
+					<div class="flex items-center gap-2">
 						<input
 							id="internal-checkbox"
 							type="checkbox"
@@ -488,7 +488,7 @@
 						/>
 						<label for="internal-checkbox" class="lms-label">Internal</label>
 					</div>
-					<div class="flex items-center">
+					<div class="flex items-center gap-2">
 						<input
 							id="external-checkbox"
 							type="checkbox"
@@ -526,7 +526,27 @@
 				</div>
 			</div>
 
-			<div>
+			<div class="space-y-4">
+				<label for="supporting-documents" class="lms-label"
+					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
+				>
+				<label class="lms-label">Click To Upload New File
+					 <input type="checkbox" bind:checked={isChecked} class="accent-primary"/>
+					 </label>
+				{#if checkVal}
+					<File
+						on:filesSelected={handleFiles}
+						on:deletedFiles={handleDeleteFiles}
+						isView={false}
+					/>
+				{:else}
+					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
+						><i class="fa-solid fa-download text-md"></i></button
+					>
+				{/if}
+			</div>
+
+			<!-- <div>
 				<div class="flex flex-row gap-[10px] p-4">
 					<DatePicker
 						on:change={handleDateChange}
@@ -561,11 +581,11 @@
 						</div>
 					{/if}
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
 			<div>
-				<div class="flex flex-row gap-[10px] p-4">
+				<div class="flex flex-row gap-[10px]">
 					<DatePicker
 						on:change={handleDateChange1}
 						bind:selectedDateTime={grantDate}
@@ -600,7 +620,7 @@
 				</div>
 			</div>
 
-			<div class="flex flex-row gap-[10px] p-4">
+			<div class="flex flex-row gap-[10px]">
 				<DatePicker
 					on:change={handleDateChange2}
 					bind:selectedDateTime={publishedDate}

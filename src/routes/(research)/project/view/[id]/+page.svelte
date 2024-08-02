@@ -141,7 +141,7 @@
 
 {#if checkData}
 	<Card {title}>
-		<div class="scroll modal-content max-h-[70vh] min-h-[50vh] overflow-auto">
+		<div class="modal-content p-4">
 			<!-- Adjust max-height as needed -->
 			<div class="grid grid-cols-3 gap-8 items-center p-4">
 				<Input type="text" placeholder="Nmims School" value={obj.nmims_school} {disabled} />

@@ -498,13 +498,13 @@
 			<Input type="number" placeholder="Amount Spent In RS. By NMIMS" bind:value={obj.amount} />
 		</div>
 
-		<div class="grid grid-cols-1 gap-8 p- md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
 					>Name Of Co-Authors<span class="text-danger text-sm">*</span>
 				</label>
-				<div class="mt-2.5 flex gap-[100px]">
+				<div class="mt-6 flex items-center gap-8">
 					<div class="flex items-center">
 						<input
 							id="internal-checkbox"
@@ -525,7 +525,7 @@
 					</div>
 				</div>
 
-				<div class="mt-6 flex items-center gap-8">
+				<div class="flex items-center gap-x-4 mt-4">
 					<div>
 						{#if showInternalFaculty}
 							<DynamicSelect
@@ -567,6 +567,9 @@
 						on:previewFile={previewConferenceFile}
 						isView={false}
 					/>
+					{#if conferenceFiles.length > 0}
+				      <p class="lms-label">{conferenceFiles.length} Files Uploaded</p>
+				    {/if}
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={() => downLoadFiles('cd')}
 						><i class="fa-solid fa-download text-md"></i></button
@@ -591,6 +594,9 @@
 						on:previewFile={previewAwardFile}
 						isView={false}
 					/>
+					{#if awardFiles.length > 0}
+				      <p class="lms-label">{awardFiles.length} Files Uploaded</p>
+				    {/if}
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={() => downLoadFiles('cd')}
 						><i class="fa-solid fa-download text-md"></i></button
@@ -604,7 +610,7 @@
 			<!-- Upload Conference Documents -->
 		
 		</div>
-		<div class="flex flex-row gap-[40px] p-4">
+		<div class="flex md:flex-row gap-4">
 			<DatePicker
 				on:change={handleDateChange}
 				bind:selectedDateTime={publicationDate}

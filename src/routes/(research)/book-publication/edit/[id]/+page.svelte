@@ -347,6 +347,9 @@
 				>
 				{#if checkVal}
 					<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+					{#if files.length > 0}
+				      <p class="lms-label">{$fileDataStore.length} Files Uploaded</p>
+				    {/if}
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-md"></i></button

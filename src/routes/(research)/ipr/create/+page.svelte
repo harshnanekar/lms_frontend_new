@@ -262,12 +262,6 @@
 
 			appln_no: '',
 
-			filed_date: '',
-
-			grant_date: '',
-
-			published_date: '',
-
 			publication_no: '',
 
 			granted_no: '',
@@ -281,6 +275,11 @@
 		};
 		files = [];
 		fileDataStore.set(files);
+		filedDate = null;
+		grantDate = null;
+		publishedDate = null;
+		showExternal = false;
+		showInternal = false;
 	}
 </script>
 
@@ -350,7 +349,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 items-center p-4 md:grid-cols-2 lg:grid-cols-2">
 			<Input
 				type="text"
 				placeholder="Institute Affiliation"
@@ -363,21 +362,20 @@
 				bind:selectedOptions={obj.applicant_names}
 				isMultiSelect={true}
 			/>
-			<div class="space-y-2">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
+			<!-- <div class="space-y-2">
 				<label class="lms-label"
 					>Upload Supporting Documents<span class="text-primary">*</span></label
 				>
 				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
-			</div>
+			</div> -->
 		</div>
+		
 		<div class="grid grid-cols-1 p-8 md:grid-cols-2 lg:grid-cols-2">
 			<div class="ml-2">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
 					>Details of Inventors<span class="text-danger text-sm">*</span>
 				</label>
-				<div class="mt-2.5 flex gap-5">
+				<div class="mt-4 flex items-center gap-8">
 					<div class="flex items-center">
 						<input
 							id="internal-checkbox"
@@ -401,7 +399,7 @@
 						>
 					</div>
 				</div>
-				<div class="flex items-center gap-x-3">
+				<div class="flex items-center gap-x-4 mt-4">
 					{#if showInternal}
 						<DynamicSelect
 							isRequired={true}
@@ -422,7 +420,56 @@
 					{/if}
 				</div>
 			</div>
-			<div class="flex flex-row p-4">
+
+			<div class="ml-4 space-y-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<label class="lms-label"
+					>Upload Supporting Documents<span class="text-primary">*</span></label
+				>
+				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+			</div>
+
+		
+		</div>
+
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
+			<div class="flex flex-row">
+				<!-- svelte-ignore missing-declaration -->
+				<DatePicker
+					on:change={handleGrandDate}
+					bind:selectedDateTime={grantDate}
+					disabled={(grantDate) => grantDate.getTime() < new Date().setHours(0, 0, 0, 0)}
+				>
+					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+						<SelectDateIcon />
+						<span class="text-body-2 font-bold">Add Patent Grant Date</span>
+					</div>
+				</DatePicker>
+				{#if grantFormattedDate}
+					{@const formattedDate = formatDateTimeShort(new Date(grantFormattedDate))}
+					<div
+						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+						in:fly={{ x: -100, duration: 300 }}
+						out:fly={{ x: 100, duration: 300 }}
+					>
+						<p class="m-0 p-0">{formattedDate}</p>
+						<button
+							use:tooltip={{
+								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+							}}
+							on:click={() => {
+								// remove the current date
+								grantFormattedDate = '';
+							}}
+						>
+							<XIcon />
+						</button>
+					</div>
+				{/if}
+			</div>
+
+
+			<div class="flex flex-row ">
 				<DatePicker
 					on:change={handleDateChange}
 					bind:selectedDateTime={filedDate}
@@ -458,42 +505,7 @@
 		</div>
 
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
-			<div class="flex flex-row p-4">
-				<!-- svelte-ignore missing-declaration -->
-				<DatePicker
-					on:change={handleGrandDate}
-					bind:selectedDateTime={grantDate}
-					disabled={(grantDate) => grantDate.getTime() < new Date().setHours(0, 0, 0, 0)}
-				>
-					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-						<SelectDateIcon />
-						<span class="text-body-2 font-bold">Add Patent Grant Date</span>
-					</div>
-				</DatePicker>
-				{#if grantFormattedDate}
-					{@const formattedDate = formatDateTimeShort(new Date(grantFormattedDate))}
-					<div
-						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-						in:fly={{ x: -100, duration: 300 }}
-						out:fly={{ x: 100, duration: 300 }}
-					>
-						<p class="m-0 p-0">{formattedDate}</p>
-						<button
-							use:tooltip={{
-								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-							}}
-							on:click={() => {
-								// remove the current date
-								grantFormattedDate = '';
-							}}
-						>
-							<XIcon />
-						</button>
-					</div>
-				{/if}
-			</div>
-
-			<div class="flex flex-row p-4">
+				<div class="flex flex-row ">
 				<DatePicker
 					on:change={handleDateChange2}
 					bind:selectedDateTime={publishedDate}

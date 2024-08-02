@@ -254,6 +254,11 @@
 		};
 		files = [];
 		fileDataStore.set(files);
+		grantDate = null;
+		paymentDate = null;
+		showExternal = false;
+		showInternal = false;
+
 	}
 </script>
 
@@ -382,7 +387,7 @@
 				<label class="text-sm text-[#888888]"
 					>Details of Faculty<span class="text-danger text-sm">*</span>
 				</label>
-				<div class="mt-2.5 flex gap-5">
+				<div class="mt-4 flex items-center gap-8">
 					<div class="flex items-center">
 						<input
 							id="internal-checkbox"
@@ -406,7 +411,7 @@
 						>
 					</div>
 				</div>
-				<div class="flex items-center gap-x-3">
+				<div class="flex items-center gap-x-4 mt-4">
 					{#if showInternal}
 						<DynamicSelect
 							isRequired={true}

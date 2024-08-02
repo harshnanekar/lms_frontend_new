@@ -84,7 +84,7 @@
 
 	let publicationDate: Date | null = new Date();
 	publicationDate = null;
-	$: publicationFormattedDate = publicationDate ? formatDate(publicationDate) : '';
+	$: publicationFormattedDate = publicationDate ? formatDate(publicationDate) : null;
 
 	function handleDateChange(e: CustomEvent<any>) {
 		if (!publicationDate) return;
@@ -210,6 +210,9 @@
 		};
 		files = [];
 		fileDataStore.set(files);
+		showExternal = false;
+		showInternal = false;
+		publicationFormattedDate = null;
 	}
 </script>
 
@@ -235,7 +238,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Sustainable Development Goals (SDG)?"
@@ -249,22 +252,21 @@
 				placeholder="Patent/Invention Application Number"
 				bind:value={obj.appln_no}
 			/>
-			<div class="space-y-2">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
+			<!-- <div class="space-y-2">
 				<label class="lms-label"
 					>Upload Supporting Documents<span class="text-primary">*</span></label
 				>
 				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
-			</div>
+			</div> -->
 		</div>
 
-		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
 			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
 					>Details of Other Inventors<span class="text-danger text-sm">*</span>
 				</label>
-				<div class="mt-2.5 flex gap-5">
+				<div class="mt-4 flex items-center gap-8">
 					<div class="flex items-center">
 						<input
 							id="internal-checkbox"
@@ -288,7 +290,7 @@
 						>
 					</div>
 				</div>
-				<div class="flex items-center gap-x-3">
+				<div class="flex items-center gap-x-4 mt-4">
 					{#if showInternal}
 						<DynamicSelect
 							isRequired={true}
@@ -309,9 +311,17 @@
 					{/if}
 				</div>
 			</div>
+
+			<div class="space-y-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<label class="lms-label"
+					>Upload Supporting Documents<span class="text-primary">*</span></label
+				>
+				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+			</div>
 			
 		</div>
-		<div class="flex gap-8 md:flex-row">
+		<div class="flex gap-4 md:flex-row">
 			<DatePicker
 				on:change={handleDateChange}
 				bind:selectedDateTime={publicationDate}
