@@ -1,5 +1,5 @@
 <script>
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import { fetchApi } from '$lib/utils/fetcher';
 	import { toast } from 'svelte-sonner';
 	import { MenuBarIcon, SearchIcon, SignOutIcon } from '../icons';
@@ -19,8 +19,11 @@
 			});
 			return;
 		}
-        goto('/login');
-	}
+        goto(`${PUBLIC_BASE_URL}login`);
+	} 
+
+	
+
 </script>
 
 <header id="lms-header" class="relative z-[99999] bg-base">

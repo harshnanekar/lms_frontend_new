@@ -41,7 +41,7 @@
 	let title: string = '';
 
 	function navigateToCreate() {
-		goto(`${PUBLIC_BASE_URL}research-project/create`);
+		goto(`${PUBLIC_BASE_URL}project/create`);
 	}
 
 	let actionData: ResearchProjectRender;

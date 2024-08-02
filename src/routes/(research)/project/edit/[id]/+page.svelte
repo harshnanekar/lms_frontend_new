@@ -304,7 +304,7 @@
 			toast.error('ALERT!', { description: json[0].upsert_research_project.message });
 		} else {
 			toast.success('Updated Successfully');
-			goto(`${PUBLIC_BASE_URL}research-project`);
+			goto(`${PUBLIC_BASE_URL}project`);
 		}
 		}
 		else {
