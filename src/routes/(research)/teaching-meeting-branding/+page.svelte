@@ -94,18 +94,19 @@
 	import MeetingStakeholderIcon from '$lib/components/icons/layout/meeting-stakeholder-icon.svelte';
 	import TeachingIcon from '$lib/components/icons/layout/teaching-icon.svelte';
 	import BrandingIcon from '$lib/components/icons/layout/branding-icon.svelte';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
-	$: dynamicUrl = new URL(`http://localhost:9090/research/teaching-paginate`);
+	$: dynamicUrl = new URL(`${PUBLIC_API_BASE_URL}/teaching-paginate`);
 	$: paginateUrl.set(dynamicUrl);
 
-	$: meetUrl = new URL(`http://localhost:9090/research/meeting-paginate`);
+	$: meetUrl = new URL(`${PUBLIC_API_BASE_URL}/meeting-paginate`);
 	$: meetPaginateUrl.set(meetUrl);
 
-	$: brandUrl = new URL(`http://localhost:9090/research/branding-paginate`);
+	$: brandUrl = new URL(`${PUBLIC_API_BASE_URL}/branding-paginate`);
 	$: brandPaginateUrl.set(brandUrl);
 
 	function navigateToCreate() {
-		goto('/teaching-meeting-branding/create');
+		goto(`${PUBLIC_BASE_URL}teaching-meeting-branding/create`);
 	}
 	let open = true;
 </script>

@@ -176,7 +176,7 @@
 			   console.log('upsert json ', JSON.stringify(json));
 				toast.success('Updated Successfully!');
 				fileDataStore.set([]);
-				goto('/teaching-meeting-branding');
+				goto(`${PUBLIC_API_BASE_URL}/teaching-meeting-branding`);
 			
 		}
 		}

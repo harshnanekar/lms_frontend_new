@@ -20,7 +20,7 @@
 	} from '$lib/schemas/modules/research/master-validations';
 	import { toast } from 'svelte-sonner';
 	import { validateWithZod } from '$lib/utils/validations';
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import { fetchFormApi } from '$lib/utils/fetcher';
 	import { optionStore } from '$lib/stores/modules/research/master.store';
 	import { goto } from '$app/navigation';
@@ -276,7 +276,7 @@
 				toast.success('Inserted Successfully!');
 				teachingItems = [];
 				fileDataStore.set([]);
-				goto('/teaching-meeting-branding');
+				goto(`${PUBLIC_BASE_URL}teaching-meeting-branding`);
 			}
 		}
 	}
@@ -340,7 +340,7 @@
 				toast.success('Inserted Successfully!');
 				meetingItems = [];
 				fileDataStore.set([]);
-				goto('/teaching-meeting-branding');
+				goto(`${PUBLIC_BASE_URL}teaching-meeting-branding`);
 			}
 		}
 	}
@@ -405,7 +405,7 @@
 				toast.success('Inserted Successfully!');
 				brandingItems = [];
 				fileDataStore.set([]);
-				goto('/teaching-meeting-branding');
+				goto(`${PUBLIC_BASE_URL}teaching-meeting-branding`);
 			}
 		}
 	}

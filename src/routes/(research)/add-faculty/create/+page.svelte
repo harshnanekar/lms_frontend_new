@@ -13,7 +13,7 @@
 	import { goto } from '$app/navigation';
 
     const url: URL = new URL(`${PUBLIC_API_BASE_URL}/faculty-scroll-paginate`);
-    export let data;
+    export let data : any;
 
     let responseData: InfiniteScrollResult<InfiniteFacultyView> = {
         data: [],

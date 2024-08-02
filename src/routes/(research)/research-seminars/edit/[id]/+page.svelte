@@ -20,7 +20,7 @@
 	import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
 	import { toast } from 'svelte-sonner';
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
     import { fileDataStore } from '$lib/stores/modules/research/master.store';
@@ -269,7 +269,7 @@
 			publicationFormattedDate = null;
 			files = [];
 			fileDataStore.set(files);
-			goto('/research-seminars');
+			goto(`${PUBLIC_BASE_URL}research-seminars`);
 		}
 	}
 

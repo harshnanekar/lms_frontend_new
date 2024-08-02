@@ -1,4 +1,5 @@
 import { goto } from '$app/navigation';
+import { PUBLIC_BASE_URL } from '$env/static/public';
 import type { ApiResponse } from '$lib/types/request.types';
 import type { HttpMethod } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';
@@ -40,7 +41,7 @@ export const fetchApi = async <T>({
 			}
 
 			if(errorData.status === 401){
-			 goto('/login');
+			 goto(`${PUBLIC_BASE_URL}login`);
 			}
 
 			return { json: null, error: errorData };
@@ -91,7 +92,7 @@ export const fetchFormApi = async <T>({
 				errorData = { message: 'Error' };
 			}
 			if(errorData.status === 401){
-				goto('/login');
+				goto(`${PUBLIC_BASE_URL}login`);
 			}
 			return { json: null, error: errorData };
 		}
@@ -144,6 +145,9 @@ export const downloadFetch = async <T>({
                 errorData = { message: 'Error' };
             }
             console.log('Response Error:', errorData);
+			if(errorData.status === 401){
+				goto(`${PUBLIC_BASE_URL}login`);
+			}
             return { json: null, error: errorData };
         }
 
