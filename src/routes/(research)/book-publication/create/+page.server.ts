@@ -5,7 +5,7 @@ import { error, fail, redirect } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ cookies, fetch }) => {
 	const { error : err, json } = await fetchApiServer({
-		url: `${PRIVATE_API_BASE_URL}/bookpublication--render`,
+		url: `${PRIVATE_API_BASE_URL}/book-publication-render`,
 		_fetch: fetch,
 		cookies: cookies,
 		method: 'GET'
