@@ -21,6 +21,7 @@
 	import { goto } from '$app/navigation';
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 	import type { bookPublicationStatus } from '$lib/types/modules/research/research-types';
+	import { PUBLIC_BASE_URL } from '$env/static/public';
 
 	export let data: any;
 	let isRequired = false;
@@ -150,7 +151,7 @@
 			} else {
 				toast.success('Inserted Successfully');
 				clearForm();
-				goto('/book-publication');
+				goto(`${PUBLIC_BASE_URL}book-publication`);
 			}
 		} else {
 			toast.error('No response data received');

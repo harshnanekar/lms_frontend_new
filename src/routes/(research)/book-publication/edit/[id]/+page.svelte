@@ -21,6 +21,7 @@
 	import { goto } from '$app/navigation';
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 	import type { updateBookPublicationStatus } from '$lib/types/modules/research/research-types';
+	import { PUBLIC_BASE_URL } from '$env/static/public';
 
 	let campus: string = '';
 	let title = 'Book Publication';
@@ -201,7 +202,7 @@
 				files = [];
 				fileDataStore.set(files);
 				isChecked = false;
-				goto('/book-publication');
+				goto(`${PUBLIC_BASE_URL}book-publication`);
 			}
 		} else {
 			toast.error('No response data received');
