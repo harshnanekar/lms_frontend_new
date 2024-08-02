@@ -159,7 +159,7 @@ export const SIDEBAR_URL = [
 		child: []
 	},
 	{
-		url: '/master-input-data',
+		url: `${PUBLIC_BASE_URL}master-input-data`,
 		icon: 'author',
 		label: 'Add Author',
 		module: null,
