@@ -14,7 +14,7 @@
 	const url = new URL(dynamicUrl);
 	paginateUrl.set(url);
 
-	const label = 'Authors Data';
+	const label = 'Authors Details';
 
 	function navigateToCreate() {
 		goto('/master-input-data/create');
