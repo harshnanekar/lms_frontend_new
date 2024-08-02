@@ -53,8 +53,7 @@
 		.map((dt: { id: any }) => Number(dt.id))[0];
 	console.log('conference abbr ', conference_abbr, award_abbr);
 
-	console.log(
-		'enternalAuthors ankit mishra ===>>>>>',
+	console.log('enternalAuthors ankit mishra ===>>>>>',
 		JSON.stringify(data?.conferenceDetails?.conferenceDocumentAbbr)
 	);
 	console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool);
@@ -66,8 +65,8 @@
 	$: internal = enternalAuthors;
 
 	console.log('external ===>>>>>>', externalAuthors);
-	console.log('internal ===>>>>>>', internal);
-	console.log('campus ===>>>>>>', campus);
+	console.log('internal ===>>>>>>', enternalAuthors);
+	console.log('campus ===>>>>>>', nmimsCampus);
 
 	let isCheckedDoc: boolean = false;
 	let isCheckedaward: boolean = false;
@@ -86,12 +85,9 @@
 	}
 
 	console.log('JSON.stringify(school)', JSON.stringify(school));
-	console.log('conference details', JSON.stringify(data.conferenceDetails));
+	console.log(' data conference details', JSON.stringify(data));
 
-	$: console.log(
-		'facultyDetails ===>>>>>',
-		JSON.stringify(data.conferenceDetails.conferenceDetails)
-	);
+	$: console.log('facultyDetails ===>>>>>',JSON.stringify(data.conferenceDetails.conferenceDetails));
 
 	let obj: any = {
 		conference_id: parseInt(data.conferenceDetails.conferenceDetails[0].conference_id),

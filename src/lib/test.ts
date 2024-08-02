@@ -19,6 +19,7 @@ import type {
 	IPRRender,
 	ConferenceRender,
 	EditedBookPublicationView,
+	ResearchProjectRender,
 	// ConferenceRender,
 	// IPRRender,
 	// patentRender,
@@ -871,21 +872,21 @@ export const ConferenceHeaders: TableHeaders<ConferenceRender>[] = [
 
 
 
-export type ResearchProjectRender = {
-	id: number;
+// export type ResearchProjectRender = {
+// 	id: number;
 
-	nmims_school: string[];
+// 	nmims_school: string[];
 
-	nmims_campus: string[];
+// 	nmims_campus: string[];
 
-	title: string;
+// 	title: string;
 
-	funding_amount: number;
+// 	funding_amount: number;
 
-	funding_agency: string;
+// 	funding_agency: string;
 
-	thrust_area: string;
-}; 
+// 	thrust_area: string;
+// }; 
 
 
 

@@ -381,37 +381,6 @@
 			<Input type="text" placeholder="Thrust area of Research" bind:value={obj.thrust_area} />
 			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
-				<label class="text-sm text-[#888888]">
-					Grant Proposal<span class="text-danger text-sm">*</span>
-				</label>
-				<div class="mt-2.5 flex flex-row gap-[20px]">
-					<div class="flex flex-row">
-						<input
-							type="radio"
-							class="lms-input-radio w-4"
-							name="grant-proposal"
-							bind:group={obj.grant_proposal}
-							value={1}
-						/>
-						<span class="text-sm text-[#888888]"> Goverment</span>
-					</div>
-					<div class="flex flex-row">
-						<input
-							type="radio"
-							class="lms-input-radio w-4"
-							name="grant-proposal"
-							bind:group={obj.grant_proposal}
-							value={2}
-						/>
-						<span class="text-sm text-[#888888]"> Industry</span>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
-			<div class="ml-2">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
 					>Type of Grant<span class="text-danger text-sm">*</span>
 				</label>
@@ -448,6 +417,39 @@
 					</div>
 				</div>
 			</div>
+			
+		</div>
+
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<div class="ml-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<label class="text-sm text-[#888888]">
+					Grant Proposal<span class="text-danger text-sm">*</span>
+				</label>
+				<div class="mt-2.5 flex flex-row gap-[20px]">
+					<div class="flex flex-row">
+						<input
+							type="radio"
+							class="lms-input-radio w-4"
+							name="grant-proposal"
+							bind:group={obj.grant_proposal}
+							value={1}
+						/>
+						<span class="text-sm text-[#888888]"> Goverment</span>
+					</div>
+					<div class="flex flex-row">
+						<input
+							type="radio"
+							class="lms-input-radio w-4"
+							name="grant-proposal"
+							bind:group={obj.grant_proposal}
+							value={2}
+						/>
+						<span class="text-sm text-[#888888]"> Industry</span>
+					</div>
+				</div>
+			</div>
+			
 			<Input type="number" placeholder="Funding Amount" bind:value={obj.funding_amount} />
 			<Input type="text" placeholder="Name of Funding Agency " bind:value={obj.funding_agency} />
 		</div>

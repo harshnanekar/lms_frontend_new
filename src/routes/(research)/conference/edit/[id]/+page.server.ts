@@ -23,6 +23,7 @@ export const load: PageServerLoad = async ({ cookies, fetch, params }) => {
     }
 
 	if (err) {
+		console.log('err ===>>>>', JSON.stringify(err))
         error(500,'Internal Server Error')
     }
 

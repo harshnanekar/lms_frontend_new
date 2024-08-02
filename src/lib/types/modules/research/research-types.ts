@@ -198,8 +198,6 @@ export type MeetingView = {
 
 
 
-
-
  export type ConferenceRender = {
 	id: number;
 	paper_title: string;

@@ -1,15 +1,21 @@
-<script>
+<script lang="ts">
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import { fetchApi } from '$lib/utils/fetcher';
 	import { toast } from 'svelte-sonner';
 	import { MenuBarIcon, SearchIcon, SignOutIcon } from '../icons';
-	import { Image } from '../ui';
+	import { Image, ProfileDropDown } from '../ui';
 	import { isSidebarOverlayOpen } from './sidebar/store';
 	import { goto } from '$app/navigation';
+	import type { UserSessionData } from '$lib/types/user';
 
-	async function handleLogout(){
+
+	export let userData: UserSessionData;
+
+	console.log('userData ===>>>>>', userData);
+	
+	async function getUserDetails(){
 		const { error, json } = await fetchApi({
-			url: `${PUBLIC_API_BASE_URL}/logout`,
+			url: `${PUBLIC_API_BASE_URL}/user-details`,
 			method: 'GET',
 		});
 
@@ -19,7 +25,18 @@
 			});
 			return;
 		}
-        goto('/login');
+        
+	} 
+
+	
+
+	const userData1 = {
+		user_detail: {
+			first_name: "Ankit",
+			last_name: "Mishra",
+			email: "ankit.mishra.EXT@nmims.edu",
+			mobile: "82828282828",
+		}
 	}
 </script>
 
@@ -36,7 +53,6 @@
 			<img src="/images/layout/logo.png" alt="Logo" class="h-[36px] w-[102px]" />
 		</div>
 		<div class="flex items-center gap-x-4 md:gap-x-6">
-			<button class="lms-btn lms-primary-btn" on:click={handleLogout}><SignOutIcon fill="white" />Signout</button>
 			<button>
 				<Image
 					src="/icons/layout/notification.png"
@@ -45,11 +61,14 @@
 				/>
 			</button>
 			<div>
-				<Image
-					src="/icons/layout/notificataion.png"
-					name="Notification"
-					classes="w-10 h-10 rounded-full"
-				/>
+				<div>
+					<!-- svelte-ignore missing-declaration -->
+					<ProfileDropDown
+						src="/icons/layout/notificataion.png"
+						name={`${userData1.user_detail?.first_name} ${userData1.user_detail?.last_name}`}
+						email={userData1.user_detail?.email}
+					/>
+				</div>
 			</div>
 		</div>
 	</div>
