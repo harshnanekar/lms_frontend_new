@@ -36,9 +36,9 @@
 	};
 
 	console.log('data ===>>>>>', data)
-	let nmimsSchool = data?.conferenceDetails?.school?.message;
-	let nmimsCampus = data?.conferenceDetails?.campus?.message;
-	let masterAllAuthors = data?.conferenceDetails?.masterAllAuthors?.message;
+	let nmimsSchool = data?.conferenceDetails?.school.message.length > 0 ? data?.conferenceDetails?.school?.message : [];
+	let nmimsCampus = data?.conferenceDetails?.campus.message.length > 0 ? data?.conferenceDetails?.campus?.message : [];
+	let masterAllAuthors = data?.conferenceDetails?.masterAllAuthors.message.length > 0 ? data?.conferenceDetails?.masterAllAuthors?.message : [];
 	let externalAuthors = data?.conferenceDetails?.externalAuthors.message.length > 0 ? data?.conferenceDetails?.externalAuthors?.message : [];
 	let enternalAuthors = data?.conferenceDetails?.enternalAuthors.message.length > 0 ? data?.conferenceDetails?.enternalAuthors?.message : [];
 	let conferenceDocumentAbbr = data?.conferenceDetails?.conferenceDocumentAbbr;
@@ -513,7 +513,8 @@
 					on:previewFile={previewConferenceFile}
 				/>
 				{#if conferenceFiles.length > 0}
-				      <p class="lms-label">{conferenceFiles.length} Files Uploaded</p>
+				      {@const filesString = conferenceFiles.length > 1 ? 'Files' : 'File'}
+				      <p class="lms-label">{conferenceFiles.length} {filesString} Uploaded</p>
 				{/if}
 			</div>
 
@@ -529,7 +530,8 @@
 					isView={false}
 				/>
 				{#if awardFiles.length > 0}
-				      <p class="lms-label">{awardFiles.length} Files Uploaded</p>
+    				{@const filesString = awardFiles.length > 1 ? 'Files' : 'File'}
+				      <p class="lms-label">{awardFiles.length} {filesString} Uploaded</p>
 				{/if}
 			</div>
 

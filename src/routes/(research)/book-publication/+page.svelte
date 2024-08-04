@@ -10,7 +10,6 @@
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
 	import { PUBLIC_BASE_URL } from '$env/static/public';
 
-	// let dynamicUrl = `http://localhost:9090/research/book-publication-paginate`;
 	let dynamicUrl = `${PUBLIC_API_BASE_URL}/book-publication-paginate`;
 
 	const url = new URL(dynamicUrl);

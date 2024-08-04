@@ -21,19 +21,7 @@
 	}
 
 	let actionData: JournalView;
-	let filters = [{
-	name: 'nmims_school',
-	options: [
-		{ value: 'KPMSOL', label: 'KPMSOL' },
-		{ value: 'DJSCE', label: 'DJSCE' }
-	]
-    },{
-	name: 'nmims_school',
-	options: [
-		{ value: 'KPMSOL', label: 'KPMSOL' },
-		{ value: 'DJSCE', label: 'DJSCE' }
-	]
-    }];
+	
 </script>
 
 <div class="flex items-center justify-between">

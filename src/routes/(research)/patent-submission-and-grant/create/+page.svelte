@@ -48,15 +48,11 @@
 
 	let title = 'Patent Submission And Grant';
 
-	let enternalAuthors = data?.patentDataList?.internalAuthors?.message;
-
-	let externalAuthors = data?.patentDataList?.externalAuthors?.message;
-
-	let sdgGoals = data?.patentDataList?.sdgGoals?.message;
-
-	let patetntStatus = data?.patentDataList?.status?.message;
-
-	let inventionType = data?.patentDataList?.inventionType?.message;
+	let enternalAuthors = data?.patentDataList?.internalAuthors?.message.length > 0 ? data?.patentDataList?.internalAuthors?.message : [];
+	let externalAuthors = data?.patentDataList?.externalAuthors?.message.length > 0 ? data?.patentDataList?.externalAuthors?.message : [];
+	let sdgGoals = data?.patentDataList?.sdgGoals?.message.length > 0 ? data?.patentDataList?.sdgGoals?.message : [];
+	let patetntStatus = data?.patentDataList?.status?.message.length > 0 ? data?.patentDataList?.status?.message : [];
+	let inventionType = data?.patentDataList?.inventionType?.message.length > 0 ? data?.patentDataList?.inventionType?.message : [];
 
 	// let isRequired = false;
 
@@ -318,6 +314,10 @@
 					>Upload Supporting Documents<span class="text-primary">*</span></label
 				>
 				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+				{#if files.length > 0}
+				{@const fileString = files.length > 1 ? 'Files' : 'File' }
+				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
+			    {/if}
 			</div>
 			
 		</div>

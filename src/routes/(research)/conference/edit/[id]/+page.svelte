@@ -39,11 +39,11 @@
 		documents: [File, ...File[]];
 	};
 
-	let nmimsSchool = data?.conferenceDetails?.school?.message;
-	let nmimsCampus = data?.conferenceDetails?.campus?.message;
-	let masterAllAuthors = data?.conferenceDetails?.masterAllAuthors?.message;
-	let externalAuthors = data?.conferenceDetails?.externalAuthors?.message;
-	let enternalAuthors = data?.conferenceDetails?.enternalAuthors?.message;
+	let nmimsSchool = data?.conferenceDetails?.school?.message.length > 0 ? data?.conferenceDetails?.school?.message : [];
+	let nmimsCampus = data?.conferenceDetails?.campus?.message.length > 0 ? data?.conferenceDetails?.campus?.message : [];
+	let masterAllAuthors = data?.conferenceDetails?.masterAllAuthors?.message.length > 0 ? data?.conferenceDetails?.masterAllAuthors?.message : [];
+	let externalAuthors = data?.conferenceDetails?.externalAuthors?.message.length > 0 ? data?.conferenceDetails?.externalAuthors?.message : [];
+	let enternalAuthors = data?.conferenceDetails?.enternalAuthors?.message.length > 0 ? data?.conferenceDetails?.enternalAuthors?.message : [];
 	let conferenceDocumentAbbr = data?.conferenceDetails?.conferenceDocumentAbbr;
 	let conference_abbr = conferenceDocumentAbbr
 		.filter((data: { abbr: string }) => data.abbr === 'cd')
@@ -504,7 +504,7 @@
 				<label class="text-sm text-[#888888]"
 					>Name Of Co-Authors<span class="text-danger text-sm">*</span>
 				</label>
-				<div class="mt-6 flex items-center gap-8">
+				<div class="mt-4 flex items-center gap-8">
 					<div class="flex items-center">
 						<input
 							id="internal-checkbox"
@@ -568,7 +568,8 @@
 						isView={false}
 					/>
 					{#if conferenceFiles.length > 0}
-				      <p class="lms-label">{conferenceFiles.length} Files Uploaded</p>
+					{@const filesString = conferenceFiles.length > 1 ? 'Files' : 'File'}
+				      <p class="lms-label">{conferenceFiles.length} {filesString} Uploaded</p>
 				    {/if}
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={() => downLoadFiles('cd')}
@@ -595,7 +596,8 @@
 						isView={false}
 					/>
 					{#if awardFiles.length > 0}
-				      <p class="lms-label">{awardFiles.length} Files Uploaded</p>
+					  {@const filesString = awardFiles.length > 1 ? 'Files' : 'File'}
+				      <p class="lms-label">{awardFiles.length} {filesString} Uploaded</p>
 				    {/if}
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={() => downLoadFiles('cd')}

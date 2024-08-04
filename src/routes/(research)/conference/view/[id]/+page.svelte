@@ -49,7 +49,6 @@
 		fileDataStore.set(awardDocFiles);
 	}
 
-	
 	let showInternal = false;
 	let showExternal = false;
 

@@ -48,21 +48,16 @@
 	$: checkVal = isChecked;
 
 	let title = 'IPR';
+	
+	let nmimsSchool = data?.iprDataList?.school?.message.length > 0 ? data?.iprDataList?.school?.message : [];
+	let nmimsCampus = data?.iprDataList?.campus?.message.length > 0 ? data?.iprDataList?.campus?.message : [];
+	let enternalAuthors = data?.iprDataList?.internalAuthors?.message.length > 0 ? data?.iprDataList?.internalAuthors?.message : [];
+	let externalAuthors = data?.iprDataList?.externalAuthors?.message.length > 0 ? data?.iprDataList?.externalAuthors?.message : [];
+	let sdgGoals = data?.iprDataList?.sdgGoals?.message.length > 0 ? data?.iprDataList?.sdgGoals?.message : [];
+	let patetntStatus = data?.iprDataList?.status?.message.length > 0 ? data?.iprDataList?.status?.message : [];
+	let inventionType = data?.iprDataList?.inventionType?.message.length > 0 ? data?.iprDataList?.inventionType?.message : [];
+	let applicantNames = data?.iprDataList?.applicantNames?.message.length > 0 ? data?.iprDataList?.applicantNames?.message : [];
 
-	let nmimsSchool = data?.iprDataList?.school?.message;
-
-	let nmimsCampus = data?.iprDataList?.campus?.message;
-
-	let enternalAuthors = data?.iprDataList?.internalAuthors?.message;
-
-	let externalAuthors = data?.iprDataList?.externalAuthors?.message;
-
-	let sdgGoals = data?.iprDataList?.sdgGoals?.message;
-
-	let patetntStatus = data?.iprDataList?.status?.message;
-
-	let inventionType = data?.iprDataList?.inventionType?.message;
-	let applicantNames = data?.iprDataList?.applicantNames?.message;
 
 	// let isRequired = false;
 

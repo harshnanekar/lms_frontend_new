@@ -49,15 +49,11 @@
 
 	let title = 'Research Project';
 
-	let nmimsSchool = data?.ResearchProjectDataList?.school?.message;
-
-	let nmimsCampus = data?.ResearchProjectDataList?.campus?.message;
-
-	let enternalAuthors = data?.ResearchProjectDataList?.internalAuthors?.message;
-
-	let externalAuthors = data?.ResearchProjectDataList?.externalAuthors?.message;
-
-	let researchStatus = data?.ResearchProjectDataList?.status?.message;
+	let nmimsSchool = data?.ResearchProjectDataList?.school?.message.length > 0 ? data?.ResearchProjectDataList?.school?.message : [];
+	let nmimsCampus = data?.ResearchProjectDataList?.campus?.message.length > 0 ? data?.ResearchProjectDataList?.campus?.message : [];
+	let enternalAuthors = data?.ResearchProjectDataList?.internalAuthors?.message.length > 0 ? data?.ResearchProjectDataList?.internalAuthors?.message : [];
+	let externalAuthors = data?.ResearchProjectDataList?.externalAuthors?.message.length > 0 ? data?.ResearchProjectDataList?.externalAuthors?.message : [];
+	let researchStatus = data?.ResearchProjectDataList?.status?.message.length > 0 ? data?.ResearchProjectDataList?.status?.message : [];
 
 	// let isRequired = false;
 
@@ -468,6 +464,10 @@
 				</label>
 				{#if checkVal}
 					<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+					{#if files.length > 0}
+				      {@const fileString = files.length > 1 ? 'Files' : 'File' }
+				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
+			        {/if}
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-md"></i></button

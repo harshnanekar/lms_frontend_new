@@ -20,8 +20,8 @@ export const load: PageServerLoad = async ({ cookies, fetch }) => {
         redirect(303, `${PRIVATE_BASE_URL}login`);
     }
 
-	if (err) {
-        error(500,'Internal Server Error')
+	if (err && err.status) {
+        error(Number(err.status),err.message);
     }
 
 

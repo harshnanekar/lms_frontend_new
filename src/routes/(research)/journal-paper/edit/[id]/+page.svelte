@@ -35,16 +35,16 @@
 	let isRequired = false;
 	let title = 'Journal Articles Published';
 
-	let foreignAuthors = data?.journalData?.foreignAuthors?.message;
-	let studentAuthors = data?.journalData?.StudentAuthors?.message;
-	let otherAuthors = data?.journalData?.otherAuthors?.message;
-	let policyCadre = data?.journalData?.policyCadre?.message;
-	let nmimsAuthors = data?.journalData?.nmimsAuthors?.message;
-	let allAuthors = data?.journalData?.allAuthors?.message;
-	let abdcIndexed = data?.journalData?.abdcIndexed?.message;
-	let paperType = data?.journalData?.paperType?.message;
-	let nmimsSchool = data?.journalData?.school?.message;
-	let nmimsCampus = data?.journalData?.campus?.message;
+	let foreignAuthors = data?.journalData?.foreignAuthors?.message.length > 0 ? data?.journalData?.foreignAuthors?.message : [];
+	let studentAuthors = data?.journalData?.StudentAuthors?.message.length > 0 ? data?.journalData?.StudentAuthors?.message : [];
+	let otherAuthors = data?.journalData?.otherAuthors?.message.length > 0 ? data?.journalData?.otherAuthors?.message : [];
+	let policyCadre = data?.journalData?.policyCadre?.message.length > 0 ? data?.journalData?.policyCadre?.message : [];
+	let nmimsAuthors = data?.journalData?.nmimsAuthors?.message.length > 0 ? data?.journalData?.nmimsAuthors?.message : [];
+	let allAuthors = data?.journalData?.allAuthors?.message.length > 0 ? data?.journalData?.allAuthors?.message : [];
+	let abdcIndexed = data?.journalData?.abdcIndexed?.message.length > 0 ? data?.journalData?.abdcIndexed?.message : [];
+	let paperType = data?.journalData?.paperType?.message.length > 0 ? data?.journalData?.paperType?.message : [];
+	let nmimsSchool = data?.journalData?.school?.message.length > 0 ? data?.journalData?.school?.message : [];
+	let nmimsCampus = data?.journalData?.campus?.message.length > 0 ? data?.journalData?.campus?.message : [];
 
 	// let isRequired = false;
 	let isChecked: boolean = false;
@@ -631,8 +631,9 @@
 						isView={false}
 					/>
 					{#if files.length > 0}
-				      <p class="lms-label">{$fileDataStore.length} Files Uploaded</p>
-				    {/if}
+			        	{@const fileString = files.length > 1 ? 'Files' : 'File' }
+				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
+			        {/if}
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-md"></i></button
