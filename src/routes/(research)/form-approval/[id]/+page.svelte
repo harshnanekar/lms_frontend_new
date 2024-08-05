@@ -77,7 +77,7 @@
 
      const facultyObj : facultyObjReq = facultyData.filter((data:any) => data.form_status != null).map((dt:any) => 
      {
-       return {form_lid : Number(dt.form_lid),form_status : Number(dt.form_status),level : Number(formLevel)}
+       return {form_lid : Number(dt.form_lid),form_status : Number(dt.form_status)}
      });
      console.log('zod faculty ',facultyObj)
 
@@ -144,8 +144,8 @@
                             type="radio"
                             class="lms-input-radio w-4"
                             name="{faculty.form_lid}"
-                            on:change={() => updateFacultyStatus(faculty.form_lid, 2,'form_status')}
-                            value={2}
+                            on:change={() => updateFacultyStatus(faculty.form_lid, 1,'form_status')}
+                            value={1}
                         />
                         <span class="text-sm text-[#888888]">Approve</span>
                     </div>
