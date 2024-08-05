@@ -9,7 +9,7 @@ console.log('dashboard modules ',JSON.stringify(data.dashboardData))
 </script>
 
 {#if dashboard.length > 0}
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-8">
   {#each dashboard as ds}
   <a href={ds.url}>
     <div class="p-8 border shadow-card rounded-2xl grid grid-cols-1 place-items-center border-[#e5e9f1]">

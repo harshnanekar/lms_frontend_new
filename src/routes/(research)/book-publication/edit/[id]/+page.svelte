@@ -31,16 +31,11 @@
 	export let data: any;
 
 	console.log('data in side edit view ===>>>', data);
-	console.log(
-		'data in side edit view ankit mishra ===>>>',
-		data.bookPublicationData.bookPublicationData[0]
-	);
-
-	let nmimsSchool = data?.bookPublicationData?.school?.message;
-	let nmimsCampus = data?.bookPublicationData?.campus?.message;
-	let nmimsAuthors = data?.bookPublicationData?.nmimsAuthors?.message;
-	let allAuthors = data?.bookPublicationData?.allAuthors?.message;
-	console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool);
+	
+	let nmimsSchool = data?.bookPublicationData?.school.message.length > 0 ? data?.bookPublicationData?.school?.message : [];
+	let nmimsCampus = data?.bookPublicationData?.campus.message.length > 0 ? data?.bookPublicationData?.campus?.message : [];
+	let nmimsAuthors = data?.bookPublicationData?.nmimsAuthors.message.length > 0 ? data?.bookPublicationData?.nmimsAuthors?.message : [];
+	let allAuthors = data?.bookPublicationData?.allAuthors.message.length > 0 ? data?.bookPublicationData?.allAuthors?.message : [];
 
 	$: school = nmimsSchool;
 	$: nmimsAuth = nmimsAuthors;
@@ -347,6 +342,10 @@
 				>
 				{#if checkVal}
 					<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+					{#if files.length > 0}
+					{@const fileString = files.length > 1 ? 'Files' : 'File' }
+				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
+				    {/if}
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-md"></i></button

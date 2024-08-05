@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { OpenBookIcon, ScheduledIcon } from "$lib/components/icons";
+	import { ApprovalIcon, OpenBookIcon, ScheduledIcon } from "$lib/components/icons";
+	import RightIcon from "$lib/components/icons/base/right-icon.svelte";
 	import XIcon from "$lib/components/icons/base/x-icon.svelte";
 
 export let status : string = "pd";
@@ -14,7 +15,7 @@ Pending
 </div>
 {:else if status === 'cp'}
 <div class="lms-label lms-label-success font-bold {inputClass} flex items-center gap-2 py-1">
-    <OpenBookIcon />
+   <RightIcon />
     Approved
 </div>
 {:else}

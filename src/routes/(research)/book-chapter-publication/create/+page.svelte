@@ -34,11 +34,11 @@
 
 	console.log('data ===>>>>>', data);
 
-	let nmimsSchool = data?.bookChapterData?.school?.message;
-	let nmimsCampus = data?.bookChapterData?.campus?.message;
-	let nmimsAuthors = data?.bookChapterData?.nmimsAuthors?.message;
-	let allAuthors = data?.bookChapterData?.allAuthors?.message;
-	let allEditors = data?.bookChapterData?.editor?.message;
+	let nmimsSchool =  data?.bookChapterData?.school.message.length > 0 ? data?.bookChapterData?.school?.message : [];
+	let nmimsCampus =  data?.bookChapterData?.campus.message.length > 0 ? data?.bookChapterData?.campus?.message : [];
+	let nmimsAuthors = data?.bookChapterData?.nmimsAuthors.message.length > 0 ? data?.bookChapterData?.nmimsAuthors?.message : [];
+	let allAuthors = data?.bookChapterData?.allAuthors.message.length > 0 ? data?.bookChapterData?.allAuthors?.message : [];
+	let allEditors = data?.bookChapterData?.editor.message.length > 0 ? data?.bookChapterData?.editor?.message : [];
 
 	console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool);
 	console.log('allEditors ankit mishra ===>>>>>', allEditors);
@@ -330,6 +330,10 @@
 					>Upload Supporting Documents<span class="text-primary">*</span></label
 				>
 				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+				{#if files.length > 0}
+				{@const fileString = files.length > 1 ? 'Files' : 'File' }
+				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
+			    {/if}
 			</div>		
 		</div>
 	</div>

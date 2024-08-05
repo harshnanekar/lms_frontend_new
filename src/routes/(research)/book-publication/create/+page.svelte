@@ -27,10 +27,10 @@
 	let isRequired = false;
 	let title = 'Book Publication';
 
-	let nmimsSchool = data?.bookPublicationData?.school?.message;
-	let nmimsCampus = data?.bookPublicationData?.campus?.message;
-	let nmimsAuthors = data?.bookPublicationData?.nmimsAuthors?.message;
-	let allAuthors = data?.bookPublicationData?.allAuthors?.message;
+	let nmimsSchool = data?.bookPublicationData?.school.message.length > 0 ? data?.bookPublicationData?.school?.message : [];
+	let nmimsCampus = data?.bookPublicationData?.campus.message.length > 0 ? data?.bookPublicationData?.campus?.message : [];
+	let nmimsAuthors = data?.bookPublicationData?.nmimsAuthors.message.length > 0 ? data?.bookPublicationData?.nmimsAuthors?.message : [];
+	let allAuthors = data?.bookPublicationData?.allAuthors.message.length > 0 ? data?.bookPublicationData?.allAuthors?.message : [];
 
 	console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool);
 
@@ -288,6 +288,10 @@
 					>Upload Supporting Documents<span class="text-primary">*</span></label
 				>
 				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+				{#if files.length > 0}
+				{@const fileString = files.length > 1 ? 'Files' : 'File' }
+				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
+				{/if}
 			</div>
 		</div>
 	</div>

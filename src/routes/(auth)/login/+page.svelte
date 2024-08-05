@@ -123,7 +123,6 @@ async function handleSubmit() {
         background-image: url('/images/auth/login/nmims-logo-lg-bg.png');
         background-position: center;
         background-repeat: no-repeat;
-        background-color: #90aae4;
     }
 
     @media screen and (max-width: 767px) {

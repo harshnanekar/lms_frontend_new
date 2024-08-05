@@ -166,24 +166,13 @@ const handleChange = (e: any, filter: FilterOption) => {
 <div>
     <div class="filters space-x-10">
         {#if showSearch}
-            <!-- <div class="relative w-full">
+        
+            <div class="relative text-gray-600 flex items-center ml-4 w-[50%]">
                 <input
                     type="text"
                     placeholder="Search here..."
                     on:input={handleInput}
-                    class="w-1/2 rounded-full border py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-slate-200"
-                />
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                    <SearchIcon />
-                </div>
-            </div> -->
-
-            <div class="relative text-gray-600 flex items-center ml-4">
-                <input
-                    type="text"
-                    placeholder="Search here..."
-                    on:input={handleInput}
-                    class="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none border"
+                    class="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none border w-full"
                 />
                 <div class="absolute right-0 top-0 mt-2 mr-4">
                     <SearchIcon />
@@ -192,20 +181,16 @@ const handleChange = (e: any, filter: FilterOption) => {
         {/if}
         <!-- {#if filterOptions.length > 0} -->
         {#each filterOptions as filter}
+        {@const filterData = filter.options}
             <div class="mt-2 w-full filter gap-2 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4">
-                <!-- <label class="lms-label" for={filter.name}>{filter.label}</label>
-                <select id={filter.name} on:change={(e) => handleChange(e, filter)} class="dynamicSelect border border-gray-300 rounded-2xl text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none">
-                    <option value="All">All</option>
-                    {#each filter.options as option}
-                        <option value={option.value}>{option.label}</option>
-                    {/each}
-                </select> -->
-
+            
+                <!-- {JSON.stringify(filter.options)} -->
                 <DynamicSelect
                 isMultiSelect={false}
                 placeholder={filter.label}
-                options={getDynamicDropdown(filter.options)}
+                options={getDynamicDropdown(filterData)}
                 on:change={(e) => handleChange(e,filter)}
+                bind:selectedOptions = {filter.options[0]}
                />
 
             </div>

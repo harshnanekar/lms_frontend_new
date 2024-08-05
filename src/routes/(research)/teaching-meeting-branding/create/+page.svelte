@@ -29,26 +29,28 @@
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 	import TeachingIcon from '$lib/components/icons/layout/teaching-icon.svelte';
 	import MeetingIcon from '$lib/components/icons/modules/mpc/meeting-icon.svelte';
+	import { writable } from 'svelte/store';
+	import type { FileObject } from '$lib/types/modules/research/research-types';
 
 	export let data: any;
 
-	let teachingItems: { id: number; type: any; description: string; link: string; file: any }[] =
+	let teachingItems: { id: number; type: any; description: string; link: string; file: any,fileVal : FileObject }[] =
 		[];
-	let meetingItems: { id: number; type: any; description: string; link: string; file: any }[] =
+	let meetingItems: { id: number; type: any; description: string; link: string; file: any,fileVal : FileObject }[] =
 		[];
-	let brandingItems: { id: number; type: any; description: string; link: string; file: any }[] =
+	let brandingItems: { id: number; type: any; description: string; link: string; file: any,fileVal : FileObject }[] =
 		[];
 
-	let teachingDropdown = data.inputData.teaching.message;
-	let meetingDropdown = data.inputData.meeting.message;
-	let brandingDropdown = data.inputData.branding.message;
+	let teachingDropdown = data.inputData.teaching.message.length > 0 ? data.inputData.teaching.message : [];
+	let meetingDropdown = data.inputData.meeting.message.length > 0 ? data.inputData.meeting.message : [];
+	let brandingDropdown = data.inputData.branding.message.length > 0 ? data.inputData.branding.message : [];
 
 	fileDataStore.set([]);
 
 	function addTeachingRow() {
 		teachingItems = [
 			...teachingItems,
-			{ id: teachingItems.length, type: null, description: '', link: '', file: [] }
+			{ id: teachingItems.length, type: null, description: '', link: '', file: [], fileVal : {size:0,uploaded:false}}
 		];
 
 	}
@@ -64,9 +66,9 @@
 	}
 
 	function handleFiles(event: CustomEvent<{ files: File[] }>, itemId: number) {
-		const files  = event.detail;
+		const files : any  = event.detail;
 		teachingItems = teachingItems.map(item =>
-			item.id === itemId ? { ...item, file : files } : item,
+			item.id === itemId ? { ...item, file : files,fileVal:{size:files.length,uploaded:true} } : item,
 		);
 	}
 
@@ -91,7 +93,7 @@
 	function addMeetingRow() {
 		meetingItems = [
 			...meetingItems,
-			{ id: meetingItems.length, type: null, description: '', link: '', file: [] }
+			{ id: meetingItems.length, type: null, description: '', link: '', file: [] ,fileVal:{size:0,uploaded:false}}
 		];
 	}
 
@@ -106,9 +108,9 @@
 	}
 
 	function handleMeetingFiles(event: CustomEvent<{ files: File[] }>, itemId: number) {
-		const files  = event.detail;
+		const files : any  = event.detail;
 		meetingItems = meetingItems.map(item =>
-			item.id === itemId ? { ...item, file : files } : item,
+			item.id === itemId ? { ...item, file : files,fileVal:{size:files.length,uploaded:true} } : item,
 		);
 	}
 
@@ -131,7 +133,7 @@
 	function addBrandingRow() {
 		brandingItems = [
 			...brandingItems,
-			{ id: brandingItems.length, type: null, description: '', link: '', file: [] }
+			{ id: brandingItems.length, type: null, description: '', link: '', file: [],fileVal:{size:0,uploaded:false} }
 		];
 	}
 
@@ -146,9 +148,9 @@
 	}
 
 	function handleBrandingFiles(event: CustomEvent<{ files: File[] }>, itemId: number) {
-		const files  = event.detail;
+		const files : any  = event.detail;
 		brandingItems = brandingItems.map(item =>
-			item.id === itemId ? { ...item, file : files } : item,
+			item.id === itemId ? { ...item, file : files,fileVal:{size:files.length,uploaded:true} } : item,
 		);
 	}
 
@@ -276,6 +278,7 @@
 				toast.success('Inserted Successfully!');
 				teachingItems = [];
 				fileDataStore.set([]);
+				// FileVal.set({size:0,uploaded:false});
 				goto(`${PUBLIC_BASE_URL}teaching-meeting-branding`);
 			}
 		}
@@ -489,12 +492,7 @@
 											/>
 										</td>
 										<td>
-											<!-- <input
-												type="file"
-												multiple
-												on:change={(e) =>
-													updateTeachingItem(item.id, 'file', [...e?.target?.files])}
-											/> -->
+										
 											<div class="space-y-2">
 												<File
 													isView={false}
@@ -502,7 +500,11 @@
 													on:filesSelected={(e) => handleFiles(e,item.id)}
 													on:deletedFiles={(e) => handleDeleteFiles(e,item.id)}
 													on:previewFile={() => previewFiles(item.id)}
-												/>									
+												/>
+												{#if item.fileVal.uploaded}
+													{@const fileString = item.fileVal.size > 1 ? 'Files' : 'File' }
+													<p class="lms-label">{item.fileVal.size} {fileString} Uploaded</p>
+												{/if}									
 											</div>	
 										</td>
 										<td>
@@ -592,11 +594,7 @@
 											/>
 										</td>
 										<td>
-											<!-- <input
-												type="file"
-												multiple
-												on:change={(e) => updateMeetingItem(item.id, 'file', [...e?.target?.files])}
-											/> -->
+											
 											<div class="space-y-2">
 												<File
 													isView={false}
@@ -604,7 +602,11 @@
 													on:filesSelected={(e) => handleMeetingFiles(e,item.id)}
 													on:deletedFiles={(e) => handleMeetingDeleteFiles(e,item.id)}
 													on:previewFile={() => previewMeetingFiles(item.id)}
-												/>									
+												/>		
+												{#if item.fileVal.uploaded}
+													{@const fileString = item.fileVal.size > 1 ? 'Files' : 'File' }
+													<p class="lms-label">{item.fileVal.size} {fileString} Uploaded</p>
+												{/if}				
 											</div>	
 										</td>
 										<td>
@@ -697,12 +699,7 @@
 											/>
 										</td>
 										<td>
-											<!-- <input
-												type="file"
-												multiple
-												on:change={(e) =>
-													updateBrandingItem(item.id, 'file', [...e?.target?.files])}
-											/> -->
+									
 											<div class="space-y-2">
 												<File
 													isView={false}
@@ -710,7 +707,11 @@
 													on:filesSelected={(e) => handleBrandingFiles(e,item.id)}
 													on:deletedFiles={(e) => handleBrandingDeleteFiles(e,item.id)}
 													on:previewFile={() => previewBrandingFiles(item.id)}
-												/>									
+												/>		
+												{#if item.fileVal.uploaded}
+													{@const fileString = item.fileVal.size > 1 ? 'Files' : 'File' }
+													<p class="lms-label">{item.fileVal.size} {fileString} Uploaded</p>
+												{/if}								
 											</div>	
 										</td>
 										<td>

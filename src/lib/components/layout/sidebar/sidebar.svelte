@@ -8,7 +8,23 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { PlusIcon } from "$lib/components/icons";
-	import { PUBLIC_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
+	import { error } from '@sveltejs/kit';
+	import { fetchApi } from '$lib/utils/fetcher';
+
+	fetchModules();
+
+	async function fetchModules(){
+		const { error , json } = await fetchApi({
+			url: `${PUBLIC_API_BASE_URL}/research-modules`,
+			method: 'GET',
+		});
+
+		// if (err) {
+		// 	throw error(500,'Internal Server Error')
+		//       
+
+	}
 
 
 	$: setActiveSidebarUrl($page.url.pathname, SIDEBAR_URL);

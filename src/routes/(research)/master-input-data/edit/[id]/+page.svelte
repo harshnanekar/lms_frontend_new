@@ -23,8 +23,8 @@
 	$: checkVal = isChecked;
     let disabled: boolean = true;
 
-	let title = 'Master Data ';
-	let masterTypes = data?.masterData?.masterDataList?.message;
+	let title = 'Author Details ';
+	let masterTypes = data?.masterData?.masterDataList?.message.length > 0 ? data?.masterData?.masterDataList?.message : [];
 	console.log('masterTypes ===>>>', masterTypes);
 	$: master = masterTypes;
 
@@ -94,17 +94,11 @@
 
 <Card {title}>
 	<div class="modal-content p-4">
-        <div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
 			<Input
 				type="text"
 				placeholder="Faculty Name"
 				bind:value={obj.master_input_name}
-			/>
-            <Input
-				type="number"
-				placeholder="Faculty Id"
-				bind:value={obj.faculty_lid}
-                {disabled}
 			/>
             <DynamicSelect
 				isRequired={true}
@@ -118,7 +112,7 @@
 		</div>
     </div>
 
-	<div class="flex flex-row gap-[20px] p-4">
+	<div class="flex md:flex-row gap-[20px] p-4">
 		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Update</button>
 	</div>
 </Card>
