@@ -18,8 +18,8 @@
 	const url: URL = new URL(`${PUBLIC_API_BASE_URL}/master-input-data-scroll-paginate`);
 	export let data: any;
 
-	let masterTypes = data?.masterData?.masterInputData?.message;
-	console.log('masterTypes ===>>>', masterTypes);
+	let masterTypes = data?.masterData?.masterInputData?.message.length > 0 ? data?.masterData?.masterInputData?.message : [];
+	console.log('masterTypes ===>>>', JSON.stringify(masterTypes),JSON.stringify(data?.masterData));
 	$: master = masterTypes;
 
 	let responseData: InfiniteScrollResult<InfiniteMasterDataView> = {
@@ -88,8 +88,15 @@
 			});
 			return;
 		}
+
+		console.log('user json ',JSON.stringify(json[0].insert_master_data.status))
+
+		if(json[0].insert_master_data.status === '403'){
+         toast.error(json[0].insert_master_data.message);
+		}else{
 		toast.success('Inserted Successfully!');
 		goto(`${PUBLIC_BASE_URL}master-input-data`);
+		}
 	}
 </script>
 

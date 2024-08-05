@@ -31,7 +31,7 @@
 	import { paginateUrl } from '$lib/stores/modules/research/master.store';
 	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
-	let dynamicUrl = `${PUBLIC_API_BASE_URL}patent-submission-and-grant-paginate`;
+	let dynamicUrl = `${PUBLIC_API_BASE_URL}/patent-submission-and-grant-paginate`;
 
 	const url = new URL(dynamicUrl);
 

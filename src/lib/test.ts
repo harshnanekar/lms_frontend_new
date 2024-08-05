@@ -34,13 +34,6 @@ export const SIDEBAR_URL = [
 		module: null,
 		child: []
 	},
-
-	// {
-	// url: '/research',
-	// icon: 'research',
-	// label: 'Research',
-	// module: null,
-	// child :[
 		{
 			url: `${PUBLIC_BASE_URL}journal-paper`,
 			icon: 'journal',

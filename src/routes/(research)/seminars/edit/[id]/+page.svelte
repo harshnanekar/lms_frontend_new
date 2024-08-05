@@ -28,13 +28,11 @@
 	export let data: any;
 	let isRequired = false;
 	let title = 'Research Seminars';
-
-	console.log('data received ', JSON.stringify(data.researchSeminar.researchSeminarData[0]));
-
-	let nmimsAuthors = data?.researchSeminar?.nmims_authors?.message;
-	let abdcIndexed = data?.researchSeminar?.abdcIndexed?.message;
-	let nmimsSchool = data?.researchSeminar?.nmims_school?.message;
-	let nmimsCampus = data?.researchSeminar?.nmims_campus?.message;
+	
+	let nmimsAuthors = data?.researchSeminar?.nmims_authors?.message.length > 0 ? data?.researchSeminar?.nmims_authors?.message : [];
+	let abdcIndexed = data?.researchSeminar?.abdcIndexed?.message.length > 0 ? data?.researchSeminar?.abdcIndexed?.message : [];
+	let nmimsSchool = data?.researchSeminar?.nmims_school?.message.length > 0 ? data?.researchSeminar?.nmims_school?.message : [];
+	let nmimsCampus = data?.researchSeminar?.nmims_campus?.message.length > 0 ? data?.researchSeminar?.nmims_campus?.message : [];
 
 	$: abdcTypes = abdcIndexed;
 	$: nmimsAuth = nmimsAuthors;
@@ -483,6 +481,10 @@
 						on:deletedFiles={handleDeleteFiles}
 						isView={false}
 					/>
+					{#if files.length > 0}
+				      {@const fileString = files.length > 1 ? 'Files' : 'File' }
+				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
+			        {/if}
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-md"></i></button

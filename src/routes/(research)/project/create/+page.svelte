@@ -47,15 +47,11 @@
 
 	let title = 'Research Project';
 
-	let nmimsSchool = data?.ResearchProjectDataList?.school?.message;
-
-	let nmimsCampus = data?.ResearchProjectDataList?.campus?.message;
-
-	let enternalAuthors = data?.ResearchProjectDataList?.internalAuthors?.message;
-
-	let externalAuthors = data?.ResearchProjectDataList?.externalAuthors?.message;
-
-	let researchStatus = data?.ResearchProjectDataList?.status?.message;
+	let nmimsSchool = data?.ResearchProjectDataList?.school?.message.length > 0 ? data?.ResearchProjectDataList?.school?.message : [];
+	let nmimsCampus = data?.ResearchProjectDataList?.campus?.message.length > 0 ? data?.ResearchProjectDataList?.campus?.message : [];
+	let enternalAuthors = data?.ResearchProjectDataList?.internalAuthors?.message.length > 0 ? data?.ResearchProjectDataList?.internalAuthors?.message : [];
+	let externalAuthors = data?.ResearchProjectDataList?.externalAuthors?.message.length > 0 ? data?.ResearchProjectDataList?.externalAuthors?.message : [];
+	let researchStatus = data?.ResearchProjectDataList?.status?.message.length > 0 ? data?.ResearchProjectDataList?.status?.message : [];
 
 	// let isRequired = false;
 
@@ -254,6 +250,11 @@
 		};
 		files = [];
 		fileDataStore.set(files);
+		grantDate = null;
+		paymentDate = null;
+		showExternal = false;
+		showInternal = false;
+
 	}
 </script>
 
@@ -375,6 +376,10 @@
 					>Upload Supporting Documents<span class="text-primary">*</span></label
 				>
 				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+				{#if files.length > 0}
+				{@const fileString = files.length > 1 ? 'Files' : 'File' }
+				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
+			    {/if}
 			</div>
 
 			<div class="ml-2">
@@ -382,7 +387,7 @@
 				<label class="text-sm text-[#888888]"
 					>Details of Faculty<span class="text-danger text-sm">*</span>
 				</label>
-				<div class="mt-2.5 flex gap-5">
+				<div class="mt-4 flex items-center gap-8">
 					<div class="flex items-center">
 						<input
 							id="internal-checkbox"
@@ -406,7 +411,7 @@
 						>
 					</div>
 				</div>
-				<div class="flex items-center gap-x-3">
+				<div class="flex items-center gap-x-4 mt-4">
 					{#if showInternal}
 						<DynamicSelect
 							isRequired={true}

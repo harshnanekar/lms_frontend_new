@@ -24,10 +24,10 @@
 
 	console.log('update data ', JSON.stringify(data.caseData.caseData[0]));
 
-	let nmimsAuthors = data?.caseData?.nmims_authors?.message;
-	let allAuthors = data?.caseData?.all_authors?.message;
-	let nmimsSchool = data?.caseData?.nmims_school?.message;
-	let nmimsCampus = data?.caseData?.nmims_campus?.message;
+	let nmimsAuthors = data?.caseData?.nmims_authors.message.length > 0 ? data?.caseData?.nmims_authors?.message : [];
+	let allAuthors = data?.caseData?.all_authors.message.length > 0 ? data?.caseData?.all_authors?.message : [];
+	let nmimsSchool = data?.caseData?.nmims_school.message.length > 0 ? data?.caseData?.nmims_school?.message : [];
+	let nmimsCampus = data?.caseData?.nmims_campus.message.length > 0 ? data?.caseData?.nmims_campus?.message : [];
 
 	// let isRequired = false;
 
@@ -336,6 +336,10 @@
 						on:deletedFiles={handleDeleteFiles}
 						isView={false}
 					/>
+					{#if files.length > 0}
+					{@const fileString = files.length > 1 ? 'Files' : 'File' }
+				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
+				    {/if}
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-md"></i></button

@@ -99,27 +99,6 @@
 		console.log('delete button clicked', edited_publication_id);
 		isOpen.set(false);
 
-		// const response = await fetch(
-		// 	`${PUBLIC_API_BASE_URL}/edited-book-publication-delete?id=${edited_publication_id}`,
-		// 	{
-		// 		method: 'GET'
-		// 	}
-		// );
-
-        // const { error, json } = await response.json();
-
-		// if (error) {
-		// 	toast.error(error.message || 'Something went wrong!', {
-		// 		description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
-		// 	});
-		// 	return;
-		// }
-
-		// toast.success('Deleted Successfully!');
-		// let url = new URL('http://localhost:9090/research/edited-book-publication-paginate');
-		// paginateUrl.set(url);
-
-
 		const { error, json } = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/edited-book-publication-delete?id=${edited_publication_id}`,
 			method: 'GET'

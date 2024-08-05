@@ -23,9 +23,10 @@
 	let isRequired = false;
 	let title = 'Research Award';
 
-	let nmimsSchool = data?.researchAwardData?.nmims_school?.message;
-	let nmimsCampus = data?.researchAwardData?.nmims_campus?.message;
+	let nmimsSchool = data?.researchAwardData?.nmims_school.message.length > 0 ? data?.researchAwardData?.nmims_school?.message : [];
+	let nmimsCampus = data?.researchAwardData?.nmims_campus.message.length > 0 ? data?.researchAwardData?.nmims_campus?.message : [];
 
+	console.log('nmims school ',JSON.stringify(data?.researchAwardData?.nmims_school))
 	// let isRequired = false;
 
 	$: school = nmimsSchool;
@@ -219,6 +220,10 @@
 					>Upload Supporting Documents<span class="text-primary">*</span></label
 				>
 				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+				{#if files.length > 0}
+				     {@const fileString = files.length > 1 ? 'Files' : 'File' }
+				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
+				{/if}
 			</div>		
 		
 		</div>
