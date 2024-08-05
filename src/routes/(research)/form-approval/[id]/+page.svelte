@@ -17,7 +17,7 @@
     let level = data.adminData && data.adminData.level.length > 0 ? [{id:'All',status:'All'},...data.adminData.level] : [];
     let modules = data.adminData && data.adminData.modules.length > 0 ? data.adminData.modules[0].url : '';
     let db_url = data.adminData && data.adminData.modules.length > 0 ? data.adminData.modules[0].db_url : '';
-    let formLevel = data.adminData && data.adminData.approvalLevel.length > 0 ? data.adminData.approvalLevel[0].level : '';
+    let formLevel = data.adminData && data.adminData.approvalLevel.length > 0 ? data.adminData.approvalLevel[0].level : null;
 
     let dynamicUrl = new URL(`${PUBLIC_API_BASE_URL}${modules}`);
 
@@ -77,7 +77,7 @@
 
      const facultyObj : facultyObjReq = facultyData.filter((data:any) => data.form_status != null).map((dt:any) => 
      {
-       return {form_lid : Number(dt.form_lid),form_status : Number(dt.form_status),level : 1}
+       return {form_lid : Number(dt.form_lid),form_status : Number(dt.form_status),level : Number(formLevel)}
      });
      console.log('zod faculty ',facultyObj)
 

@@ -1,6 +1,6 @@
-import { ApprovalIcon, AuthorIcon, BookChapterIcon, BookPublicationIcon, BrandingIcon, CaseStudyIcon, ConferenceIcon, DashboardIcon, EContentICon, EditedBookIcon, FacultyIcon, IprIcon, JournalIcon, MeetingStakeholderIcon, PatentIcon, PlusIcon, PublicationIcon, ResearchAwardIcon, ResearchIcon, ResearchProjectIcon, ResearchSeminarIcon, SignOutIcon, TeachMeetBrandIcon } from "$lib/components/icons"
+import { ApprovalIcon, AuthorIcon, BookChapterIcon, BookPublicationIcon, BrandingIcon, CaseStudyIcon, ConferenceIcon, DashboardIcon, EContentICon, EditedBookIcon, FacultyIcon, IprIcon, JournalIcon, MeetingStakeholderIcon, PatentIcon, PlusIcon, PublicationIcon, ResearchAwardIcon, ResearchIcon, ResearchProjectIcon, ResearchSeminarIcon, SignOutIcon, TeachMeetBrandIcon,TeachingIcon } from "$lib/components/icons"
 import { RightIcon } from "$lib/components/icons/base";
-import TeachingIcon from "$lib/components/icons/layout/teaching-icon.svelte";
+
 
 export type JournalPaper = {
 	nmims_school: string[];

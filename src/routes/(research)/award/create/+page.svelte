@@ -18,6 +18,7 @@
 	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
+	import type { ApiResponse } from '$lib/types/request.types';
 
 	export let data: any;
 	let isRequired = false;
@@ -107,7 +108,7 @@
 		console.log('validated data', JSON.stringify(result.data));
 		formData.append('research_award', JSON.stringify(result.data));
 
-		const { error, json } = await fetchFormApi({
+		const { error, json } : any = await fetchFormApi({
 			url: `${PUBLIC_API_BASE_URL}/research-award-insert`,
 			method: 'POST',
 			body: formData

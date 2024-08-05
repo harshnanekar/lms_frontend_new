@@ -73,5 +73,6 @@ export {
 	PublicationIcon,
 	TeachingIcon,
 	BrandingIcon,
-	ApprovalIcon
+	ApprovalIcon,
+	RightIcon
 };
