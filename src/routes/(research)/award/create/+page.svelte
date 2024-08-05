@@ -186,6 +186,7 @@
 		<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="text" placeholder="Award Place" bind:value={obj.award_place} />
 			<div class="ml-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"> Award Category<span>*</span> </label>
 				<div class="mt-2.5 flex flex-row gap-[20px]">
 					<div class="flex items-center">
