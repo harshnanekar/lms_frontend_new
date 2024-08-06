@@ -18,8 +18,11 @@
     let modules = data.adminData && data.adminData.modules.length > 0 ? data.adminData.modules[0].url : '';
     let db_url = data.adminData && data.adminData.modules.length > 0 ? data.adminData.modules[0].db_url : '';
     let formLevel = data.adminData && data.adminData.approvalLevel.length > 0 ? data.adminData.approvalLevel[0].level : null;
+    let tableId = data.adminData && data.adminData.modules.length > 0 ? data.adminData.modules[0].id : 0;;
 
-    let dynamicUrl = new URL(`${PUBLIC_API_BASE_URL}${modules}`);
+    console.log("MODELLLLLLLLLLLLLLLLLLLLLLL>>>>>>>>>>>>>>>>>>>>>",tableId);
+    
+    let dynamicUrl = new URL(`${PUBLIC_API_BASE_URL}/journal-form-infinite?tableId=${tableId}`);
 
     console.log('form level ',formLevel)
 
@@ -66,8 +69,8 @@
     
 	function updateFacultyStatus(form_lid: any,value : any,field : string): void {
         console.log('form status value ',value)
-        facultyData = facultyData.map((item: { form_lid: number; }) =>
-            item.form_lid === form_lid ? { ...item, [field]: value} : item
+        facultyData = facultyData.map((item: { research_form_id: number; }) =>
+            item.research_form_id === form_lid ? { ...item, [field]: value} : item
         );
         // console.log('faculty object ',JSON.stringify(facultyData))
     }
@@ -77,7 +80,7 @@
 
      const facultyObj : facultyObjReq = facultyData.filter((data:any) => data.form_status != null).map((dt:any) => 
      {
-       return {form_lid : Number(dt.form_lid),form_status : Number(dt.form_status)}
+       return {form_lid : Number(dt.research_form_id),form_status : Number(dt.form_status)}
      });
      console.log('zod faculty ',facultyObj)
 
@@ -93,7 +96,7 @@
 		console.log('validated data', JSON.stringify(result.data));
 
         const { error, json } = await fetchApi({
-			url: `${PUBLIC_API_BASE_URL}${db_url}`,
+			url: `${PUBLIC_API_BASE_URL}/approve-reject?tableId=${tableId}`,
 			method: 'POST',
 			body: {
                approval_data : result.data 
@@ -143,8 +146,8 @@
                         <input
                             type="radio"
                             class="lms-input-radio w-4"
-                            name="{faculty.form_lid}"
-                            on:change={() => updateFacultyStatus(faculty.form_lid, 1,'form_status')}
+                            name="{faculty.research_form_id}"
+                            on:change={() => updateFacultyStatus(faculty.research_form_id, 1,'form_status')}
                             value={1}
                         />
                         <span class="text-sm text-[#888888]">Approve</span>
@@ -153,8 +156,8 @@
                         <input
                             type="radio"
                             class="lms-input-radio w-4"
-                            name="{faculty.form_lid}"
-                            on:change={() => updateFacultyStatus(faculty.form_lid, 3,'form_status')}
+                            name="{faculty.research_form_id}"
+                            on:change={() => updateFacultyStatus(faculty.research_form_id, 3,'form_status')}
                             value={3}
                         />
                         <span class="text-sm text-[#888888]">Reject</span>

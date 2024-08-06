@@ -25,6 +25,6 @@ export const load: PageServerLoad = async ({ cookies, fetch , params}) => {
 
     console.log('json ',json);
 	return {
-		adminData: json
+		adminData: json,
 	};
 };
