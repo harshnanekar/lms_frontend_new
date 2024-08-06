@@ -498,7 +498,7 @@ export type masterInputView = {
     id : number,
 	faculty_name : string,
 	username : string,
-	form_name :string,
+	// form_name :string,
 	form_lid : number,
 	form_status : number | null
  }[]

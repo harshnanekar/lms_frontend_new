@@ -126,7 +126,7 @@
                     <th class="!text-[15px]">Firstname</th>
                     <th class="!text-[15px]">Lastname</th>
                     <th class="!text-[15px]">Username</th>
-                    <th class="!text-[15px]">Form Name</th>
+                    <!-- <th class="!text-[15px]">Form Name</th> -->
                     <th class="!text-[15px]">Select Status</th>
                 </tr>
             </thead>
@@ -137,7 +137,7 @@
               <td>{faculty.first_name}</td>
               <td>{faculty.last_name}</td>
               <td>{faculty.username}</td>
-              <td>{faculty.form_name}</td>
+              <!-- <td>{faculty.form_name}</td> -->
               <td>
                
               {#if faculty.status === 'pd'}  
@@ -147,8 +147,8 @@
                             type="radio"
                             class="lms-input-radio w-4"
                             name="{faculty.research_form_id}"
-                            on:change={() => updateFacultyStatus(faculty.research_form_id, 1,'form_status')}
-                            value={1}
+                            on:change={() => updateFacultyStatus(faculty.research_form_id, 2,'form_status')}
+                            value={2}
                         />
                         <span class="text-sm text-[#888888]">Approve</span>
                     </div>
