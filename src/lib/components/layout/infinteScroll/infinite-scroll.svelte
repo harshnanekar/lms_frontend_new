@@ -1,11 +1,9 @@
 <script lang="ts">
     import { browser } from '$app/environment';
     import { SearchIcon } from '$lib/components/icons';
-	import { DynamicSelect } from '$lib/components/ui';
     import type { InfiniteScrollResult } from '$lib/types/request.types';
     import { debounce } from '$lib/utils/debounce';
     import { fetchApi } from '$lib/utils/fetcher';
-	import { getDynamicDropdown } from '$lib/utils/select.helper';
     import { onMount } from 'svelte';
     import { writable } from 'svelte/store';
 
