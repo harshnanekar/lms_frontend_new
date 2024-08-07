@@ -29,6 +29,9 @@
 
 	$: setActiveSidebarUrl($page.url.pathname, SIDEBAR_URL);
 
+	console.log('TTTTTTTT',SIDEBAR_URL);
+	
+
 	const handleOutsideClick = (e: MouseEvent) => {
 		if (!(e.target as HTMLElement)?.closest('#lms-sidebar')) {
 			isSidebarOverlayOpen.set(false);
