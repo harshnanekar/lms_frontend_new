@@ -1,6 +1,7 @@
 <script lang="ts">
     import { browser } from '$app/environment';
     import { SearchIcon } from '$lib/components/icons';
+	import LoadingLoader from '$lib/components/ui/loaders/loading-loader.svelte';
     import type { InfiniteScrollResult } from '$lib/types/request.types';
     import { debounce } from '$lib/utils/debounce';
     import { fetchApi } from '$lib/utils/fetcher';
@@ -162,22 +163,10 @@
 </script>
 
 <div>
-    <div class="filters space-x-10">
-        {#if showSearch}
-        
-            <div class="relative text-gray-600 flex items-center ml-4 w-[50%] top-4">
-                <input
-                    type="text"
-                    placeholder="Search here..."
-                    on:input={handleInput}
-                    class="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none border w-full"
-                />
-                <div class="absolute right-0 top-0 mt-2 mr-4">
-                    <SearchIcon />
-                </div>
-            </div>
-        {/if}
+    <div class="filters flex flex-col">
+    
         <!-- {#if filterOptions.length > 0} -->
+        <div class="flex items-center gap-4 p-4">
         {#each filterOptions as filter}
             <div class="mt-2 w-full filter gap-2 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4">
             
@@ -187,7 +176,7 @@
                 <div class="relative inline-flex">
                     
                     <!-- <svg class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232"><path d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z" fill="#648299" fill-rule="nonzero"/></svg> -->
-                    <select on:change={(e) => handleChange(e, filter)} class="border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none">
+                    <select on:change={(e) => handleChange(e, filter)} class=" border border-gray-200 rounded-2xl text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none">
                      {#each filter.options as fs}
                      <option value={fs.value}>{fs.label}</option>
                      {/each}
@@ -203,7 +192,22 @@
 
             </div>
         {/each}
-    
+    </div>
+
+    {#if showSearch}
+        
+            <div class="relative text-gray-600 flex items-center ml-4 w-[30%] top-4">
+                <input
+                    type="text"
+                    placeholder="Search here..."
+                    on:input={handleInput}
+                    class="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none border w-full"
+                />
+                <div class="absolute right-0 top-0 mt-2 mr-4">
+                    <SearchIcon />
+                </div>
+            </div>
+        {/if}
     </div>
 
     {#if data.data}
@@ -215,7 +219,7 @@
     {#if $error}
         <p>{$error}</p>
     {:else if $isLoading}
-        loading...
+        <LoadingLoader />
     {/if}
 </div>
 
@@ -248,8 +252,10 @@
   height:40px;
 } */
 
-/* option {
-  padding:0 30px 0 10px;
+ /* option {
+	font-family: var(--lms--font-family);
+    color : gray; */
+  /* padding:0 30px 0 10px;
   min-height:40px;
   display:flex;
   align-items:center;
@@ -263,18 +269,7 @@
   transition:background .4s ease-in-out;
   box-sizing:border-box;
   overflow:hidden;
-  white-space:nowrap;
+  white-space:nowrap; */
   
-}
-
-option:hover {
-  background:#666;
-}
-
-select:focus option {
-  position:relative;
-  pointer-events:all;
-}
- */
 
 </style>
