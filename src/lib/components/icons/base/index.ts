@@ -14,8 +14,11 @@ export { default as AttendanceIcon } from './attendance-icon.svelte';
 export { default as SuccessIcon } from './success-icon.svelte';
 export { default as DeleteIcon } from './delete-icon.svelte';
 export { default as EyeIcon } from './eye-icon.svelte';
-export { default as MinusIcon } from './minus-icon.svelte'
+export { default as MinusIcon } from './minus-icon.svelte';
 export { default as CloseEyeIcon } from './close-eye-icon.svelte';
 export { default as PreviewIcon } from './preview-icon.svelte';
 export { default as SignOutIcon } from './logout-icon.svelte';
-export { default as RightIcon} from './right-icon.svelte';
+export { default as RightIcon } from './right-icon.svelte';
+export { default as LogoutIcon } from './logout-icon.svelte';
+export { default as UsersIcon } from './users-icon.svelte';
+export { default as ProfileIcon } from './profile-icon.svelte';

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import { fetchApi } from '$lib/utils/fetcher';
 	import { toast } from 'svelte-sonner';
@@ -6,11 +6,14 @@
 	import { Image } from '../ui';
 	import { isSidebarOverlayOpen } from './sidebar/store';
 	import { goto } from '$app/navigation';
+	import ProfileDropdown from '../ui/profile-dropdown.svelte';
 
-	async function handleLogout(){
+	export let profilData:any;
+
+	async function handleLogout() {
 		const { error, json } = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/logout`,
-			method: 'GET',
+			method: 'GET'
 		});
 
 		if (error) {
@@ -19,17 +22,18 @@
 			});
 			return;
 		}
-        goto(`${PUBLIC_BASE_URL}login`);
-	} 
+		goto(`${PUBLIC_BASE_URL}login`);
+	}
 
+	$:console.log("PROFILE DATA IN HEADER :::", profilData);
 	
-
 </script>
 
-<header id="lms-header" class="relative z-[99999] bg-base">
+
+{#if profilData && profilData[0]}
+<header id="lms-header" class="bg-base relative z-[99999]">
 	<div class="flex h-[60px] items-center justify-between px-[28px] py-[8px]">
-		<div class="hidden items-center gap-x-[10px] lg:flex">
-		</div>
+		<div class="hidden items-center gap-x-[10px] lg:flex"></div>
 		<div class="md:hidden">
 			<button on:click|stopPropagation={() => ($isSidebarOverlayOpen = !$isSidebarOverlayOpen)}>
 				<MenuBarIcon />
@@ -39,7 +43,9 @@
 			<img src="/images/layout/logo.png" alt="Logo" class="h-[36px] w-[102px]" />
 		</div>
 		<div class="flex items-center gap-x-4 md:gap-x-6">
-			<button class="lms-btn lms-primary-btn" on:click={handleLogout}><SignOutIcon fill="white" />Signout</button>
+			<button class="lms-btn lms-primary-btn"
+				><SignOutIcon fill="white" />Signout</button
+			>
 			<button>
 				<Image
 					src="/icons/layout/notification.png"
@@ -48,12 +54,26 @@
 				/>
 			</button>
 			<div>
-				<Image
-					src="/icons/layout/notificataion.png"
-					name="Notification"
-					classes="w-10 h-10 rounded-full"
-				/>
+				<button>
+					<ProfileDropdown
+						src="/icons/layout/notificataion.png"
+						name={profilData[0]?.first_name}
+						email={profilData[0]?.email}
+						username={profilData[0]?.username}
+					/>
+					<!-- <Image
+						src="/icons/layout/notificataion.png"
+						name="Notification"
+						classes="w-10 h-10 rounded-full"
+					/> -->
+				</button>
 			</div>
 		</div>
 	</div>
+	<div>
+		
+	</div>
 </header>
+{:else}
+	<h3>NO DATA FOUND</h3>
+{/if}
