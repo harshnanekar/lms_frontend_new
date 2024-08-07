@@ -57,6 +57,7 @@
 	console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool);
 
 	$: school = nmimsSchool;
+	// $: allAuth = masterAllAuthors;
 	$: allAuth = masterAllAuthors;
 	$: campus = nmimsCampus;
 	$: external = externalAuthors;
@@ -98,6 +99,7 @@
 		external_authors: null
 	};
 
+	
 	let conferenceFiles: any = [];
 	let awardFiles: any = [];
 
