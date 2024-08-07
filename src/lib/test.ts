@@ -269,7 +269,7 @@ export const ADMIN_SIDEBAR = [
 				},
 				{
 					url: `${PUBLIC_BASE_URL}form-approval/14`,
-					icon: 'meeting-stakeholders',
+					icon: 'meeting-stakeholder',
 					label:'Meeting Stakeholders',
 					module: null,
 					child: []
