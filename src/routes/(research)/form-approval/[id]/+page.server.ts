@@ -6,6 +6,8 @@ import { error, fail, redirect } from '@sveltejs/kit';
 export const load: PageServerLoad = async ({ cookies, fetch , params}) => {
 
 	let id  = params.id;
+	console.log("id>>>>>>>>>>>", id);
+	
     const { error : err, json } = await fetchApiServer({
 		url: `${PRIVATE_API_BASE_URL}/admin-render-data?id=${id}`,
 		_fetch: fetch,
@@ -26,5 +28,6 @@ export const load: PageServerLoad = async ({ cookies, fetch , params}) => {
     console.log('json ',json);
 	return {
 		adminData: json,
+		id
 	};
 };

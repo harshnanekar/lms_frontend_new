@@ -3,14 +3,15 @@
 	import { ArrowIcon, MenuBarIcon } from '$lib/components/icons';
 	import { COLORS } from '$lib/constants/colors';
 	import { goto } from '$app/navigation';
-	import { SIDEBAR_URL } from '$lib/test';
+	import { SIDEBAR_URL,ADMIN_SIDEBAR } from '$lib/test';
 	import { SecondSidebarItem, SidebarItem } from '.';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import { PlusIcon } from "$lib/components/icons";
 	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import { error } from '@sveltejs/kit';
 	import { fetchApi } from '$lib/utils/fetcher';
+
+	export let role: string = '';
 
 	// fetchModules();
 
@@ -22,12 +23,24 @@
 
 		// if (err) {
 		// 	throw error(500,'Internal Server Error')
+         //}
 		//       
 
 	// }
 
+	let role_vies_sideBar:any = '';
+	$:console.log("ROLEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",role);
+	
+	$: if (role === 'role_faculty') {
+		role_vies_sideBar = SIDEBAR_URL;
+		console.log("role_faculty:::::::::::::::::::::::",role_vies_sideBar);
+	} else {
+		role_vies_sideBar = ADMIN_SIDEBAR
+		console.log("role_Admin:::::::::::::::::::::::",role_vies_sideBar);
 
-	$: setActiveSidebarUrl($page.url.pathname, SIDEBAR_URL);
+	}
+
+	$: setActiveSidebarUrl($page.url.pathname, role_vies_sideBar);
 
 	const handleOutsideClick = (e: MouseEvent) => {
 		if (!(e.target as HTMLElement)?.closest('#lms-sidebar')) {
@@ -42,6 +55,7 @@
 			document.removeEventListener('click', handleOutsideClick);
 		};
 	});
+
 </script>
 
 <div
@@ -66,7 +80,7 @@
 	{#if $activeSidebarModule?.child?.length < 1}
 		<div id="sidebar-wrapper" class="max-h-[80vh] no-scrollbar overflow-y-auto overflow-x-hidden">
 			<div class="pt-10 text-center"></div>
-			<SidebarItem sidebarList={SIDEBAR_URL} />
+			<SidebarItem sidebarList={role_vies_sideBar} />
 		</div>
 	{:else}
 		<button
@@ -86,7 +100,7 @@
 			<ArrowIcon fill={COLORS.PRIMARY_COLOR} width={24} height={24} />
 			<span class="sidebar-action-msg hidden lg:inline">GO TO MAIN MENU</span>
 		</button>
-		<div id="sidebar-wrapper" class="max-h-[75vh] overflow-y-auto overflow-x-hidden">
+		<div id="sidebar-wrapper" class="no-scrollbar max-h-[75vh] overflow-y-auto overflow-x-hidden">
 			<SecondSidebarItem sidebarList={$activeSidebarModule.child} />
 		</div>
 	{/if}
