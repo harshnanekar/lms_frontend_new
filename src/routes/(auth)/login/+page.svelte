@@ -94,7 +94,7 @@ async function handleSubmit() {
 
         <div class="mt-4 text-center md:mt-8">
             <a
-                href="/forgot-password"
+                href="http://uat.svkm.ac.in/forgot-password-svkm"
                 class="text-label-md md:text-label-lg text-[15px] font-bold text-[#D2232A]"
             >
                 Forgot Password 
@@ -123,7 +123,6 @@ async function handleSubmit() {
         background-image: url('/images/auth/login/nmims-logo-lg-bg.png');
         background-position: center;
         background-repeat: no-repeat;
-        background-color: #90aae4;
     }
 
     @media screen and (max-width: 767px) {

@@ -22,7 +22,7 @@
 	import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
 	import { toast } from 'svelte-sonner';
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
@@ -40,12 +40,13 @@
 		'data in side edit view ankit mishra ===>>>',
 		data.bookChapterPublicationData.bookChapterPublicationData[0]
 	);
+	
 
-	let nmimsSchool = data?.bookChapterPublicationData?.school?.message;
-	let nmimsCampus = data?.bookChapterPublicationData?.campus?.message;
-	let nmimsAuthors = data?.bookChapterPublicationData?.nmimsAuthors?.message;
-	let allAuthors = data?.bookChapterPublicationData?.allAuthors?.message;
-	let allEditors = data?.bookChapterPublicationData?.editor?.message;
+	let nmimsSchool = data?.bookChapterPublicationData?.school?.message.length > 0 ? data?.bookChapterPublicationData?.school?.message : [];
+	let nmimsCampus = data?.bookChapterPublicationData?.campus?.message.length > 0 ? data?.bookChapterPublicationData?.campus?.message : [];
+	let nmimsAuthors = data?.bookChapterPublicationData?.nmimsAuthors?.message.length > 0 ? data?.bookChapterPublicationData?.nmimsAuthors?.message : [];
+	let allAuthors = data?.bookChapterPublicationData?.allAuthors?.message.length > 0 ? data?.bookChapterPublicationData?.allAuthors?.message : [];
+	let allEditors = data?.bookChapterPublicationData?.editor?.message.length > 0 ? data?.bookChapterPublicationData?.editor?.message : [];
 	console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool);
 
 	$: school = nmimsSchool;
@@ -251,7 +252,7 @@
 				files = [];
 				fileDataStore.set(files);
 				isChecked = false;
-				goto('/book-chapter-publication');
+				goto(`${PUBLIC_BASE_URL}book-chapter-publication`);
 			}
 		} else {
 			toast.error('No response data received');
@@ -415,6 +416,10 @@
 				>
 				{#if checkVal}
 					<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+					{#if files.length > 0}
+					{@const fileString = files.length > 1 ? 'Files' : 'File' }
+				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
+				    {/if}
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-md"></i></button

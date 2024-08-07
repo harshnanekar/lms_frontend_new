@@ -94,18 +94,19 @@
 	import MeetingStakeholderIcon from '$lib/components/icons/layout/meeting-stakeholder-icon.svelte';
 	import TeachingIcon from '$lib/components/icons/layout/teaching-icon.svelte';
 	import BrandingIcon from '$lib/components/icons/layout/branding-icon.svelte';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
-	$: dynamicUrl = new URL(`http://localhost:9090/research/teaching-paginate`);
+	$: dynamicUrl = new URL(`${PUBLIC_API_BASE_URL}/teaching-paginate`);
 	$: paginateUrl.set(dynamicUrl);
 
-	$: meetUrl = new URL(`http://localhost:9090/research/meeting-paginate`);
+	$: meetUrl = new URL(`${PUBLIC_API_BASE_URL}/meeting-paginate`);
 	$: meetPaginateUrl.set(meetUrl);
 
-	$: brandUrl = new URL(`http://localhost:9090/research/branding-paginate`);
+	$: brandUrl = new URL(`${PUBLIC_API_BASE_URL}/branding-paginate`);
 	$: brandPaginateUrl.set(brandUrl);
 
 	function navigateToCreate() {
-		goto('/teaching-meeting-branding/create');
+		goto(`${PUBLIC_BASE_URL}teaching-meeting-branding/create`);
 	}
 	let open = true;
 </script>
@@ -124,13 +125,13 @@
 		<AccordionItem>
 			<svelte:fragment slot="title">
 				<div class="flex gap-4 p-2.5 md:flex-row">
-					<i class="fa-solid fa-graduation-cap xs:text-[30px] sm:text-[30px] md:text-[30px]"></i>
+					<!-- <i class="fa-solid fa-graduation-cap xs:text-[30px] sm:text-[30px] md:text-[30px]"></i> -->
+					<TeachingIcon />
 					<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Teaching Excellance</h1>
 				</div>
 			</svelte:fragment>
 			<svelte:fragment slot="content" let:open>
 				<PaginateDynamic url={$paginateUrl} header={teachingHeaders} let:actionData>
-					<TeachingIcon />
 					<TeachingAction {actionData} />
 				</PaginateDynamic>
 			</svelte:fragment>
@@ -158,13 +159,13 @@
 		<AccordionItem>
 			<svelte:fragment slot="title">
 				<div class="flex gap-4 p-2.5 md:flex-row">
-					<i class="fa-solid fa-bullhorn xs:text-[30px] sm:text-[30px] md:text-[30px]"></i>
+					<!-- <i class="fa-solid fa-bullhorn xs:text-[30px] sm:text-[30px] md:text-[30px]"></i> -->
+					<BrandingIcon fill="black" width="36" height="32" />
 					<h1 class="xs:text-lg font-semibold sm:text-lg md:text-lg">Branding & Advertisement</h1>
 				</div>
 			</svelte:fragment>
 			<svelte:fragment slot="content" let:open>
 				<PaginateDynamic url={$brandPaginateUrl} header={brandingHeaders} let:actionData>
-					<BrandingIcon fill="black" width="36" height="32" />
 					<BrandingAction {actionData} />
 				</PaginateDynamic>
 			</svelte:fragment>

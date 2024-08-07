@@ -126,7 +126,7 @@
 
 {#if checkData}
 	<Card {title}>
-		<div class="scroll modal-content max-h-[70vh] min-h-[50vh] overflow-auto">
+		<div class="modal-content p-4">
 			<!-- Adjust max-height as needed -->
 			<div class="grid grid-cols-3 gap-8 items-center p-4">
 				<Input type="text" placeholder="Nmims School" value={obj.nmims_school} {disabled} />
@@ -195,7 +195,7 @@
 				
 			</div>
 
-			<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+			<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
 				<Input
 					type="text"
 					placeholder="Names Of External Inventors"
@@ -214,7 +214,13 @@
 					</div>
 				</div>
 
-				<div class="grid">
+
+			</div>
+		
+			<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
+				
+
+				<div class="flex flex-row">
 					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 						<SelectDateIcon />
 						<span class="text-body-2 font-bold">Patent Filed Date</span>
@@ -236,10 +242,10 @@
 						</div>
 					{/if}
 				</div>
-			</div>
-		
-			<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-				<div class="grid">
+
+
+
+				<div class="flex flex-row">
 
 					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 						<SelectDateIcon />
@@ -264,7 +270,10 @@
 						<p>No Data Found</p>
 					{/if}
 				</div>
-				<div class="grid">
+			
+			</div>
+			<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
+				<div class="flex flex-row">
 					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 						<SelectDateIcon />
 						<span class="text-body-2 font-bold">Patent /Invention Published Date</span>
@@ -288,7 +297,6 @@
 						<p>No Data Found</p>
 					{/if}
 				</div>
-			
 			</div>
 		</div>
 	</Card>

@@ -28,8 +28,9 @@
 	import IprActions from '$lib/components/modules/mpc/ipr-action.svelte';
 
 	import { paginateUrl } from '$lib/stores/modules/research/master.store';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
-	let dynamicUrl = 'http://localhost:9090/research/ipr-paginate';
+	let dynamicUrl = `${PUBLIC_API_BASE_URL}/ipr-paginate`;
 
 	const url = new URL(dynamicUrl);
 
@@ -42,7 +43,7 @@
 	// export let masterFormList: MeetingListItem[] | null;
 
 	function navigateToCreate() {
-		goto('/ipr/create');
+		goto(`${PUBLIC_BASE_URL}ipr/create`);
 	}
 
 	let actionData: IPRRender;

@@ -1,3 +1,4 @@
+import { PUBLIC_BASE_URL } from '$env/static/public';
 import type { TableHeaders } from './types/layout/table';
 import type { SubjectMeetingDetail } from './types/modules/mpc/master-form';
 import type {
@@ -28,21 +29,14 @@ import type {
 
 export const SIDEBAR_URL = [
 	{
-		url: '/dashboard',
+		url: `${PUBLIC_BASE_URL}dashboard`,
 		icon: 'dashboard',
 		label: 'Home',
 		module: null,
 		child: []
 	},
-
-	{
-	url: '/research',
-	icon: 'research',
-	label: 'Research',
-	module: null,
-	child :[
 		{
-			url: '/journal-paper',
+			url: `${PUBLIC_BASE_URL}journal-paper`,
 			icon: 'journal',
 			label: 'Journal Articles Published',
 			module: null,
@@ -50,12 +44,12 @@ export const SIDEBAR_URL = [
 		},
 
 	    {
-			url: '/publications',
+			url: `${PUBLIC_BASE_URL}publications`,
 			icon: 'publication',
 			label: 'Book Publications',
 			module: null,
 			child: [ {
-				url: '/book-publication',
+				url: `${PUBLIC_BASE_URL}book-publication`,
 				icon: 'book-publication',
 				label: 'Book Publication',
 				module: null,
@@ -63,15 +57,15 @@ export const SIDEBAR_URL = [
 				},
 		
 				{
-				url: '/book-chapter-publication',
+				url: `${PUBLIC_BASE_URL}book-chapter-publication`,
 				icon: 'book-chapter-publication',
 				label: 'Book Chapter Publication',
 				module: null,
 				child: []
 			}, 
 			{
-				url: '/edited-book-publication',
-				icon: 'edited-publication',
+				url: `${PUBLIC_BASE_URL}edited-book-publication`,
+				icon: 'edited-book-publication',
 				label: 'Edited Book Publication',
 				module: null,
 				child: []
@@ -80,7 +74,7 @@ export const SIDEBAR_URL = [
 			},
 
 	{
-		url: '/conference',
+		url: `${PUBLIC_BASE_URL}conference`,
 		icon: 'conference',
 		label: 'Conference',
 		module: null,
@@ -88,7 +82,7 @@ export const SIDEBAR_URL = [
 	},
 
 	{
-		url: '/ipr',
+		url: `${PUBLIC_BASE_URL}ipr`,
 		icon: 'ipr',
 		label: 'IPR',
 		module: null,
@@ -96,7 +90,7 @@ export const SIDEBAR_URL = [
 	},
 
 	{
-		url: '/patent-submission-and-grant',
+		url: `${PUBLIC_BASE_URL}patent-submission-and-grant`,
 		icon: 'patent-submission',
 		label: 'Patent Submission And Grant',
 		module: null,
@@ -104,14 +98,14 @@ export const SIDEBAR_URL = [
 	},
 
 	{
-		url: '/research-project',
+		url: `${PUBLIC_BASE_URL}project`,
 		icon: 'research-project',
 		label: 'Research Project',
 		module: null,
 		child: []
 	},
 	{
-		url: '/teaching-meeting-branding',
+		url: `${PUBLIC_BASE_URL}teaching-meeting-branding`,
 		icon: 'teaching-meeting-branding',
 		label: 'Teaching-Meeting-Branding',
 		module: null,
@@ -119,7 +113,7 @@ export const SIDEBAR_URL = [
 	},
 
 	{
-		url: '/case-study',
+		url: `${PUBLIC_BASE_URL}case-study`,
 		icon: 'case-study',
 		label: 'Case Study',
 		module: null,
@@ -128,7 +122,7 @@ export const SIDEBAR_URL = [
 	},
 
 	{
-		url: '/research-seminars',
+		url: `${PUBLIC_BASE_URL}seminars`,
 		icon: 'research-seminar',
 		label: 'Research Seminars',
 		module: null,
@@ -137,21 +131,36 @@ export const SIDEBAR_URL = [
 	},
 
 	{
-		url: '/e-content',
+		url: `${PUBLIC_BASE_URL}e-content`,
 		icon: 'e-content',
 		label: 'E-Content Development',
 		module: null,
 		child: []
 	},
 	{
-		url: '/research-award',
+		url: `${PUBLIC_BASE_URL}award`,
 		icon: 'research-award',
 		label: 'Research Award',
 		module: null,
 		child: []
+	},
+
+	{
+		url: `${PUBLIC_BASE_URL}add-faculty`,
+		icon: 'faculty',
+		label: 'Add Faculty',
+		module: null,
+		child: []
+	},
+	{
+		url: `${PUBLIC_BASE_URL}master-input-data`,
+		icon: 'author',
+		label: 'Add Author',
+		module: null,
+		child: []
 	}
-]
-}
+// ]
+// }
 ];
 
 export const obj = [

@@ -1,4 +1,6 @@
-import { AuthorIcon, BookChapterIcon, BookPublicationIcon, CaseStudyIcon, ConferenceIcon, DashboardIcon, EContentICon, EditedBookIcon, FacultyIcon, IprIcon, JournalIcon, MeetingStakeholderIcon, PatentIcon, PlusIcon, PublicationIcon, ResearchAwardIcon, ResearchIcon, ResearchProjectIcon, ResearchSeminarIcon, SignOutIcon, TeachMeetBrandIcon } from "$lib/components/icons"
+import { ApprovalIcon, AuthorIcon, BookChapterIcon, BookPublicationIcon, BrandingIcon, CaseStudyIcon, ConferenceIcon, DashboardIcon, EContentICon, EditedBookIcon, FacultyIcon, IprIcon, JournalIcon, MeetingStakeholderIcon, PatentIcon, PlusIcon, PublicationIcon, ResearchAwardIcon, ResearchIcon, ResearchProjectIcon, ResearchSeminarIcon, SignOutIcon, TeachMeetBrandIcon,TeachingIcon } from "$lib/components/icons"
+import { RightIcon } from "$lib/components/icons/base";
+
 
 export type JournalPaper = {
 	nmims_school: string[];
@@ -521,10 +523,12 @@ export const SIDEBAR_ICON: SidebarIcon = {
 	"faculty" : FacultyIcon,
 	"edited-book-publication":EditedBookIcon,
 	"meeting-stakeholder":MeetingStakeholderIcon,
+	"teaching-excellance":TeachingIcon,
+	"branding-advertisement":BrandingIcon,
 	"author":AuthorIcon,
     "research":ResearchIcon,
-	"publication":PublicationIcon
-	// "form-approval"
+	"publication":PublicationIcon,
+	"form-approval" : RightIcon
 }
 
 export type EditedBookPublicationView = {
@@ -538,3 +542,7 @@ export type EditedBookPublicationView = {
     publisher: string
 }
 	
+export type FileObject = {
+	size : number;
+	uploaded: boolean;
+ }

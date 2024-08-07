@@ -286,19 +286,20 @@ export function getFormLevel(data:any) : CustomOptions[] {
 	return inputFieldsArr;
 }
 
-export function getDynamicDropdown(data:any) : CustomOptions[] {
-	console.log('dynamic dropdown',JSON.stringify(data))
-	let inputFieldsArr : any[] = [];
-	data.forEach((item : any) => {
-		inputFieldsArr.push({value: item.value, label: item.label});
+export function getDynamicDropdown(data: any): CustomOptions[] {
+	console.log('dynamic dropdown', JSON.stringify(data));
+	let inputFieldsArr: CustomOptions[] = [];
+  
+	data.forEach((item: any) => {
+		inputFieldsArr.push({ value: item.value, label: item.label });	  
 	});
   
 	return inputFieldsArr;
-}
+  }
 
 export function getFormModules(data:any) : CustomOptions[] {
 	console.log('dynamic dropdown',JSON.stringify(data))
-	let inputFieldsArr : any[] = [];
+	let inputFieldsArr : CustomOptions[] = [];
 	data.forEach((item : any) => {
 		inputFieldsArr.push({value: item.url, label: item.module_name});
 	});

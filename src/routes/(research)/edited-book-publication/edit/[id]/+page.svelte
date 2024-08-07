@@ -24,7 +24,7 @@
 	import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
 	import { toast } from 'svelte-sonner';
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
 
@@ -35,11 +35,11 @@
 
     export let data: any;
 
-    let nmimsSchool = data?.editedBookPublicationData?.school?.message;
-	let nmimsCampus = data?.editedBookPublicationData?.campus?.message;
-	let nmimsAuthors = data?.editedBookPublicationData?.nmimsAuthors?.message;
-	let allAuthors = data?.editedBookPublicationData?.allAuthors?.message;
-	let allEditors = data?.editedBookPublicationData?.editor?.message;
+    let nmimsSchool = data?.editedBookPublicationData?.school?.message.length > 0 ? data?.editedBookPublicationData?.school?.message : [];
+	let nmimsCampus = data?.editedBookPublicationData?.campus?.message.length > 0 ? data?.editedBookPublicationData?.campus?.message : [];
+	let nmimsAuthors = data?.editedBookPublicationData?.nmimsAuthors?.message.length > 0 ? data?.editedBookPublicationData?.nmimsAuthors?.message : [];
+	let allAuthors = data?.editedBookPublicationData?.allAuthors?.message.length > 0 ? data?.editedBookPublicationData?.allAuthors?.message : [];
+	let allEditors = data?.editedBookPublicationData?.editor?.message.length > 0 ? data?.editedBookPublicationData?.editor?.message : [];
     
     $: school = nmimsSchool;
 	$: nmimsAuth = nmimsAuthors;
@@ -220,7 +220,7 @@
 			toast.success('Updated Successfully');
 			files = [];
 			isChecked = false;
-			goto('/edited-book-publication');
+			goto(`${PUBLIC_BASE_URL}edited-book-publication`);
 		}
 }
 
@@ -248,29 +248,6 @@ async function downLoadFiles() {
 				});
 			});
 	}
-
-function clearForm() {
-		obj = {
-			nmims_school: null,
-			nmims_campus: null,
-			all_authors: null,
-			nmims_authors: null,
-			book_editors: null,
-			title: '',
-			edition: '',
-			publisher: '',
-			publisher_category: 1,
-			publish_year: null,
-			web_link: '',
-			isbn_no: '',
-			doi_no: '',
-			publication_place: '',
-			nmims_authors_count: ''
-		};
-		files = [];
-	}
-
-
 </script>
 
 <Card title={title}>
@@ -382,6 +359,10 @@ function clearForm() {
 					on:deletedFiles={handleDeleteFiles}
 					isView={false}
 				/>
+				{#if files.length > 0}
+				{@const fileString = files.length > 1 ? 'Files' : 'File' }
+				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
+			    {/if}
 			{:else}
 				<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
 					><i class="fa-solid fa-download text-md"></i></button

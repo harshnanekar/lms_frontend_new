@@ -22,7 +22,7 @@
 	import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
 	import { toast } from 'svelte-sonner';
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import { any } from 'zod';
 	import { goto } from '$app/navigation';
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
@@ -34,11 +34,11 @@
 
 	console.log('data ===>>>>>', data);
 
-	let nmimsSchool = data?.bookChapterData?.school?.message;
-	let nmimsCampus = data?.bookChapterData?.campus?.message;
-	let nmimsAuthors = data?.bookChapterData?.nmimsAuthors?.message;
-	let allAuthors = data?.bookChapterData?.allAuthors?.message;
-	let allEditors = data?.bookChapterData?.editor?.message;
+	let nmimsSchool =  data?.bookChapterData?.school.message.length > 0 ? data?.bookChapterData?.school?.message : [];
+	let nmimsCampus =  data?.bookChapterData?.campus.message.length > 0 ? data?.bookChapterData?.campus?.message : [];
+	let nmimsAuthors = data?.bookChapterData?.nmimsAuthors.message.length > 0 ? data?.bookChapterData?.nmimsAuthors?.message : [];
+	let allAuthors = data?.bookChapterData?.allAuthors.message.length > 0 ? data?.bookChapterData?.allAuthors?.message : [];
+	let allEditors = data?.bookChapterData?.editor.message.length > 0 ? data?.bookChapterData?.editor?.message : [];
 
 	console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool);
 	console.log('allEditors ankit mishra ===>>>>>', allEditors);
@@ -172,7 +172,7 @@
 		} else {
 			toast.success('Inserted Successfully');
 			clearForm();
-			goto('/book-chapter-publication');
+			goto(`${PUBLIC_BASE_URL}book-chapter-publication`);
 		} 
 
 		} 
@@ -330,6 +330,10 @@
 					>Upload Supporting Documents<span class="text-primary">*</span></label
 				>
 				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+				{#if files.length > 0}
+				{@const fileString = files.length > 1 ? 'Files' : 'File' }
+				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
+			    {/if}
 			</div>		
 		</div>
 	</div>

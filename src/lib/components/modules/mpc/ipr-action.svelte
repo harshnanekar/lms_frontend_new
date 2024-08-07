@@ -15,7 +15,7 @@
 
 	import { fetchApi } from '$lib/utils/fetcher';
 
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
 	import { toast } from 'svelte-sonner';
 
@@ -109,7 +109,7 @@
 		isOpen.set(false);
 
 
-        const { error, json } = await fetchApi({
+        const { error, json } : any = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/ipr-delete?id=${iprId}`,
 			method: 'GET'
 		});
@@ -125,7 +125,7 @@
 		if(json.status == 200){
 			
 		toast.success('Deleted Successfully !');
-		let url: URL = new URL('http://localhost:9090/research/ipr-paginate');
+		let url: URL = new URL(`${PUBLIC_API_BASE_URL}/ipr-paginate`);
 		paginateUrl.set(url);
 
 		}else{
@@ -150,12 +150,12 @@
 		>
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 				<a
-					href="/ipr/view/{actionData.id}"
+					href="{PUBLIC_BASE_URL}ipr/view/{actionData.id}"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">View</a
 				>
 				<a
-					href="/ipr/edit/{actionData.id}"
+					href="{PUBLIC_BASE_URL}ipr/edit/{actionData.id}"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">Edit</a
 				>

@@ -175,16 +175,30 @@
 	<div class="filters">
 		{#if showSearch}
 		<!-- <div class="relative w-1/2"> -->
-			<input
+			<!-- <input
 				class="lms-input h-6.5 mt-4 w-[25%]"
 				type="text"
 				placeholder="Search..."
 				on:input={handleInput}
-			/>
+			/> -->
 			<!-- <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
 				<SearchIcon />
 			</div> -->
 		<!-- </div> -->
+		<div class="relative w-[25%]">
+			<div class="flex items-center">
+				<input
+					class="lms-input h-10 mt-4 w-full pr-10"
+					type="text"
+					placeholder="Search..."
+					on:input="{handleInput}"
+				/>
+				<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 h-10 mt-4">
+					<SearchIcon/>
+				</div>
+			</div>
+		</div>
+		
 		{/if}
 		{#each filterOptions as filter}
 			<div class="filter">

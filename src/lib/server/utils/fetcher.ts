@@ -37,7 +37,8 @@ export const fetchApiServer = async <T>({
 				[obj.name]: obj.value
 			};
 		}
-
+		console.log("requestOptions>>>>>>>>", requestOptions);
+		
 		const response = await _fetch(url, requestOptions);
 
 		let errorData = null;

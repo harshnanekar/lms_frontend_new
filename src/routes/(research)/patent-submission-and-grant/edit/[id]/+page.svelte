@@ -34,7 +34,7 @@
 
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
 
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
 	import type { any } from 'zod';
 
@@ -49,15 +49,11 @@
 
 	let title = 'Patent Submission And Grant';
 
-	let enternalAuthors = data?.patentDataList?.internalAuthors?.message;
-
-	let externalAuthors = data?.patentDataList?.externalAuthors?.message;
-
-	let sdgGoals = data?.patentDataList?.sdgGoals?.message;
-
-	let patetntStatus = data?.patentDataList?.status?.message;
-
-	let inventionType = data?.patentDataList?.inventionType?.message;
+	let enternalAuthors = data?.patentDataList?.internalAuthors?.message.length > 0 ? data?.patentDataList?.internalAuthors?.message : [];
+	let externalAuthors = data?.patentDataList?.externalAuthors?.message.length > 0 ? data?.patentDataList?.externalAuthors?.message : [];
+	let sdgGoals = data?.patentDataList?.sdgGoals?.message.length > 0 ? data?.patentDataList?.sdgGoals?.message : [];
+	let patetntStatus = data?.patentDataList?.status?.message.length > 0 ? data?.patentDataList?.status?.message : [];
+	let inventionType = data?.patentDataList?.inventionType?.message.length > 0 ? data?.patentDataList?.inventionType?.message : [];
 
 	// let isRequired = false;
 
@@ -243,7 +239,7 @@
 				toast.error('ALERT!', { description: json[0].upsert_patent_grant.message });
 			} else {
 				toast.success('Updated Successfully');
-				goto('/patent-submission-and-grant');
+				goto(`${PUBLIC_BASE_URL}patent-submission-and-grant`);
 			}
 		} else {
 			toast.error('No response data received');
@@ -330,6 +326,10 @@
 				</label>
 				{#if checkVal}
 					<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+                    {#if files.length > 0}
+				      {@const fileString = files.length > 1 ? 'Files' : 'File' }
+				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
+			        {/if}				
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-md"></i></button

@@ -5,18 +5,18 @@
     import { editedBookPublication, type editedBookPublicationReq, type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations'
     import { validateWithZod } from '$lib/utils/validations';
     import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
-    import { PUBLIC_API_BASE_URL } from '$env/static/public';
+    import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
     import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
 
         export let data : any;
         const title = 'Edited Book Publication'
 
-        let allAuthorData = data?.editedBookData?.authorData?.message;
-        let nmimsAuthorData = data?.editedBookData?.nmimsAuthorData?.message;
-        let campuseData = data?.editedBookData?.campusData?.message;
-        let schoolData = data?.editedBookData?.schoolData?.message;
-        let editorsData = data?.editedBookData?.editorsData?.message;
+        let allAuthorData = data?.editedBookData?.authorData?.message.length > 0 ? data?.editedBookData?.authorData?.message : [];
+        let nmimsAuthorData = data?.editedBookData?.nmimsAuthorData?.message.length > 0 ? data?.editedBookData?.nmimsAuthorData?.message : [];
+        let campuseData = data?.editedBookData?.campusData?.message.length > 0 ? data?.editedBookData?.campusData?.message : [];
+        let schoolData = data?.editedBookData?.schoolData?.message.length > 0 ? data?.editedBookData?.schoolData?.message : [];
+        let editorsData = data?.editedBookData?.editorsData?.message.length > 0 ? data?.editedBookData?.editorsData?.message : [];
 
         $: allAuthors = allAuthorData
         $: campuses = campuseData;
@@ -139,12 +139,13 @@
 		} else {
 			toast.success('Inserted Successfully');
 			clearForm();
-			goto('/edited-book-publication');
+			goto(`${PUBLIC_BASE_URL}edited-book-publication`);
 		}
     }
 
         function clearForm() {
             obj = { 
+            nmimsAuthors : null,
             authors: null,
             book_title: '',
             campuses: null,
@@ -269,6 +270,10 @@
             <label class="lms-label item-center">Upload Supporting Documents<span class="text-primary">*</span></label
             >
             <File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+            {#if files.length > 0}
+				{@const fileString = files.length > 1 ? 'Files' : 'File' }
+				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
+			{/if}
         </div>	
     </div>
 

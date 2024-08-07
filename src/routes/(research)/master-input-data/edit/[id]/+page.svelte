@@ -7,7 +7,7 @@
 		InfiniteMasterDataView
 	} from '$lib/types/modules/research/research-types';
 	import type { InfiniteScrollResult } from '$lib/types/request.types';
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import { validateWithZod } from '$lib/utils/validations';
 	import { updMasterDataDetails, type updMasterDataReq } from '$lib/schemas/modules/research/master-validations';
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher.js';
@@ -23,8 +23,8 @@
 	$: checkVal = isChecked;
     let disabled: boolean = true;
 
-	let title = 'Master Data ';
-	let masterTypes = data?.masterData?.masterDataList?.message;
+	let title = 'Author Details ';
+	let masterTypes = data?.masterData?.masterDataList?.message.length > 0 ? data?.masterData?.masterDataList?.message : [];
 	console.log('masterTypes ===>>>', masterTypes);
 	$: master = masterTypes;
 
@@ -67,7 +67,7 @@
 
 		console.log('validated data', JSON.stringify(result.data));
 
-        const { error, json } = await fetchApi({
+        const { error, json } : any = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/master-input-data-update`,
 			method: 'POST',
 			body: {
@@ -86,7 +86,7 @@
             goto('/master-input-data');
 		} else {
 			toast.success('Updated Successfully');
-			goto('/master-input-data');
+			goto(`${PUBLIC_BASE_URL}master-input-data`);
 		}
 
 		
@@ -95,17 +95,11 @@
 
 <Card {title}>
 	<div class="modal-content p-4">
-        <div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
 			<Input
 				type="text"
 				placeholder="Faculty Name"
 				bind:value={obj.master_input_name}
-			/>
-            <Input
-				type="number"
-				placeholder="Faculty Id"
-				bind:value={obj.faculty_lid}
-                {disabled}
 			/>
             <DynamicSelect
 				isRequired={true}
@@ -119,7 +113,7 @@
 		</div>
     </div>
 
-	<div class="flex flex-row gap-[20px] p-4">
+	<div class="flex md:flex-row gap-[20px] p-4">
 		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Update</button>
 	</div>
 </Card>

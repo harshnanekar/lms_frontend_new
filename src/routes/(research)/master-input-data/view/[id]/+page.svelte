@@ -6,7 +6,7 @@
 	export let data: any;
 
 	let disabled: boolean = true;
-	let title = 'Master Data';
+	let title = 'Author Details';
 	let checkData = data.masterData.length > 0 ? true : false;
 	console.log('checkData ===>>>>>>', checkData);
 
@@ -21,9 +21,9 @@
 
 {#if checkData}
 	<Card {title}>
-		<div class="scroll modal-content overflow-auto">
+		<div class="modal-content p-4">
 			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
-				<Input type="text" placeholder="Name" value={obj.faculty_name} {disabled} />
+				<Input type="text" placeholder="Faculty Name" value={obj.faculty_name} {disabled} />
 				<Input type="text" placeholder="Type" value={obj.faculty_type} {disabled} />
 			</div>
 		</div>

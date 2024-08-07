@@ -1,17 +1,17 @@
-<script lang="ts">
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+<script>
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import { fetchApi } from '$lib/utils/fetcher';
 	import { toast } from 'svelte-sonner';
 	import { MenuBarIcon, SearchIcon, SignOutIcon } from '../icons';
 	import { Image, ProfileDropDown } from '../ui';
 	import { isSidebarOverlayOpen } from './sidebar/store';
 	import { goto } from '$app/navigation';
-	import type { UserSessionData } from '$lib/types/user';
+	// import type { UserSessionData } from '$lib/types/user';
 
 
-	export let userData: UserSessionData;
+	// export let userData: UserSessionData;
 
-	console.log('userData ===>>>>>', userData);
+	// console.log('userData ===>>>>>', userData);
 	
 	async function getUserDetails(){
 		const { error, json } = await fetchApi({
@@ -25,19 +25,11 @@
 			});
 			return;
 		}
-        
+        goto(`${PUBLIC_BASE_URL}login`);
 	} 
 
 	
 
-	const userData1 = {
-		user_detail: {
-			first_name: "Ankit",
-			last_name: "Mishra",
-			email: "ankit.mishra.EXT@nmims.edu",
-			mobile: "82828282828",
-		}
-	}
 </script>
 
 <header id="lms-header" class="relative z-[99999] bg-base">
@@ -63,11 +55,11 @@
 			<div>
 				<div>
 					<!-- svelte-ignore missing-declaration -->
-					<ProfileDropDown
+					<!-- <ProfileDropDown
 						src="/icons/layout/notificataion.png"
 						name={`${userData1.user_detail?.first_name} ${userData1.user_detail?.last_name}`}
 						email={userData1.user_detail?.email}
-					/>
+					/> -->
 				</div>
 			</div>
 		</div>

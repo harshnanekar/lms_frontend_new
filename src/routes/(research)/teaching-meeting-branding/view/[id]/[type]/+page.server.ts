@@ -1,4 +1,4 @@
-import { PRIVATE_API_BASE_URL } from '$env/static/private';
+import { PRIVATE_API_BASE_URL, PRIVATE_BASE_URL } from '$env/static/private';
 import { fetchApiServer } from '$lib/server/utils/fetcher';
 import { error, fail, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
@@ -27,12 +27,13 @@ export const load: PageServerLoad = async ({ cookies, fetch,params }) => {
 	// }
 
 	if (err && err.status === 'UNAUTHORIZED') {
-        redirect(303, '/login');
+        redirect(303, `${PRIVATE_BASE_URL}login`);
     }
 
-	if (err) {
-        error(500,'Internal Server Error')
+	if (err && err.status) {
+        error(Number(err.status),err.message);
     }
+
 
     console.log('json viewed ',JSON.stringify(json));
 	return {

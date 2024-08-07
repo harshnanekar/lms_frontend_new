@@ -146,7 +146,7 @@
     }
 
     function isSelected(option: CustomOptions) {
-        return selectedOptions.some(selectedOption => selectedOption.value === option.value);
+        return selectedOptions.some(selectedOption => selectedOption?.value === option?.value);
     }
 </script>
 

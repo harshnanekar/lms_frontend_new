@@ -12,12 +12,13 @@
 	} from '$lib/schemas/modules/research/master-validations';
 	import { toast } from 'svelte-sonner';
 	import { validateWithZod } from '$lib/utils/validations';
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import { fetchFormApi } from '$lib/utils/fetcher';
 	import { optionStore } from '$lib/stores/modules/research/master.store';
 	import { goto } from '$app/navigation';
 	import { Header } from '$lib/components/researchHeader';
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
+	import type { FileObject } from '$lib/types/modules/research/research-types';
 
 
 	export let data: any;
@@ -39,11 +40,23 @@
 		file: File[];
 		isChecked?: boolean;
 		isPresent?: boolean;
-	}[] | any = data.inputData.input_data ? data.inputData.input_data : [];
+		fileVal ?: FileObject
+	}[] | any = data.inputData.input_data ? data.inputData.input_data.map((data:any) => {
+		return {
+			id : data.id,
+			type : data.type,
+			description : data.description,
+			link : data.link,
+			file : data.file,
+			isPresent : data.isPresent,
+			fileVal : {size:0,uploaded:false}
+		}
+	}) : [];
+
 
 	console.log('items ',JSON.stringify(inputItems))
 	
-	let inputDropdown = data.inputData.dropdown_data
+	let inputDropdown = data.inputData.dropdown_data.message.length > 0 
 		? data.inputData.dropdown_data.message
 		: [];
 
@@ -52,7 +65,7 @@
 	function addNewRow() {
 		inputItems = [
 			...inputItems,
-			{ id: inputItems.length, type: null, description: '', link: '', file: [] ,isPresent:false}
+			{ id: inputItems.length, type: null, description: '', link: '', file: [] ,isPresent:false,fileVal : {size:0,uploaded:false}}
 		];
 	}
 
@@ -67,9 +80,9 @@
 	}
 
 	function handleFiles(event: CustomEvent<{ files: File[] }>, itemId: number) {
-		const files  = event.detail;
+		const files : any  = event.detail;
 		inputItems = inputItems.map((item: { id: number; }) =>
-			item.id === itemId ? { ...item, file : files } : item,
+			item.id === itemId ? { ...item, file : files ,fileVal : {size:files.length,uploaded:true}} : item,
 		);
 	}
 
@@ -94,7 +107,7 @@
 	$: checkVal = isChecked;
 
 	$: {
-		input_json = inputItems.map((item) => ({
+		input_json = inputItems.map((item: { type: { value: any; }; description: any; link: any; }) => ({
 			input_type: item.type ? item.type.value : '',
 			description: item.description,
 			link: item.link
@@ -176,7 +189,7 @@
 			   console.log('upsert json ', JSON.stringify(json));
 				toast.success('Updated Successfully!');
 				fileDataStore.set([]);
-				goto('/teaching-meeting-branding');
+				goto(`${PUBLIC_BASE_URL}teaching-meeting-branding`);
 			
 		}
 		}
@@ -186,7 +199,7 @@
 	function getAvailableDropdown(selectedOptions: any[]) {
 		const selectedValues = selectedOptions.map((option) => (option.type ? option.type.value : ''));
 		return getCommonDropdownData(inputDropdown).filter(
-			(option) => !selectedValues.includes(option.value)
+			(option) => !selectedValues.includes(option?.value)
 		);
 	}
 
@@ -243,6 +256,7 @@
 				</thead>
 				<tbody>
 				{#each inputItems as item (item.id)}
+				  <!-- {JSON.stringify(item)} -->
 				  <tr>
 					<td>
 					<DynamicSelect
@@ -286,6 +300,10 @@
 													on:deletedFiles={(e) => handleDeleteFiles(e,item.id)}
 													on:previewFile={() => previewFiles(item.id)}
 												/>	
+												{#if item.fileVal.uploaded}
+													{@const fileString = item.fileVal.size > 1 ? 'Files' : 'File' }
+													<p class="lms-label">{item.fileVal.size} {fileString} Uploaded</p>
+												{/if}
 							{:else}
 								<button
 									class="lms-primary-btn mt-2"
@@ -302,6 +320,10 @@
 													on:deletedFiles={(e) => handleDeleteFiles(e,item.id)}
 													on:previewFile={() => previewFiles(item.id)}
 												/>	
+												{#if item.fileVal.uploaded}
+													{@const fileString = item.fileVal.size > 1 ? 'Files' : 'File' }
+													<p class="lms-label">{item.fileVal.size} {fileString} Uploaded</p>
+												{/if}
 						{/if}
 					</div>
 				</td>

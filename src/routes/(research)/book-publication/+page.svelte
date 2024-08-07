@@ -7,19 +7,20 @@
     import {BookPublicationHeaders} from "$lib/test";
     import { BookPublicationAction } from '$lib/components/modules/mpc';
     import { paginateUrl } from '$lib/stores/modules/research/master.store';
+	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_BASE_URL } from '$env/static/public';
 
-	let dynamicUrl = 'http://localhost:9090/research/book-publication-paginate';
+	let dynamicUrl = `${PUBLIC_API_BASE_URL}/book-publication-paginate`;
+
 	const url = new URL(dynamicUrl);
 	paginateUrl.set(url);
 
 	const label = 'Book Publication';
-
-	let title: string = '';
-
-	// export let masterFormList: MeetingListItem[] | null;
+  
+	let baseurl = `${PUBLIC_BASE_URL}book-publication/create`
 
 	function navigateToCreate() {
-		goto('/book-publication/create');
+		goto(baseurl);
 	}
 
 	let actionData: BookPublicationRender;

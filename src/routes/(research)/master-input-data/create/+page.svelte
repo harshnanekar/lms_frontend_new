@@ -7,7 +7,7 @@
 		InfiniteMasterDataView
 	} from '$lib/types/modules/research/research-types';
 	import type { InfiniteScrollResult } from '$lib/types/request.types';
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import { validateWithZod } from '$lib/utils/validations';
 	import { masterObj, type masterDataReq } from '$lib/schemas/modules/research/master-validations';
 	import { fetchApi } from '$lib/utils/fetcher.js';
@@ -18,8 +18,8 @@
 	const url: URL = new URL(`${PUBLIC_API_BASE_URL}/master-input-data-scroll-paginate`);
 	export let data: any;
 
-	let masterTypes = data?.masterData?.masterInputData?.message;
-	console.log('masterTypes ===>>>', masterTypes);
+	let masterTypes = data?.masterData?.masterInputData?.message.length > 0 ? data?.masterData?.masterInputData?.message : [];
+	console.log('masterTypes ===>>>', JSON.stringify(masterTypes),JSON.stringify(data?.masterData));
 	$: master = masterTypes;
 
 	let responseData: InfiniteScrollResult<InfiniteMasterDataView> = {
@@ -74,7 +74,7 @@
 		}
 
 		// Make API request
-		const { error, json } = await fetchApi({
+		const { error, json } : any = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/master-input-data-insert`,
 			method: 'POST',
 			body: {
@@ -88,8 +88,15 @@
 			});
 			return;
 		}
+
+		console.log('user json ',JSON.stringify(json[0].insert_master_data.status))
+
+		if(json[0].insert_master_data.status === '403'){
+         toast.error(json[0].insert_master_data.message);
+		}else{
 		toast.success('Inserted Successfully!');
-		goto('/master-input-data');
+		goto(`${PUBLIC_BASE_URL}master-input-data`);
+		}
 	}
 </script>
 

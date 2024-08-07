@@ -1,6 +1,6 @@
 import { DashboardIcon, AnalyticsIcon, MenuBarIcon,JournalIcon,BookPublicationIcon,BookChapterIcon,CaseStudyIcon,ResearchSeminarIcon,
 	EContentICon,ResearchAwardIcon,ConferenceIcon,PatentIcon,ResearchProjectIcon,IprIcon,FacultyIcon,EditedBookIcon,
-	MeetingStakeholderIcon,AuthorIcon,ResearchIcon,TeachMeetBrandIcon,PublicationIcon,TeachingIcon,BrandingIcon
+	MeetingStakeholderIcon,AuthorIcon,ResearchIcon,TeachMeetBrandIcon,PublicationIcon,TeachingIcon,BrandingIcon,ApprovalIcon
 } from './layout';
 import {
 	ArrowIcon,
@@ -22,7 +22,8 @@ import {
 	EyeIcon,
 	CloseEyeIcon,
 	PreviewIcon,
-	SignOutIcon
+	SignOutIcon,
+	RightIcon
 } from './base';
 import { MeetingIcon, ScheduledIcon } from './modules';
 
@@ -71,5 +72,7 @@ export {
 	TeachMeetBrandIcon,
 	PublicationIcon,
 	TeachingIcon,
-	BrandingIcon
+	BrandingIcon,
+	ApprovalIcon,
+	RightIcon
 };

@@ -1,6 +1,7 @@
 <script>
     import { goto } from '$app/navigation';
     import { page } from '$app/stores';
+	import { PUBLIC_BASE_URL } from '$env/static/public';
 </script>
 
 <div class="relative flex h-screen w-screen items-center justify-center bg-white">
@@ -21,7 +22,7 @@
                 {$page.error?.message || 'Oops! Something went wrong.'}
             </p>
             <button
-                on:click={() => history.state?.from ? history.back() : goto('/dashboard')}
+                on:click={() => history.state?.from ? history.back() : goto(`${PUBLIC_BASE_URL}dashboard`)}
                 class="bg-primary my-6 rounded-lg px-4 py-2 font-semibold text-white shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-75"
             >
                 Go Back Home

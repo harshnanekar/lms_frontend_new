@@ -22,7 +22,7 @@
 	import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
 	import { toast } from 'svelte-sonner';
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
 	import type { conferenceStatus } from '$lib/types/modules/research/research-types';
@@ -36,9 +36,9 @@
 	};
 
 	console.log('data ===>>>>>', data)
-	let nmimsSchool = data?.conferenceDetails?.school?.message;
-	let nmimsCampus = data?.conferenceDetails?.campus?.message;
-	let masterAllAuthors = data?.conferenceDetails?.masterAllAuthors?.message;
+	let nmimsSchool = data?.conferenceDetails?.school.message.length > 0 ? data?.conferenceDetails?.school?.message : [];
+	let nmimsCampus = data?.conferenceDetails?.campus.message.length > 0 ? data?.conferenceDetails?.campus?.message : [];
+	let masterAllAuthors = data?.conferenceDetails?.masterAllAuthors.message.length > 0 ? data?.conferenceDetails?.masterAllAuthors?.message : [];
 	let externalAuthors = data?.conferenceDetails?.externalAuthors.message.length > 0 ? data?.conferenceDetails?.externalAuthors?.message : [];
 	let enternalAuthors = data?.conferenceDetails?.enternalAuthors.message.length > 0 ? data?.conferenceDetails?.enternalAuthors?.message : [];
 	let conferenceDocumentAbbr = data?.conferenceDetails?.conferenceDocumentAbbr;
@@ -68,7 +68,7 @@
 
 	let publicationDate: Date | null = new Date();
 	publicationDate = null;
-	$: publicationFormattedDate = publicationDate ? formatDate(publicationDate) : '';
+	$: publicationFormattedDate = publicationDate ? formatDate(publicationDate) : null;
 
 	function handleDateChange(e: CustomEvent<any>) {
 		if (!publicationDate) return;
@@ -271,7 +271,7 @@
 		} else {
 			toast.success('Inserted Successfully');
 			clearForm();
-			goto('/conference');
+			goto(`${PUBLIC_BASE_URL}conference`);
 		}
 		}
 		else {
@@ -305,6 +305,10 @@
 		};
 		conferenceFiles = [];
 		awardFiles = [];
+		fileDataStore.set([]);
+		publicationFormattedDate = null;
+		showExternal = false;
+		showInternal = false;
 	}
 </script>
 
@@ -447,7 +451,7 @@
 				<label class="text-sm text-[#888888]"
 					>Name Of Co-Authors<span class="text-danger text-sm">*</span>
 				</label>
-				<div class="mt-2.5 flex gap-8">
+				<div class="mt-4 flex items-center gap-8">
 					<div class="flex items-center">
 						<input
 							id="internal-checkbox"
@@ -468,7 +472,7 @@
 					</div>
 				</div>
 
-				<div class="mt-6 flex items-center gap-8">
+				<div class="flex items-center gap-x-4 mt-4">
 					<div>
 						{#if showInternal}
 							<DynamicSelect
@@ -495,25 +499,25 @@
 				</div>
 			</div>
 			
-		</div>
-		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
-				<!-- Conference Documents -->
-				<div class="space-y-2">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="text-sm text-[#888888]"
-						>Upload Conference Documents<span class="text-danger text-sm">*</span>
-					</label>
+			<div class="space-y-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<label class="text-sm text-[#888888]"
+					>Upload Conference Documents<span class="text-danger text-sm">*</span>
+				</label>
 
-					<File
-						isCombine={true}
-						on:filesSelected={(event) => handleConferenceFiles(event, 'cd')}
-						isView={false}
-						on:deletedFiles={(event) => handleDeleteFiles(event, 'cd')}
-						on:previewFile={previewConferenceFile}
-					/>
-				</div>
-			<!-- svelte-ignore a11y-label-has-associated-control -->
-			<!-- Award Documents -->
+				<File
+					isCombine={true}
+					on:filesSelected={(event) => handleConferenceFiles(event, 'cd')}
+					isView={false}
+					on:deletedFiles={(event) => handleDeleteFiles(event, 'cd')}
+					on:previewFile={previewConferenceFile}
+				/>
+				{#if conferenceFiles.length > 0}
+				      {@const filesString = conferenceFiles.length > 1 ? 'Files' : 'File'}
+				      <p class="lms-label">{conferenceFiles.length} {filesString} Uploaded</p>
+				{/if}
+			</div>
+
 			<div class="space-y-2">
 				<label class="text-sm text-[#888888]"
 					>Upload Award Documents<span class="text-danger text-sm">*</span>
@@ -525,42 +529,53 @@
 					on:previewFile={previewAwardFile}
 					isView={false}
 				/>
+				{#if awardFiles.length > 0}
+    				{@const filesString = awardFiles.length > 1 ? 'Files' : 'File'}
+				      <p class="lms-label">{awardFiles.length} {filesString} Uploaded</p>
+				{/if}
 			</div>
+
+ 
+
 		</div>
-		<!-- <div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3"> -->
-		<div class="flex flex-row gap-[40px] p-4">
-			<DatePicker
-				on:change={handleDateChange}
-				bind:selectedDateTime={publicationDate}
-				disabled={(publicationDate) => publicationDate.getTime() < new Date().setHours(0, 0, 0, 0)}
-			>
-				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-					<SelectDateIcon />
-					<span class="text-body-2 font-bold">Add Publication Date</span>
-				</div>
-			</DatePicker>
-			{#if publicationFormattedDate}
-				{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
-				<div
-					class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-					in:fly={{ x: -100, duration: 300 }}
-					out:fly={{ x: 100, duration: 300 }}
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
+
+			<div class="flex md:flex-row">
+				<DatePicker
+					on:change={handleDateChange}
+					bind:selectedDateTime={publicationDate}
+					disabled={(publicationDate) => publicationDate.getTime() < new Date().setHours(0, 0, 0, 0)}
 				>
-					<p class="m-0 p-0">{formattedDate}</p>
-					<button
-						use:tooltip={{
-							content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-						}}
-						on:click={() => {
-							publicationFormattedDate = '';
-						}}
+					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+						<SelectDateIcon />
+						<span class="text-body-2 font-bold">Add Publication Date</span>
+					</div>
+				</DatePicker>
+				{#if publicationFormattedDate}
+					{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
+					<div
+						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+						in:fly={{ x: -100, duration: 300 }}
+						out:fly={{ x: 100, duration: 300 }}
 					>
-						<XIcon />
-					</button>
-				</div>
-			{/if}
+						<p class="m-0 p-0">{formattedDate}</p>
+						<button
+							use:tooltip={{
+								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+							}}
+							on:click={() => {
+								publicationFormattedDate = '';
+							}}
+						>
+							<XIcon />
+						</button>
+					</div>
+				{/if}
+			</div>
+
+
 		</div>
-		<!-- </div> -->
+		
 	</div>
 	<div class="flex flex-col gap-8 p-4 md:flex-row">
 		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>

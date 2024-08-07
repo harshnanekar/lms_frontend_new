@@ -8,15 +8,16 @@
 	import { econtentHeaders } from '$lib/test';
 	import { EContent } from '$lib/components/modules/mpc';
 	import { paginateUrl } from '$lib/stores/modules/research/master.store';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
-	let dynamicUrl = 'http://localhost:9090/research/e-content-paginate';
+	let dynamicUrl = `${PUBLIC_API_BASE_URL}/e-content-paginate`;
 	const url = new URL(dynamicUrl);
 	paginateUrl.set(url);
 
 	const label = 'E-Content Development';
 
 	function navigateToCreate() {
-		goto('/e-content/create');
+		goto(`${PUBLIC_BASE_URL}e-content/create`);
 	}
 
 	let actionData: EContentView;

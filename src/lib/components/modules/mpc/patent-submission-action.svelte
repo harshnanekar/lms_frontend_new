@@ -15,7 +15,7 @@
 
 	import { fetchApi } from '$lib/utils/fetcher';
 
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
 	import { toast } from 'svelte-sonner';
 
@@ -108,26 +108,6 @@
 		console.log('delete button clicked', patentId);
 		isOpen.set(false);
 
-		// const response = await fetch(
-		// 	`${PUBLIC_API_BASE_URL}/patent-submission-and-grant-delete?id=${patentId}`,
-		// 	{
-		// 		method: 'POST'
-		// 	}
-		// );
-
-		// const { error, json } = await response.json();
-
-		// if (error) {
-		// 	toast.error(error.message || 'Something went wrong!', {
-		// 		description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
-		// 	});
-		// 	return;
-		// }
-
-		// toast.success('Deleted Successfully!');
-		// let url = new URL('http://localhost:9090/research/patent-submission-and-grant-paginate');
-		// paginateUrl.set(url);
-
         const { error, json } = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/patent-submission-and-grant-delete?id=${patentId}`,
 			method: 'GET'
@@ -144,7 +124,7 @@
 		if(json.status == 200){
 			
 		toast.success('Deleted Successfully !');
-		let url: URL = new URL('http://localhost:9090/research/patent-submission-and-grant-paginate');
+		let url: URL = new URL(`${PUBLIC_API_BASE_URL}/patent-submission-and-grant-paginate`);
 		paginateUrl.set(url);
 
 		}else{
@@ -172,12 +152,12 @@
 		>
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 				<a
-					href="/patent-submission-and-grant/view/{actionData.id}"
+					href="{PUBLIC_BASE_URL}patent-submission-and-grant/view/{actionData.id}"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">View</a
 				>
 				<a
-					href="/patent-submission-and-grant/edit/{actionData.id}"
+					href="{PUBLIC_BASE_URL}patent-submission-and-grant/edit/{actionData.id}"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">Edit</a
 				>

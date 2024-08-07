@@ -14,8 +14,9 @@
 	import { ConferenceHeaders } from '$lib/test';
 	import ConferenceAction from '$lib/components/modules/mpc/conference-action.svelte';
 	import { paginateUrl } from '$lib/stores/modules/research/master.store';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
-	let dynamicUrl = 'http://localhost:9090/research/conference-paginate';
+	let dynamicUrl = `${PUBLIC_API_BASE_URL}/conference-paginate`;
 	const url = new URL(dynamicUrl);
 	paginateUrl.set(url);
 
@@ -26,7 +27,7 @@
 	// export let masterFormList: MeetingListItem[] | null;
 
 	function navigateToCreate() {
-		goto('/conference/create');
+		goto(`${PUBLIC_BASE_URL}conference/create`);
 	}
 
 	let actionData: ConferenceRender;

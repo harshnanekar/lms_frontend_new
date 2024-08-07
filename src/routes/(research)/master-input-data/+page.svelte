@@ -9,15 +9,16 @@
 	// import { MasterDataAction  } from '$lib/components/modules/mpc/master-input-action.svelte';
     import { MasterDataAction } from '$lib/components/modules/mpc';
 	import { paginateUrl } from '$lib/stores/modules/research/master.store';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 
-	let dynamicUrl = 'http://localhost:9090/research/master-input-data-paginate';
+	let dynamicUrl = `${PUBLIC_API_BASE_URL}/master-input-data-paginate`;
 	const url = new URL(dynamicUrl);
 	paginateUrl.set(url);
 
-	const label = 'Authors Data';
+	const label = 'Authors Details';
 
 	function navigateToCreate() {
-		goto('/master-input-data/create');
+		goto(`${PUBLIC_BASE_URL}master-input-data/create`);
 	}
 
 	let actionData: FacultyView;

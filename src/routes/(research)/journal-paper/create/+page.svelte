@@ -26,7 +26,7 @@
 	import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
 	import { toast } from 'svelte-sonner';
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
 	import { actionStore, confirmStore, fileDataStore } from '$lib/stores/modules/research/master.store';
@@ -35,16 +35,16 @@
 	let isRequired = false;
 	let title = 'Journal Articles Published';
 
-	let foreignAuthors = data?.journalData?.foreignAuthors?.message;
-	let studentAuthors = data?.journalData?.StudentAuthors?.message;
-	let otherAuthors = data?.journalData?.otherAuthors?.message;
-	let policyCadre = data?.journalData?.policyCadre?.message;
-	let nmimsAuthors = data?.journalData?.nmimsAuthors?.message;
-	let allAuthors = data?.journalData?.allAuthors?.message;
-	let abdcIndexed = data?.journalData?.abdcIndexed?.message;
-	let paperType = data?.journalData?.paperType?.message;
-	let nmimsSchool = data?.journalData?.school?.message;
-	let nmimsCampus = data?.journalData?.campus?.message;
+	let foreignAuthors = data?.journalData?.foreignAuthors?.message.length > 0 ? data?.journalData?.foreignAuthors?.message : [];
+	let studentAuthors = data?.journalData?.StudentAuthors?.message.length > 0 ? data?.journalData?.StudentAuthors?.message : [];
+	let otherAuthors = data?.journalData?.otherAuthors?.message.length > 0 ? data?.journalData?.otherAuthors?.message : [];
+	let policyCadre = data?.journalData?.policyCadre?.message.length > 0 ? data?.journalData?.policyCadre?.message : [];
+	let nmimsAuthors = data?.journalData?.nmimsAuthors?.message.length > 0 ? data?.journalData?.nmimsAuthors?.message : [];
+	let allAuthors = data?.journalData?.allAuthors?.message.length > 0 ? data?.journalData?.allAuthors?.message : [];
+	let abdcIndexed = data?.journalData?.abdcIndexed?.message.length > 0 ? data?.journalData?.abdcIndexed?.message : [];
+	let paperType = data?.journalData?.paperType?.message.length > 0 ? data?.journalData?.paperType?.message : [];
+	let nmimsSchool = data?.journalData?.school?.message.length > 0 ? data?.journalData?.school?.message : [];
+	let nmimsCampus = data?.journalData?.campus?.message.length > 0 ? data?.journalData?.campus?.message : [];
 
 	// let isRequired = false;
 
@@ -228,7 +228,7 @@
 			toast.success('Inserted Successfully');
 			publicationFormattedDate = null;
 			clearForm();
-			goto('/journal-paper');
+			goto(`${PUBLIC_BASE_URL}journal-paper`);
 		}
 	}
 
@@ -545,6 +545,10 @@
 					>Upload Supporting Documents<span class="text-primary">*</span></label
 				>
 				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+				{#if files.length > 0}
+				{@const fileString = files.length > 1 ? 'Files' : 'File' }
+				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
+			    {/if}
 			</div>
 		</div>
 

@@ -111,22 +111,9 @@
         1000
     );
 
-    // const handleChange = (e: Event, filter: FilterOption) => {
-    //     const target = e.target as HTMLSelectElement;
-    //     console.log('target ',target,filter)
-    //     filters.update((currentFilters) => ({ ...currentFilters, [filter.name]: target.value }));
-    //     data = {
-    //         data: [],
-    //         total: 0,
-    //         nextCursor: null
-    //     };
-    //     fetchData(false, true);
-    // };
-
-
-const handleChange = (e: any, filter: FilterOption) => {
-        const target = e?.detail?.value ;
-        console.log('target ',e?.detail?.value,filter)
+    const handleChange = (e: Event, filter: FilterOption) => {
+        const target = e.target as HTMLSelectElement;
+        console.log('target ',target,filter)
         filters.update((currentFilters) => ({ ...currentFilters, [filter.name]: target.value }));
         data = {
             data: [],
@@ -135,6 +122,19 @@ const handleChange = (e: any, filter: FilterOption) => {
         };
         fetchData(false, true);
     };
+
+
+// const handleChange = (e: any, filter: FilterOption) => {
+//         const target = e?.detail?.value ;
+//         console.log('target ',e?.detail?.value,filter)
+//         filters.update((currentFilters) => ({ ...currentFilters, [filter.name]: target.value }));
+//         data = {
+//             data: [],
+//             total: 0,
+//             nextCursor: null
+//         };
+//         fetchData(false, true);
+//     };
 
 
     let sentinel: HTMLDivElement | null = null;
@@ -166,24 +166,13 @@ const handleChange = (e: any, filter: FilterOption) => {
 <div>
     <div class="filters space-x-10">
         {#if showSearch}
-            <!-- <div class="relative w-full">
+        
+            <div class="relative text-gray-600 flex items-center ml-4 w-[50%] top-4">
                 <input
                     type="text"
                     placeholder="Search here..."
                     on:input={handleInput}
-                    class="w-1/2 rounded-full border py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-slate-200"
-                />
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                    <SearchIcon />
-                </div>
-            </div> -->
-
-            <div class="relative text-gray-600 flex items-center ml-4">
-                <input
-                    type="text"
-                    placeholder="Search here..."
-                    on:input={handleInput}
-                    class="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none border"
+                    class="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none border w-full"
                 />
                 <div class="absolute right-0 top-0 mt-2 mr-4">
                     <SearchIcon />
@@ -193,26 +182,30 @@ const handleChange = (e: any, filter: FilterOption) => {
         <!-- {#if filterOptions.length > 0} -->
         {#each filterOptions as filter}
             <div class="mt-2 w-full filter gap-2 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4">
-                <!-- <label class="lms-label" for={filter.name}>{filter.label}</label>
-                <select id={filter.name} on:change={(e) => handleChange(e, filter)} class="dynamicSelect border border-gray-300 rounded-2xl text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none">
-                    <option value="All">All</option>
-                    {#each filter.options as option}
-                        <option value={option.value}>{option.label}</option>
-                    {/each}
-                </select> -->
-
-                <DynamicSelect
+            
+                <!-- {JSON.stringify(filter.options)} -->
+                <!-- svelte-ignore a11y-label-has-associated-control -->
+                <label class="lms-label">{filter.label}</label>
+                <div class="relative inline-flex">
+                    
+                    <!-- <svg class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232"><path d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z" fill="#648299" fill-rule="nonzero"/></svg> -->
+                    <select on:change={(e) => handleChange(e, filter)} class="border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none">
+                     {#each filter.options as fs}
+                     <option value={fs.value}>{fs.label}</option>
+                     {/each}
+                    </select>
+                  </div>
+                <!-- <DynamicSelect
                 isMultiSelect={false}
                 placeholder={filter.label}
                 options={getDynamicDropdown(filter.options)}
                 on:change={(e) => handleChange(e,filter)}
-               />
+                 bind:selectedOptions = {filter.options[0]}
+               /> -->
 
             </div>
         {/each}
-        <!-- {:else}
-         <p>No Data Found</p>
-        {/if} -->
+    
     </div>
 
     {#if data.data}
@@ -248,5 +241,42 @@ const handleChange = (e: any, filter: FilterOption) => {
     background-color: #ffffff;
     cursor: pointer;
 }
+
+/* select {
+  display:flex;
+  flex-direction: column;
+  position:relative;
+  width:250px;
+  height:40px;
+} */
+
+/* option {
+  padding:0 30px 0 10px;
+  min-height:40px;
+  display:flex;
+  align-items:center;
+
+  position:absolute;
+  top:0;
+  width: 100%;
+  pointer-events:none;
+  order:2;
+  z-index:1;
+  transition:background .4s ease-in-out;
+  box-sizing:border-box;
+  overflow:hidden;
+  white-space:nowrap;
+  
+}
+
+option:hover {
+  background:#666;
+}
+
+select:focus option {
+  position:relative;
+  pointer-events:all;
+}
+ */
 
 </style>

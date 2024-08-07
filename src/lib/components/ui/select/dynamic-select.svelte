@@ -336,7 +336,7 @@
 		if (!url) return ($isLoading = false);
 
 		if (options.length === 0) {
-			const res = await fetchOptions(url, dependsOn, '', '');
+			const res : any = await fetchOptions(url, dependsOn, '', '');
 			if (res.json) {
 				options = res.json.data;
 				nextCursor.set(res.json.nextCursor || '');
@@ -429,6 +429,7 @@
 				closeDropdown();
 			}
 		} else {
+			console.log('appended select')
 			selectedOptions = selected;
 			closeDropdown();
 		}
@@ -463,7 +464,7 @@
 			bind:this={buttonRef}
 			{disabled}
 		>
-			{#if checkOptions === null}
+			{#if checkOptions === null || checkOptions === undefined}
 				{placeholder}
 			{/if}
 
