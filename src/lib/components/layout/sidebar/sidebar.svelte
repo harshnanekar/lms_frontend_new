@@ -12,19 +12,19 @@
 	import { error } from '@sveltejs/kit';
 	import { fetchApi } from '$lib/utils/fetcher';
 
-	fetchModules();
+	// fetchModules();
 
-	async function fetchModules(){
-		const { error , json } = await fetchApi({
-			url: `${PUBLIC_API_BASE_URL}/research-modules`,
-			method: 'GET',
-		});
+	// async function fetchModules(){
+	// 	const { error , json } = await fetchApi({
+	// 		url: `${PUBLIC_API_BASE_URL}/research-modules`,
+	// 		method: 'GET',
+	// 	});
 
 		// if (err) {
 		// 	throw error(500,'Internal Server Error')
 		//       
 
-	}
+	// }
 
 
 	$: setActiveSidebarUrl($page.url.pathname, SIDEBAR_URL);
