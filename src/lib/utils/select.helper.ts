@@ -46,7 +46,7 @@ export function getSchool(data : any) :CustomOptions[] {
 	if(!data) return [];
 
 	data.forEach((item : any) => {
-		schoolArr.push({value: item.school_name, label: item.organization_name});
+		schoolArr.push({value: item.organization_name, label: item.organization_name});
 	});
   
 	return schoolArr;

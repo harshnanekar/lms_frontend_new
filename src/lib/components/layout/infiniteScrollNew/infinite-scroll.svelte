@@ -1,4 +1,4 @@
-<!-- <script lang="ts">
+<script lang="ts">
 
     import { browser } from '$app/environment';
 
@@ -14,7 +14,7 @@
 
     import { writable } from 'svelte/store';
 
-    import { AnimationPlayer } from '..';
+    // import { AnimationPlayer } from '..';
 
 
 
@@ -75,15 +75,9 @@
 
         if (data.data.length > 0 && !data.nextCursor && !isSearch) return;
 
-
-
-
         isLoading.set(true);
 
         error.set(null);
-
-
-
 
         try {
 
@@ -356,7 +350,7 @@
 
                     <div>
 
-                        <AnimationPlayer src="/json/no-data-found.json" width={220} height={220} />
+                        <!-- <AnimationPlayer src="/json/no-data-found.json" width={220} height={220} /> -->
 
                     </div>
 
@@ -382,7 +376,7 @@
 
         <div class="h-[30vh] flex justify-center items-center">
 
-            <AnimationPlayer width={70} height={70} />
+            <!-- <AnimationPlayer width={70} height={70} /> -->
 
         </div>
 
@@ -419,4 +413,4 @@
 
 
 
- -->
+

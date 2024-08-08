@@ -59,8 +59,6 @@
 	$: school = nmimsSchool;
 	$: campus = nmimsCampus;
 
-	console.log('nmims school ',JSON.stringify(data.journalData))
-
 	let publicationDate: Date | null = new Date();
 	publicationDate = null;
 	$: publicationFormattedDate = publicationDate;
@@ -171,7 +169,7 @@
 				return f.file;
 			})
 		};
-		console.log('fileObject ', fileObject);
+		console.log('journal object ', JSON.stringify(journalObject));
 
 		const fileresult = validateWithZod(fileSchema, fileObject);
 		if (fileresult.errors) {

@@ -547,6 +547,13 @@ export const BookChapterHeaders: TableHeaders<BookChapterRender>[] = [
 		classes: '',
 		showTooltip: false
 	},
+	{
+		label: 'Status',
+		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ];
 
 export const teachingHeaders: TableHeaders<TeachingView>[] = [
