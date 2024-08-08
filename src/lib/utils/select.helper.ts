@@ -21,6 +21,8 @@ export function getAcadYear(): CustomOptions[] {
 
 export function getAbdcIndexed(data : any) : CustomOptions[] {
   let adbcArr : any[] = [];
+  if(!data) return [];
+
   data.forEach((item : any) => {
 	adbcArr.push({value: item.id, label: item.abdc_type});
   });
@@ -30,6 +32,8 @@ export function getAbdcIndexed(data : any) : CustomOptions[] {
 
 export function getPaperType(data : any) :CustomOptions[] {
 	let paperArr : any[] = [];
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		paperArr.push({value: item.id, label: item.paper_name});
 	});
@@ -39,6 +43,8 @@ export function getPaperType(data : any) :CustomOptions[] {
 
 export function getSchool(data : any) :CustomOptions[] {
 	let schoolArr : any[] = [];
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		schoolArr.push({value: item.school_name, label: item.organization_name});
 	});
@@ -48,6 +54,8 @@ export function getSchool(data : any) :CustomOptions[] {
 
 export function getCampus(data : any) :CustomOptions[] {
 	let campusArr : any[] = [];
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		campusArr.push({value: item.campus_name, label: item.campus_name});
 	});
@@ -57,6 +65,8 @@ export function getCampus(data : any) :CustomOptions[] {
 
 export function getPolicyCadre(data : any) :CustomOptions[] {
 	let policyArr : any[] = [];
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		policyArr.push({value: item.id, label: item.policy_name});
 	});
@@ -66,6 +76,8 @@ export function getPolicyCadre(data : any) :CustomOptions[] {
 
 export function getAllAuthor(data : any) :CustomOptions[] {
 	let authArr : any[] = [];
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		authArr.push({value: item.id, label: item.faculty_name});
 	});
@@ -75,6 +87,8 @@ export function getAllAuthor(data : any) :CustomOptions[] {
 
 export function getNmimsAuthor(data : any) :CustomOptions[] {
 	let nmimsAuthArr : any[] = [];
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		nmimsAuthArr.push({value: item.id, label: item.faculty_name});
 	});
@@ -84,7 +98,9 @@ export function getNmimsAuthor(data : any) :CustomOptions[] {
 
 
 export function getEditors(data: any) :CustomOptions[]{
-	let editors : any[] = [];
+	let editors : any[] = []; 
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		editors.push({value: item.id, label: item.name});
 	});
@@ -95,6 +111,8 @@ export function getEditors(data: any) :CustomOptions[]{
 
 export function getOtherAuthor(data : any) :CustomOptions[] {
 	let otherAuthArr : any[] = [];
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		otherAuthArr.push({value: item.id, label: item.name});
 	});
@@ -103,7 +121,9 @@ export function getOtherAuthor(data : any) :CustomOptions[] {
 }
 
 export function getForeignAuthor(data : any) :CustomOptions[] {
-	let foreignAuthArr : any[] = [];
+	let foreignAuthArr : any[] = []; 
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		foreignAuthArr.push({value: item.id, label: item.name});
 	});
@@ -112,7 +132,9 @@ export function getForeignAuthor(data : any) :CustomOptions[] {
 }
 
 export function getStudentAuthor(data : any) :CustomOptions[] {
-	let studentAuthArr : any[] = [];
+	let studentAuthArr : any[] = []; 
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		studentAuthArr.push({value: item.id, label: item.name});
 	});
@@ -121,7 +143,9 @@ export function getStudentAuthor(data : any) :CustomOptions[] {
 }
 
 export function getInputFields(data:any) : CustomOptions[] {
-	let inputFieldsArr : any[] = [];
+	let inputFieldsArr : any[] = []; 
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		inputFieldsArr.push({value: item.url, label: item.name});
 	});
@@ -130,7 +154,9 @@ export function getInputFields(data:any) : CustomOptions[] {
 }
 
 export function getTeachingDropdown(data:any) : CustomOptions[] {
-	let inputFieldsArr : any[] = [];
+	let inputFieldsArr : any[] = []; 
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		inputFieldsArr.push({value: item.abbr, label: item.input});
 	});
@@ -139,7 +165,9 @@ export function getTeachingDropdown(data:any) : CustomOptions[] {
 }
 
 export function getMeetingDropdown(data:any) : CustomOptions[] {
-	let inputFieldsArr : any[] = [];
+	let inputFieldsArr : any[] = []; 
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		inputFieldsArr.push({value: item.abbr, label: item.input});
 	});
@@ -148,7 +176,9 @@ export function getMeetingDropdown(data:any) : CustomOptions[] {
 }
 
 export function getBrandingDropdown(data:any) : CustomOptions[] {
-	let inputFieldsArr : any[] = [];
+	let inputFieldsArr : any[] = []; 
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		inputFieldsArr.push({value: item.abbr, label: item.input});
 	});
@@ -158,17 +188,22 @@ export function getBrandingDropdown(data:any) : CustomOptions[] {
 
 
 export function getMasterAllAuthors(data:any) : CustomOptions[] {
-    let inputFieldsArr : any[] = [];
+    let inputFieldsArr : any[] = []; 
+	if(!data) return [];
+	
     data.forEach((item : any) => {
         inputFieldsArr.push({value: item.id, label: item.name});
     });
-  
+	
     return inputFieldsArr;
 }  
 
 
+
 export function getMasterNmimsAuthors(data:any) : CustomOptions[] {
-    let inputFieldsArr : any[] = [];
+    let inputFieldsArr : any[] = []; 
+	if(!data) return [];
+
     data.forEach((item : any) => {
         inputFieldsArr.push({value: item.id, label: item.name});
     });
@@ -177,7 +212,9 @@ export function getMasterNmimsAuthors(data:any) : CustomOptions[] {
 } 
 
 export function getCommonDropdownData(data:any) : CustomOptions[] {
-	let inputFieldsArr : any[] = [];
+	let inputFieldsArr : any[] = [];  
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		inputFieldsArr.push({value: item.abbr, label: item.input});
 	});
@@ -186,7 +223,9 @@ export function getCommonDropdownData(data:any) : CustomOptions[] {
 }
 
 export function getFacultyType(data:any) : CustomOptions[] {
-	let inputFieldsArr : any[] = [];
+	let inputFieldsArr : any[] = []; 
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		inputFieldsArr.push({value: item.id, label: item.faculty_type});
 	});
@@ -197,7 +236,9 @@ export function getFacultyType(data:any) : CustomOptions[] {
 
 
 export function getExternalAuthors(data:any) : CustomOptions[] {
-    let inputFieldsArr : any[] = [];
+    let inputFieldsArr : any[] = []; 
+	if(!data) return [];
+
     data.forEach((item : any) => {
         inputFieldsArr.push({value: item.id, label: item.faculty_name});
     });
@@ -206,7 +247,9 @@ export function getExternalAuthors(data:any) : CustomOptions[] {
 } 
 
 export function getEnternalAuthors(data:any) : CustomOptions[] {
-    let inputFieldsArr : any[] = [];
+    let inputFieldsArr : any[] = []; 
+	if(!data) return [];
+
     data.forEach((item : any) => {
         inputFieldsArr.push({value: item.id, label: item.faculty_name});
     });
@@ -217,7 +260,9 @@ export function getEnternalAuthors(data:any) : CustomOptions[] {
 
 
 export function getResearchStatus(data : any) :CustomOptions[] {
-	let statusArr : any[] = [];
+	let statusArr : any[] = []; 
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		statusArr.push({value: item.id, label: item.status});
 	});
@@ -228,7 +273,9 @@ export function getResearchStatus(data : any) :CustomOptions[] {
 
 
 export function getSdgGoals(data : any) :CustomOptions[] {
-	let sgdArr : any[] = [];
+	let sgdArr : any[] = []; 
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		sgdArr.push({value: item.id, label: item.goals_name});
 	});
@@ -237,7 +284,9 @@ export function getSdgGoals(data : any) :CustomOptions[] {
 } 
 
 export function getPatentStatus(data : any) :CustomOptions[] {
-	let statusArr : any[] = [];
+	let statusArr : any[] = []; 
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		statusArr.push({value: item.id, label: item.patent_status});
 	});
@@ -247,7 +296,9 @@ export function getPatentStatus(data : any) :CustomOptions[] {
 
 
 export function getInventionType(data : any) :CustomOptions[] {
-	let inventionArr : any[] = [];
+	let inventionArr : any[] = []; 
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		inventionArr.push({value: item.id, label: item.invention_type});
 	});
@@ -258,7 +309,9 @@ export function getInventionType(data : any) :CustomOptions[] {
 
 
 export function getApplicantNames(data : any) :CustomOptions[] {
-	let statusArr : any[] = [];
+	let statusArr : any[] = []; 
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		statusArr.push({value: item.id, label: item.name});
 	});
@@ -268,7 +321,9 @@ export function getApplicantNames(data : any) :CustomOptions[] {
 
 
 export function getMasterInputType(data : any) :CustomOptions[] {
-	let statusArr : any[] = [];
+	let statusArr : any[] = []; 
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		statusArr.push({value: item.id, label: item.name});
 	});
@@ -277,7 +332,9 @@ export function getMasterInputType(data : any) :CustomOptions[] {
 } 
 
 export function getFormLevel(data:any) : CustomOptions[] {
-	let inputFieldsArr : any[] = [];
+	let inputFieldsArr : any[] = []; 
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		let label = item.abbr === 'cp' ? 'Approve' : 'Reject'
 		inputFieldsArr.push({value: item.id, label: label});
@@ -289,6 +346,8 @@ export function getFormLevel(data:any) : CustomOptions[] {
 export function getDynamicDropdown(data: any): CustomOptions[] {
 	console.log('dynamic dropdown', JSON.stringify(data));
 	let inputFieldsArr: CustomOptions[] = [];
+	if(!data) return [];
+
   
 	data.forEach((item: any) => {
 		inputFieldsArr.push({ value: item.value, label: item.label });	  
@@ -299,7 +358,9 @@ export function getDynamicDropdown(data: any): CustomOptions[] {
 
 export function getFormModules(data:any) : CustomOptions[] {
 	console.log('dynamic dropdown',JSON.stringify(data))
-	let inputFieldsArr : CustomOptions[] = [];
+	let inputFieldsArr : CustomOptions[] = []; 
+	if(!data) return [];
+
 	data.forEach((item : any) => {
 		inputFieldsArr.push({value: item.url, label: item.module_name});
 	});

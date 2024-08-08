@@ -37,6 +37,11 @@
 	$: school = nmimsSchool;
 	$: campus = nmimsCampus;
 
+	// $: nmimsAuth = nmimsAuthors.length ? nmimsAuthors : [];
+	// $: allAuth = allAuthors.length ? allAuthors : [] ;
+	// $: school = nmimsSchool.length ? nmimsSchool : [];
+	// $: campus = nmimsCampus.length ? nmimsCampus: [];
+
 	let obj : any = {
 		nmims_school: null,
 		nmims_campus: null,
