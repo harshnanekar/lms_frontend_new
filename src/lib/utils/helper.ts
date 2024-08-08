@@ -42,3 +42,21 @@ export function createFileUrlFilter(files: any, typeAbbr: string) {
 
     return filesData;
 }
+
+export const tableObj : any = {
+    1 : "journal-paper",
+    2 : "book-publication",
+    3 : "edited-book-publication",
+    4 : "book-chapter-publication",
+    5 : "conference",
+    6 : "project",
+    7 : "patent-submission-and-grant",
+    8 : "ipr",
+    9 : "award",
+    10 : "e-content",
+    11 : "seminar",
+    12 : "case-study",
+    13 : "teaching-excellance",
+    14 : "meeting-stackholders",
+    15 : "branding-advertisement"
+}

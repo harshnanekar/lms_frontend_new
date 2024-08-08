@@ -3,10 +3,11 @@
 	import { toast } from 'svelte-sonner';
 	import type { InfiniteAdminView } from '$lib/types/modules/research/research-types';
 	import type { InfiniteScrollResult } from '$lib/types/request.types';
-	import { PUBLIC_API_BASE_URL } from '$env/static/public';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import { DynamicSelect } from '$lib/components/ui';
 	import { getFormLevel, getFormModules } from '$lib/utils/select.helper';
 	import { writable } from 'svelte/store';
+	import {tableObj} from "$lib/utils/helper"
 	import {
 		facultyApprovalObj,
 		type facultyObjReq
@@ -14,6 +15,7 @@
 	import { fetchApi } from '$lib/utils/fetcher';
 	import { validateWithZod } from '$lib/utils/validations';
 	import { FormStatus } from '$lib/components/ui';
+	import EyeIcon from '$lib/components/icons/base/eye-icon.svelte';
 
 	export let data: any;
 
@@ -129,6 +131,7 @@
 	}
 
 	$: console.log('response data url ', responseData.data);
+
 </script>
 
 <button class="lms-btn lms-primary-btn ml-auto" on:click={handleSubmit}>Submit</button>
@@ -144,6 +147,7 @@
 					<th class="!text-[15px]">Username</th>
 					<!-- <th class="!text-[15px]">Form Name</th> -->
 					<th class="!text-[15px]">Select Status</th>
+					<th class="!text-[15px]">View Form</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -184,6 +188,7 @@
 								<FormStatus status={faculty.status} />
 							{/if}
 						</td>
+						<td><a href="{PUBLIC_BASE_URL}{tableObj[data.id]}/view/{faculty.research_form_id}"><EyeIcon fill="black"/></a></td>
 					</tr>
 				{/each}
 			</tbody>
