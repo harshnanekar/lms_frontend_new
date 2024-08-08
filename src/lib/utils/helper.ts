@@ -44,19 +44,19 @@ export function createFileUrlFilter(files: any, typeAbbr: string) {
 }
 
 export const tableObj : any = {
-    1 : "journal-paper",
-    2 : "book-publication",
-    3 : "edited-book-publication",
-    4 : "book-chapter-publication",
-    5 : "conference",
-    6 : "project",
-    7 : "patent-submission-and-grant",
-    8 : "ipr",
-    9 : "award",
-    10 : "e-content",
-    11 : "seminar",
-    12 : "case-study",
-    13 : "teaching-excellance",
-    14 : "meeting-stackholders",
-    15 : "branding-advertisement"
+    1 : {name:"journal-paper" , abbr : ""},
+    2 : {name :"book-publication",abbr: ""},
+    3 : {name :"edited-book-publication",abbr:""},
+    4 : {name:"book-chapter-publication",abbr:""},
+    5 : {name:"conference",abbr:""},
+    6 : {name:"project",abbr:""},
+    7 : {name:"patent-submission-and-grant",abbr:""},
+    8 : {name:"ipr",abbr:""},
+    9 : {name:"award",abbr:""},
+    10 : {name:"e-content",abbr:""},
+    11 : {name:"seminars",abbr:""},
+    12 : {name:"case-study",abbr:""},
+    13 : {name:"teaching-meeting-branding",abbr:"/te"},
+    14 : {name:"teaching-meeting-branding",abbr:"/ms"},
+    15 : {name:"teaching-meeting-branding",abbr:"/ba"} 
 }
