@@ -316,7 +316,7 @@
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
 <Card {title}>
-	<div class="modal-content p-4">
+	<div class="p-4">
 		<!-- Adjust max-height as needed -->
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<DynamicSelect
@@ -447,35 +447,24 @@
 			<Input type="text" placeholder="WebLink /DOI No." bind:value={obj.doi_no} />
 			<Input type="number" placeholder="Amount Spent In RS. By NMIMS" bind:value={obj.amount} />
 		</div>
-		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
-			<div class="ml-2">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
+		<div class="grid grid-cols-1 p-4 lg:p-8 md:grid-cols-3 lg:grid-cols-3 gap-4 items-center">
+			<div>
 				<label class="text-sm text-[#888888]"
 					>Name Of Co-Authors<span class="text-danger text-sm">*</span>
 				</label>
-				<div class="mt-4 flex items-center gap-8">
-					<div class="flex items-center">
-						<input
-							id="internal-checkbox"
-							type="checkbox"
-							class="lms-input-radio w-4"
-							bind:checked={showInternal}
-						/>
-						<label for="internal-checkbox" class="lms-label">Internal</label>
-					</div>
-					<div class="flex items-center">
-						<input
-							id="external-checkbox"
-							type="checkbox"
-							class="lms-input-radio w-4"
-							bind:checked={showExternal}
-						/>
-						<label for="external-checkbox" class="lms-label">External</label>
-					</div>
-				</div>
-
-				<div class="flex items-center gap-x-4 mt-4">
+				<div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
 					<div>
+						<div  class="flex items-center mb-2">
+							<input
+								id="internal-checkbox"
+								type="checkbox"
+								class="lms-input-radio w-4"
+								bind:checked={showInternal}
+							/>
+							<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
+								>Internal</label
+							>
+						</div>
 						{#if showInternal}
 							<DynamicSelect
 								isRequired={true}
@@ -486,8 +475,18 @@
 							/>
 						{/if}
 					</div>
-
 					<div>
+						<div class="flex items-center mb-2">
+							<input
+							id="external-checkbox"
+							type="checkbox"
+							class="lms-input-radio w-4"
+							bind:checked={showExternal}
+							/>
+							<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
+								>External</label
+							>
+						</div>
 						{#if showExternal}
 							<DynamicSelect
 								isRequired={true}
@@ -499,9 +498,25 @@
 						{/if}
 					</div>
 				</div>
-			</div>
-			
+			</div> 
+
 			<div class="space-y-2">
+				<label class="text-sm text-[#888888]"
+					>Upload Award Documents<span class="text-danger text-sm">*</span>
+				</label>
+				<File
+					isCombine={true}
+					on:filesSelected={(event) => handleAwardFiles(event, 'ad')}
+					on:deletedFiles={(event) => handleDeleteFiles(event, 'ad')}
+					on:previewFile={previewAwardFile}
+					isView={false}
+				/>
+				{#if awardFiles.length > 0}
+    				{@const filesString = awardFiles.length > 1 ? 'Files' : 'File'}
+				      <p class="lms-label">{awardFiles.length} {filesString} Uploaded</p>
+				{/if}
+			</div> 
+			<div class="space-y-2 ">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
 					>Upload Conference Documents<span class="text-danger text-sm">*</span>
@@ -520,29 +535,16 @@
 				{/if}
 			</div>
 
-			<div class="space-y-2">
-				<label class="text-sm text-[#888888]"
-					>Upload Award Documents<span class="text-danger text-sm">*</span>
-				</label>
-				<File
-					isCombine={true}
-					on:filesSelected={(event) => handleAwardFiles(event, 'ad')}
-					on:deletedFiles={(event) => handleDeleteFiles(event, 'ad')}
-					on:previewFile={previewAwardFile}
-					isView={false}
-				/>
-				{#if awardFiles.length > 0}
-    				{@const filesString = awardFiles.length > 1 ? 'Files' : 'File'}
-				      <p class="lms-label">{awardFiles.length} {filesString} Uploaded</p>
-				{/if}
-			</div>
+			
+			
 
  
 
 		</div>
-		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
-
-			<div class="flex md:flex-row">
+		<div class="grid grid-cols-1 p-4 lg:p-8 md:grid-cols-3 lg:grid-cols-2 gap-4 items-center">
+			
+			
+			<div class="flex flex-wrap">
 				<DatePicker
 					on:change={handleDateChange}
 					bind:selectedDateTime={publicationDate}
@@ -574,6 +576,10 @@
 					</div>
 				{/if}
 			</div>
+
+			
+
+			
 
 
 		</div>

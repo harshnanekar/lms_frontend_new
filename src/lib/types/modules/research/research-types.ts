@@ -39,6 +39,7 @@ export type JournalPaper = {
 };
 
 export type JournalView = {
+	id: number;
 	nmims_school : string[],
 	nmims_campus : string[],
 	publish_year :  number,
@@ -115,6 +116,7 @@ export type BookChapterDetails = {
 };
 
 export type TeachingView = {
+	id: number;
 	pedagogy_innovation: string;
 	fdp_program: string;
 	student_workshops: string;
@@ -123,6 +125,7 @@ export type TeachingView = {
 };
 
 export type MeetingView = {
+	id: number;
 	ranking: string;
 	accreditation: string;
 	achievements: string;
@@ -146,6 +149,7 @@ export type MeetingView = {
  }
 
  export type CaseStudyView = {
+   id: number;
    title:string,
    all_authors :string,
    edition :string,
@@ -155,6 +159,7 @@ export type MeetingView = {
  }
 
  export type ResearchSeminarView = {
+	id: number;
 	nmims_school : string[],
 	nmims_campus : string[],
 	research_date : Date,
@@ -164,6 +169,7 @@ export type MeetingView = {
  }
 
  export type EContentView = {
+	id: number;
 	faculty_name : string,
 	module : string,
 	module_platform : string,
@@ -173,6 +179,7 @@ export type MeetingView = {
  }
 
  export type ResearchAwardView = {
+ id: number;
  nmims_school : string[],
  nmims_campus : string[],
  faculty_name : string,

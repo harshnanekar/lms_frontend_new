@@ -108,7 +108,7 @@
 		console.log('delete button clicked', patentId);
 		isOpen.set(false);
 
-        const { error, json } = await fetchApi({
+        const { error, json } : any = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/patent-submission-and-grant-delete?id=${patentId}`,
 			method: 'GET'
 		});

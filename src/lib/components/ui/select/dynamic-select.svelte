@@ -281,7 +281,6 @@
 	export let isprePopulate = false;
 	export let isMultiSelect = false;
 	export let disabled = false;
-	
 
 	let dropdownRef: HTMLElement;
 	let buttonRef: HTMLElement;
@@ -336,7 +335,7 @@
 		if (!url) return ($isLoading = false);
 
 		if (options.length === 0) {
-			const res : any = await fetchOptions(url, dependsOn, '', '');
+			const res: any = await fetchOptions(url, dependsOn, '', '');
 			if (res.json) {
 				options = res.json.data;
 				nextCursor.set(res.json.nextCursor || '');
@@ -359,7 +358,7 @@
 						options = [...options, ...res.json.data];
 						nextCursor.set(res.json.nextCursor || '');
 					} else {
-						errorMsg.set(res.error.message);
+						errorMsg.set(res.error?.message || "Something went wrong!");
 					}
 					$isLoading = false;
 				}
@@ -424,21 +423,21 @@
 				selectedOptions = [];
 			}
 			// Check if the option is already selected to avoid duplicates
-			if (!selectedOptions.find((opt) => opt.value === selected.value)) {
+			if (!selectedOptions.find((opt) => opt?.value === selected?.value)) {
 				selectedOptions = [...selectedOptions, selected];
 				closeDropdown();
 			}
 		} else {
-			console.log('appended select')
+			console.log('appended select');
 			selectedOptions = selected;
 			closeDropdown();
 		}
-		dispatch('change',{value:selectedOptions});
+		dispatch('change', { value: selectedOptions });
 	}
 
 	function removeOption(option: CustomOptions) {
 		if (Array.isArray(selectedOptions)) {
-			selectedOptions = selectedOptions.filter((opt) => opt.value !== option.value);
+			selectedOptions = selectedOptions.filter((opt) => opt?.value !== option?.value);
 		}
 	}
 
@@ -449,11 +448,11 @@
 			selectedOptions = isMultiSelect ? [] : null;
 		}
 	}
-	$: checkOptions = selectedOptions;
-	export let inputClass= '';
+	export let inputClass = '';
+
 </script>
 
-<div class="lms-custom-select-wrapper relative inline-block {inputClass}">
+<div class="lms-custom-select-wrapper w-full relative inline-block {inputClass}">
 	<div>
 		<button
 			type="button"
@@ -464,7 +463,7 @@
 			bind:this={buttonRef}
 			{disabled}
 		>
-			{#if checkOptions === null || checkOptions === undefined}
+			{#if selectedOptions === null || selectedOptions === undefined || (Array.isArray(selectedOptions) && selectedOptions.length === 0)}
 				{placeholder}
 			{/if}
 
@@ -483,10 +482,10 @@
 						{/if} -->
 					{/if}
 				</div>
-			{:else if selectedOptions}
+			{:else if selectedOptions && !Array.isArray(selectedOptions)}
 				{selectedOptions.label}
 			{/if}
-			<div class="placeholder" class:active={selectedOptions}>
+			<div class="placeholder" class:active={selectedOptions && (Array.isArray(selectedOptions) && selectedOptions.length > 0)}>
 				{placeholder}
 				{#if isRequired}
 					<span class="required">*</span>
@@ -541,15 +540,15 @@
 						<button type="submit" class="absolute right-0 top-0 mr-4 mt-2">
 							<SearchIcon />
 						</button>
+						<SelectList
+							isLoading={$isLoading}
+							{options}
+							errorMsg={$errorMsg}
+							{isMultiSelect}
+							selectedOptions={Array.isArray(selectedOptions) ? selectedOptions : []}
+							on:select={selectOption}
+						/>
 					{/if}
-					<SelectList
-						isLoading={$isLoading}
-						{options}
-						errorMsg={$errorMsg}
-						{isMultiSelect}
-						selectedOptions={Array.isArray(selectedOptions) ? selectedOptions : []}
-						on:select={selectOption}
-					/>
 				</div>
 			</div>
 		</div>

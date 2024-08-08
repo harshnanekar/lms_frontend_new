@@ -96,7 +96,7 @@
 	async function handleDelete() {
 		console.log('delete', caseStudyId);
 		isOpen.set(false);
-		const { error, json } = await fetchApi({
+		const { error, json } : any = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/case-study-delete?id=${caseStudyId}`,
 			method: 'GET'
 		});

@@ -96,7 +96,7 @@
 	async function handleDelete() {
 		console.log('delete', facultyId);
 		isOpen.set(false);
-		const { error, json } = await fetchApi({
+		const { error, json } : any = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/master-input-data-delete?id=${facultyId}`,
 			method: 'GET'
 		});

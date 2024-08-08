@@ -108,7 +108,7 @@
 	async function handleDelete() {
 		console.log('delete', teachingId);
 		isOpen.set(false);
-		const { error, json } = await fetchApi({
+		const { error, json } : any = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/teaching-excellance-delete?id=${teachingId}`,
 			method: 'GET'
 		});

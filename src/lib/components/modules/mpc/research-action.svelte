@@ -117,7 +117,7 @@
 
 		console.log('delete', journalId);
 		isOpen.set(false);
-		const { error, json } = await fetchApi({
+		const { error, json } : any = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/journal-article-delete?id=${journalId}`,
 			method: 'GET'
 		});

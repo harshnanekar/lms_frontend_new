@@ -97,7 +97,7 @@
 
 		console.log('delete', researchId);
 		isOpen.set(false);
-		const { error, json } = await fetchApi({
+		const { error, json } : any = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/research-award-delete?id=${researchId}`,
 			method: 'GET'
 		});

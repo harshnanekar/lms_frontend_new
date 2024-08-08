@@ -311,7 +311,7 @@
 			console.log(`${key}: ${value}`);
 		}
 
-		const { error, json } = await fetchFormApi<updateConferenceStatus[]>({
+		const { error, json } : any = await fetchFormApi<updateConferenceStatus[]>({
 			url: `${PUBLIC_API_BASE_URL}/conference-update`,
 			method: 'POST',
 			body: formData
@@ -362,7 +362,7 @@
 
 <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
 <Card {title}>
-	<div class="modal-content p-4">
+	<div class=" p-4">
 		<!-- Adjust max-height as needed -->
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<DynamicSelect
@@ -494,36 +494,25 @@
 			<Input type="number" placeholder="Amount Spent In RS. By NMIMS" bind:value={obj.amount} />
 		</div>
 
-		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
-			<div class="ml-2">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
+		<div class="grid grid-cols-1 p-4 lg:p-8 md:grid-cols-3 lg:grid-cols-3 gap-4 items-center">
+			<div>
 				<label class="text-sm text-[#888888]"
 					>Name Of Co-Authors<span class="text-danger text-sm">*</span>
 				</label>
-				<div class="mt-4 flex items-center gap-8">
-					<div class="flex items-center">
-						<input
-							id="internal-checkbox"
-							type="checkbox"
-							class="lms-input-radio w-4"
-							bind:checked={showInternal}
-						/>
-						<label for="internal-checkbox" class="lms-label">Internal</label>
-					</div>
-					<div class="flex items-center">
-						<input
-							id="external-checkbox"
-							type="checkbox"
-							class="lms-input-radio w-4"
-							bind:checked={showExternal}
-						/>
-						<label for="external-checkbox" class="lms-label">External</label>
-					</div>
-				</div>
-
-				<div class="flex items-center gap-x-4 mt-4">
+				<div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
 					<div>
-						{#if showInternalFaculty}
+						<div  class="flex items-center mb-2">
+							<input
+								id="internal-checkbox"
+								type="checkbox"
+								class="lms-input-radio w-4"
+								bind:checked={showInternal}
+							/>
+							<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
+								>Internal</label
+							>
+						</div>
+						{#if showInternal}
 							<DynamicSelect
 								isRequired={true}
 								placeholder="Internal Authors"
@@ -533,9 +522,19 @@
 							/>
 						{/if}
 					</div>
-
 					<div>
-						{#if showExternalFaculty}
+						<div class="flex items-center mb-2">
+							<input
+							id="external-checkbox"
+							type="checkbox"
+							class="lms-input-radio w-4"
+							bind:checked={showExternal}
+							/>
+							<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
+								>External</label
+							>
+						</div>
+						{#if showExternal}
 							<DynamicSelect
 								isRequired={true}
 								placeholder="External Authors"
@@ -546,8 +545,9 @@
 						{/if}
 					</div>
 				</div>
-			</div>
-			<div class="space-y-4">
+			</div>  
+			
+			<div class="pace-y-2">
 				<label for="text-sm text-[#888888]" class="lms-label"
 					>Upload Conference Documents <i style="color: red;">*</i><br /></label
 				>
@@ -575,7 +575,7 @@
 			</div>
 			<!-- svelte-ignore a11y-label-has-associated-control -->
 			<!-- Upload Conference Documents Any Award -->
-			<div class="space-y-4">
+			<div class="pace-y-2">
 				<label for="text-sm text-[#888888]" class="lms-label"
 					>Upload Award Documents <i style="color: red;">*</i><br /></label
 				>
@@ -608,7 +608,7 @@
 			<!-- Upload Conference Documents -->
 		
 		</div>
-		<div class="flex md:flex-row gap-4">
+		<div class="flex flex-wrap">
 			<DatePicker
 				on:change={handleDateChange}
 				bind:selectedDateTime={publicationDate}

@@ -96,7 +96,7 @@
 	async function handleDelete() {
 		console.log('delete', brandingId);
 		isOpen.set(false);
-		const { error, json } = await fetchApi({
+		const { error, json } : any = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/branding-advertisement-delete?id=${brandingId}`,
 			method: 'GET'
 		});

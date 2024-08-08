@@ -99,7 +99,7 @@
 		console.log('delete button clicked', edited_publication_id);
 		isOpen.set(false);
 
-		const { error, json } = await fetchApi({
+		const { error, json } : any = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/edited-book-publication-delete?id=${edited_publication_id}`,
 			method: 'GET'
 		});

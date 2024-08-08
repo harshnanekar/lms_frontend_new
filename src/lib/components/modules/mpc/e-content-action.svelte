@@ -96,7 +96,7 @@
 	async function handleDelete() {
 		console.log('delete', eContentId);
 		isOpen.set(false);
-		const { error, json } = await fetchApi({
+		const { error, json } : any = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/delete-e-content?id=${eContentId}`,
 			method: 'GET'
 		});

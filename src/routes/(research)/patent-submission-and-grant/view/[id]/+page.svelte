@@ -122,9 +122,9 @@
 
 {#if checkData}
 	<Card {title}>
-		<div class="modal-content p-4">
+		<div class="p-4">
 			<!-- Adjust max-height as needed -->
-			<div class="grid md:grid-cols-3 lg:grid-cols-3 gap-8 items-center p-4">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 				<Input
 					type="text"
 					placeholder="Title of Patent / Invention"
@@ -139,7 +139,7 @@
 				/>
 				<Input type="text" placeholder="Patent Status" bind:value={obj.patent_status} {disabled} />
 			</div>
-			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-center p-4">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 				<Input
 					type="text"
 					placeholder="Sustainable Development Goals"
@@ -166,7 +166,7 @@
 				</div>
 			</div>
 
-			<div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8 items-center p-4">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3 items-center">
 				<Input
 					type="text"
 					placeholder="Names Of  Internal  Inventors"
@@ -178,30 +178,32 @@
 					placeholder="Names Of External Inventors"
 					value={obj.external_faculty_details}
 					{disabled}
-				/>
-			</div>
-			<div class="flex md:flex-row mt-4 gap-4">
-				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-					<SelectDateIcon />
-					<span class="text-body-2 font-bold">Date of Filing/Grant/Published</span>
-				</div>
-				{#if publicationFormattedDate}
-					{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
-					<div
-						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-						in:fly={{ x: -100, duration: 300 }}
-						out:fly={{ x: 100, duration: 300 }}
-					>
-						<p class="m-0 p-0">{formattedDate}</p>
-						<button
-							use:tooltip={{
-								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-							}}
-						>
-						</button>
+				/> 
+
+				<div class="flex flex-wrap">
+					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+						<SelectDateIcon />
+						<span class="text-body-2 font-bold">Date of Filing/Grant/Published</span>
 					</div>
-				{/if}
+					{#if publicationFormattedDate}
+						{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
+						<div
+							class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+							in:fly={{ x: -100, duration: 300 }}
+							out:fly={{ x: 100, duration: 300 }}
+						>
+							<p class="m-0 p-0">{formattedDate}</p>
+							<button
+								use:tooltip={{
+									content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+								}}
+							>
+							</button>
+						</div>
+					{/if}
+				</div>
 			</div>
+			
 			
 		</div>
 	</Card>

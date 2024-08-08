@@ -97,7 +97,7 @@
 		console.log('delete button clicked', chapterPublicationId);
 		isOpen.set(false);
 
-        const { error, json } = await fetchApi({
+        const { error, json } : any = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/book-chapter-publication-delete?id=${chapterPublicationId}`,
 			method: 'GET'
 		});
