@@ -59,6 +59,8 @@
 	$: school = nmimsSchool;
 	$: campus = nmimsCampus;
 
+	console.log('nmims school ',JSON.stringify(data.journalData))
+
 	let publicationDate: Date | null = new Date();
 	publicationDate = null;
 	$: publicationFormattedDate = publicationDate;

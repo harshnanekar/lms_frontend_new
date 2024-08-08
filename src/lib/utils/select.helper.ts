@@ -40,7 +40,7 @@ export function getPaperType(data : any) :CustomOptions[] {
 export function getSchool(data : any) :CustomOptions[] {
 	let schoolArr : any[] = [];
 	data.forEach((item : any) => {
-		schoolArr.push({value: item.school_name, label: item.school_name});
+		schoolArr.push({value: item.school_name, label: item.organization_name});
 	});
   
 	return schoolArr;
