@@ -284,7 +284,9 @@ export const ADMIN_SIDEBAR = [
 				},
 			]
 		},
-]
+
+]  
+
 
 export const obj = [
 	{
