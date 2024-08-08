@@ -53,27 +53,27 @@
 	console.log('nmims school ', JSON.stringify(data.adminData.modules));
 
 	let filters = [
-		// {
-		// 	name: 'school',
-		// 	label: 'Select School',
-		// 	options: school.map((data: any) => {
-		// 		return { value: data.id, label: data.organization_name };
-		// 	})
-		// },
-		// {
-		// 	name: 'campus',
-		// 	label: 'Select Campus',
-		// 	options: campus.map((data: any) => {
-		// 		return { value: data.id, label: data.campus_name };
-		// 	})
-		// },
-		// {
-		// 	name: 'status',
-		// 	label: 'Select Status',
-		// 	options: level.map((data: any) => {
-		// 		return { value: data.id, label: data.status };
-		// 	})
-		// }
+		{
+			name: 'school',
+			label: 'Select School',
+			options: school.map((data: any) => {
+				return { value: data.id, label: data.organization_name };
+			})
+		},
+		{
+			name: 'campus',
+			label: 'Select Campus',
+			options: campus.map((data: any) => {
+				return { value: data.id, label: data.campus_name };
+			})
+		},
+		{
+			name: 'status',
+			label: 'Select Status',
+			options: level.map((data: any) => {
+				return { value: data.id, label: data.status };
+			})
+		}
 	];
 
 	let facultyData: any = [];

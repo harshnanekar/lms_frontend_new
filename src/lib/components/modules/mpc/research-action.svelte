@@ -77,26 +77,6 @@
 	const openModal = async () => {
 		console.log('click called')
 
-		// const { error, json } = await fetchApi({
-		// 	url: `${PUBLIC_API_BASE_URL}/check-journal-form-status?id=${journalId}`,
-		// 	method: 'GET'
-		// });
-
-		// if (error) {
-
-		// 	toast.error(error.message || 'Something went wrong!', {
-		// 		description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
-		// 	});
-		// 	return;
-		// }
-
-		// console.log('form ',JSON.stringify(json))
-        // const status = json[0].journal_form_status.message[0].abbr;
-		// const message = json[0].journal_form_status.message[0].status;
-
-		// if(status !== 're'){
-		// 	toast.error(`Cannot delete, as ${message}`);
-		// }else{
 			const message = 'Are you sure you want to delete this?';
 			confirmStore.set({
 				isVisible:true,
@@ -106,7 +86,7 @@
 			actionStore.set({
 					callback: handleDelete
 			});		
-	    // }		
+	    
 	};
 
 	const closeModal = () => {
@@ -141,31 +121,6 @@
 		}
 	}
 
-	async function handleEdit(){
-		// const { error, json } = await fetchApi({
-		// 	url: `${PUBLIC_API_BASE_URL}/check-journal-form-status?id=${journalId}`,
-		// 	method: 'GET'
-		// });
-
-		// if (error) {
-
-		// 	toast.error(error.message || 'Something went wrong!', {
-		// 		description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
-		// 	});
-		// 	return;
-		// }
-
-		// console.log('form ',JSON.stringify(json))
-        // const status = json[0].journal_form_status.message[0].abbr;
-		// const message = json[0].journal_form_status.message[0].status;
-
-		// if(status !== 're'){
-		// 	toast.error(`Cannot edit, as ${message}`);
-		// }else{
-			goto(`${PUBLIC_BASE_URL}journal-paper/edit/${journalId}`)
-		// }
-	}
-
     $: console.log('action data ',actionData)
 </script>
 
@@ -187,11 +142,11 @@
 					role="menuitem">View</a
 				>
 				{#if actionData.status == 're'}
-					<button
-						on:click={handleEdit}
-						class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
-						role="menuitem">Edit</button
-					>
+				<a
+					href="{PUBLIC_BASE_URL}journal-paper/edit/{actionData.id}"
+					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+					role="menuitem">Edit</a
+				>
 					<button
 						on:click={openModal}
 						class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
