@@ -534,6 +534,10 @@
 						on:deletedFiles={handleDeleteFiles}
 						isView={false}
 					/>
+					{#if files.length > 0}
+					{@const fileString = files.length > 1 ? 'Files' : 'File' }
+						<p class="lms-label">{files.length} {fileString} Uploaded</p>
+					{/if}
 				{:else}
 					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
 						><i class="fa-solid fa-download text-md"></i></button
