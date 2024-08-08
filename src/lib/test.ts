@@ -222,7 +222,7 @@ export const ADMIN_SIDEBAR = [
 				{
 					url: `${PUBLIC_BASE_URL}form-approval/7`,
 					icon: 'patent-submission',
-					label: 'Research Submission & Grants',
+					label: 'Patent Submission & Grants',
 					module: null,
 					child: []
 				},

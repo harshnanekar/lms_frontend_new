@@ -132,6 +132,8 @@
 
 	$: console.log('response data url ', responseData.data);
 
+
+
 </script>
 
 <button class="lms-btn lms-primary-btn ml-auto" on:click={handleSubmit}>Submit</button>
@@ -188,7 +190,7 @@
 								<FormStatus status={faculty.status} />
 							{/if}
 						</td>
-						<td><a href="{PUBLIC_BASE_URL}{tableObj[data.id]}/view/{faculty.research_form_id}"><EyeIcon fill="black"/></a></td>
+						<td><a href="{PUBLIC_BASE_URL}{tableObj[data.id].name}/view/{faculty.research_form_id}{tableObj[data.id].abbr}"><EyeIcon fill="black"/></a></td>
 					</tr>
 				{/each}
 			</tbody>
