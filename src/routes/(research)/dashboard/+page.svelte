@@ -12,8 +12,7 @@ console.log('dashboard modules ',JSON.stringify(data.dashboardData))
 <div class="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-8">
   {#each dashboard as ds}
   <a href={ds.url}>
-    <div class="p-8 border shadow-card rounded-2xl grid grid-cols-1 place-items-center border-[#e5e9f1]">
-      <div class="flex items-center">
+      <div class="p-8 border shadow-card rounded-2xl flex items-center">
           <svelte:component
               this={SIDEBAR_ICON[ds.icon]}
               fill="black"
@@ -22,7 +21,6 @@ console.log('dashboard modules ',JSON.stringify(data.dashboardData))
           />
           <p class="text-center font-semibold ml-4">{ds.module_name}</p>
       </div>
-  </div>
   </a>
   {/each}
 </div>

@@ -9,7 +9,11 @@
 	import { fetchApi } from '$lib/utils/fetcher';
 	import type { PaginationResult } from '$lib/types/request.types';
 	import SearchIcon from '$lib/components/icons/base/search-icon.svelte';
-	import { FormStatus } from '$lib/components/ui';
+	import { FormStatus, Modal } from '$lib/components/ui';
+	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
+
+const isOpen = writable(false);
+let modalwidthPercent: ModalSizes = 'md';
 
 	interface FilterOption {
 		name: string;
@@ -169,6 +173,20 @@
 	function handleCustomEvent(event) {
 		console.log('Received custom event:', event.detail);
 	}
+
+	let remarks : string;
+	$: remarkText = remarks
+
+	const openModal = (size: ModalSizes,facultyRemarks : string) => {
+			console.log('faculty object ',JSON.stringify(facultyRemarks))
+			modalwidthPercent = size;
+			remarks = facultyRemarks
+			isOpen.set(true);
+		};
+
+		const closeModal = () => {
+			isOpen.set(false);
+		};
 </script>
 
 <div>
@@ -242,7 +260,9 @@
 						<tr>
 							{#each header as column}
 							    {#if column.key === 'status'}
-								<FormStatus status={item[column.key]} inputClass="mt-4" />
+								<td><FormStatus status={item[column.key]}/></td>
+								{:else if column.key === 'remarks'}
+								<td><button class="lms-btn lms-secondary-btn" on:click={() => openModal('md',item[column.key])}>Remarks</button></td>
 								{:else}
 								<td class={column.classes}>{item[column.key]}</td>
 								{/if}
@@ -300,6 +320,26 @@
 		{/if}
 	{/if}
 </div>
+
+<Modal bind:isOpen={$isOpen} size={modalwidthPercent} on:close={closeModal}>
+	<div slot="header">
+		<div class="border-b p-4">
+			<h2 class="text-lg font-semibold">Remarks</h2>
+		</div>
+	</div>
+	<svalte:fragment slot="body">
+		<div class="flex flex-col min-h-[50vh] p-4">
+			<textarea class="lms-input flex-grow resize-none" 
+			value = {remarkText} disabled={true}></textarea>
+		</div>
+	</svalte:fragment>
+	<div slot="footer">
+		<div class="border-t flex md:flex-row gap-4 p-4">
+			<button class="lms-btn lms-primary-btn" on:click={closeModal}>Close</button>
+			<!-- <button class="lms-btn lms-primary-btn" on:click={(e) => updateFacultyStatus($facultyObj.form_id, e?.target?.value,'remarks')}>Add</button> -->
+		</div>
+	</div>
+</Modal>
 
 <style>
 	.filters {
