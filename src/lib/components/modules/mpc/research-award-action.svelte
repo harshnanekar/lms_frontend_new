@@ -140,16 +140,18 @@
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">View</a
 				>
-				<a
-					href="{PUBLIC_BASE_URL}award/edit/{actionData.id}"
-					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
-					role="menuitem">Edit</a
-				>
-				<button
-					on:click={openModal}
-					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
-					role="menuitem">Delete</button
-				>
+				{#if actionData.status == 're'}
+					<a
+						href="{PUBLIC_BASE_URL}award/edit/{actionData.id}"
+						class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+						role="menuitem">Edit</a
+					>
+					<button
+						on:click={openModal}
+						class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+						role="menuitem">Delete</button
+					>
+				{/if}
 			</div>
 		</div>
 	{/if}

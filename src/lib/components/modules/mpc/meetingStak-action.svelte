@@ -130,11 +130,13 @@
 			style="top: {$menuPosition.top}px; left: {$menuPosition.left}px;"
 		>
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+				
 				<a
 					href="{PUBLIC_BASE_URL}teaching-meeting-branding/view/{actionData.id}/ms"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">View</a
 				>
+				{#if actionData.status == 're'}
 				<a
 					href="{PUBLIC_BASE_URL}teaching-meeting-branding/edit/{actionData.id}/ms"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
@@ -145,6 +147,7 @@
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
 					role="menuitem">Delete</button
 				>
+				{/if}
 			</div>
 		</div>
 	{/if}

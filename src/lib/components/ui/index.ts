@@ -1,7 +1,7 @@
 import { Input, Textarea, Toggle ,File } from './input';
 import Image from './image.svelte';
 import DatePicker from './date-picker.svelte';
-import { SkeletonLoader, TableSkeletonLoader } from './loaders';
+import { skeletonLoader, loadingLoader } from './loaders';
 import { FormStatus } from './status';
 import { Accordion, AccordionItem } from './accordian';
 import { DynamicSelect } from './select';
@@ -25,10 +25,10 @@ export {
 	Textarea,
 	DatePicker,
 	Toggle,
-	SkeletonLoader,
+	skeletonLoader,
 	File,
 	FormStatus,
-	TableSkeletonLoader,
+	loadingLoader,
 	CustomConfirm,
 	ProfileDropDown
 };

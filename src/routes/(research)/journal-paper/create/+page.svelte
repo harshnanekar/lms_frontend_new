@@ -169,7 +169,7 @@
 				return f.file;
 			})
 		};
-		console.log('fileObject ', fileObject);
+		console.log('journal object ', JSON.stringify(journalObject));
 
 		const fileresult = validateWithZod(fileSchema, fileObject);
 		if (fileresult.errors) {

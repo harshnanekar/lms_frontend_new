@@ -29,7 +29,7 @@ async function handleSubmit() {
     return;
   }
 
-  const { error, json } = await fetchApi({
+  const { error, json } : any = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/verify-login`,
 			method: 'POST',
 			body: {

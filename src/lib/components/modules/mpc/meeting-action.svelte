@@ -73,6 +73,7 @@
 				<button class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
 					>View</button
 				>
+				{#if actionData.status == 're'}
 				<button class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
 					>Edit</button
 				>
@@ -82,6 +83,7 @@
 					<button class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
 					>Delete</button
 				>
+				{/if}
 			</div>
 		</div>
 	{/if}

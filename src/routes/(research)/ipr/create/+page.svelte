@@ -421,6 +421,10 @@
 					>Upload Supporting Documents<span class="text-primary">*</span></label
 				>
 				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+				{#if files.length > 0}
+				{@const fileString = files.length > 1 ? 'Files' : 'File' }
+				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
+			    {/if}
 			</div>
 
 		

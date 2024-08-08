@@ -1,2 +1,2 @@
-export { default as SkeletonLoader } from './skeleton-loader.svelte';
-export { default as TableSkeletonLoader } from './table-skeleton-loader.svelte';
+export { default as skeletonLoader } from './skeleton-loader.svelte';
+export { default as loadingLoader } from './loading-loader.svelte';
