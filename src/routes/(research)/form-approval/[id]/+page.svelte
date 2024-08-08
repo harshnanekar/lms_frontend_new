@@ -82,7 +82,7 @@
 
 	$: facultyData = responseData.data.map((item: any) => ({
 		...item,
-		form_status: null
+		form_status: null,
 	}));
 
 	function updateFacultyStatus(form_lid: any, value: any, field: string): void {
@@ -149,6 +149,7 @@
 					<th class="!text-[15px]">Username</th>
 					<!-- <th class="!text-[15px]">Form Name</th> -->
 					<th class="!text-[15px]">Select Status</th>
+					<th class="!text-[15px]">Remarks</th>
 					<th class="!text-[15px]">View Form</th>
 				</tr>
 			</thead>
@@ -190,6 +191,7 @@
 								<FormStatus status={faculty.status} />
 							{/if}
 						</td>
+						<td><input type="text" class="lms-input" disabled={faculty.status === 'cp' ? true : false} value={faculty.remarks} /></td>
 						<td><a href="{PUBLIC_BASE_URL}{tableObj[data.id].name}/view/{faculty.research_form_id}{tableObj[data.id].abbr}"><EyeIcon fill="black"/></a></td>
 					</tr>
 				{/each}

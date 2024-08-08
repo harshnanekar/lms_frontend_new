@@ -282,7 +282,9 @@ export const ADMIN_SIDEBAR = [
 					child: []
 				},
 			]
-		},
+		}, 
+
+		
 ]
 
 export const obj = [
