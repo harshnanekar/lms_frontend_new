@@ -22,7 +22,8 @@ import {
 	PublicationIcon,
 	TeachingIcon,
 	BrandingIcon,
-	ApprovalIcon
+	ApprovalIcon,
+	ChronicleIcon
 } from './layout';
 import {
 	ArrowIcon,
@@ -102,5 +103,6 @@ export {
 	RightIcon,
 	LogoutIcon,
 	UsersIcon,
-	ProfileIcon
+	ProfileIcon,
+	ChronicleIcon
 };

@@ -7,8 +7,8 @@ export let data : any;
 let dashboard = data.dashboardData ? data.dashboardData : [];
 console.log('dashboard modules ',JSON.stringify(data.dashboardData))
 
-let hoveredIndex = null;
-function handleMouseEnter(index) {
+let hoveredIndex: number | null = null;
+function handleMouseEnter(index: number | null) {
     hoveredIndex = index;
   }
 
@@ -19,9 +19,10 @@ function handleMouseEnter(index) {
 </script>
 
 {#if dashboard.length > 0}
-<div class="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-8">
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 sm:grid-cols-2 gap-8">
   {#each dashboard as ds,index}
   <a href={ds.url}>
+      <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div class="cardcontent p-8 border shadow-card rounded-2xl flex items-center"
         on:mouseenter={() => handleMouseEnter(index)}
         on:mouseleave={handleMouseLeave}

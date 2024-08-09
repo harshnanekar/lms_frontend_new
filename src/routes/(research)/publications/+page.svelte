@@ -5,17 +5,29 @@ export let data:any;
 console.log('modules ',JSON.stringify(data))
 
 let dashboard = data.dashboardData ? data.dashboardData : []
+
+let hoveredIndex: number | null = null;
+function handleMouseEnter(index: number | null) {
+    hoveredIndex = index;
+  }
+
+function handleMouseLeave() {
+    hoveredIndex = null;
+  }
+
 </script>
 
 
 {#if dashboard.length > 0}
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-  {#each dashboard as ds}
+  {#each dashboard as ds,index}
   <a href={ds.url}>
-      <div class="p-8 border shadow-card rounded-2xl flex items-center">
+      <div class="cardcontent p-8 border shadow-card rounded-2xl flex items-center"
+      on:mouseenter={() => handleMouseEnter(index)}
+      on:mouseleave={handleMouseLeave}>
           <svelte:component
               this={SIDEBAR_ICON[ds.icon]}
-              fill="black"
+              fill={hoveredIndex === index ? "red" : "black"}
               width={36}
               height={32}
           />
@@ -27,3 +39,10 @@ let dashboard = data.dashboardData ? data.dashboardData : []
 {:else}
 <p>No Modules Found!</p>
 {/if}
+
+<style>
+    .cardcontent:hover {
+      transform: scale(1.03);
+      Transition: transform 300ms ease-in-out;
+    }
+</style>

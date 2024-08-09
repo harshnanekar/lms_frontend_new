@@ -52,16 +52,16 @@
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content class="w-56 bg-white">
 			<div class="">
-			<DropdownMenu.Label>{name}</DropdownMenu.Label>
-			<DropdownMenu.Label class="text-xs font-normal italic py-0 mb-1">{email}</DropdownMenu.Label>
-			<DropdownMenu.Label class="text-xs font-normal italic py-0 mb-1">{username}</DropdownMenu.Label>
+			<DropdownMenu.Label>{name ?? ''}</DropdownMenu.Label>
+			<DropdownMenu.Label class="text-xs font-normal italic py-0 mb-1">{email ?? ''}</DropdownMenu.Label>
+			<DropdownMenu.Label class="text-xs font-normal italic py-0 mb-1">{username ?? ''}</DropdownMenu.Label>
 			</div>
 
 			<DropdownMenu.Separator />
 			<hr>
 			  <DropdownMenu.Item>
 				<User class="mr-2 h-4 w-4" />
-				<a href="/profile" class="font-semibold"><span>Profile</span></a>
+				<a href="{PUBLIC_BASE_URL}profile" class="font-semibold"><span>Profile</span></a>
 				
 			  </DropdownMenu.Item>
 			<DropdownMenu.Item on:click={handleLogout}>
