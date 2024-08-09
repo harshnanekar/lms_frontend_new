@@ -274,9 +274,7 @@
 		showInternal = false;
 	}  
 
-	let editorContent = '';
-
-
+	
 </script>
 
 <Card {title}>
@@ -539,8 +537,7 @@
 						</button>
 					</div>
 				{/if}
-			</div>
-			
+			</div>			
 		</div>
 	</div>
 

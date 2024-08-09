@@ -361,7 +361,8 @@ export type ResearchProjectRender = {
 
 	thrust_area: string;
 	status :string;
-};
+	remarks:string;
+}; 
 
 export type ResearchProjectData = {
 	title: string;

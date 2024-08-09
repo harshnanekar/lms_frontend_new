@@ -1152,23 +1152,7 @@ export const ConferenceHeaders: TableHeaders<ConferenceRender>[] = [
 
 
 
-// export type ResearchProjectRender = {
-// 	id: number;
 
-// 	nmims_school: string[];
-
-// 	nmims_campus: string[];
-
-// 	title: string;
-
-// 	funding_amount: number;
-
-// 	funding_agency: string;
-
-	thrust_area: string;
-	status :string;
-	remarks:string;
-}; 
 
 
 
