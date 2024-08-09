@@ -8,8 +8,8 @@ let dashboard = data.dashboardData ? data.dashboardData : [];
 
 console.log('admin dashboard ',JSON.stringify(data.dashboardData))
 
-let hoveredIndex = null;
-function handleMouseEnter(index) {
+let hoveredIndex: number | null = null;
+function handleMouseEnter(index: number | null) {
     hoveredIndex = index;
   }
 
@@ -20,7 +20,7 @@ function handleMouseLeave() {
 </script>
 
 {#if dashboard.length > 0}
-<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="grid grid-cols-1 md:grid-cols-3  lg:grid-cols-3 gap-8">
   {#each dashboard as ds, index}
   
   <!-- {#if ds.abbr === 'bps'}
