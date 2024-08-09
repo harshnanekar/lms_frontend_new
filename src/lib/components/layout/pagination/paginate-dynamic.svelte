@@ -262,7 +262,7 @@ let modalwidthPercent: ModalSizes = 'md';
 							    {#if column.key === 'status'}
 								<td><FormStatus status={item[column.key]}/></td>
 								{:else if column.key === 'remarks'}
-								<td><button class="lms-btn lms-secondary-btn" on:click={() => openModal('md',item[column.key])}>Remarks</button></td>
+								<td><button class="lms-btn lms-secondary-btn" on:click={() => openModal('sm',item[column.key])}>Remarks</button></td>
 								{:else}
 								<td class={column.classes}>{item[column.key]}</td>
 								{/if}

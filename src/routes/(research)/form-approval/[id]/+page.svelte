@@ -27,7 +27,7 @@
 			status: string | null,
 		}
 
-		const facultyObj = writable<faculty>({form_id : null,remarks:null});
+		const facultyObj = writable<faculty>({form_id : null,remarks:null,status:null});
     
 
 		const openModal = (size: ModalSizes,faculty : faculty) => {
@@ -121,7 +121,7 @@
 		const facultyObj: facultyObjReq = facultyData
 			.filter((data: any) => data.form_status != null)
 			.map((dt: any) => {
-				return { form_lid: Number(dt.research_form_id), form_status: Number(dt.form_status),remarks:dt.remarks};
+				return { form_lid: Number(dt.research_form_id), form_status: Number(dt.form_status),remarks:dt.remarks != null ? dt.remarks : 'No Remarks Found !' ,form_status_id : Number(dt.form_status_id)};
 			});
 		console.log('zod faculty ', facultyObj);
 
@@ -181,7 +181,6 @@
 					<th class="!text-[15px]">Firstname</th>
 					<th class="!text-[15px]">Lastname</th>
 					<th class="!text-[15px]">Username</th>
-					<!-- <th class="!text-[15px]">Form Name</th> -->
 					<th class="!text-[15px]">Select Status</th>
 					<th class="!text-[15px]">Remarks</th>
 					<th class="!text-[15px]">View Form</th>
@@ -194,7 +193,6 @@
 						<td>{faculty.first_name}</td>
 						<td>{faculty.last_name}</td>
 						<td>{faculty.username}</td>
-						<!-- <td>{faculty.form_name}</td> -->
 						<td>
 							{#if faculty.status === 'pd'}
 								<div class="mt-2.5 flex flex-row gap-[20px]">
@@ -226,7 +224,7 @@
 							{/if}
 						</td>
 						<td>
-							<button class="lms-btn lms-secondary-btn" on:click={() => openModal('md',{form_id : faculty.research_form_id,remarks:faculty.remarks,status:faculty.status})}>Remarks</button>
+							<button class="lms-btn lms-secondary-btn" on:click={() => openModal('sm',{form_id : faculty.research_form_id,remarks:faculty.remarks,status:faculty.status})}>Remarks</button>
 					</td>
 						<td><a href="{PUBLIC_BASE_URL}{tableObj[data.id].name}/view/{faculty.research_form_id}{tableObj[data.id].abbr}"><EyeIcon fill="black"/></a></td>
 					</tr>
@@ -248,14 +246,17 @@
 			<textarea placeholder="Enter Remarks..." class="lms-input flex-grow resize-none"
 			on:input={(e) =>
 			updateFacultyStatus($facultyObj.form_id, e?.target?.value,'remarks')}
-			disabled = {$facultyObj.status === 'cp' ? true : false}
+			disabled = {$facultyObj.status === 'pd' ? false : true}
 			>{$facultyObj.remarks}</textarea>
 		</div>
 	</svalte:fragment>
 	<div slot="footer">
 		<div class="border-t flex md:flex-row gap-4 p-4">
-			<button class="lms-btn lms-primary-btn" on:click={closeModal}>Close</button>
+			<button class="lms-btn lms-secondary-btn" on:click={closeModal}>Close</button>
 			<!-- <button class="lms-btn lms-primary-btn" on:click={(e) => updateFacultyStatus($facultyObj.form_id, e?.target?.value,'remarks')}>Add</button> -->
+			{#if $facultyObj.status === 'pd'}
+			<button class="lms-btn lms-primary-btn" on:click={closeModal}>Submit</button>
+			{/if}
 		</div>
 	</div>
 </Modal>

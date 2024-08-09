@@ -62,6 +62,7 @@ export type BookPublicationRender = {
 	isbn_no: string;
 	publisher: string;
 	status :string;
+	remarks : string;
 };
 
 export type BookPublicationDetails = {
@@ -93,6 +94,7 @@ export type BookChapterRender = {
 	isbn_no: string;
 	publisher: string;
 	status:string;
+	remarks:string;
 };
 
 export type BookChapterDetails = {
@@ -124,6 +126,7 @@ export type TeachingView = {
 	niche: string;
 	program_orientation: string;
 	status:string;
+	remarks:string;
 };
 
 export type MeetingView = {
@@ -134,6 +137,7 @@ export type MeetingView = {
 	inaugral_program: string;
 	events: string;
 	status:string;
+	remarks:string;
 };
 
  export type brandingView = {
@@ -148,7 +152,8 @@ export type MeetingView = {
 	organizing_conference : string,
 	newspaper_article : string,
 	student_event : string,
-	status:string
+	status:string,
+	remarks : string
  }
 
  export type CaseStudyView = {
@@ -158,7 +163,8 @@ export type MeetingView = {
    publisher :string,
    publish_year:number,
    volume_no : string,
-   status :string
+   status :string,
+   remarks : string
  }
 
  export type ResearchSeminarView = {
@@ -168,7 +174,8 @@ export type MeetingView = {
 	publisher : string,
 	journal_name : string
 	nmims_authors : string[],
-	status:string
+	status:string;
+	remarks:string;
  }
 
  export type EContentView = {
@@ -178,7 +185,8 @@ export type MeetingView = {
 	document_link : string,
 	facility_list :string
 	media_link : string,
-	status:string
+	status:string,
+	remarks:string
  }
 
  export type ResearchAwardView = {
@@ -188,7 +196,8 @@ export type MeetingView = {
  award_name : string,
  award_details : string,
  award_organization: string,
- status: string
+ status: string,
+ remarks:string
  }
 
  export type FacultyView = {
@@ -221,6 +230,7 @@ export type MeetingView = {
 	proceeding_published: string;
 	issn_no: string;
 	status:string;
+	remarks:string;
 };
 
 export type conferenceDetails = {
@@ -260,6 +270,7 @@ export type IPRRender = {
 
 	filed_date: string;
 	status:string;
+	remarks:string;
 };
 
 export type IPRData = {
@@ -309,6 +320,7 @@ export type patentRender = {
 
 	invention_type: number[];
 	status :string;
+	remarks:string;
 };
 
 export type patentData = {
@@ -555,7 +567,8 @@ export type EditedBookPublicationView = {
     title: string,
     isbn_no: number,
     publisher: string,
-	status:string
+	status:string,
+	remarks:string
 }
 	
 export type FileObject = {
