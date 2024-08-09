@@ -1,7 +1,7 @@
-<script lang="ts">
-    export let width="36"
-    export let height="32"
-    export let fill ='#7C8798';
+<script>
+	export let fill = '#7C8798';
+	export let width = 20;
+	export let height = 20;
 </script>
 
 <svg {width} {height} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
