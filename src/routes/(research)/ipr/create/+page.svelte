@@ -272,7 +272,11 @@
 		publishedDate = null;
 		showExternal = false;
 		showInternal = false;
-	}
+	}  
+
+	let editorContent = '';
+
+
 </script>
 
 <Card {title}>
@@ -536,6 +540,7 @@
 					</div>
 				{/if}
 			</div>
+			
 		</div>
 	</div>
 

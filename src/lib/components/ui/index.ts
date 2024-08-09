@@ -9,7 +9,7 @@ import { Modal } from './modal';
 import { Card } from './card';
 import ProfileDropDown from './profile-dropdown.svelte';
 import { CustomConfirm } from './confirm';
-
+import {CkEditor  } from "./editor";
 export {
 	
 };
@@ -30,5 +30,6 @@ export {
 	FormStatus,
 	loadingLoader,
 	CustomConfirm,
-	ProfileDropDown
+	ProfileDropDown,
+	CkEditor
 };

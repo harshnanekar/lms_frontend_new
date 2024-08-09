@@ -347,6 +347,7 @@ export type ResearchProjectRender = {
 	funding_agency: string;
 
 	thrust_area: string;
+	status :string;
 };
 
 export type ResearchProjectData = {
