@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { error } from '@sveltejs/kit';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';
-
-	
+	import { onMount } from 'svelte';
 	import { Header, Sidebar } from '$lib/components/layout';
 	import { fetchApi } from '$lib/utils/fetcher';
 	import { toast } from 'svelte-sonner';
@@ -23,6 +23,22 @@
 	}
 	fetchModules();
 
+	let profilData: any;
+	onMount(async ()=>{
+		const { error , json } = await fetchApi({
+				url: `${PUBLIC_API_BASE_URL}/profile`,
+				method: 'GET',
+		});
+
+		if(error){
+			console.log("error in header data:::::", error);
+			
+		}
+
+		profilData = await json;
+        console.log("profilData: ", profilData);
+	});
+
 </script>
 
 <head>
@@ -31,7 +47,7 @@
 
 <Sidebar {role}/>
 <main class="transition-all md:ml-[62px] lg:ml-[260px]">
-	<Header />
+	<Header {profilData}/>
 	<main
 		id="lms-main-wrapper"
 		class="small-scrollbar relative overflow-y-auto overflow-x-hidden bg-white px-[13px] py-[22px] md:rounded-tl-[20px] md:p-[30px]"
