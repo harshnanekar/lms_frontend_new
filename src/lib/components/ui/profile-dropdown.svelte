@@ -52,9 +52,9 @@
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content class="w-56 bg-white">
 			<div class="">
-			<DropdownMenu.Label>{name}</DropdownMenu.Label>
-			<DropdownMenu.Label class="text-xs font-normal italic py-0 mb-1">{email}</DropdownMenu.Label>
-			<DropdownMenu.Label class="text-xs font-normal italic py-0 mb-1">{username}</DropdownMenu.Label>
+			<DropdownMenu.Label>{name ?? ''}</DropdownMenu.Label>
+			<DropdownMenu.Label class="text-xs font-normal italic py-0 mb-1">{email ?? ''}</DropdownMenu.Label>
+			<DropdownMenu.Label class="text-xs font-normal italic py-0 mb-1">{username ?? ''}</DropdownMenu.Label>
 			</div>
 
 			<DropdownMenu.Separator />
