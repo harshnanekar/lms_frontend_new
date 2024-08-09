@@ -428,6 +428,13 @@ export const paginationHeaders: TableHeaders<JournalView>[] = [
 		classes: '',
 		showTooltip: false
 	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ];
 
 export const BookPublicationHeaders: TableHeaders<BookPublicationRender>[] = [

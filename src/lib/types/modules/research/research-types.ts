@@ -47,7 +47,8 @@ export type JournalView = {
 	journal_name : string,
 	publisher : string,
 	impact_factor : number,
-	status :string
+	status :string,
+	remarks : string
 } 
 
 
