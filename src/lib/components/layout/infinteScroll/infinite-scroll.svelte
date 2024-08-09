@@ -1,7 +1,6 @@
 <script lang="ts">
     import { browser } from '$app/environment';
     import { SearchIcon } from '$lib/components/icons';
-	import LoadingLoader from '$lib/components/ui/loaders/loading-loader.svelte';
     import type { InfiniteScrollResult } from '$lib/types/request.types';
     import { debounce } from '$lib/utils/debounce';
     import { fetchApi } from '$lib/utils/fetcher';
@@ -219,7 +218,7 @@
     {#if $error}
         <p>{$error}</p>
     {:else if $isLoading}
-        <LoadingLoader />
+        Loading...
     {/if}
 </div>
 

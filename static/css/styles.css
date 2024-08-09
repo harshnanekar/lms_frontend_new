@@ -179,8 +179,8 @@
 	border-radius: 8px;
 }
 
-lms-view-input{
-     background-color: var(--lms--color-white);
+lms-view-input {
+	background-color: var(--lms--color-white);
 	color: #000000;
 	font-size: 14px;
 	font-weight: 400;
@@ -200,7 +200,7 @@ lms-view-input{
 }
 
 /* .lms-input:disabled {
-	background-color: var(--lms--color-base);
+    background-color: var(--lms--color-base);
 } */
 
 .lms-input:disabled {
@@ -244,8 +244,6 @@ lms-view-input{
 	color: #888888;
 }
 
-
-
 .lms-error-msg {
 	font-family: var(--lms--font-family);
 	color: var(--lms--color-danger-400);
@@ -282,5 +280,3 @@ lms-view-input{
 	display: block;
 	background: white;
 }
-
-
