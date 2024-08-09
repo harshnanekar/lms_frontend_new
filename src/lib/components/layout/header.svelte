@@ -10,20 +10,20 @@
 
 	export let profilData:any;
 
-	async function handleLogout() {
-		const { error, json } = await fetchApi({
-			url: `${PUBLIC_API_BASE_URL}/logout`,
-			method: 'GET'
-		});
+	// async function handleLogout() {
+	// 	const { error, json } = await fetchApi({
+	// 		url: `${PUBLIC_API_BASE_URL}/logout`,
+	// 		method: 'GET'
+	// 	});
 
-		if (error) {
-			toast.error(error.message || 'Something went wrong!', {
-				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
-			});
-			return;
-		}
-		goto(`${PUBLIC_BASE_URL}login`);
-	}
+	// 	if (error) {
+	// 		toast.error(error.message || 'Something went wrong!', {
+	// 			description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+	// 		});
+	// 		return;
+	// 	}
+	// 	goto(`${PUBLIC_BASE_URL}login`);
+	// }
 
 	$:console.log("PROFILE DATA IN HEADER :::", profilData);
 	
@@ -43,23 +43,24 @@
 			<img src="/images/layout/logo.png" alt="Logo" class="h-[36px] w-[102px]" />
 		</div>
 		<div class="flex items-center gap-x-4 md:gap-x-6">
-			<button class="lms-btn lms-primary-btn"
+			<!-- <button class="lms-btn lms-primary-btn"
 				><SignOutIcon fill="white" />Signout</button
-			>
-			<button>
+			> -->
+			<!-- <button>
 				<Image
 					src="/icons/layout/notification.png"
 					name="Notification"
 					classes="w-6 h-6 rounded-full"
 				/>
-			</button>
+			</button> -->
 			<div>
-				<button>
+				<button class="border-0">
 					<ProfileDropdown
 						src="/icons/layout/notificataion.png"
 						name={profilData[0]?.first_name}
 						email={profilData[0]?.email}
 						username={profilData[0]?.username}
+
 					/>
 					<!-- <Image
 						src="/icons/layout/notificataion.png"

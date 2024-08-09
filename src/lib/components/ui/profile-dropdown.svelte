@@ -15,6 +15,10 @@
 	import UserPlus from "lucide-svelte/icons/user-plus";
 	import Users from "lucide-svelte/icons/users";
 	import { ProfileIcon} from "../icons";
+	import { fetchApi } from '$lib/utils/fetcher';
+	import { toast } from 'svelte-sonner';
+	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
+	import { goto } from '$app/navigation';
    
 	import { Button } from "$lib/components/ui/button/index.js";
 	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
@@ -23,30 +27,47 @@
 	export let name:string
 	export let email:string
 	export let username:string
+
+	async function handleLogout() {
+		const { error, json } = await fetchApi({
+			url: `${PUBLIC_API_BASE_URL}/logout`,
+			method: 'GET'
+		});
+
+		if (error) {
+			toast.error(error.message || 'Something went wrong!', {
+				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+			});
+			return;
+		}
+		goto(`${PUBLIC_BASE_URL}login`);
+	}
   </script>
    
 	<DropdownMenu.Root>
 		<DropdownMenu.Trigger asChild let:builder>
-		  <Button builders={[builder]} variant="outline">
+		  <Button class="border-0" builders={[builder]} variant="outline">
 			<ProfileIcon />
 		  </Button>
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content class="w-56 bg-white">
-			<DropdownMenu.Label >{name}</DropdownMenu.Label>
-			<DropdownMenu.Label class="text-xs font-bold">{email}</DropdownMenu.Label>
-			<DropdownMenu.Label class="text-xs font-bold">{username}</DropdownMenu.Label>
+			<div class="">
+			<DropdownMenu.Label>{name}</DropdownMenu.Label>
+			<DropdownMenu.Label class="text-xs font-normal italic py-0 mb-1">{email}</DropdownMenu.Label>
+			<DropdownMenu.Label class="text-xs font-normal italic py-0 mb-1">{username}</DropdownMenu.Label>
+			</div>
 
 			<DropdownMenu.Separator />
 			<hr>
 			  <DropdownMenu.Item>
 				<User class="mr-2 h-4 w-4" />
-				<a href="/profile"><span>Profile</span></a>
-				<!-- <DropdownMenu.Shortcut>⇧⌘P</DropdownMenu.Shortcut> -->
+				<a href="/profile" class="font-semibold"><span>Profile</span></a>
+				
 			  </DropdownMenu.Item>
-			<DropdownMenu.Item>
+			<DropdownMenu.Item on:click={handleLogout}>
 			  <LogOut class="mr-2 h-4 w-4" />
-			  <span>Log out</span>
-			  <!-- <DropdownMenu.Shortcut>⇧⌘Q</DropdownMenu.Shortcut> -->
+			  <span class="font-semibold cursor-pointer">Log out</span>
+			  
 			</DropdownMenu.Item>
 		  </DropdownMenu.Content>
 	  </DropdownMenu.Root>
