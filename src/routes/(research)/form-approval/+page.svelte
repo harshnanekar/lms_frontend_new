@@ -18,7 +18,7 @@ console.log('admin dashboard ',JSON.stringify(data.dashboardData))
   {/if} -->
  
   <a href='{PUBLIC_BASE_URL}form-approval/{ds.id}'>
-    <div class="p-8 border shadow-card rounded-2xl flex justify-center items-center">
+    <div class="p-8 border shadow-card rounded-2xl flex items-center">
       <svelte:component
       this={SIDEBAR_ICON[ds.icon]}
       fill="black"

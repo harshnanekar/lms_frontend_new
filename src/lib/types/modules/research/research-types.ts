@@ -47,7 +47,8 @@ export type JournalView = {
 	journal_name : string,
 	publisher : string,
 	impact_factor : number,
-	status :string
+	status :string,
+	remarks : string
 } 
 
 
@@ -60,6 +61,8 @@ export type BookPublicationRender = {
 	title: string;
 	isbn_no: string;
 	publisher: string;
+	status :string;
+	remarks : string;
 };
 
 export type BookPublicationDetails = {
@@ -90,6 +93,8 @@ export type BookChapterRender = {
 	book_title: string;
 	isbn_no: string;
 	publisher: string;
+	status:string;
+	remarks:string;
 };
 
 export type BookChapterDetails = {
@@ -120,6 +125,8 @@ export type TeachingView = {
 	student_workshops: string;
 	niche: string;
 	program_orientation: string;
+	status:string;
+	remarks:string;
 };
 
 export type MeetingView = {
@@ -129,6 +136,8 @@ export type MeetingView = {
 	convocation: string;
 	inaugral_program: string;
 	events: string;
+	status:string;
+	remarks:string;
 };
 
  export type brandingView = {
@@ -142,7 +151,9 @@ export type MeetingView = {
 	conference_participation : string,
 	organizing_conference : string,
 	newspaper_article : string,
-	student_event : string
+	student_event : string,
+	status:string,
+	remarks : string
  }
 
  export type CaseStudyView = {
@@ -151,7 +162,9 @@ export type MeetingView = {
    edition :string,
    publisher :string,
    publish_year:number,
-   volume_no : string
+   volume_no : string,
+   status :string,
+   remarks : string
  }
 
  export type ResearchSeminarView = {
@@ -161,6 +174,8 @@ export type MeetingView = {
 	publisher : string,
 	journal_name : string
 	nmims_authors : string[],
+	status:string;
+	remarks:string;
  }
 
  export type EContentView = {
@@ -170,6 +185,8 @@ export type MeetingView = {
 	document_link : string,
 	facility_list :string
 	media_link : string,
+	status:string,
+	remarks:string
  }
 
  export type ResearchAwardView = {
@@ -179,6 +196,8 @@ export type MeetingView = {
  award_name : string,
  award_details : string,
  award_organization: string,
+ status: string,
+ remarks:string
  }
 
  export type FacultyView = {
@@ -210,6 +229,8 @@ export type MeetingView = {
 	conference_name: string;
 	proceeding_published: string;
 	issn_no: string;
+	status:string;
+	remarks:string;
 };
 
 export type conferenceDetails = {
@@ -248,6 +269,8 @@ export type IPRRender = {
 	institute_affiliation: string;
 
 	filed_date: string;
+	status:string;
+	remarks:string;
 };
 
 export type IPRData = {
@@ -296,6 +319,8 @@ export type patentRender = {
 	patent_status: number;
 
 	invention_type: number[];
+	status :string;
+	remarks:string;
 };
 
 export type patentData = {
@@ -498,7 +523,7 @@ export type masterInputView = {
     id : number,
 	faculty_name : string,
 	username : string,
-	form_name :string,
+	// form_name :string,
 	form_lid : number,
 	form_status : number | null
  }[]
@@ -541,7 +566,9 @@ export type EditedBookPublicationView = {
     publish_year: number,
     title: string,
     isbn_no: number,
-    publisher: string
+    publisher: string,
+	status:string,
+	remarks:string
 }
 	
 export type FileObject = {

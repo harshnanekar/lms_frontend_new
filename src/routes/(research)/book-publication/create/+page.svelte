@@ -34,10 +34,10 @@
 
 	console.log('nmimsSchool ankit mishra ===>>>>>', nmimsSchool);
 
-	$: school = nmimsSchool;
-	$: nmimsAuth = nmimsAuthors;
-	$: allAuth = allAuthors;
-	$: campus = nmimsCampus;
+	$: school = nmimsSchool.length ? nmimsSchool : [];
+	$: nmimsAuth = nmimsAuthors.length ? nmimsAuthors : [];
+	$: allAuth = allAuthors.length ? allAuthors : [];
+	$: campus = nmimsCampus.length ? nmimsCampus : [];
 
 	console.log('JSON.stringify(school)', JSON.stringify(school));
 

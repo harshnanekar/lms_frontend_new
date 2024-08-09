@@ -492,7 +492,8 @@ export type updMasterDataReq = z.infer<typeof updMasterDataDetails>;
 const facultyApproval = z.object({
 	form_lid : z.number(),
 	form_status : z.number().min(1,{message:'Form status is required'}),
-	level : z.number()
+	remarks :  z.string(),
+	form_status_id :  z.union([z.number(), z.null()])
   })
 
   export const facultyApprovalObj = z.array(facultyApproval).min(1,{message:'Approval of at least one faculty is required'});

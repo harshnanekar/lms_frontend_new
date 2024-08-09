@@ -162,6 +162,131 @@ export const SIDEBAR_URL = [
 // }
 ];
 
+export const ADMIN_SIDEBAR = [
+	{
+		url: `${PUBLIC_BASE_URL}dashboard`,
+		icon: 'dashboard',
+		label: 'Home',
+		module: null,
+		child: []
+	},
+		{
+			url: `${PUBLIC_BASE_URL}form-approval`,
+			icon: 'form-approval',
+			label: 'Admin Form Approval ',
+			module: null,
+			child: [
+				{
+					url: `${PUBLIC_BASE_URL}form-approval/1`,
+					icon: 'journal',
+					label: 'Journal Articles Published',
+					module: null,
+					child: []
+				},
+				{
+					url: `${PUBLIC_BASE_URL}form-approval/2`,
+					icon: 'book-publication',
+					label: 'Book Publication',
+					module: null,
+					child: []
+				},
+				{
+					url: `${PUBLIC_BASE_URL}form-approval/3`,
+					icon: 'edited-book-publication',
+					label: 'Edited Book Publication',
+					module: null,
+					child: []
+				},
+				{
+					url: `${PUBLIC_BASE_URL}form-approval/4`,
+					icon: 'book-chapter-publication',
+					label: 'Book Chapter Publication',
+					module: null,
+					child: []
+				},
+				{
+					url: `${PUBLIC_BASE_URL}form-approval/5`,
+					icon: 'conference',
+					label: 'Conference',
+					module: null,
+					child: []
+				},
+				{
+					url: `${PUBLIC_BASE_URL}form-approval/6`,
+					icon: 'research-project',
+					label: 'Research Projects',
+					module: null,
+					child: []
+				},
+				{
+					url: `${PUBLIC_BASE_URL}form-approval/7`,
+					icon: 'patent-submission',
+					label: 'Patent Submission & Grants',
+					module: null,
+					child: []
+				},
+				{
+					url: `${PUBLIC_BASE_URL}form-approval/8`,
+					icon: 'ipr',
+					label: 'IPR',
+					module: null,
+					child: []
+				},
+				{
+					url: `${PUBLIC_BASE_URL}form-approval/9`,
+					icon: 'research-award',
+					label: 'Research Award',
+					module: null,
+					child: []
+				},
+				{
+					url: `${PUBLIC_BASE_URL}form-approval/10`,
+					icon: 'e-content',
+					label: 'E-Content Development',
+					module: null,
+					child: []
+				},
+				{
+					url: `${PUBLIC_BASE_URL}form-approval/11`,
+					icon: 'research-seminar',
+					label: 'Research Seminar At Nmims',
+					module: null,
+					child: []
+				},
+				{
+					url: `${PUBLIC_BASE_URL}form-approval/12`,
+					icon: 'case-study',
+					label: 'Case Study',
+					module: null,
+					child: []
+				},
+				{
+					url: `${PUBLIC_BASE_URL}form-approval/13`,
+					icon: 'teaching-excellance',
+					label: 'Teaching Excellance',
+					module: null,
+					child: []
+				},
+				{
+					url: `${PUBLIC_BASE_URL}form-approval/14`,
+					icon: 'meeting-stakeholder',
+					label:'Meeting Stakeholders',
+					module: null,
+					child: []
+				},
+				{
+					url: `${PUBLIC_BASE_URL}form-approval/15`,
+					icon: 'branding-advertisement',
+					label: 'Branding & Advertisement',
+					module: null,
+					child: []
+				},
+			]
+		}, 
+
+
+]
+
 export const obj = [
 	{
 		meeting_id: '1',
@@ -296,13 +421,20 @@ export const paginationHeaders: TableHeaders<JournalView>[] = [
 		classes: '',
 		showTooltip: false
 	},
-	// {
-	// 	label: 'Status',
-	// 	key: 'status',
-	// 	sortable: false,
-	// 	classes: '',
-	// 	showTooltip: false
-	// },
+	{
+		label: 'Status',
+		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ];
 
 export const BookPublicationHeaders: TableHeaders<BookPublicationRender>[] = [
@@ -359,7 +491,21 @@ export const BookPublicationHeaders: TableHeaders<BookPublicationRender>[] = [
 		sortable: false,
 		classes: '',
 		showTooltip: false
-	}
+	},
+	{
+		label: 'Status',
+		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ];
 
 export const BookChapterHeaders: TableHeaders<BookChapterRender>[] = [
@@ -416,7 +562,21 @@ export const BookChapterHeaders: TableHeaders<BookChapterRender>[] = [
 		sortable: false,
 		classes: '',
 		showTooltip: false
-	}
+	},
+	{
+		label: 'Status',
+		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ];
 
 export const teachingHeaders: TableHeaders<TeachingView>[] = [
@@ -454,7 +614,21 @@ export const teachingHeaders: TableHeaders<TeachingView>[] = [
 		sortable: false,
 		classes: '',
 		showTooltip: false
-	}
+	},
+	{
+		label: 'Status',
+		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ];
 
 export const meetingHeaders: TableHeaders<MeetingView>[] = [
@@ -504,7 +678,21 @@ export const meetingHeaders: TableHeaders<MeetingView>[] = [
 		sortable: false,
 		classes: '',
 		showTooltip: false
-	}
+	},
+	{
+		label: 'Status',
+		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ];
 
 export const brandingHeaders: TableHeaders<brandingView>[] = [
@@ -588,7 +776,20 @@ export const brandingHeaders: TableHeaders<brandingView>[] = [
 		showTooltip: false
 	},
 
-
+	{
+		label: 'Status',
+		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 
  ];
 
@@ -638,6 +839,20 @@ export const CaseStudyHeaders : TableHeaders<CaseStudyView>[] = [
 	   classes: '',
 	   showTooltip: false
    },
+   {
+	label: 'Status',
+	key: 'status',
+	sortable: false,
+	classes: '',
+	showTooltip: false
+},
+{
+	label: 'Remarks',
+	key: 'remarks',
+	sortable: false,
+	classes: '',
+	showTooltip: false
+},
 ]; 
 
 
@@ -694,6 +909,20 @@ export const researchSeminarHeaders : TableHeaders<ResearchSeminarView>[] = [
 	   classes: 'id',
 	   showTooltip: false
    },
+   {
+	label: 'Status',
+	key: 'status',
+	sortable: false,
+	classes: '',
+	showTooltip: false
+},
+{
+	label: 'Remarks',
+	key: 'remarks',
+	sortable: false,
+	classes: '',
+	showTooltip: false
+},
   
 ];
 
@@ -739,7 +968,21 @@ export const econtentHeaders : TableHeaders<EContentView>[] = [
 		sortable: false,
 		classes: 'id',
 		showTooltip: false
-	}
+	},
+	{
+		label: 'Status',
+		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ];
 
 export const ResearchAwardHeaders : TableHeaders<ResearchAwardView>[] = [
@@ -784,7 +1027,21 @@ export const ResearchAwardHeaders : TableHeaders<ResearchAwardView>[] = [
 		sortable: false,
 		classes: 'id',
 		showTooltip: false
-	}
+	},
+	{
+		label: 'Status',
+		key: 'status',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 
 ];
 
@@ -874,7 +1131,21 @@ export const ConferenceHeaders: TableHeaders<ConferenceRender>[] = [
 		sortable: false,
 		classes: '',
 		showTooltip: false
-	}
+	},
+	{
+		label: 'Status',
+		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ]; 
 
 
@@ -894,6 +1165,8 @@ export type ResearchProjectRender = {
 	funding_agency: string;
 
 	thrust_area: string;
+	status :string;
+	remarks:string;
 }; 
 
 
@@ -970,7 +1243,21 @@ export const IPRHeaders: TableHeaders<IPRRender>[] = [
 		classes: '',
 
 		showTooltip: false
-	}
+	},
+	{
+		label: 'Status',
+		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ];
 
 export const PatentHeaders: TableHeaders<patentRender>[] = [
@@ -1032,7 +1319,21 @@ export const PatentHeaders: TableHeaders<patentRender>[] = [
 		classes: '',
 
 		showTooltip: false
-	}
+	},
+	{
+		label: 'Status',
+		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ];
 
 export const ResearchProjectHeaders: TableHeaders<ResearchProjectRender>[] = [
@@ -1106,7 +1407,21 @@ export const ResearchProjectHeaders: TableHeaders<ResearchProjectRender>[] = [
 		classes: '',
 
 		showTooltip: false
-	}
+	},
+	{
+		label: 'Status',
+		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ]; 
 
 
@@ -1179,4 +1494,18 @@ export const EditedBookPublicationHeader : TableHeaders<EditedBookPublicationVie
         classes: '',
         showTooltip: false
     },
+	{
+		label: 'Status',
+		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ];

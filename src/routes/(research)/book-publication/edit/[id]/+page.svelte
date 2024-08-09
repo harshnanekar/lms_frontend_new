@@ -37,10 +37,10 @@
 	let nmimsAuthors = data?.bookPublicationData?.nmimsAuthors.message.length > 0 ? data?.bookPublicationData?.nmimsAuthors?.message : [];
 	let allAuthors = data?.bookPublicationData?.allAuthors.message.length > 0 ? data?.bookPublicationData?.allAuthors?.message : [];
 
-	$: school = nmimsSchool;
-	$: nmimsAuth = nmimsAuthors;
-	$: allAuth = allAuthors;
-	$: campus = nmimsCampus;
+	$: school = nmimsSchool.length ? nmimsSchool : [];
+	$: nmimsAuth = nmimsAuthors.length ? nmimsAuthors : [];
+	$: allAuth = allAuthors.length ? allAuthors : [];
+	$: campus = nmimsCampus.length ? nmimsCampus : [];
 
 	console.log('JSON.stringify(school)', JSON.stringify(school));
 	let isChecked: boolean = false;
