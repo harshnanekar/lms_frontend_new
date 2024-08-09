@@ -61,7 +61,7 @@
 			<hr>
 			  <DropdownMenu.Item>
 				<User class="mr-2 h-4 w-4" />
-				<a href="/profile" class="font-semibold"><span>Profile</span></a>
+				<a href="{PUBLIC_BASE_URL}profile" class="font-semibold"><span>Profile</span></a>
 				
 			  </DropdownMenu.Item>
 			<DropdownMenu.Item on:click={handleLogout}>
