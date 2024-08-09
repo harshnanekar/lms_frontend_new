@@ -28,6 +28,7 @@ function handleMouseLeave() {
   {/if} -->
  
   <a href='{PUBLIC_BASE_URL}form-approval/{ds.id}'>
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div class="cardcontent p-8 border shadow-card rounded-2xl flex items-center"
       on:mouseenter={() => handleMouseEnter(index)}
       on:mouseleave={handleMouseLeave}
