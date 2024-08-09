@@ -4,7 +4,7 @@
 	import type { InfiniteAdminView } from '$lib/types/modules/research/research-types';
 	import type { InfiniteScrollResult } from '$lib/types/request.types';
 	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
-	import { DynamicSelect } from '$lib/components/ui';
+	import { DynamicSelect, Input, Modal } from '$lib/components/ui';
 	import { getFormLevel, getFormModules } from '$lib/utils/select.helper';
 	import { writable } from 'svelte/store';
 	import {tableObj} from "$lib/utils/helper"
@@ -16,6 +16,30 @@
 	import { validateWithZod } from '$lib/utils/validations';
 	import { FormStatus } from '$lib/components/ui';
 	import EyeIcon from '$lib/components/icons/base/eye-icon.svelte';
+	import type { ModalSizes } from '$lib/components/ui/modal/helper.modal';
+
+		const isOpen = writable(false);
+		let modalwidthPercent: ModalSizes = 'md';
+
+		type faculty = {
+			form_id : number | null,
+			remarks:string | null;
+			status: string | null,
+		}
+
+		const facultyObj = writable<faculty>({form_id : null,remarks:null,status:null});
+    
+
+		const openModal = (size: ModalSizes,faculty : faculty) => {
+			console.log('faculty object ',JSON.stringify(faculty))
+			modalwidthPercent = size;
+			facultyObj.set(faculty);
+			isOpen.set(true);
+		};
+
+		const closeModal = () => {
+			isOpen.set(false);
+		};
 
 	export let data: any;
 
@@ -82,7 +106,7 @@
 
 	$: facultyData = responseData.data.map((item: any) => ({
 		...item,
-		form_status: null
+		form_status: null,
 	}));
 
 	function updateFacultyStatus(form_lid: any, value: any, field: string): void {
@@ -90,14 +114,14 @@
 		facultyData = facultyData.map((item: { research_form_id: number }) =>
 			item.research_form_id === form_lid ? { ...item, [field]: value } : item
 		);
-		// console.log('faculty object ',JSON.stringify(facultyData))
+		console.log('faculty object ',JSON.stringify(facultyData))
 	}
 
 	async function handleSubmit() {
 		const facultyObj: facultyObjReq = facultyData
 			.filter((data: any) => data.form_status != null)
 			.map((dt: any) => {
-				return { form_lid: Number(dt.research_form_id), form_status: Number(dt.form_status) };
+				return { form_lid: Number(dt.research_form_id), form_status: Number(dt.form_status),remarks:dt.remarks != null ? dt.remarks : 'No Remarks Found !' ,form_status_id : Number(dt.form_status_id)};
 			});
 		console.log('zod faculty ', facultyObj);
 
@@ -132,6 +156,16 @@
 
 	$: console.log('response data url ', responseData.data);
 
+	    // let textareaValue = $facultyObj.remarks;
+
+		// function handleInput(e: Event) {
+		// const target = e.target as HTMLTextAreaElement;
+		// textareaValue = target.value;
+		// }
+
+		// function handleAdd() {
+		// updateFacultyStatus($facultyObj.form_id, textareaValue, 'remarks');
+		// }
 
 
 </script>
@@ -147,8 +181,8 @@
 					<th class="!text-[15px]">Firstname</th>
 					<th class="!text-[15px]">Lastname</th>
 					<th class="!text-[15px]">Username</th>
-					<!-- <th class="!text-[15px]">Form Name</th> -->
 					<th class="!text-[15px]">Select Status</th>
+					<th class="!text-[15px]">Remarks</th>
 					<th class="!text-[15px]">View Form</th>
 				</tr>
 			</thead>
@@ -159,7 +193,6 @@
 						<td>{faculty.first_name}</td>
 						<td>{faculty.last_name}</td>
 						<td>{faculty.username}</td>
-						<!-- <td>{faculty.form_name}</td> -->
 						<td>
 							{#if faculty.status === 'pd'}
 								<div class="mt-2.5 flex flex-row gap-[20px]">
@@ -190,6 +223,9 @@
 								<FormStatus status={faculty.status} />
 							{/if}
 						</td>
+						<td>
+							<button class="lms-btn lms-secondary-btn" on:click={() => openModal('sm',{form_id : faculty.research_form_id,remarks:faculty.remarks,status:faculty.status})}>Remarks</button>
+					</td>
 						<td><a href="{PUBLIC_BASE_URL}{tableObj[data.id].name}/view/{faculty.research_form_id}{tableObj[data.id].abbr}"><EyeIcon fill="black"/></a></td>
 					</tr>
 				{/each}
@@ -197,3 +233,30 @@
 		</table>
 	</div>
 </InfiniteScroll>
+
+
+<Modal bind:isOpen={$isOpen} size={modalwidthPercent} on:close={closeModal}>
+	<div slot="header">
+		<div class="border-b p-4">
+			<h2 class="text-lg font-semibold">Faculty Remarks</h2>
+		</div>
+	</div>
+	<svalte:fragment slot="body">
+		<div class="flex flex-col min-h-[50vh] p-4">
+			<textarea placeholder="Enter Remarks..." class="lms-input flex-grow resize-none"
+			on:input={(e) =>
+			updateFacultyStatus($facultyObj.form_id, e?.target?.value,'remarks')}
+			disabled = {$facultyObj.status === 'pd' ? false : true}
+			>{$facultyObj.remarks}</textarea>
+		</div>
+	</svalte:fragment>
+	<div slot="footer">
+		<div class="border-t flex md:flex-row gap-4 p-4">
+			<button class="lms-btn lms-secondary-btn" on:click={closeModal}>Close</button>
+			<!-- <button class="lms-btn lms-primary-btn" on:click={(e) => updateFacultyStatus($facultyObj.form_id, e?.target?.value,'remarks')}>Add</button> -->
+			{#if $facultyObj.status === 'pd'}
+			<button class="lms-btn lms-primary-btn" on:click={closeModal}>Submit</button>
+			{/if}
+		</div>
+	</div>
+</Modal>

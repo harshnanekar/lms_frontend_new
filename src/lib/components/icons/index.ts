@@ -1,6 +1,28 @@
-import { DashboardIcon, AnalyticsIcon, MenuBarIcon,JournalIcon,BookPublicationIcon,BookChapterIcon,CaseStudyIcon,ResearchSeminarIcon,
-	EContentICon,ResearchAwardIcon,ConferenceIcon,PatentIcon,ResearchProjectIcon,IprIcon,FacultyIcon,EditedBookIcon,
-	MeetingStakeholderIcon,AuthorIcon,ResearchIcon,TeachMeetBrandIcon,PublicationIcon,TeachingIcon,BrandingIcon,ApprovalIcon
+import {
+	DashboardIcon,
+	AnalyticsIcon,
+	MenuBarIcon,
+	JournalIcon,
+	BookPublicationIcon,
+	BookChapterIcon,
+	CaseStudyIcon,
+	ResearchSeminarIcon,
+	EContentICon,
+	ResearchAwardIcon,
+	ConferenceIcon,
+	PatentIcon,
+	ResearchProjectIcon,
+	IprIcon,
+	FacultyIcon,
+	EditedBookIcon,
+	MeetingStakeholderIcon,
+	AuthorIcon,
+	ResearchIcon,
+	TeachMeetBrandIcon,
+	PublicationIcon,
+	TeachingIcon,
+	BrandingIcon,
+	ApprovalIcon
 } from './layout';
 import {
 	ArrowIcon,
@@ -23,7 +45,10 @@ import {
 	CloseEyeIcon,
 	PreviewIcon,
 	SignOutIcon,
-	RightIcon
+	RightIcon,
+	LogoutIcon,
+	UsersIcon,
+	ProfileIcon
 } from './base';
 import { MeetingIcon, ScheduledIcon } from './modules';
 
@@ -74,5 +99,8 @@ export {
 	TeachingIcon,
 	BrandingIcon,
 	ApprovalIcon,
-	RightIcon
+	RightIcon,
+	LogoutIcon,
+	UsersIcon,
+	ProfileIcon
 };

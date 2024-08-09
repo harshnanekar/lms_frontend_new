@@ -283,10 +283,10 @@ export const ADMIN_SIDEBAR = [
 					child: []
 				},
 			]
-		},
+		}, 
 
-]  
 
+]
 
 export const obj = [
 	{
@@ -429,6 +429,13 @@ export const paginationHeaders: TableHeaders<JournalView>[] = [
 		classes: '',
 		showTooltip: false
 	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ];
 
 export const BookPublicationHeaders: TableHeaders<BookPublicationRender>[] = [
@@ -489,6 +496,13 @@ export const BookPublicationHeaders: TableHeaders<BookPublicationRender>[] = [
 	{
 		label: 'Status',
 		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
 		sortable: false,
 		classes: '',
 		showTooltip: false
@@ -557,6 +571,13 @@ export const BookChapterHeaders: TableHeaders<BookChapterRender>[] = [
 		classes: '',
 		showTooltip: false
 	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ];
 
 export const teachingHeaders: TableHeaders<TeachingView>[] = [
@@ -598,6 +619,13 @@ export const teachingHeaders: TableHeaders<TeachingView>[] = [
 	{
 		label: 'Status',
 		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
 		sortable: false,
 		classes: '',
 		showTooltip: false
@@ -655,6 +683,13 @@ export const meetingHeaders: TableHeaders<MeetingView>[] = [
 	{
 		label: 'Status',
 		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
 		sortable: false,
 		classes: '',
 		showTooltip: false
@@ -749,6 +784,13 @@ export const brandingHeaders: TableHeaders<brandingView>[] = [
 		classes: '',
 		showTooltip: false
 	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 
  ];
 
@@ -801,6 +843,13 @@ export const CaseStudyHeaders : TableHeaders<CaseStudyView>[] = [
    {
 	label: 'Status',
 	key: 'status',
+	sortable: false,
+	classes: '',
+	showTooltip: false
+},
+{
+	label: 'Remarks',
+	key: 'remarks',
 	sortable: false,
 	classes: '',
 	showTooltip: false
@@ -868,6 +917,13 @@ export const researchSeminarHeaders : TableHeaders<ResearchSeminarView>[] = [
 	classes: '',
 	showTooltip: false
 },
+{
+	label: 'Remarks',
+	key: 'remarks',
+	sortable: false,
+	classes: '',
+	showTooltip: false
+},
   
 ];
 
@@ -917,6 +973,13 @@ export const econtentHeaders : TableHeaders<EContentView>[] = [
 	{
 		label: 'Status',
 		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
 		sortable: false,
 		classes: '',
 		showTooltip: false
@@ -972,7 +1035,14 @@ export const ResearchAwardHeaders : TableHeaders<ResearchAwardView>[] = [
 		sortable: false,
 		classes: 'id',
 		showTooltip: false
-	}
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 
 ];
 
@@ -1070,6 +1140,13 @@ export const ConferenceHeaders: TableHeaders<ConferenceRender>[] = [
 		classes: '',
 		showTooltip: false
 	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ]; 
 
 
@@ -1088,9 +1165,10 @@ export const ConferenceHeaders: TableHeaders<ConferenceRender>[] = [
 
 // 	funding_agency: string;
 
-// 	thrust_area: string;
-// 	status :string;
-// }; 
+	thrust_area: string;
+	status :string;
+	remarks:string;
+}; 
 
 
 
@@ -1174,6 +1252,13 @@ export const IPRHeaders: TableHeaders<IPRRender>[] = [
 		classes: '',
 		showTooltip: false
 	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ];
 
 export const PatentHeaders: TableHeaders<patentRender>[] = [
@@ -1239,6 +1324,13 @@ export const PatentHeaders: TableHeaders<patentRender>[] = [
 	{
 		label: 'Status',
 		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
 		sortable: false,
 		classes: '',
 		showTooltip: false
@@ -1324,6 +1416,13 @@ export const ResearchProjectHeaders: TableHeaders<ResearchProjectRender>[] = [
 		classes: '',
 		showTooltip: false
 	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
 ]; 
 
 
@@ -1399,6 +1498,13 @@ export const EditedBookPublicationHeader : TableHeaders<EditedBookPublicationVie
 	{
 		label: 'Status',
 		key: 'status',
+		sortable: false,
+		classes: '',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
 		sortable: false,
 		classes: '',
 		showTooltip: false

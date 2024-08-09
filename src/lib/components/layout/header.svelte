@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import { fetchApi } from '$lib/utils/fetcher';
 	import { toast } from 'svelte-sonner';
@@ -6,36 +6,34 @@
 	import { Image, ProfileDropDown } from '../ui';
 	import { isSidebarOverlayOpen } from './sidebar/store';
 	import { goto } from '$app/navigation';
-	// import type { UserSessionData } from '$lib/types/user';
+	import ProfileDropdown from '../ui/profile-dropdown.svelte';
 
+	export let profilData:any;
 
-	// export let userData: UserSessionData;
+	// async function handleLogout() {
+	// 	const { error, json } = await fetchApi({
+	// 		url: `${PUBLIC_API_BASE_URL}/logout`,
+	// 		method: 'GET'
+	// 	});
 
-	// console.log('userData ===>>>>>', userData);
+	// 	if (error) {
+	// 		toast.error(error.message || 'Something went wrong!', {
+	// 			description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+	// 		});
+	// 		return;
+	// 	}
+	// 	goto(`${PUBLIC_BASE_URL}login`);
+	// }
+
+	$:console.log("PROFILE DATA IN HEADER :::", profilData);
 	
-	async function getUserDetails(){
-		const { error, json } = await fetchApi({
-			url: `${PUBLIC_API_BASE_URL}/user-details`,
-			method: 'GET',
-		});
-
-		if (error) {
-			toast.error(error.message || 'Something went wrong!', {
-				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
-			});
-			return;
-		}
-        goto(`${PUBLIC_BASE_URL}login`);
-	} 
-
-	
-
 </script>
 
-<header id="lms-header" class="relative z-[99999] bg-base">
+
+{#if profilData && profilData[0]}
+<header id="lms-header" class="bg-base relative z-[99999]">
 	<div class="flex h-[60px] items-center justify-between px-[28px] py-[8px]">
-		<div class="hidden items-center gap-x-[10px] lg:flex">
-		</div>
+		<div class="hidden items-center gap-x-[10px] lg:flex"></div>
 		<div class="md:hidden">
 			<button on:click|stopPropagation={() => ($isSidebarOverlayOpen = !$isSidebarOverlayOpen)}>
 				<MenuBarIcon />
@@ -45,23 +43,66 @@
 			<img src="/images/layout/logo.png" alt="Logo" class="h-[36px] w-[102px]" />
 		</div>
 		<div class="flex items-center gap-x-4 md:gap-x-6">
-			<button>
+			<!-- <button class="lms-btn lms-primary-btn"
+				><SignOutIcon fill="white" />Signout</button
+			> -->
+			<!-- <button>
 				<Image
 					src="/icons/layout/notification.png"
 					name="Notification"
 					classes="w-6 h-6 rounded-full"
 				/>
-			</button>
+			</button> -->
 			<div>
-				<div>
-					<!-- svelte-ignore missing-declaration -->
-					<!-- <ProfileDropDown
+				<button class="border-0">
+					<ProfileDropdown
 						src="/icons/layout/notificataion.png"
-						name={`${userData1.user_detail?.first_name} ${userData1.user_detail?.last_name}`}
-						email={userData1.user_detail?.email}
+						name={profilData[0]?.first_name}
+						email={profilData[0]?.email}
+						username={profilData[0]?.username}
+
+					/>
+					<!-- <Image
+						src="/icons/layout/notificataion.png"
+						name="Notification"
+						classes="w-10 h-10 rounded-full"
 					/> -->
-				</div>
+				</button>
 			</div>
 		</div>
 	</div>
+	<div>
+		
+	</div>
 </header>
+{:else}
+<header id="lms-header" class="bg-base relative z-[99999]">
+	<div class="flex h-[60px] items-center justify-between px-[28px] py-[8px]">
+		<div class="hidden items-center gap-x-[10px] lg:flex"></div>
+		<div class="md:hidden">
+			<button on:click|stopPropagation={() => ($isSidebarOverlayOpen = !$isSidebarOverlayOpen)}>
+				<MenuBarIcon />
+			</button>
+		</div>
+		<div class="hidden md:block lg:hidden">
+			<img src="/images/layout/logo.png" alt="Logo" class="h-[36px] w-[102px]" />
+		</div>
+		<div class="flex items-center gap-x-4 md:gap-x-6">
+			<div>
+				<button class="border-0">
+					<ProfileDropdown
+						src="/icons/layout/notificataion.png"
+						name='Name'
+						email='xyz@email.com'
+						username='USERNAME'
+
+					/>
+				</button>
+			</div>
+		</div>
+	</div>
+	<div>
+		
+	</div>
+</header>
+{/if}

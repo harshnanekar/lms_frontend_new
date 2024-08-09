@@ -1,6 +1,6 @@
 <script lang="ts">
 	// import { JournalView } from '$lib/types/modules/research/research-types.ts';
-	import { ActionIcon } from '$lib/components/icons';
+	import { ActionIcon, DeleteIcon, EyeIcon, PenIcon } from '$lib/components/icons';
 	import { Modal } from '$lib/components/ui';
 	import type { brandingView } from '$lib/types/modules/research/research-types';
 	// import type { SubjectMeetingDetail } from '$lib/types/modules/mpc/master-form';
@@ -131,19 +131,19 @@
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 				<a
 					href="{PUBLIC_BASE_URL}teaching-meeting-branding/view/{actionData.id}/ba"
-					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
-					role="menuitem">View</a
+					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex gap-2 items-center"
+					role="menuitem"><EyeIcon fill="black"/>View</a
 				>
 				{#if actionData.status == 're'}
 				<a
 					href="{PUBLIC_BASE_URL}teaching-meeting-branding/edit/{actionData.id}/ba"
-					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
-					role="menuitem">Edit</a
+					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex gap-2 items-center"
+					role="menuitem"><PenIcon fill="black"/>Edit</a
 				>
 				<button
 					on:click={openModal}
-					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
-					role="menuitem">Delete</button
+					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex gap-2 items-center"
+					role="menuitem"><DeleteIcon fill="black"/>Delete</button
 				>
 				{/if}
 			</div>
