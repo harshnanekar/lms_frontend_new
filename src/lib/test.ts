@@ -287,6 +287,31 @@ export const ADMIN_SIDEBAR = [
 
 ]
 
+export const CHRONICLE_SIDEBAR = [
+	{
+		url: `${PUBLIC_BASE_URL}dashboard`,
+		icon: 'dashboard',
+		label: 'Home',
+		module: null,
+		child: []
+	},
+	{
+		url: `${PUBLIC_BASE_URL}dashboard`,
+		icon: '',
+		label: 'Home',
+		module: null,
+		child: []
+	},
+	{
+		url: `${PUBLIC_BASE_URL}dashboard`,
+		icon: 'dashboard',
+		label: 'Home',
+		module: null,
+		child: []
+	}
+
+]
+
 export const obj = [
 	{
 		meeting_id: '1',

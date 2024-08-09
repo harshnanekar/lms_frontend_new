@@ -48,3 +48,4 @@ function handleMouseEnter(index: number | null) {
     Transition: transform 300ms ease-in-out;
   }
   </style>
+  
