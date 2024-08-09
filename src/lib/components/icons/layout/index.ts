@@ -22,7 +22,9 @@ import PublicationIcon from './publication-icon.svelte'
 import TeachingIcon from './teaching-icon.svelte'
 import BrandingIcon from './branding-icon.svelte'
 import ApprovalIcon from './approval-icon.svelte';
+import ChronicleIcon from './chronicle-edition-icon.svelte';
 export { DashboardIcon, AnalyticsIcon, MenuBarIcon,JournalIcon,BookPublicationIcon,BookChapterIcon,CaseStudyIcon,ResearchSeminarIcon,
     EContentICon,ResearchAwardIcon,ConferenceIcon,PatentIcon,ResearchProjectIcon,IprIcon,FacultyIcon,EditedBookIcon,
-    MeetingStakeholderIcon,AuthorIcon,ResearchIcon,TeachMeetBrandIcon,PublicationIcon,TeachingIcon,BrandingIcon,ApprovalIcon
+    MeetingStakeholderIcon,AuthorIcon,ResearchIcon,TeachMeetBrandIcon,PublicationIcon,TeachingIcon,BrandingIcon,ApprovalIcon,
+    ChronicleIcon
 };

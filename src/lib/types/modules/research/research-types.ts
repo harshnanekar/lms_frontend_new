@@ -1,4 +1,4 @@
-import { ApprovalIcon, AuthorIcon, BookChapterIcon, BookPublicationIcon, BrandingIcon, CaseStudyIcon, ConferenceIcon, DashboardIcon, EContentICon, EditedBookIcon, FacultyIcon, IprIcon, JournalIcon, MeetingStakeholderIcon, PatentIcon, PlusIcon, PublicationIcon, ResearchAwardIcon, ResearchIcon, ResearchProjectIcon, ResearchSeminarIcon, SignOutIcon, TeachMeetBrandIcon,TeachingIcon } from "$lib/components/icons"
+import { ApprovalIcon, AuthorIcon, BookChapterIcon, BookPublicationIcon, BrandingIcon, CaseStudyIcon, ChronicleIcon, ConferenceIcon, DashboardIcon, EContentICon, EditedBookIcon, FacultyIcon, IprIcon, JournalIcon, MeetingStakeholderIcon, PatentIcon, PlusIcon, PublicationIcon, ResearchAwardIcon, ResearchIcon, ResearchProjectIcon, ResearchSeminarIcon, SignOutIcon, TeachMeetBrandIcon,TeachingIcon } from "$lib/components/icons"
 import { RightIcon } from "$lib/components/icons/base";
 
 
@@ -555,7 +555,8 @@ export const SIDEBAR_ICON: SidebarIcon = {
 	"author":AuthorIcon,
     "research":ResearchIcon,
 	"publication":PublicationIcon,
-	"form-approval" : RightIcon
+	"form-approval" : RightIcon,
+	"chronicle-edition":ChronicleIcon
 }
 
 export type EditedBookPublicationView = {
