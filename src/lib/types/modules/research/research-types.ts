@@ -556,7 +556,8 @@ export const SIDEBAR_ICON: SidebarIcon = {
     "research":ResearchIcon,
 	"publication":PublicationIcon,
 	"form-approval" : RightIcon,
-	"chronicle-edition":ChronicleIcon
+	"chronicle-edition":ChronicleIcon,
+	"plusIcon":PlusIcon
 }
 
 export type EditedBookPublicationView = {
