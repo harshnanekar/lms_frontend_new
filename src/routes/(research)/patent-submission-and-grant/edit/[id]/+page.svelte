@@ -1,16 +1,10 @@
 <script lang="ts">
 	import { Input, DatePicker, DynamicSelect, File } from '$lib/components/ui';
-
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
-
 	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
-
 	import { tooltip } from '$lib/utils/tooltip';
-
 	import { fly } from 'svelte/transition';
-
 	import { Card } from '$lib/components/ui';
-
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 
 	import {
@@ -27,17 +21,11 @@
 		patentDetails,
 		type patentDetailsReq
 	} from '$lib/schemas/modules/research/master-validations';
-
 	import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
-
 	import { toast } from 'svelte-sonner';
-
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
-
 	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
-
 	import type { any } from 'zod';
-
 	import { goto } from '$app/navigation';
 	import type { updatePatentStatus } from '$lib/types/modules/research/research-types';
 
@@ -60,11 +48,8 @@
 	console.log('render patentDataList', data.patentDataList.patentDataList[0]);
 
 	$: patetntStatus = patetntStatus;
-
 	$: sdgGoals = sdgGoals;
-
 	$: inventionType = inventionType;
-
 	$: external = externalAuthors;
 	$: internal = enternalAuthors;
 
@@ -228,22 +213,21 @@
 			body: formData
 		});
 
+		const patentStatus = json as updatePatentStatus[]
+
+
 		if (error) {
 			toast.error(error.message || 'Something went wrong!', {
 				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
 			});
 			return;
 		}
-		if (json && json.length > 0) {
-			if (json[0].upsert_patent_grant.status == 403) {
-				toast.error('ALERT!', { description: json[0].upsert_patent_grant.message });
+			if (patentStatus[0].upsert_patent_grant.status == 403) {
+				toast.error('ALERT!', { description: patentStatus[0].upsert_patent_grant.message });
 			} else {
 				toast.success('Updated Successfully');
 				goto(`${PUBLIC_BASE_URL}patent-submission-and-grant`);
 			}
-		} else {
-			toast.error('No response data received');
-		}
 	}
 
 	async function downLoadFiles() {

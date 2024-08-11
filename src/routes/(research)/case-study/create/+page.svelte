@@ -20,6 +20,7 @@
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
+	import type { insertCaseStudyStatus } from '$lib/types/modules/research/research-types';
 
 	export let data: any;
 	let isRequired = false;
@@ -129,11 +130,13 @@
 		console.log('validated data', JSON.stringify(result.data));
 		formData.append('case_study', JSON.stringify(result.data));
 
-		const { error, json } = await fetchFormApi({
+		const { error, json } = await fetchFormApi<insertCaseStudyStatus[]>({
 			url: `${PUBLIC_API_BASE_URL}/case-study-insert`,
 			method: 'POST',
 			body: formData
 		});
+
+		const caseStudyStatus = json as insertCaseStudyStatus[]
 
 		if (error) {
 			toast.error(error.message || 'Something went wrong!', {
@@ -142,7 +145,7 @@
 			return;
 		}
 
-		if (json[0].insert_case_study.status == 200) {
+		if (caseStudyStatus[0].insert_case_study.status == 200) {
 			toast.success('Inserted Successfully');
 			clearForm();
 			goto(`${PUBLIC_BASE_URL}case-study`);

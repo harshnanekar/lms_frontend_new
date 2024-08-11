@@ -114,6 +114,7 @@
 			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 				<Input type="text" placeholder="Award Place" value={obj.award_place} {disabled} />
 				<div class="ml-2">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="text-sm text-[#888888]">
 						Award Category<span>*</span>
 					</label>

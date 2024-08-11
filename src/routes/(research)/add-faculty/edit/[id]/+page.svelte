@@ -80,6 +80,7 @@
 			<Input type="text" placeholder="Address" bind:value={obj.address} />
 
             <div class="ml-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]">Faculty Type<span>*</span></label>
             <div class="mt-2.5 flex flex-row gap-[40px]">
                 <div class="flex flex-row">

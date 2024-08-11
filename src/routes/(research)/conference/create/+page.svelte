@@ -42,6 +42,7 @@
 	let externalAuthors = data?.conferenceDetails?.externalAuthors.message.length > 0 ? data?.conferenceDetails?.externalAuthors?.message : [];
 	let enternalAuthors = data?.conferenceDetails?.enternalAuthors.message.length > 0 ? data?.conferenceDetails?.enternalAuthors?.message : [];
 	let conferenceDocumentAbbr = data?.conferenceDetails?.conferenceDocumentAbbr;
+	
 	let conference_abbr = conferenceDocumentAbbr
 		.filter((data: { abbr: string }) => data.abbr === 'cd')
 		.map((dt: { id: any }) => Number(dt.id))[0];
@@ -253,11 +254,13 @@
 			console.log(`${key}: ${value}`);
 		}
 
-		const { error, json } = await fetchFormApi<conferenceStatus[]>({
+		const { error, json }  = await fetchFormApi<conferenceStatus[]>({
 			url: `${PUBLIC_API_BASE_URL}/conference-insert`,
 			method: 'POST',
 			body: formData
 		});
+
+		const conferenceStatus = json as conferenceStatus[];
 
 		if (error) {
 			toast.error(error.message || 'Something went wrong!', {
@@ -265,20 +268,15 @@
 			});
 			return;
 		}
-		if(json && validateWithZod.length > 0){
-			if (json[0].insert_conference.status === 403) {
+			if (conferenceStatus[0].insert_conference.status === 403) {
 			toast.error('ALERT!', {
-				description: json[0].insert_conference.message
+				description: conferenceStatus[0].insert_conference.message
 			});
 		} else {
 			toast.success('Inserted Successfully');
 			clearForm();
 			goto(`${PUBLIC_BASE_URL}conference`);
-		}
-		}
-		else {
-			toast.error('No response data received');
-		}
+		}	
 		
 	}
 
@@ -521,6 +519,7 @@
 			</div>
 
 			<div class="space-y-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
 					>Upload Award Documents<span class="text-danger text-sm">*</span>
 				</label>

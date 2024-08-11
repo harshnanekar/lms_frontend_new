@@ -136,7 +136,7 @@
 		const formData = new FormData();
 
 		// Append each file to the FormData
-		Array.from(files).forEach((file) => {
+		Array.from(files).forEach((file : any) => {
 			formData.append('supporting_documents', file.file);
 		});
 

@@ -2,8 +2,6 @@
 import { goto } from '$app/navigation';
 import { Header } from "$lib/components/researchHeader";
 import { PlusIcon } from '$lib/components/icons';
-import type { EditedBookPublicationView } from '$lib/types/modules/research/research-types';
-import type { TableHeaders } from '$lib/types/layout/table';
 import { PaginateDynamic } from '$lib/components/layout/pagination';
 import {EditedBookPublicationHeader} from "$lib/test";
 import EditedBookAction from '$lib/components/modules/mpc/edited-book-action.svelte';

@@ -172,24 +172,23 @@
 			body: formData
 		});
 
+		const patentStatus = json as patentStatus[]
+
 		if (error) {
 			toast.error(error.message || 'Something went wrong!', {
 				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
 			});
 			return;
 		}
-		if(json && json.length > 0){
-			if (json[0].insert_patent_grant.status == 403) {
-			toast.error('ALERT!', { description: json[0].insert_patent_grant.message });
+		
+		if (patentStatus[0].insert_patent_grant.status == 403) {
+			toast.error('ALERT!', { description: patentStatus[0].insert_patent_grant.message });
 		} else {
 			toast.success('Inserted Successfully');
 			clearForm();
 			goto(`${PUBLIC_BASE_URL}patent-submission-and-grant`);
 		}
-		}
-		else{
-			toast.error('No response data received');
-		}
+		
 		
 	}
 
@@ -248,12 +247,7 @@
 				placeholder="Patent/Invention Application Number"
 				bind:value={obj.appln_no}
 			/>
-			<!-- <div class="space-y-2">
-				<label class="lms-label"
-					>Upload Supporting Documents<span class="text-primary">*</span></label
-				>
-				<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
-			</div> -->
+
 		</div>
 
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
@@ -358,7 +352,6 @@
 
 	<div class="flex flex-row gap-[20px] p-4">
 		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
-
 		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
 	</div>
 </Card>

@@ -17,6 +17,7 @@
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
+	import type { updateCaseStudyStatus } from '$lib/types/modules/research/research-types';
 
 	export let data: any;
 	let isRequired = false;
@@ -72,7 +73,7 @@
 					})
 				: null,
 		nmims_authors_count:
-		checkData && data.caseData.caseData[0].publish_year
+		checkData && data.caseData.caseData[0].nmims_authors_count
 				? Number(data.caseData.caseData[0].nmims_authors_count)
 				: null,
 		publisher:
@@ -179,11 +180,13 @@
 		formData.append('case_study', JSON.stringify(result.data));
 		formData.append('case_study_id', obj.case_study_id);
 
-		const { error, json } = await fetchFormApi({
+		const { error, json } = await fetchFormApi<updateCaseStudyStatus[]>({
 			url: `${PUBLIC_API_BASE_URL}/case-study-update`,
 			method: 'POST',
 			body: formData
 		});
+
+		const caseStudyStatus = json as updateCaseStudyStatus[]
 
 		if (error) {
 			toast.error(error.message || 'Something went wrong!', {
@@ -192,7 +195,7 @@
 			return;
 		}
 
-		if (json[0].upsert_case_study.status == 200) {
+		if (caseStudyStatus[0].upsert_case_study.status == 200) {
 			toast.success('Updated Successfully');
 			files = [];
 			fileDataStore.set(files);
@@ -285,6 +288,7 @@
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="number" placeholder="Publication Year" bind:value={obj.publish_year} />
 			<div class="ml-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]">
 					Publisher Category<span class="text-danger text-sm">*</span>
 				</label>

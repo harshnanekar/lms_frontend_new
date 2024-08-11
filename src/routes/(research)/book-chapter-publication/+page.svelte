@@ -16,10 +16,6 @@
 	const label = 'Book Chapter Publication';
 	console.log('label ==>>>>>', label);
 
-	let title: string = '';
-
-	// export let masterFormList: MeetingListItem[] | null;
-
 	function navigateToCreate() {
 		goto(`${PUBLIC_BASE_URL}book-chapter-publication/create`);
 	}

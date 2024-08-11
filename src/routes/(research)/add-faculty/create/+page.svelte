@@ -30,7 +30,7 @@
         changed: false
     }));
 
-    function updateTeachingItem(id: number, field: string, value: any) {
+    function updateTeachingItem(id: number, field: string, value: string | number) {
         facultyData = facultyData.map((item: { id: number; }) =>
             item.id === id ? { ...item, [field]: value, changed: true } : item
         );

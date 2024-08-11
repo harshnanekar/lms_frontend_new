@@ -100,9 +100,11 @@
 
 		console.log('json ', JSON.stringify(json));
 
-		if (json.status == 403) {
+		const eContent = json as {status:number,message:string}
+
+		if (eContent.status == 403) {
 			toast.error('ALERT!', {
-				description: json.message
+				description: eContent.message
 			});
 		} else {
 			toast.success('Updated Successfully');

@@ -26,7 +26,7 @@
 <Card {title} >
     <div class="modal-content p-4">
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-            <Input type="text" placeholder="Firstname" value={obj.first_name} {disabled}/>
+      <Input type="text" placeholder="Firstname" value={obj.first_name} {disabled}/>
 			<Input type="text" placeholder="Lastname" value={obj.last_name} {disabled}/>
 			<Input type="text" placeholder="Username" value={obj.username} {disabled}/>
         </div>
