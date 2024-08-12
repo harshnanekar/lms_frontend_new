@@ -434,6 +434,39 @@
 
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
 			<div class="flex flex-wrap">
+				<DatePicker
+					on:change={handleDateChange}
+					bind:selectedDateTime={filedDate}
+					disabled={(filedDate) => filedDate.getTime() < new Date().setHours(0, 0, 0, 0)}
+				>
+					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+						<SelectDateIcon />
+						<span class="text-body-2 font-bold">Add Patent Filed Date</span>
+					</div>
+				</DatePicker>
+				{#if publicationFormattedDate}
+					{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
+					<div
+						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+						in:fly={{ x: -100, duration: 300 }}
+						out:fly={{ x: 100, duration: 300 }}
+					>
+						<p class="m-0 p-0">{formattedDate}</p>
+						<button
+							use:tooltip={{
+								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+							}}
+							on:click={() => {
+								// remove the current date
+								publicationFormattedDate = '';
+							}}
+						>
+							<XIcon />
+						</button>
+					</div>
+				{/if}
+			</div>
+			<div class="flex flex-wrap">
 				<!-- svelte-ignore missing-declaration -->
 				<DatePicker
 					on:change={handleGrandDate}
@@ -469,39 +502,7 @@
 			</div>
 
 
-			<div class="flex flex-wrap">
-				<DatePicker
-					on:change={handleDateChange}
-					bind:selectedDateTime={filedDate}
-					disabled={(filedDate) => filedDate.getTime() < new Date().setHours(0, 0, 0, 0)}
-				>
-					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-						<SelectDateIcon />
-						<span class="text-body-2 font-bold">Add Publication Date</span>
-					</div>
-				</DatePicker>
-				{#if publicationFormattedDate}
-					{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
-					<div
-						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-						in:fly={{ x: -100, duration: 300 }}
-						out:fly={{ x: 100, duration: 300 }}
-					>
-						<p class="m-0 p-0">{formattedDate}</p>
-						<button
-							use:tooltip={{
-								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-							}}
-							on:click={() => {
-								// remove the current date
-								publicationFormattedDate = '';
-							}}
-						>
-							<XIcon />
-						</button>
-					</div>
-				{/if}
-			</div>
+			
 		</div>
 
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">

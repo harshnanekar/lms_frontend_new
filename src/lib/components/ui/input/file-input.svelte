@@ -20,6 +20,8 @@
 	$: selectedFileUrl = fileUrl;
 	$: fileData = $fileDataStore;
 
+
+
 	$: console.log('files stores ',$fileDataStore)
 
 	function previewFile() {
@@ -138,7 +140,7 @@
 										<button on:click={() => handleDelete(file.id)}><DeleteIcon /></button>
 									{/if}
 									<button on:click={() => previewParticularFile(file.url)}
-										><EyeIcon width="20" height="20" /></button
+										><EyeIcon width?="20" height?="20" /></button
 									>
 								</td>
 							</tr>	

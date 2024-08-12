@@ -215,6 +215,7 @@
 	}
 
 	let files: any = [];
+	$: console.log('retrieved files ', files);
 	fileDataStore.set(files);
 
 	let showInternal = false;
@@ -268,9 +269,12 @@
 		if (checkVal) {
 			const fileObject: FileReq = {
 				documents: files.map((f: any) => {
-				return f.file;
-			})
+					return f.file;
+				})
 			};
+
+			console.log('fileObject validation', fileObject);
+
 			const fileresult = validateWithZod(fileSchema, fileObject);
 			if (fileresult.errors) {
 				console.log(fileresult.errors);
@@ -287,7 +291,7 @@
 		formData.append('ipr_id', obj.ipr_id);
 
 		Array.from(files).forEach((file: any) => {
-			formData.append('supporting_documents', file);
+			formData.append('supporting_documents', file.file);
 		});
 
 		for (let [key, value] of formData.entries()) {

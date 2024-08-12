@@ -99,10 +99,12 @@
 		console.log('delete button clicked', edited_publication_id);
 		isOpen.set(false);
 
-		const { error, json } : any = await fetchApi({
+		const { error, json } = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/edited-book-publication-delete?id=${edited_publication_id}`,
 			method: 'GET'
 		});
+
+		const editedBookActions = json as {status : number , message: string}
 
 		if (error) {
 
@@ -112,14 +114,14 @@
 			return;
 		}
 
-		if(json.status == 200){
+		if(editedBookActions.status == 200){
 			
 		toast.success('Deleted Successfully !');
 		let url: URL = new URL(`${PUBLIC_API_BASE_URL}/edited-book-publication-paginate`);
 		paginateUrl.set(url);
 
 		}else{
-			toast.error(json.message);
+			toast.error(editedBookActions.message);
 		}
 
 

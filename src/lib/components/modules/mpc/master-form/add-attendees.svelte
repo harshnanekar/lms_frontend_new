@@ -35,7 +35,7 @@
 					return;
 				}
 
-				userList = res.json.data.map((user) => {
+				userList = (res.json as any).data.map((user : any) => {
 					return {
 						...user,
 						isSelected: true,

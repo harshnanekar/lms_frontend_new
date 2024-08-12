@@ -99,11 +99,12 @@
 
 		console.log('delete', journalId);
 		isOpen.set(false);
-		const { error, json } : any = await fetchApi({
+		const { error, json } = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/journal-article-delete?id=${journalId}`,
 			method: 'GET'
 		});
 
+		const researchActions = json as { status : number, message : string}
 		if (error) {
 
 			toast.error(error.message || 'Something went wrong!', {
@@ -112,14 +113,14 @@
 			return;
 		}
 
-		if(json.status == 200){
+		if(researchActions.status == 200){
 			
 		toast.success('Deleted Successfully !');
 		let url: URL = new URL(`${PUBLIC_API_BASE_URL}/journal-paginate`);
 		paginateUrl.set(url);
 
 		}else{
-			toast.error(json.message);
+			toast.error(researchActions.message);
 		}
 	}
 

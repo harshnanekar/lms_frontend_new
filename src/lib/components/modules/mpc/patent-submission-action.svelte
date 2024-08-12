@@ -108,10 +108,12 @@
 		console.log('delete button clicked', patentId);
 		isOpen.set(false);
 
-        const { error, json } : any = await fetchApi({
+        const { error, json }  = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/patent-submission-and-grant-delete?id=${patentId}`,
 			method: 'GET'
 		});
+
+		const patentActions = json as { status : number, message : string}
 
 		if (error) {
 
@@ -121,14 +123,14 @@
 			return;
 		}
 
-		if(json.status == 200){
+		if(patentActions.status == 200){
 			
 		toast.success('Deleted Successfully !');
 		let url: URL = new URL(`${PUBLIC_API_BASE_URL}/patent-submission-and-grant-paginate`);
 		paginateUrl.set(url);
 
 		}else{
-			toast.error(json.message);
+			toast.error(patentActions.message);
 		}
 
 

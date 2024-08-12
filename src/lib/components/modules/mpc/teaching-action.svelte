@@ -108,10 +108,12 @@
 	async function handleDelete() {
 		console.log('delete', teachingId);
 		isOpen.set(false);
-		const { error, json } : any = await fetchApi({
+		const { error, json } = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/teaching-excellance-delete?id=${teachingId}`,
 			method: 'GET'
 		});
+
+		const teacingActions = json as {status : number, message : string};
 
 		if (error) {
 			toast.error(error.message || 'Something went wrong!', {
@@ -120,12 +122,12 @@
 			return;
 		}
 
-		if (json.status === 200) {
+		if (teacingActions.status === 200) {
 			toast.success('Deleted Successfully !');
 			let url: URL = new URL(`${PUBLIC_API_BASE_URL}/teaching-paginate`);
 			paginateUrl.set(url);
 		} else {
-			toast.error(json.message);
+			toast.error(teacingActions.message);
 		}
 	}
 </script>

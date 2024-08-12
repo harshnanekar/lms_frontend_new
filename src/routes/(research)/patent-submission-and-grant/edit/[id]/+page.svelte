@@ -74,6 +74,7 @@
 	);
 
 	let files: any = [];
+	$: console.log('retrieved files ', files);
 	fileDataStore.set(files);
 
 	let obj: any = {
@@ -188,8 +189,8 @@
 					return f.file;
 				})
 			};
-			const fileresult = validateWithZod(fileSchema, fileObject);
-			if (fileresult.errors) {
+		const fileresult = validateWithZod(fileSchema, fileObject);
+		if (fileresult.errors) {
 				console.log(fileresult.errors);
 				const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
 				toast.error('ALERT!', {
@@ -204,7 +205,7 @@
 		formData.append('patent_id', obj.patent_id);
 
 		Array.from(files).forEach((file: any) => {
-			formData.append('supporting_documents', file);
+			formData.append('supporting_documents', file.file);
 		});
 		for (let [key, value] of formData.entries()) {
 			console.log(`${key}: ${value}`);

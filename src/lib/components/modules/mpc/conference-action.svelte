@@ -101,10 +101,12 @@
 
 
 
-		const { error, json } : any = await fetchApi({
+		const { error, json } = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/conference-delete?id=${conferenceId}`,
 			method: 'GET'
 		});
+
+		const conferenceActions = json as { status : number, message : string}
 
 		if (error) {
 
@@ -114,14 +116,14 @@
 			return;
 		}
 
-		if(json.status == 200){
+		if(conferenceActions.status == 200){
 			
 		toast.success('Deleted Successfully !');
 		let url: URL = new URL(`${PUBLIC_API_BASE_URL}/conference-paginate`);
 		paginateUrl.set(url);
 
 		}else{
-			toast.error(json.message);
+			toast.error(conferenceActions.message);
 		}
 
 

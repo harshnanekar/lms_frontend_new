@@ -289,7 +289,7 @@ export const researchSeminarObj = z.object({
 	journal_name: z.string().min(1, 'Journal name is required'),
 	publisher: z.string().min(1, 'Publisher is required'),
 	publisher_category: z.number().min(1, 'Publisher category is required'),
-	volume_no: z.string().optional(),
+	page_no: z.string().optional(),
 	issn_no:z.string().optional(),
 	scopus_site_score: z.string().optional(),
 	impact_factor: z.number().optional(),

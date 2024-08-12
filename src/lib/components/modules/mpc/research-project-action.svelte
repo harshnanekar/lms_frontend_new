@@ -108,10 +108,12 @@
 		console.log('delete button clicked', projectId);
 		isOpen.set(false);
 
-        const { error, json } : any = await fetchApi({
+        const { error, json } = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/research-project-delete?id=${projectId}`,
 			method: 'GET'
 		});
+
+		const researchProjectActions = json as { status : number, message : string};
 
 		if (error) {
 
@@ -121,14 +123,14 @@
 			return;
 		}
 
-		if(json.status == 200){
+		if(researchProjectActions.status == 200){
 			
 		toast.success('Deleted Successfully !');
 		let url: URL = new URL(`${PUBLIC_API_BASE_URL}/research-project-paginate`);
 		paginateUrl.set(url);
 
 		}else{
-			toast.error(json.message);
+			toast.error(researchProjectActions.message);
 		}
 
 

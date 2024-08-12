@@ -213,6 +213,7 @@
 	}
 
 	let files: any = [];
+	$: console.log('retrieved files ', files);
 	fileDataStore.set(files);
 
 	let showInternal = false;
@@ -263,8 +264,8 @@
 					return f.file;
 				})
 			};
-			const fileresult = validateWithZod(fileSchema, fileObject);
-			if (fileresult.errors) {
+		const fileresult = validateWithZod(fileSchema, fileObject);
+		if (fileresult.errors) {
 				console.log(fileresult.errors);
 				const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
 				toast.error('ALERT!', {
@@ -279,7 +280,7 @@
 		formData.append('research_project_id', obj.research_project_id);
 
 		Array.from(files).forEach((file: any) => {
-			formData.append('supporting_documents', file);
+			formData.append('supporting_documents', file.file);
 		});
 
 		for (let [key, value] of formData.entries()) {
@@ -298,7 +299,7 @@
 
 		console.log('validated data', JSON.stringify(result.data));
 
-		const { error, json } = await fetchFormApi<updatedResearchProjectStatus[]>({
+		const { error, json } : any = await fetchFormApi({
 			url: `${PUBLIC_API_BASE_URL}/research-project-update`,
 			method: 'POST',
 			body: formData
