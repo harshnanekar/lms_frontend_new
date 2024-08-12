@@ -3,7 +3,7 @@
 	import { ArrowIcon, MenuBarIcon } from '$lib/components/icons';
 	import { COLORS } from '$lib/constants/colors';
 	import { goto } from '$app/navigation';
-	import { SIDEBAR_URL,ADMIN_SIDEBAR } from '$lib/test';
+	import { SIDEBAR_URL,ADMIN_SIDEBAR,CHRONICLE_SIDEBAR } from '$lib/test';
 	import { SecondSidebarItem, SidebarItem } from '.';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
@@ -13,31 +13,17 @@
 
 	export let role: string = '';
 
-	// fetchModules();
-
-	// async function fetchModules(){
-	// 	const { error , json } = await fetchApi({
-	// 		url: `${PUBLIC_API_BASE_URL}/research-modules`,
-	// 		method: 'GET',
-	// 	});
-
-		// if (err) {
-		// 	throw error(500,'Internal Server Error')
-         //}
-		//       
-
-	// }
-
 	let role_vies_sideBar:any = '';
 	$:console.log("ROLEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",role);
 	
 	$: if (role === 'role_faculty') {
 		role_vies_sideBar = SIDEBAR_URL;
 		console.log("role_faculty:::::::::::::::::::::::",role_vies_sideBar);
-	} else {
+	}else if(role === 'role_chronicle'){
+		role_vies_sideBar = CHRONICLE_SIDEBAR;
+	}else {
 		role_vies_sideBar = ADMIN_SIDEBAR
 		console.log("role_Admin:::::::::::::::::::::::",role_vies_sideBar);
-
 	}
 
 	$: setActiveSidebarUrl($page.url.pathname, role_vies_sideBar);

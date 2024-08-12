@@ -577,3 +577,11 @@ export type FileObject = {
 	size : number;
 	uploaded: boolean;
  }
+
+ export type InfiniteResearchView = {
+	id : number,
+	faculty_name : string,
+	username : string,
+	form_lid : number,
+	form_status : number | null
+ }[]
