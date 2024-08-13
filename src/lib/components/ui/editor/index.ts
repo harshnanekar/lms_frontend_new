@@ -1,0 +1,1 @@
+export { default as CkEditor } from './ck-editor.svelte';

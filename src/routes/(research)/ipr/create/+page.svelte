@@ -272,11 +272,13 @@
 		publishedDate = null;
 		showExternal = false;
 		showInternal = false;
-	}
+	}  
+
+	
 </script>
 
 <Card {title}>
-	<div class="modal-content p-4">
+	<div class="p-4">
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
@@ -362,58 +364,60 @@
 			</div> -->
 		</div>
 		
-		<div class="grid grid-cols-1 p-8 md:grid-cols-2 lg:grid-cols-2">
-			<div class="ml-2">
+		<div class="grid grid-cols-1 p-4 lg:p-8 md:grid-cols-2 lg:grid-cols-2 gap-4 items-center">
+			<div>
 				<label class="text-sm text-[#888888]"
 					>Details of Inventors<span class="text-danger text-sm">*</span>
 				</label>
-				<div class="mt-4 flex items-center gap-8">
-					<div class="flex items-center">
-						<input
-							id="internal-checkbox"
-							type="checkbox"
-							class="lms-input-radio w-4"
-							bind:checked={showInternal}
-						/>
-						<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
-							>Internal</label
-						>
+				<div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
+					<div>
+						<div  class="flex items-center mb-2">
+							<input
+								id="internal-checkbox"
+								type="checkbox"
+								class="lms-input-radio w-4"
+								bind:checked={showInternal}
+							/>
+							<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
+								>Internal</label
+							>
+						</div>
+						{#if showInternal}
+							<DynamicSelect
+								isRequired={true}
+								placeholder="Internal Authors"
+								options={getEnternalAuthors(internal)}
+								bind:selectedOptions={obj.internal_authors}
+								isMultiSelect={true}
+							/>
+						{/if}
 					</div>
-					<div class="flex items-center">
-						<input
+					<div>
+						<div class="flex items-center mb-2">
+							<input
 							id="external-checkbox"
 							type="checkbox"
 							class="lms-input-radio w-4"
 							bind:checked={showExternal}
-						/>
-						<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
-							>External</label
-						>
+							/>
+							<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
+								>External</label
+							>
+						</div>
+						{#if showExternal}
+							<DynamicSelect
+								isRequired={true}
+								placeholder="External Authors"
+								options={getExternalAuthors(external)}
+								bind:selectedOptions={obj.external_authors}
+								isMultiSelect={true}
+							/>
+						{/if}
 					</div>
-				</div>
-				<div class="flex items-center gap-x-4 mt-4">
-					{#if showInternal}
-						<DynamicSelect
-							isRequired={true}
-							placeholder="Internal Authors"
-							options={getEnternalAuthors(internal)}
-							bind:selectedOptions={obj.internal_authors}
-							isMultiSelect={true}
-						/>
-					{/if}
-					{#if showExternal}
-						<DynamicSelect
-							isRequired={true}
-							placeholder="External Authors"
-							options={getExternalAuthors(external)}
-							bind:selectedOptions={obj.external_authors}
-							isMultiSelect={true}
-						/>
-					{/if}
 				</div>
 			</div>
 
-			<div class="ml-4 space-y-2">
+			<div class="space-y-2 grid items-center place-content-center">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="lms-label"
 					>Upload Supporting Documents<span class="text-primary">*</span></label
@@ -429,7 +433,40 @@
 		</div>
 
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
-			<div class="flex flex-row">
+			<div class="flex flex-wrap">
+				<DatePicker
+					on:change={handleDateChange}
+					bind:selectedDateTime={filedDate}
+					disabled={(filedDate) => filedDate.getTime() < new Date().setHours(0, 0, 0, 0)}
+				>
+					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+						<SelectDateIcon />
+						<span class="text-body-2 font-bold">Add Patent Filed Date</span>
+					</div>
+				</DatePicker>
+				{#if publicationFormattedDate}
+					{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
+					<div
+						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+						in:fly={{ x: -100, duration: 300 }}
+						out:fly={{ x: 100, duration: 300 }}
+					>
+						<p class="m-0 p-0">{formattedDate}</p>
+						<button
+							use:tooltip={{
+								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+							}}
+							on:click={() => {
+								// remove the current date
+								publicationFormattedDate = '';
+							}}
+						>
+							<XIcon />
+						</button>
+					</div>
+				{/if}
+			</div>
+			<div class="flex flex-wrap">
 				<!-- svelte-ignore missing-declaration -->
 				<DatePicker
 					on:change={handleGrandDate}
@@ -465,43 +502,11 @@
 			</div>
 
 
-			<div class="flex flex-row ">
-				<DatePicker
-					on:change={handleDateChange}
-					bind:selectedDateTime={filedDate}
-					disabled={(filedDate) => filedDate.getTime() < new Date().setHours(0, 0, 0, 0)}
-				>
-					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-						<SelectDateIcon />
-						<span class="text-body-2 font-bold">Add Publication Date</span>
-					</div>
-				</DatePicker>
-				{#if publicationFormattedDate}
-					{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
-					<div
-						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-						in:fly={{ x: -100, duration: 300 }}
-						out:fly={{ x: 100, duration: 300 }}
-					>
-						<p class="m-0 p-0">{formattedDate}</p>
-						<button
-							use:tooltip={{
-								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-							}}
-							on:click={() => {
-								// remove the current date
-								publicationFormattedDate = '';
-							}}
-						>
-							<XIcon />
-						</button>
-					</div>
-				{/if}
-			</div>
+			
 		</div>
 
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
-				<div class="flex flex-row ">
+				<div class="flex flex-wrap">
 				<DatePicker
 					on:change={handleDateChange2}
 					bind:selectedDateTime={publishedDate}
@@ -533,9 +538,10 @@
 						</button>
 					</div>
 				{/if}
-			</div>
+			</div>			
 		</div>
-	</div>
+	
+		</div>
 
 	<div class="flex flex-row gap-[20px] p-4">
 		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>

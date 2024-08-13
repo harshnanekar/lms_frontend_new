@@ -17,7 +17,10 @@
 			total_authors: 1,
 			journal_name: 'journal',
 			publisher: 'Publisher',
-			impact_factor: 24
+			impact_factor: 24,
+			id: 0,
+			status: '',
+			remarks: ''
 		}
 	];
 </script>

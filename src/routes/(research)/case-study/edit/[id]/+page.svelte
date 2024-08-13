@@ -17,7 +17,7 @@
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
-	import type { updateCaseStudyStatus } from '$lib/types/modules/research/research-types';
+	import type { caseStudyStatus } from '$lib/types/modules/research/research-types';
 
 	export let data: any;
 	let isRequired = false;
@@ -73,8 +73,8 @@
 					})
 				: null,
 		nmims_authors_count:
-		checkData && data.caseData.caseData[0].nmims_authors_count
-				? Number(data.caseData.caseData[0].nmims_authors_count)
+		checkData && data.caseData.caseData[0]?.nmims_authors_count
+				? Number(data.caseData.caseData[0]?.nmims_authors_count)
 				: null,
 		publisher:
 		checkData && data.caseData.caseData[0].publisher
@@ -180,7 +180,7 @@
 		formData.append('case_study', JSON.stringify(result.data));
 		formData.append('case_study_id', obj.case_study_id);
 
-		const { error, json } = await fetchFormApi<updateCaseStudyStatus[]>({
+		const { error, json }: any = await fetchFormApi<caseStudyStatus[]>({
 			url: `${PUBLIC_API_BASE_URL}/case-study-update`,
 			method: 'POST',
 			body: formData
@@ -195,12 +195,15 @@
 			return;
 		}
 
-		if (caseStudyStatus[0].upsert_case_study.status == 200) {
+		if (json && json.length > 0){
+			if (json[0].upsert_case_study.status == 200) {
 			toast.success('Updated Successfully');
 			files = [];
 			fileDataStore.set(files);
 			goto(`${PUBLIC_BASE_URL}case-study`);
 		}
+		}
+		
 	}
 
 	async function downLoadFiles() {

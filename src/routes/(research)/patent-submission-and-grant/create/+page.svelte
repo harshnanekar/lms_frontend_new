@@ -212,7 +212,7 @@
 </script>
 
 <Card {title}>
-	<div class="modal-content p-4">
+	<div class="p-4">
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input type="text" placeholder="Title of Patent / Invention" bind:value={obj.title} />
 
@@ -233,7 +233,7 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
 				placeholder="Sustainable Development Goals (SDG)?"
@@ -247,62 +247,7 @@
 				placeholder="Patent/Invention Application Number"
 				bind:value={obj.appln_no}
 			/>
-
-		</div>
-
-		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
-			<div class="ml-2">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
-				<label class="text-sm text-[#888888]"
-					>Details of Other Inventors<span class="text-danger text-sm">*</span>
-				</label>
-				<div class="mt-4 flex items-center gap-8">
-					<div class="flex items-center">
-						<input
-							id="internal-checkbox"
-							type="checkbox"
-							class="lms-input-radio w-4"
-							bind:checked={showInternal}
-						/>
-						<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
-							>Internal</label
-						>
-					</div>
-					<div class="flex items-center">
-						<input
-							id="external-checkbox"
-							type="checkbox"
-							class="lms-input-radio w-4"
-							bind:checked={showExternal}
-						/>
-						<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
-							>External</label
-						>
-					</div>
-				</div>
-				<div class="flex items-center gap-x-4 mt-4">
-					{#if showInternal}
-						<DynamicSelect
-							isRequired={true}
-							placeholder="Internal Authors"
-							options={getEnternalAuthors(internal)}
-							bind:selectedOptions={obj.internal_authors}
-							isMultiSelect={true}
-						/>
-					{/if}
-					{#if showExternal}
-						<DynamicSelect
-							isRequired={true}
-							placeholder="External Authors"
-							options={getExternalAuthors(external)}
-							bind:selectedOptions={obj.external_authors}
-							isMultiSelect={true}
-						/>
-					{/if}
-				</div>
-			</div>
-
-			<div class="space-y-2">
+			<div class="space-y-2 grid items-center place-content-center">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="lms-label"
 					>Upload Supporting Documents<span class="text-primary">*</span></label
@@ -313,41 +258,98 @@
 				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
 			    {/if}
 			</div>
+		</div>
+
+		<div class="grid grid-cols-1 p-4 lg:p-8 md:grid-cols-2 lg:grid-cols-2 gap-4 items-center">
+			<div>
+				<label class="text-sm text-[#888888]"
+					>Details of Inventors<span class="text-danger text-sm">*</span>
+				</label>
+				<div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
+					<div>
+						<div  class="flex items-center mb-2">
+							<input
+								id="internal-checkbox"
+								type="checkbox"
+								class="lms-input-radio w-4"
+								bind:checked={showInternal}
+							/>
+							<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
+								>Internal</label
+							>
+						</div>
+						{#if showInternal}
+							<DynamicSelect
+								isRequired={true}
+								placeholder="Internal Authors"
+								options={getEnternalAuthors(internal)}
+								bind:selectedOptions={obj.internal_authors}
+								isMultiSelect={true}
+							/>
+						{/if}
+					</div>
+					<div>
+						<div class="flex items-center mb-2">
+							<input
+							id="external-checkbox"
+							type="checkbox"
+							class="lms-input-radio w-4"
+							bind:checked={showExternal}
+							/>
+							<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
+								>External</label
+							>
+						</div>
+						{#if showExternal}
+							<DynamicSelect
+								isRequired={true}
+								placeholder="External Authors"
+								options={getExternalAuthors(external)}
+								bind:selectedOptions={obj.external_authors}
+								isMultiSelect={true}
+							/>
+						{/if}
+					</div>
+				</div>
+			</div>
+			<div class="flex flex-wrap">
+				<DatePicker
+					on:change={handleDateChange}
+					bind:selectedDateTime={publicationDate}
+					disabled={(filedDate) => filedDate.getTime() < new Date().setHours(0, 0, 0, 0)}
+				>
+					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+						<SelectDateIcon />
+						<span class="text-body-2 font-bold"> Add Date of Filing/Grant/Published </span>
+					</div>
+				</DatePicker>
+				{#if publicationFormattedDate}
+					{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
+					<div
+						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+						in:fly={{ x: -100, duration: 300 }}
+						out:fly={{ x: 100, duration: 300 }}
+					>
+						<p class="m-0 p-0">{formattedDate}</p>
+						<button
+							use:tooltip={{
+								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+							}}
+							on:click={() => {
+								// remove the current date
+								publicationFormattedDate = '';
+							}}
+						>
+							<XIcon />
+						</button>
+					</div>
+				{/if}
+			</div>
+
+			
 			
 		</div>
-		<div class="flex gap-4 md:flex-row">
-			<DatePicker
-				on:change={handleDateChange}
-				bind:selectedDateTime={publicationDate}
-				disabled={(filedDate) => filedDate.getTime() < new Date().setHours(0, 0, 0, 0)}
-			>
-				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-					<SelectDateIcon />
-					<span class="text-body-2 font-bold"> Add Date of Filing/Grant/Published </span>
-				</div>
-			</DatePicker>
-			{#if publicationFormattedDate}
-				{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
-				<div
-					class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-					in:fly={{ x: -100, duration: 300 }}
-					out:fly={{ x: 100, duration: 300 }}
-				>
-					<p class="m-0 p-0">{formattedDate}</p>
-					<button
-						use:tooltip={{
-							content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-						}}
-						on:click={() => {
-							// remove the current date
-							publicationFormattedDate = '';
-						}}
-					>
-						<XIcon />
-					</button>
-				</div>
-			{/if}
-		</div>
+		
 	</div>
 
 	<div class="flex flex-row gap-[20px] p-4">

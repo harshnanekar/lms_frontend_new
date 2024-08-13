@@ -109,11 +109,12 @@
 		isOpen.set(false);
 
 
-        const { error, json } = await fetchApi({
+        const { error, json }  = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/ipr-delete?id=${iprId}`,
 			method: 'GET'
 		});
 
+		const iprActions = json as {status : number, message : string}
 		if (error) {
 
 			toast.error(error.message || 'Something went wrong!', {
@@ -122,14 +123,14 @@
 			return;
 		}
 
-		if(json.status == 200){
+		if(iprActions.status == 200){
 			
 		toast.success('Deleted Successfully !');
 		let url: URL = new URL(`${PUBLIC_API_BASE_URL}/ipr-paginate`);
 		paginateUrl.set(url);
 
 		}else{
-			toast.error(json.message);
+			toast.error(iprActions.message);
 		}
 		  
 

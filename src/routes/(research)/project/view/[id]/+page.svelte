@@ -153,38 +153,6 @@
 				/>
 				<div class="ml-2">
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label class="text-sm text-[#888888]">
-						Grant Proposal<span class="text-danger text-sm">*</span>
-					</label>
-					<div class="mt-2.5 flex flex-row gap-[20px]">
-						<div class="flex flex-row">
-							<input
-								type="radio"
-								class="lms-input-radio w-4"
-								name="grant-proposal"
-								checked={obj.grant_proposal === 1}
-								value={1}
-								{disabled}
-							/>
-							<span class="text-sm text-[#888888]"> Goverment</span>
-						</div>
-						<div class="flex flex-row">
-							<input
-								type="radio"
-								class="lms-input-radio w-4"
-								name="grant-proposal"
-								checked={obj.grant_proposal === 2}
-								value={2}
-								{disabled}
-							/>
-							<span class="text-sm text-[#888888]"> Industry</span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="grid grid-cols-3 gap-8 items-center p-4">
-				<div class="ml-2">
-					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label class="text-sm text-[#888888]"
 						>Type of Grant<span class="text-danger text-sm">*</span>
 					</label>
@@ -224,6 +192,40 @@
 						</div>
 					</div>
 				</div>
+				
+			</div>
+			<div class="grid grid-cols-3 gap-8 items-center p-4">
+				<div class="ml-2">
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label class="text-sm text-[#888888]">
+						Grant Proposal<span class="text-danger text-sm">*</span>
+					</label>
+					<div class="mt-2.5 flex flex-row gap-[20px]">
+						<div class="flex flex-row">
+							<input
+								type="radio"
+								class="lms-input-radio w-4"
+								name="grant-proposal"
+								checked={obj.grant_proposal === 1}
+								value={1}
+								{disabled}
+							/>
+							<span class="text-sm text-[#888888]"> Goverment</span>
+						</div>
+						<div class="flex flex-row">
+							<input
+								type="radio"
+								class="lms-input-radio w-4"
+								name="grant-proposal"
+								checked={obj.grant_proposal === 2}
+								value={2}
+								{disabled}
+							/>
+							<span class="text-sm text-[#888888]"> Industry</span>
+						</div>
+					</div>
+				</div>
+				
 				<Input type="number" placeholder="Funding Amount" value={obj.funding_amount} {disabled} />
 				<Input
 					type="text"

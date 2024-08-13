@@ -38,11 +38,26 @@
 
 	let title = 'Research Project';
 
-	let nmimsSchool = data?.ResearchProjectDataList?.school?.message.length > 0 ? data?.ResearchProjectDataList?.school?.message : [];
-	let nmimsCampus = data?.ResearchProjectDataList?.campus?.message.length > 0 ? data?.ResearchProjectDataList?.campus?.message : [];
-	let enternalAuthors = data?.ResearchProjectDataList?.internalAuthors?.message.length > 0 ? data?.ResearchProjectDataList?.internalAuthors?.message : [];
-	let externalAuthors = data?.ResearchProjectDataList?.externalAuthors?.message.length > 0 ? data?.ResearchProjectDataList?.externalAuthors?.message : [];
-	let researchStatus = data?.ResearchProjectDataList?.status?.message.length > 0 ? data?.ResearchProjectDataList?.status?.message : [];
+	let nmimsSchool =
+		data?.ResearchProjectDataList?.school?.message.length > 0
+			? data?.ResearchProjectDataList?.school?.message
+			: [];
+	let nmimsCampus =
+		data?.ResearchProjectDataList?.campus?.message.length > 0
+			? data?.ResearchProjectDataList?.campus?.message
+			: [];
+	let enternalAuthors =
+		data?.ResearchProjectDataList?.internalAuthors?.message.length > 0
+			? data?.ResearchProjectDataList?.internalAuthors?.message
+			: [];
+	let externalAuthors =
+		data?.ResearchProjectDataList?.externalAuthors?.message.length > 0
+			? data?.ResearchProjectDataList?.externalAuthors?.message
+			: [];
+	let researchStatus =
+		data?.ResearchProjectDataList?.status?.message.length > 0
+			? data?.ResearchProjectDataList?.status?.message
+			: [];
 
 	// let isRequired = false;
 
@@ -184,6 +199,7 @@
 	}
 
 	let files: any = [];
+	$: console.log('retrieved files ', files);
 	fileDataStore.set(files);
 
 	let showInternal = false;
@@ -234,8 +250,8 @@
 					return f.file;
 				})
 			};
-			const fileresult = validateWithZod(fileSchema, fileObject);
-			if (fileresult.errors) {
+		const fileresult = validateWithZod(fileSchema, fileObject);
+		if (fileresult.errors) {
 				console.log(fileresult.errors);
 				const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
 				toast.error('ALERT!', {
@@ -250,7 +266,7 @@
 		formData.append('research_project_id', obj.research_project_id);
 
 		Array.from(files).forEach((file: any) => {
-			formData.append('supporting_documents', file);
+			formData.append('supporting_documents', file.file);
 		});
 
 		for (let [key, value] of formData.entries()) {
@@ -269,7 +285,7 @@
 
 		console.log('validated data', JSON.stringify(result.data));
 
-		const { error, json } = await fetchFormApi<updatedResearchProjectStatus[]>({
+		const { error, json } : any = await fetchFormApi({
 			url: `${PUBLIC_API_BASE_URL}/research-project-update`,
 			method: 'POST',
 			body: formData
@@ -283,15 +299,16 @@
 			});
 			return;
 		}
-		
-		if (researchProject[0].upsert_research_project.status == 403) {
-			toast.error('ALERT!', { description: researchProject[0].upsert_research_project.message });
+		if (json && json.length > 0) {
+			if (json[0].upsert_research_project.status == 403) {
+				toast.error('ALERT!', { description: json[0].upsert_research_project.message });
+			} else {
+				toast.success('Updated Successfully');
+				goto(`${PUBLIC_BASE_URL}project`);
+			}
 		} else {
-			toast.success('Updated Successfully');
-			goto(`${PUBLIC_BASE_URL}project`);
+			toast.error('No response data received');
 		}
-		
-		
 	}
 
 	async function downLoadFiles() {
@@ -330,7 +347,7 @@
 </script>
 
 <Card {title}>
-	<div class="modal-content p-4">
+	<div class=" p-4">
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<DynamicSelect
 				isRequired={true}
@@ -360,37 +377,6 @@
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<Input type="text" placeholder="Title of Project" bind:value={obj.title} />
 			<Input type="text" placeholder="Thrust area of Research" bind:value={obj.thrust_area} />
-			<div class="ml-2">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
-				<label class="text-sm text-[#888888]">
-					Grant Proposal<span class="text-danger text-sm">*</span>
-				</label>
-				<div class="mt-2.5 flex flex-row gap-[20px]">
-					<div class="flex flex-row">
-						<input
-							type="radio"
-							class="lms-input-radio w-4"
-							name="grant-proposal"
-							bind:group={obj.grant_proposal}
-							value={1}
-						/>
-						<span class="text-sm text-[#888888]"> Goverment</span>
-					</div>
-					<div class="flex flex-row">
-						<input
-							type="radio"
-							class="lms-input-radio w-4"
-							name="grant-proposal"
-							bind:group={obj.grant_proposal}
-							value={2}
-						/>
-						<span class="text-sm text-[#888888]"> Industry</span>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 			<div class="ml-2">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]"
@@ -429,6 +415,38 @@
 					</div>
 				</div>
 			</div>
+		</div>
+
+		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
+			<div class="ml-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<label class="text-sm text-[#888888]">
+					Grant Proposal<span class="text-danger text-sm">*</span>
+				</label>
+				<div class="mt-2.5 flex flex-row gap-[20px]">
+					<div class="flex flex-row">
+						<input
+							type="radio"
+							class="lms-input-radio w-4"
+							name="grant-proposal"
+							bind:group={obj.grant_proposal}
+							value={1}
+						/>
+						<span class="text-sm text-[#888888]"> Goverment</span>
+					</div>
+					<div class="flex flex-row">
+						<input
+							type="radio"
+							class="lms-input-radio w-4"
+							name="grant-proposal"
+							bind:group={obj.grant_proposal}
+							value={2}
+						/>
+						<span class="text-sm text-[#888888]"> Industry</span>
+					</div>
+				</div>
+			</div>
+
 			<Input type="number" placeholder="Funding Amount" bind:value={obj.funding_amount} />
 			<Input type="text" placeholder="Name of Funding Agency " bind:value={obj.funding_agency} />
 		</div>
@@ -438,57 +456,25 @@
 			<Input type="number" placeholder="Amount Received" bind:value={obj.received_amount} />
 		</div>
 
-		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
-			<div class="space-y-4">
-				<label for="supporting-documents" class="lms-label"
-					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
-				>
-				<label class="lms-label"
-					>Click To Upload New File
-					<input type="checkbox" bind:checked={isChecked} class="accent-primary" />
-				</label>
-				{#if checkVal}
-					<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
-					{#if files.length > 0}
-				      {@const fileString = files.length > 1 ? 'Files' : 'File' }
-				      <p class="lms-label">{files.length} {fileString} Uploaded</p>
-			        {/if}
-				{:else}
-					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
-						><i class="fa-solid fa-download text-md"></i></button
-					>
-				{/if}
-			</div>
-
-			<div class="ml-2">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
+		<div class="grid grid-cols-1 p-4 lg:p-8 md:grid-cols-2 lg:grid-cols-3 gap-4 items-center">
+			<div>
 				<label class="text-sm text-[#888888]"
 					>Name Of Co-Authors<span class="text-danger text-sm">*</span>
 				</label>
-				<div class="mt-2.5 flex gap-[100px]">
-					<div class="flex items-center">
-						<input
-							id="internal-checkbox"
-							type="checkbox"
-							class="lms-input-radio w-4"
-							bind:checked={showInternal}
-						/>
-						<label for="internal-checkbox" class="lms-label">Internal</label>
-					</div>
-					<div class="flex items-center">
-						<input
-							id="external-checkbox"
-							type="checkbox"
-							class="lms-input-radio w-4"
-							bind:checked={showExternal}
-						/>
-						<label for="external-checkbox" class="lms-label">External</label>
-					</div>
-				</div>
-
-				<div class="mt-6 flex items-center gap-8">
+				<div class="mt-4 grid grid-cols-1 gap-8 md:grid-cols-2">
 					<div>
-						{#if showInternalFaculty}
+						<div class="mb-2 flex items-center">
+							<input
+								id="internal-checkbox"
+								type="checkbox"
+								class="lms-input-radio w-4"
+								bind:checked={showInternal}
+							/>
+							<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
+								>Internal</label
+							>
+						</div>
+						{#if showInternal}
 							<DynamicSelect
 								isRequired={true}
 								placeholder="Internal Authors"
@@ -498,9 +484,19 @@
 							/>
 						{/if}
 					</div>
-
 					<div>
-						{#if showExternalFaculty}
+						<div class="mb-2 flex items-center">
+							<input
+								id="external-checkbox"
+								type="checkbox"
+								class="lms-input-radio w-4"
+								bind:checked={showExternal}
+							/>
+							<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
+								>External</label
+							>
+						</div>
+						{#if showExternal}
 							<DynamicSelect
 								isRequired={true}
 								placeholder="External Authors"
@@ -512,10 +508,31 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="space-y-2  items-center">
+				<label for="supporting-documents" class="lms-label"
+					>Upload Supporting Documents <i style="color: red;">*</i><br /></label
+				>
+				<label class="lms-label"
+					>Click To Upload New File
+					<input type="checkbox" bind:checked={isChecked} class="accent-primary" />
+				</label>
+				{#if checkVal}
+					<File on:filesSelected={handleFiles} on:deletedFiles={handleDeleteFiles} isView={false} />
+					{#if files.length > 0}
+						{@const fileString = files.length > 1 ? 'Files' : 'File'}
+						<p class="lms-label">{files.length} {fileString} Uploaded</p>
+					{/if}
+				{:else}
+					<button class="lms-primary-btn mt-2" on:click={downLoadFiles}
+						><i class="fa-solid fa-download text-md"></i></button
+					>
+				{/if}
+			</div>
 		</div>
 
-		<div class="grid grid-cols md:grid-cols-2 lg:grid-cols-2 mt-4">
-			<div class="flex md:flex-row gap-4 ">
+		<div class="grid-cols mt-4 grid md:grid-cols-2 lg:grid-cols-2">
+			<div class="flex flex-wrap">
 				<DatePicker
 					on:change={handleDateChange1}
 					bind:selectedDateTime={grantDate}
@@ -549,7 +566,7 @@
 				{/if}
 			</div>
 
-			<div class="flex md:flex-row gap-4">
+			<div class="flex flex-wrap">
 				<DatePicker
 					on:change={handleDateChange2}
 					bind:selectedDateTime={paymentDate}

@@ -354,8 +354,60 @@
 			<Input type="text" placeholder="Scheme " bind:value={obj.scheme} />
 			<Input type="number" placeholder="Amount Received" bind:value={obj.received_amount} />
 		</div>
-		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
-			<div class="space-y-2">
+		<div class="grid grid-cols-1 p-4 lg:p-8 md:grid-cols-2 lg:grid-cols-2 gap-4 items-center"> 
+			<div>
+				<label class="text-sm text-[#888888]"
+					>Details of Inventors<span class="text-danger text-sm">*</span>
+				</label>
+				<div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
+					<div>
+						<div  class="flex items-center mb-2">
+							<input
+								id="internal-checkbox"
+								type="checkbox"
+								class="lms-input-radio w-4"
+								bind:checked={showInternal}
+							/>
+							<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
+								>Internal</label
+							>
+						</div>
+						{#if showInternal}
+							<DynamicSelect
+								isRequired={true}
+								placeholder="Internal Authors"
+								options={getEnternalAuthors(internal)}
+								bind:selectedOptions={obj.internal_authors}
+								isMultiSelect={true}
+							/>
+						{/if}
+					</div>
+					<div>
+						<div class="flex items-center mb-2">
+							<input
+							id="external-checkbox"
+							type="checkbox"
+							class="lms-input-radio w-4"
+							bind:checked={showExternal}
+							/>
+							<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
+								>External</label
+							>
+						</div>
+						{#if showExternal}
+							<DynamicSelect
+								isRequired={true}
+								placeholder="External Authors"
+								options={getExternalAuthors(external)}
+								bind:selectedOptions={obj.external_authors}
+								isMultiSelect={true}
+							/>
+						{/if}
+					</div>
+				</div>
+			</div>
+
+			<div class="space-y-2 grid items-center place-content-center">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="lms-label"
 					>Upload Supporting Documents<span class="text-primary">*</span></label
@@ -367,59 +419,10 @@
 			    {/if}
 			</div>
 
-			<div class="ml-2">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
-				<label class="text-sm text-[#888888]"
-					>Details of Faculty<span class="text-danger text-sm">*</span>
-				</label>
-				<div class="mt-4 flex items-center gap-8">
-					<div class="flex items-center">
-						<input
-							id="internal-checkbox"
-							type="checkbox"
-							class="lms-input-radio w-4"
-							bind:checked={showInternal}
-						/>
-						<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
-							>Internal</label
-						>
-					</div>
-					<div class="flex items-center">
-						<input
-							id="external-checkbox"
-							type="checkbox"
-							class="lms-input-radio w-4"
-							bind:checked={showExternal}
-						/>
-						<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
-							>External</label
-						>
-					</div>
-				</div>
-				<div class="flex items-center gap-x-4 mt-4">
-					{#if showInternal}
-						<DynamicSelect
-							isRequired={true}
-							placeholder="Internal Authors"
-							options={getEnternalAuthors(internal)}
-							bind:selectedOptions={obj.internal_authors}
-							isMultiSelect={true}
-						/>
-					{/if}
-					{#if showExternal}
-						<DynamicSelect
-							isRequired={true}
-							placeholder="External Authors"
-							options={getExternalAuthors(external)}
-							bind:selectedOptions={obj.external_authors}
-							isMultiSelect={true}
-						/>
-					{/if}
-				</div>
-			</div>
+			
 		</div>
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
-			<div class="flex gap-4 md:flex-row">
+			<div class="flex flex-wrap">
 				<DatePicker
 					on:change={handleDateChange1}
 					bind:selectedDateTime={grantDate}
@@ -452,7 +455,7 @@
 					</div>
 				{/if}
 			</div>
-			<div class="gap[10px] flex md:flex-row">
+			<div class="flex flex-wrap">
 				<DatePicker
 					on:change={handleDateChange2}
 					bind:selectedDateTime={paymentDate}

@@ -113,6 +113,8 @@
 			method: 'GET'
 		});
 
+		const researchProjectActions = json as { status : number, message : string};
+
 		if (error) {
 
 			toast.error(error.message || 'Something went wrong!', {
@@ -121,14 +123,14 @@
 			return;
 		}
 
-		if(json.status == 200){
+		if(researchProjectActions.status == 200){
 			
 		toast.success('Deleted Successfully !');
 		let url: URL = new URL(`${PUBLIC_API_BASE_URL}/research-project-paginate`);
 		paginateUrl.set(url);
 
 		}else{
-			toast.error(json.message);
+			toast.error(researchProjectActions.message);
 		}
 
 

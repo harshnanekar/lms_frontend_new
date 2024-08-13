@@ -40,6 +40,7 @@ export type JournalPaper = {
 };
 
 export type JournalView = {
+	id: number;
 	nmims_school : string[],
 	nmims_campus : string[],
 	publish_year :  number,
@@ -121,6 +122,7 @@ export type BookChapterDetails = {
 };
 
 export type TeachingView = {
+	id: number;
 	pedagogy_innovation: string;
 	fdp_program: string;
 	student_workshops: string;
@@ -131,6 +133,7 @@ export type TeachingView = {
 };
 
 export type MeetingView = {
+	id: number;
 	ranking: string;
 	accreditation: string;
 	achievements: string;
@@ -158,6 +161,7 @@ export type MeetingView = {
  }
 
  export type CaseStudyView = {
+   id: number;
    title:string,
    all_authors :string,
    edition :string,
@@ -169,6 +173,7 @@ export type MeetingView = {
  }
 
  export type ResearchSeminarView = {
+	id: number;
 	nmims_school : string[],
 	nmims_campus : string[],
 	research_date : Date,
@@ -180,6 +185,7 @@ export type MeetingView = {
  }
 
  export type EContentView = {
+	id: number;
 	faculty_name : string,
 	module : string,
 	module_platform : string,
@@ -191,6 +197,7 @@ export type MeetingView = {
  }
 
  export type ResearchAwardView = {
+ id: number;
  nmims_school : string[],
  nmims_campus : string[],
  faculty_name : string,
@@ -217,8 +224,6 @@ export type MeetingView = {
 	last_name : string,
 	username : string
  }[]
-
-
 
 
 
@@ -356,7 +361,9 @@ export type ResearchProjectRender = {
 	funding_agency: string;
 
 	thrust_area: string;
-};
+	status :string;
+	remarks:string;
+}; 
 
 export type ResearchProjectData = {
 	title: string;
@@ -473,6 +480,22 @@ export type bookPublicationStatus = {
 	};
 
 }; 
+
+
+export type caseStudyStatus = {
+	insert_case_study?: {
+		status: number;
+		status_code: number;
+		message: string;
+	},
+
+	upsert_case_study?: {
+		status: number;
+		status_code: number;
+		message: string;
+	},
+
+}
 
 
 
@@ -625,19 +648,29 @@ export type FileObject = {
 	uploaded: boolean;
  }
 
+ export type InfiniteResearchView = {
+	id : number,
+	faculty_name : string,
+	username : string,
+	form_lid : number,
+	form_status : number | null
+ }[]
 
-//  export type ResponseType<T extends string | number> = {
-// 	[key in T] : {
-// 		status : number,
-// 		message : string
-// 	}
-//  }
+ export type ChronicleModules = {
+	module_name: string;
+	icon: string;
+	parent_id: string | null;
+	abbr: string;
+	table_name: string | null;
+	url: string | null;
+  }[]
 
-export type ApiResponseStatus<T> = {
-	[key: string]: T;
-};
-
-export type ApiResponseWithStatus = {
-	status: number;
-	message: string;
-};
+  export type ChronicleView = {
+	chronicleData : {
+	id: number,
+	chronicle_modules_lid:number,
+	name:string,
+	start_date:Date,
+	end_date:Date
+	}[]
+ }

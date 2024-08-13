@@ -249,11 +249,12 @@ export function getExternalAuthors(data:any) : CustomOptions[] {
 export function getEnternalAuthors(data:any) : CustomOptions[] {
     let inputFieldsArr : any[] = []; 
 	if(!data) return [];
-
+	console.log("data><><><><><><>", data)
     data.forEach((item : any) => {
         inputFieldsArr.push({value: item.id, label: item.faculty_name});
     });
-  
+	console.log("getEnternalAuthors>>>>>>", inputFieldsArr);
+	
     return inputFieldsArr;
 }  
 

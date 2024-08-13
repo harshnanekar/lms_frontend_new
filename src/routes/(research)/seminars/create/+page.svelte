@@ -67,7 +67,7 @@
 		uid: '',
 		publisher: '',
 		resource_person: '',
-		volume_no: '',
+		page_no: '',
 		issn_no: '',
 		doi_no: null,
 		scopus_site_score: '',
@@ -94,13 +94,13 @@
 			resource_person: obj.resource_person,
 			nmims_authors:
 				obj.nmims_authors != null
-					? obj.nmims_authors.map((data: { value: any }) => Number(data.value))
+					? (obj.nmims_authors as any).map((data: { value: any }) => Number(data.value))
 					: [],
 			paper_title: obj.paper_title,
 			journal_name: obj.journal_name,
 			publisher: obj.publisher,
 			publisher_category: Number(obj.publisher_category),
-			volume_no: obj.volume_no,
+			page_no: obj.page_no,
 			issn_no: obj.issn_no,
 			scopus_site_score: obj.scopus_site_score,
 			impact_factor: Number(obj.impact_factor),
@@ -194,7 +194,7 @@
 			uid: '',
 			publisher: '',
 			resource_person: '',
-			volume_no: '',
+			page_no: '',
 			issn_no: '',
 			doi_no: null,
 			scopus_site_score: '',

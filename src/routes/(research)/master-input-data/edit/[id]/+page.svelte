@@ -67,7 +67,7 @@
 
 		console.log('validated data', JSON.stringify(result.data));
 
-        const { error, json } = await fetchApi({
+        const { error, json } : any = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/master-input-data-update`,
 			method: 'POST',
 			body: {
@@ -83,6 +83,7 @@
 		}
         if (json[0].upsert_master_data.status == 403) {
 			toast.error('ALERT!', { description: json[0].upsert_master_data.message });
+            goto('/master-input-data');
 		} else {
 			toast.success('Updated Successfully');
 			goto(`${PUBLIC_BASE_URL}master-input-data`);

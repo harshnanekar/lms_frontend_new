@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { fileDataStore } from '$lib/stores/modules/research/master.store.ts';
+	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 	import { Input, DatePicker, DynamicSelect, File } from '$lib/components/ui';
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
 	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
@@ -302,7 +302,7 @@
 
 		console.log('validated data', JSON.stringify(result.data));
 
-		const { error, json } = await fetchFormApi({
+		const { error, json } : any = await fetchFormApi({
 			url: `${PUBLIC_API_BASE_URL}/journal-article-update`,
 			method: 'POST',
 			body: formData

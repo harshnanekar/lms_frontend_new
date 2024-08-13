@@ -16,7 +16,7 @@ export const defaultMasterStoreValue = {
     meetingSubject: [],
 }
 
-export const defaultJournalStore = {
+export const defaultJournalStore : any = {
      nmims_school : [],
 	 nmims_campus : [],
 	 publish_year : 0,
@@ -50,6 +50,6 @@ export const defaultJournalStore = {
 	 supporting_documents : []
 }
 
-export const journalStore = writable<JournalPaper>(defaultJournalStore);
+export const journalStore = writable<JournalPaper >(defaultJournalStore);
 export const masterFormStore = writable<MasterMeetingStore>(defaultMasterStoreValue);
 

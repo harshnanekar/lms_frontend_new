@@ -10,7 +10,7 @@
 	export let dataToPopulate: MeetingSubjectStore | undefined;
 	
     function handlePrimaryClick() {
-        if(campusJson.isParent) return;
+        if((campusJson.isParent) as any) return;
         masterFormStore.update((form) => {
             form.meetingSubject.forEach((sub) => {
                 if(sub.uid === campusJson.uid) {
@@ -65,22 +65,22 @@
 		{/if}
 		{campusJson.isParent ? 'Primary' : 'Make Primary'}
 	</button>
-	<p class="!mt-10 md:!mt-0 font-bold">{campusJson.campusOption.label}</p>
+	<p class="!mt-10 md:!mt-0 font-bold">{campusJson.campusOption?.label}</p>
 	<div class="flex flex-wrap gap-2">
 		<div
 			class="bg-base text-body-2 mr-3 items-center gap-x-4 rounded-3xl px-4 py-3 font-medium text-black"
 		>
-			{campusJson.subjectOption.label}
+			{campusJson.subjectOption?.label}
 		</div>
 		<div
 			class="bg-base text-body-2 mr-3 items-center gap-x-4 rounded-3xl px-4 py-3 font-medium text-black"
 		>
-			{campusJson.programOption.label}
+			{campusJson.programOption?.label}
 		</div>
 		<div
 			class="bg-base text-body-2 mr-3 items-center gap-x-4 rounded-3xl px-4 py-3 font-medium text-black"
 		>
-			{campusJson.sessionOption.label}
+			{campusJson.sessionOption?.label}
 		</div>
 	</div>
 	<div class="grid grid-cols-1 gap-x-5 gap-y-3 lg:grid-cols-3">
