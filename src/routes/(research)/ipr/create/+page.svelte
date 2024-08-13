@@ -540,7 +540,8 @@
 				{/if}
 			</div>			
 		</div>
-	</div>
+	
+		</div>
 
 	<div class="flex flex-row gap-[20px] p-4">
 		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>

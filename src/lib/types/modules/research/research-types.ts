@@ -454,6 +454,22 @@ export type bookPublicationStatus = {
 }; 
 
 
+export type caseStudyStatus = {
+	insert_case_study?: {
+		status: number;
+		status_code: number;
+		message: string;
+	},
+
+	upsert_case_study?: {
+		status: number;
+		status_code: number;
+		message: string;
+	},
+
+}
+
+
 
 
 export type updateBookPublicationStatus =  {
