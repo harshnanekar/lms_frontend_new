@@ -112,6 +112,8 @@
 			return;
 		}
 
+		// const journalAction = json as {status:number,message:string}
+
 		if(json.status == 200){
 			
 		toast.success('Deleted Successfully !');

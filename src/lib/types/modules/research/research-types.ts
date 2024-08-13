@@ -585,3 +585,12 @@ export type FileObject = {
 	form_lid : number,
 	form_status : number | null
  }[]
+
+ export type ChronicleModules = {
+	module_name: string;
+	icon: string;
+	parent_id: string | null;
+	abbr: string;
+	table_name: string | null;
+	url: string | null;
+  }[]
