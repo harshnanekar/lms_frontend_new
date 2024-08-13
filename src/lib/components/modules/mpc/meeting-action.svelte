@@ -1,11 +1,11 @@
 <script lang="ts">
 	// import { JournalView } from '$lib/types/modules/research/research-types.ts';
 	import { ActionIcon } from '$lib/components/icons';
-	// import type { SubjectMeetingDetail } from '$lib/types/modules/mpc/master-form';
+	import type { SubjectMeetingDetail } from '$lib/types/modules/mpc/master-form';
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 
-	// export let actionData: SubjectMeetingDetail;
+	export let actionData: SubjectMeetingDetail;
 	const showMenu = writable<boolean>(false);
 	const menuPosition = writable<{ top: number; left: number }>({ top: 0, left: 0 });
 

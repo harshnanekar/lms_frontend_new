@@ -74,6 +74,7 @@
 	);
 
 	let files: any = [];
+	$: console.log('retrieved files ', files);
 	fileDataStore.set(files);
 
 	let obj: any = {
@@ -188,8 +189,8 @@
 					return f.file;
 				})
 			};
-			const fileresult = validateWithZod(fileSchema, fileObject);
-			if (fileresult.errors) {
+		const fileresult = validateWithZod(fileSchema, fileObject);
+		if (fileresult.errors) {
 				console.log(fileresult.errors);
 				const [firstPath, firstMessage] = Object.entries(fileresult.errors)[0];
 				toast.error('ALERT!', {
@@ -204,7 +205,7 @@
 		formData.append('patent_id', obj.patent_id);
 
 		Array.from(files).forEach((file: any) => {
-			formData.append('supporting_documents', file);
+			formData.append('supporting_documents', file.file);
 		});
 		for (let [key, value] of formData.entries()) {
 			console.log(`${key}: ${value}`);
@@ -338,36 +339,25 @@
 			</div>
 		</div>
 
-		<div class="flex flex-row gap-[40px] p-4">
-			<div class="ml-2">
-				<!-- svelte-ignore a11y-label-has-associated-control -->
+		<div class="grid grid-cols-1 p-4 lg:p-8 md:grid-cols-2 lg:grid-cols-2 gap-4 items-center">
+			<div>
 				<label class="text-sm text-[#888888]"
 					>Name Of Co-Authors<span class="text-danger text-sm">*</span>
 				</label>
-				<div class="mt-2.5 flex gap-[100px]">
-					<div class="flex items-center">
-						<input
-							id="internal-checkbox"
-							type="checkbox"
-							class="lms-input-radio w-4"
-							bind:checked={showInternal}
-						/>
-						<label for="internal-checkbox" class="lms-label">Internal</label>
-					</div>
-					<div class="flex items-center">
-						<input
-							id="external-checkbox"
-							type="checkbox"
-							class="lms-input-radio w-4"
-							bind:checked={showExternal}
-						/>
-						<label for="external-checkbox" class="lms-label">External</label>
-					</div>
-				</div>
-
-				<div class="mt-6 flex items-center gap-8">
+				<div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
 					<div>
-						{#if showInternalFaculty}
+						<div  class="flex items-center mb-2">
+							<input
+								id="internal-checkbox"
+								type="checkbox"
+								class="lms-input-radio w-4"
+								bind:checked={showInternal}
+							/>
+							<label for="internal-checkbox" class="ml-2 text-sm font-medium text-gray-900"
+								>Internal</label
+							>
+						</div>
+						{#if showInternal}
 							<DynamicSelect
 								isRequired={true}
 								placeholder="Internal Authors"
@@ -377,9 +367,19 @@
 							/>
 						{/if}
 					</div>
-
 					<div>
-						{#if showExternalFaculty}
+						<div class="flex items-center mb-2">
+							<input
+							id="external-checkbox"
+							type="checkbox"
+							class="lms-input-radio w-4"
+							bind:checked={showExternal}
+							/>
+							<label for="external-checkbox" class="ml-2 text-sm font-medium text-gray-900"
+								>External</label
+							>
+						</div>
+						{#if showExternal}
 							<DynamicSelect
 								isRequired={true}
 								placeholder="External Authors"
@@ -390,41 +390,42 @@
 						{/if}
 					</div>
 				</div>
+			</div>  
+			<div class="flex flex-wrap">
+				<DatePicker
+					on:change={handleDateChange}
+					bind:selectedDateTime={publicationDate}
+					disabled={(publicationDate) => publicationDate.getTime() < new Date().setHours(0, 0, 0, 0)}
+				>
+					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
+						<SelectDateIcon />
+						<span class="text-body-2 font-bold">Add Date of Filing/Grant/Published</span>
+					</div>
+				</DatePicker>
+				{#if publicationFormattedDate}
+					{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
+					<div
+						class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
+						in:fly={{ x: -100, duration: 300 }}
+						out:fly={{ x: 100, duration: 300 }}
+					>
+						<p class="m-0 p-0">{formattedDate}</p>
+						<button
+							use:tooltip={{
+								content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
+							}}
+							on:click={() => {
+								// remove the current date
+								publicationFormattedDate = '';
+							}}
+						>
+							<XIcon />
+						</button>
+					</div>
+				{/if}
 			</div>
 		</div>
-		<div class="flex flex-row gap-8 p-4">
-			<DatePicker
-				on:change={handleDateChange}
-				bind:selectedDateTime={publicationDate}
-				disabled={(publicationDate) => publicationDate.getTime() < new Date().setHours(0, 0, 0, 0)}
-			>
-				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
-					<SelectDateIcon />
-					<span class="text-body-2 font-bold">Add Date of Filing/Grant/Published</span>
-				</div>
-			</DatePicker>
-			{#if publicationFormattedDate}
-				{@const formattedDate = formatDateTimeShort(new Date(publicationFormattedDate))}
-				<div
-					class="bg-base text-label-md md:text-body-2 mr-3 flex items-center gap-x-4 rounded-3xl px-4 py-1 font-medium text-black md:py-3"
-					in:fly={{ x: -100, duration: 300 }}
-					out:fly={{ x: 100, duration: 300 }}
-				>
-					<p class="m-0 p-0">{formattedDate}</p>
-					<button
-						use:tooltip={{
-							content: `<b class="text-primary">REMOVE</b> ${formattedDate}`
-						}}
-						on:click={() => {
-							// remove the current date
-							publicationFormattedDate = '';
-						}}
-					>
-						<XIcon />
-					</button>
-				</div>
-			{/if}
-		</div>
+		
 	</div>
 
 	<div class="flex flex-row gap-[20px] p-4">

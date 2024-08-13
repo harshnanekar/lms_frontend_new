@@ -126,9 +126,9 @@
 
 {#if checkData}
 	<Card {title}>
-		<div class="modal-content p-4">
+		<div class=" p-4">
 			<!-- Adjust max-height as needed -->
-			<div class="grid grid-cols-3 gap-8 items-center p-4">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3 ">
 				<Input type="text" placeholder="Nmims School" value={obj.nmims_school} {disabled} />
 				<Input type="text" placeholder="Nmims Campus" value={obj.nmims_campus} {disabled} />
 				<Input
@@ -138,7 +138,7 @@
 					{disabled}
 				/>
 			</div>
-			<div class="grid grid-cols-3 gap-8 items-center p-4">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 				<Input
 					type="text"
 					placeholder="Sustainable Development Goals"
@@ -153,7 +153,7 @@
 					{disabled}
 				/>
 			</div>
-			<div class="grid grid-cols-3 gap-8 p-4">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3 ">
 				<Input
 					type="number"
 					placeholder="Patent/Invention Application Number"
@@ -173,7 +173,7 @@
 					{disabled}
 				/>
 			</div>
-			<div class="grid grid-cols-3 gap-8 p-4">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3">
 				<Input
 					type="text"
 					placeholder="Institute Affiliation"
@@ -195,7 +195,7 @@
 				
 			</div>
 
-			<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
 				<Input
 					type="text"
 					placeholder="Names Of External Inventors"
@@ -217,10 +217,9 @@
 
 			</div>
 		
-			<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2">
 				
-
-				<div class="flex flex-row">
+				<div class="flex flex-wrap">
 					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 						<SelectDateIcon />
 						<span class="text-body-2 font-bold">Patent Filed Date</span>
@@ -243,10 +242,7 @@
 					{/if}
 				</div>
 
-
-
-				<div class="flex flex-row">
-
+				<div class="flex flex-wrap">
 					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 						<SelectDateIcon />
 						<span class="text-body-2 font-bold">Patent Grant Date</span>
@@ -272,8 +268,8 @@
 				</div>
 			
 			</div>
-			<div class="grid grid-cols-1 items-center gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
-				<div class="flex flex-row">
+			<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3 ">
+				<div class="flex flex-wrap">
 					<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 						<SelectDateIcon />
 						<span class="text-body-2 font-bold">Patent /Invention Published Date</span>

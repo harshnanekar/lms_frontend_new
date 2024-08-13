@@ -74,7 +74,7 @@
 		}
 
 		// Make API request
-		const { error, json } = await fetchApi({
+		const { error, json } : any = await fetchApi({
 			url: `${PUBLIC_API_BASE_URL}/master-input-data-insert`,
 			method: 'POST',
 			body: {

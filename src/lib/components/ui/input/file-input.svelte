@@ -20,6 +20,8 @@
 	$: selectedFileUrl = fileUrl;
 	$: fileData = $fileDataStore;
 
+
+
 	$: console.log('files stores ',$fileDataStore)
 
 	function previewFile() {
@@ -75,7 +77,7 @@
 
 	{#if !isView}
 	<div
-		class="md:rounded-1 flex items-center justify-center rounded-[6px] border-2 border-red-200 sm:h-5 sm:w-full sm:py-6 md:h-5 md:w-24 md:px-16 md:py-4 lg:h-3 lg:w-36 lg:px-14 lg:py-5"
+		class="md:rounded-1 flex items-center justify-center rounded-[6px] border-2 border-red-200 sm:h-5 sm:w-full p-2 sm:py-6 md:h-5 md:w-24 md:px-16 md:py-4 lg:h-3 lg:w-36 lg:px-14 lg:py-5"
 	>
 		<label class="flex cursor-pointer items-center justify-center">
 			<div class="flex items-center justify-center gap-4">
@@ -138,7 +140,7 @@
 										<button on:click={() => handleDelete(file.id)}><DeleteIcon /></button>
 									{/if}
 									<button on:click={() => previewParticularFile(file.url)}
-										><EyeIcon width="20" height="20" /></button
+										><EyeIcon width?="20" height?="20" /></button
 									>
 								</td>
 							</tr>	

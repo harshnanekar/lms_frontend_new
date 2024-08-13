@@ -1,0 +1,1 @@
+export { default as CustomConfirm } from './confirm.svelte'

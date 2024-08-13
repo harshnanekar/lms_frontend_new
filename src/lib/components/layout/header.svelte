@@ -3,27 +3,12 @@
 	import { fetchApi } from '$lib/utils/fetcher';
 	import { toast } from 'svelte-sonner';
 	import { MenuBarIcon, SearchIcon, SignOutIcon } from '../icons';
-	import { Image } from '../ui';
+	import { Image, ProfileDropDown } from '../ui';
 	import { isSidebarOverlayOpen } from './sidebar/store';
 	import { goto } from '$app/navigation';
 	import ProfileDropdown from '../ui/profile-dropdown.svelte';
 
 	export let profilData:any;
-
-	// async function handleLogout() {
-	// 	const { error, json } = await fetchApi({
-	// 		url: `${PUBLIC_API_BASE_URL}/logout`,
-	// 		method: 'GET'
-	// 	});
-
-	// 	if (error) {
-	// 		toast.error(error.message || 'Something went wrong!', {
-	// 			description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
-	// 		});
-	// 		return;
-	// 	}
-	// 	goto(`${PUBLIC_BASE_URL}login`);
-	// }
 
 	$:console.log("PROFILE DATA IN HEADER :::", profilData);
 	
@@ -43,6 +28,8 @@
 			<img src="/images/layout/logo.png" alt="Logo" class="h-[36px] w-[102px]" />
 		</div>
 		<div class="flex items-center gap-x-4 md:gap-x-6">
+			<!-- <button on:click={() => window.history.back()}>Back</button> -->
+
 			<!-- <button class="lms-btn lms-primary-btn"
 				><SignOutIcon fill="white" />Signout</button
 			> -->
@@ -54,6 +41,15 @@
 				/>
 			</button> -->
 			<div>
+				<p class="rollusername">
+					{profilData[0].first_name} {profilData[0].last_name}
+				</p>
+				<span class="userroll italic">
+					{profilData[0].role_name}
+				</span>
+			</div>
+			<div>
+				
 				<button class="border-0">
 					<ProfileDropdown
 						src="/icons/layout/notificataion.png"
@@ -106,3 +102,21 @@
 	</div>
 </header>
 {/if}
+
+<style>
+	.rollusername{
+		font-size: 14px;
+            font-weight: 700;
+            color: #333;
+            line-height: 20px;
+	}
+	.userroll{
+		    font-size: 14px;
+            font-weight: 600;
+            color: #7c8798;
+            line-height: 16px;
+            /* margin-left: 5px; */
+			display:flex;
+			justify-content: end;
+	}
+	</style>

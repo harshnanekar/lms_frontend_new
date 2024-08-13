@@ -101,6 +101,7 @@
 			method: 'GET'
 		});
 
+		const eContentActions = json as {status : number , message : string}
 		if (error) {
 			toast.error(error.message || 'Something went wrong!', {
 				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
@@ -108,12 +109,12 @@
 			return;
 		}
 
-		if (json.status == 200) {
+		if (eContentActions.status == 200) {
 			toast.success('Deleted Successfully !');
 			let url: URL = new URL(`${PUBLIC_API_BASE_URL}/e-content-paginate`);
 			paginateUrl.set(url);
 		} else {
-			toast.error(json.message);
+			toast.error(eContentActions.message);
 		}
 	}
 </script>

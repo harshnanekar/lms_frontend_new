@@ -319,7 +319,7 @@
 
 			</div> 
 
-			<div class="flex md:flex-row gap-4 mt-4">
+			<div class="flex flex-wrap">
 				<div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
 					<SelectDateIcon />
 					<span class="text-body-2 font-bold">Publication Date</span>
