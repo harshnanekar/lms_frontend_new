@@ -9,6 +9,7 @@
 	import { fetchApi } from '$lib/utils/fetcher';
 	import { toast } from 'svelte-sonner';
 	
+	import { page } from '$app/stores';
 	
 	let role : string;
 
@@ -59,7 +60,18 @@
 		id="lms-main-wrapper"
 		class="small-scrollbar relative overflow-y-auto overflow-x-hidden bg-white px-[13px] py-[22px] md:rounded-tl-[20px] md:p-[30px]"
 	>
-	<button class="backbtn flex py-2.5 mb-3" on:click={() => window.history.back()}>
+	<button 
+    class="backbtn flex py-2.5 mb-3" 
+    class:hidden={
+        $page.url.pathname === '/dashboard' || 
+        (
+            $page.url.pathname === '/form-approval' && 
+            $page.url.pathname !== '/form-approval/id'
+        )
+    }
+    on:click={() => window.history.back()}
+>
+
 		<ArrowIcon />
 		<span class="backtext ml-1.5">Back</span>
 	</button>
@@ -68,6 +80,9 @@
 </main>
 
 <style>
+	/* .backbtn{
+		display: none;
+	} */
 	.backtext{
 		color:#7c8798;
 		font-size: .875rem;
