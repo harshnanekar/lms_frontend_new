@@ -186,7 +186,7 @@
 			body: formData
 		});
 
-		const caseStudyStatus = json as updateCaseStudyStatus[]
+		// const caseStudyStatus = json as updateCaseStudyStatus[]
 
 		if (error) {
 			toast.error(error.message || 'Something went wrong!', {

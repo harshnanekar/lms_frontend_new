@@ -281,7 +281,7 @@
 		}	
 		
 	}
-
+	}
 	function clearForm() {
 		obj = {
 			nmims_school: null,
@@ -312,9 +312,13 @@
 		showExternal = false;
 		showInternal = false;
 	}
+
+
+
+	
 </script>
 
-<!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6"> -->
+ <!-- <div class="shadow-card rounded-2xl border-[1px] border-[#E5E9F1] p-4 !pt-0 sm:p-6">  -->
 <Card {title}>
 	<div class="p-4">
 		<!-- Adjust max-height as needed -->
