@@ -563,7 +563,8 @@ export const SIDEBAR_ICON: SidebarIcon = {
     "research":ResearchIcon,
 	"publication":PublicationIcon,
 	"form-approval" : RightIcon,
-	"chronicle-edition":ChronicleIcon
+	"chronicle-edition":ChronicleIcon,
+	"plusIcon":PlusIcon
 }
 
 export type EditedBookPublicationView = {
@@ -583,3 +584,11 @@ export type FileObject = {
 	size : number;
 	uploaded: boolean;
  }
+
+ export type InfiniteResearchView = {
+	id : number,
+	faculty_name : string,
+	username : string,
+	form_lid : number,
+	form_status : number | null
+ }[]

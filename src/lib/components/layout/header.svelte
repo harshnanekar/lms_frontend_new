@@ -43,6 +43,8 @@
 			<img src="/images/layout/logo.png" alt="Logo" class="h-[36px] w-[102px]" />
 		</div>
 		<div class="flex items-center gap-x-4 md:gap-x-6">
+			<!-- <button on:click={() => window.history.back()}>Back</button> -->
+
 			<!-- <button class="lms-btn lms-primary-btn"
 				><SignOutIcon fill="white" />Signout</button
 			> -->

@@ -288,6 +288,137 @@ export const ADMIN_SIDEBAR = [
 
 ]
 
+export const CHRONICLE_SIDEBAR = [
+	{
+		url: `${PUBLIC_BASE_URL}dashboard`,
+		icon: 'dashboard',
+		label: 'Home',
+		module: null,
+		child: []
+	},
+	{
+		url: `${PUBLIC_BASE_URL}chronicle-edition`,
+		icon: 'chronicle-edition',
+		label: 'Chronicle Edition',
+		module: null,
+		child: []
+	},
+	{
+		url: `${PUBLIC_BASE_URL}admin-research`,
+		icon: 'research',
+		label: 'Research',
+		module: null,
+		child: [
+			{
+				url: `${PUBLIC_BASE_URL}admin-research/1`,
+				icon: 'journal',
+				label: 'Journal Articles Published',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}admin-research/2`,
+				icon: 'book-publication',
+				label: 'Book Publication',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}admin-research/3`,
+				icon: 'edited-book-publication',
+				label: 'Edited Book Publication',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}admin-research/4`,
+				icon: 'book-chapter-publication',
+				label: 'Book Chapter Publication',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}admin-research/5`,
+				icon: 'conference',
+				label: 'Conference',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}admin-research/6`,
+				icon: 'research-project',
+				label: 'Research Projects',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}admin-research/7`,
+				icon: 'patent-submission',
+				label: 'Patent Submission & Grants',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}admin-research/8`,
+				icon: 'ipr',
+				label: 'IPR',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}admin-research/9`,
+				icon: 'research-award',
+				label: 'Research Award',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}admin-research/10`,
+				icon: 'e-content',
+				label: 'E-Content Development',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}admin-research/11`,
+				icon: 'research-seminar',
+				label: 'Research Seminar At Nmims',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}admin-research/12`,
+				icon: 'case-study',
+				label: 'Case Study',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}admin-research/13`,
+				icon: 'teaching-excellance',
+				label: 'Teaching Excellance',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}admin-research/14`,
+				icon: 'meeting-stakeholder',
+				label:'Meeting Stakeholders',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}admin-research/15`,
+				icon: 'branding-advertisement',
+				label: 'Branding & Advertisement',
+				module: null,
+				child: []
+			},
+		]
+	}
+
+]
+
 export const obj = [
 	{
 		meeting_id: '1',

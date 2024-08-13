@@ -18,6 +18,7 @@
 			});
 			return;
 	    	}
+			
 			console.log('user role ',JSON.stringify(json))
 			role = json.length > 0 ? json[0].role : '';
 	}
@@ -31,8 +32,9 @@
 		});
 
 		if(error){
-			console.log("error in header data:::::", error);
-			
+			toast.error(error.message || 'Something went wrong!', {
+				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+			});
 		}
 
 		profilData = await json;
