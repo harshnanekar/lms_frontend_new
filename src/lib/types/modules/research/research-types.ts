@@ -617,3 +617,13 @@ export type FileObject = {
 	table_name: string | null;
 	url: string | null;
   }[]
+
+  export type ChronicleView = {
+	chronicleData : {
+	id: number,
+	chronicle_modules_lid:number,
+	name:string,
+	start_date:Date,
+	end_date:Date
+	}[]
+ }
