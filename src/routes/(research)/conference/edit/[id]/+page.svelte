@@ -317,6 +317,9 @@
 			body: formData
 		});
 
+		const conferenceStatus = json as updateConferenceStatus[];
+
+
 		if (error) {
 			toast.error(error.message || 'Something went wrong!', {
 				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
@@ -324,9 +327,9 @@
 			return;
 		}
 
-		if (json[0].upsert_conference.status === 403) {
+		if (conferenceStatus[0].upsert_conference.status === 403) {
 			toast.error('ALERT!', {
-				description: json[0].upsert_conference.message
+				description: conferenceStatus[0].upsert_conference.message
 			});
 		} else {
 			toast.success('Updated Successfully');

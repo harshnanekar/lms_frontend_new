@@ -1,14 +1,9 @@
 <script lang="ts">
 	import { Input, DatePicker, DynamicSelect, File } from '$lib/components/ui';
-
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
-
 	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
-
 	import { tooltip } from '$lib/utils/tooltip';
-
 	import { fly } from 'svelte/transition';
-
 	import { Card } from '$lib/components/ui';
 
 	import {
@@ -27,17 +22,11 @@
 	} from '$lib/schemas/modules/research/master-validations';
 
 	import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
-
 	import { toast } from 'svelte-sonner';
-
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
-
 	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
-
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
-
 	import type { any } from 'zod';
-
 	import { goto } from '$app/navigation';
 	import type { updatedResearchProjectStatus } from '$lib/types/modules/research/research-types';
 
@@ -75,11 +64,8 @@
 	console.log('ResearchProjectDataList ===>>>>>>>>', data.ResearchProjectDataList);
 
 	$: school = nmimsSchool;
-
 	$: campus = nmimsCampus;
-
 	$: researchStatus = researchStatus;
-
 	$: external = externalAuthors;
 	$: internal = enternalAuthors;
 
@@ -304,6 +290,8 @@
 			method: 'POST',
 			body: formData
 		});
+
+		const researchProject = json as updatedResearchProjectStatus[]
 
 		if (error) {
 			toast.error(error.message || 'Something went wrong!', {

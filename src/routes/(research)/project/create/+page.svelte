@@ -1,16 +1,10 @@
 <script lang="ts">
 	import { Input, DatePicker, DynamicSelect, File } from '$lib/components/ui';
-
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
-
 	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
-
 	import { tooltip } from '$lib/utils/tooltip';
-
 	import { fly } from 'svelte/transition';
-
 	import { Card } from '$lib/components/ui';
-
 	import { fileDataStore } from '$lib/stores/modules/research/master.store';
 
 	import {
@@ -29,15 +23,10 @@
 	} from '$lib/schemas/modules/research/master-validations';
 
 	import { type FileReq, fileSchema } from '$lib/schemas/modules/research/master-validations';
-
 	import { toast } from 'svelte-sonner';
-
 	import { fetchApi, fetchFormApi } from '$lib/utils/fetcher';
-
 	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
-
 	import type { any } from 'zod';
-
 	import { goto } from '$app/navigation';
 	import type { researchProjectStatus } from '$lib/types/modules/research/research-types';
 
@@ -58,11 +47,8 @@
 	console.log('render ResearchProjectDataList', data.ResearchProjectDataList);
 
 	$: school = nmimsSchool;
-
 	$: campus = nmimsCampus;
-
 	$: researchStatus = researchStatus;
-
 	$: external = externalAuthors;
 	$: internal = enternalAuthors;
 
@@ -208,25 +194,24 @@
 			body: formData
 		});
 
+		const researchProject = json as researchProjectStatus[];
+
 		if (error) {
 			toast.error(error.message || 'Something went wrong!', {
 				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
 			});
 			return;
 		}
-		if(json && json.length > 0){
-			if (json[0].insert_research_project.status == 403) {
-			toast.error('ALERT!', { description: json[0].insert_research_project.message });
+
+	    if (researchProject[0].insert_research_project.status == 403) {
+			toast.error('ALERT!', { description: researchProject[0].insert_research_project.message });
 		} else {
 			toast.success('Inserted Successfully');
 			clearForm();
 			goto(`${PUBLIC_BASE_URL}project`);
 		}
-		} 
-		else {
-			toast.error('No response data received');
-		}
-	
+		
+
 	}
 
 	function clearForm() {
@@ -508,7 +493,6 @@
 
 	<div class="flex flex-row gap-[20px] p-4">
 		<button class="lms-btn lms-secondary-btn" on:click={clearForm}>Clear Form</button>
-
 		<button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button>
 	</div>
 </Card>

@@ -1,14 +1,9 @@
 <script lang="ts">
 	import { Input, DatePicker, DynamicSelect, File } from '$lib/components/ui';
-
 	import { SelectDateIcon, XIcon } from '$lib/components/icons';
-
 	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
-
 	import { tooltip } from '$lib/utils/tooltip';
-
 	import { fly } from 'svelte/transition';
-
 	import { Card } from '$lib/components/ui';
 	import { toast } from 'svelte-sonner';
 	import { PUBLIC_API_BASE_URL } from '$env/static/public';

@@ -137,25 +137,23 @@
 			body: formData
 		});
 
+		const bookPublications = json as bookPublicationStatus[]
+
 		if (error) {
 			toast.error(error.message || 'Something went wrong!', {
 				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
 			});
 			return;
 		}
-		if (json && json.length > 0) {
-			if (json[0].insert_book_publication.status == 403) {
+			if (bookPublications[0].insert_book_publication.status == 403) {
 				toast.error('ALERT!', {
-					description: json[0].insert_book_publication.message
+					description: bookPublications[0].insert_book_publication.message
 				});
 			} else {
 				toast.success('Inserted Successfully');
 				clearForm();
 				goto(`${PUBLIC_BASE_URL}book-publication`);
 			}
-		} else {
-			toast.error('No response data received');
-		}
 	}
 
 	function clearForm() {

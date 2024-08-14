@@ -186,6 +186,8 @@
 			body: formData
 		});
 
+		// const caseStudyStatus = json as updateCaseStudyStatus[]
+
 		if (error) {
 			toast.error(error.message || 'Something went wrong!', {
 				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
@@ -289,6 +291,7 @@
 		<div class="grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 			<Input type="number" placeholder="Publication Year" bind:value={obj.publish_year} />
 			<div class="ml-2">
+				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="text-sm text-[#888888]">
 					Publisher Category<span class="text-danger text-sm">*</span>
 				</label>

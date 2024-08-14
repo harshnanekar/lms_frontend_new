@@ -69,6 +69,7 @@ let modalwidthPercent: ModalSizes = 'md';
 				method : 'GET'
 			});
 
+
 			if(responseErr){
 				console.log('error in paginate ',responseErr)
 				error.set(responseErr.message || 'An unknown error occurred');
@@ -170,9 +171,9 @@ let modalwidthPercent: ModalSizes = 'md';
 
 		return pageNumbers;
 	}
-	function handleCustomEvent(event) {
-		console.log('Received custom event:', event.detail);
-	}
+	// function handleCustomEvent(event) {
+	// 	console.log('Received custom event:', event.detail);
+	// }
 
 	let remarks : string;
 	$: remarkText = remarks

@@ -28,11 +28,42 @@
             console.log('start date ', startDate);
     }
     
-    function handleEndDateChange(e: CustomEvent<any>) {
+    async function handleEndDateChange(e: CustomEvent<any>) {
             if (!endDate) return;
             endFormattedDate = endDate;
             console.log('start date ', endDate);
+
+            if(startFormattedDate === null) {
+                toast.error('Start date is required')
+                return 
+            }
+
+            if(endFormattedDate === null) {
+                toast.error('End date is required')
+                return 
+            }
+
+            let obj= {
+                startDate : startFormattedDate,
+                endDate : endFormattedDate
+            }
+
+            const { error, json } = await fetchApi({
+                url: `${PUBLIC_API_BASE_URL}/chronicle-research-list`,
+                method: 'POST',
+                body: {
+                    "research_dates" : obj
+                }
+            });
     
+            if (error) {
+                toast.error(error.message || 'Something went wrong!', {
+                    description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
+                });
+                return;
+            }
+            console.log('json ',JSON.stringify(json))
+
     }
     
     $: console.log('vc ',vcEditor)
@@ -81,7 +112,7 @@
             <Input type="text" placeholder="Chronicle Name" bind:value={chronicleName} />
          </div>   
     
-         <div  class="grid grid-cols grid-cols-2">
+         <div  class="grid grid-cols lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-4">
         <div class="flex gap-4 md:flex-row">
             <DatePicker
                 on:change={handleStartDateChange}

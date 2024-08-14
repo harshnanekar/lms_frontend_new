@@ -18,6 +18,7 @@
 	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
 	import type { any } from 'zod';
 	import { goto } from '$app/navigation';
+	import type { updateAwardStatus } from '$lib/types/modules/research/research-types';
 
 	export let data: any;
 	let isRequired = false;
@@ -141,11 +142,13 @@
 		formData.append('research_award', JSON.stringify(result.data));
 		formData.append('research_award_id', obj.research_award_id);
 
-		const { error, json } = await fetchFormApi({
+		const { error, json } = await fetchFormApi<updateAwardStatus[]>({
 			url: `${PUBLIC_API_BASE_URL}/research-award-update`,
 			method: 'POST',
 			body: formData
 		});
+
+		const researchAwardStatus = json as updateAwardStatus[]
 
 		if (error) {
 			toast.error(error.message || 'Something went wrong!', {
@@ -154,7 +157,7 @@
 			return;
 		}
 
-		if (json[0].upsert_research_award.status == 200) {
+		if (researchAwardStatus[0].upsert_research_award.status == 200) {
 			toast.success('Updated Successfully');
 			files = [];
 			fileDataStore.set(files);

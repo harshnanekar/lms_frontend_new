@@ -1,9 +1,5 @@
 <script lang="ts">
-	import { Input, DatePicker, DynamicSelect, File } from '$lib/components/ui';
-	import { SelectDateIcon, XIcon } from '$lib/components/icons';
-	import { formatDateTimeShort, formatDate } from '$lib/utils/date-formatter';
-	import { tooltip } from '$lib/utils/tooltip';
-	import { fly } from 'svelte/transition';
+	import { Input, DynamicSelect, File } from '$lib/components/ui';
 	import { Card } from '$lib/components/ui';
 
 	import {
@@ -236,16 +232,18 @@
 			body: formData
 		});
 
+		const bookChapter = json as updateBookChapterStatus[]
+
 		if (error) {
 			toast.error(error.message || 'Something went wrong!', {
 				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
 			});
 			return;
 		}
-		if (json && json.length > 0) {
-			if (json[0].upsert_book_chapter.status == 403) {
+		
+			if (bookChapter[0].upsert_book_chapter.status == 403) {
 				toast.error('ALERT!', {
-					description: json[0].upsert_book_chapter.message
+					description: bookChapter[0].upsert_book_chapter.message
 				});
 			} else {
 				toast.success('Updated Successfully');
@@ -254,9 +252,7 @@
 				isChecked = false;
 				goto(`${PUBLIC_BASE_URL}book-chapter-publication`);
 			}
-		} else {
-			toast.error('No response data received');
-		}
+		
 	}
 
 	async function downLoadFiles() {

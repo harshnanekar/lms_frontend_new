@@ -1,5 +1,6 @@
 import { ApprovalIcon, AuthorIcon, BookChapterIcon, BookPublicationIcon, BrandingIcon, CaseStudyIcon, ChronicleIcon, ConferenceIcon, DashboardIcon, EContentICon, EditedBookIcon, FacultyIcon, IprIcon, JournalIcon, MeetingStakeholderIcon, PatentIcon, PlusIcon, PublicationIcon, ResearchAwardIcon, ResearchIcon, ResearchProjectIcon, ResearchSeminarIcon, SignOutIcon, TeachMeetBrandIcon,TeachingIcon } from "$lib/components/icons"
 import { RightIcon } from "$lib/components/icons/base";
+import type { T } from "vitest/dist/reporters-yx5ZTtEV.js";
 
 
 export type JournalPaper = {
@@ -384,10 +385,6 @@ export type ResearchProjectData = {
 };
 
 
-
-
-
-
  export type conferenceStatus = {
 	insert_conference : {
 		status: number;
@@ -406,6 +403,37 @@ export type updateConferenceStatus = {
 
 };
 
+export type insertAwardStatus = {
+	insert_research_award : {
+		status: number;
+		status_code: number;
+		message: string;
+	}
+}
+
+export type updateAwardStatus = {
+	upsert_research_award : {
+		status: number;
+		status_code: number;
+		message: string;
+	}
+}
+
+export type insertBookPublication = {
+	insert_book_publication : {
+		status: number;
+		status_code: number;
+		message: string;
+	}
+}
+
+export type updateBookPublication = {
+	upsert_book_publication : {
+		status: number;
+		status_code: number;
+		message: string;
+	}
+}
 
 
 export type patentStatus = {
@@ -498,6 +526,25 @@ export type updateBookChapterStatus = {
 	};
 
 }
+
+export type insertCaseStudyStatus = {
+	insert_case_study : {
+		status: number;
+		status_code: number;
+		message: string;
+	}
+}
+
+export type updateCaseStudyStatus = {
+	upsert_case_study : {
+		status: number;
+		status_code: number;
+		message: string;
+	}
+}
+
+
+
 export type researchProjectStatus = {
 	insert_research_project: {
 		status: number;

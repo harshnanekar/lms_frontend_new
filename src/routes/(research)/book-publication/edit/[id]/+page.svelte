@@ -181,16 +181,17 @@
 			body: formData
 		});
 
+		const bookPublicationStatus = json as updateBookPublicationStatus[]
+
 		if (error) {
 			toast.error(error.message || 'Something went wrong!', {
 				description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
 			});
 			return;
 		}
-		if (json && json.length > 0) {
-			if (json[0].upsert_book_publication.status == 403) {
+			if (bookPublicationStatus[0].upsert_book_publication.status == 403) {
 				toast.error('ALERT!', {
-					description: json[0].upsert_book_publication.message
+					description: bookPublicationStatus[0].upsert_book_publication.message
 				});
 			} else {
 				toast.success('Updated Successfully');
@@ -199,9 +200,7 @@
 				isChecked = false;
 				goto(`${PUBLIC_BASE_URL}book-publication`);
 			}
-		} else {
-			toast.error('No response data received');
-		}
+		
 	}
 
 	async function downLoadFiles() {
