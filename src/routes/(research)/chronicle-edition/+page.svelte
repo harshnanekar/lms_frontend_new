@@ -19,5 +19,11 @@
       </div>
   </a>
   {/each}
+  <a href='/view-chronicles'>
+    <div class=" p-8 border shadow-card rounded-2xl flex items-center">
+      <MeetingIcon fill="black" />
+        <p class="text-center font-semibold ml-4">View Chronicles</p>
+    </div>
+</a>
 </div>
  

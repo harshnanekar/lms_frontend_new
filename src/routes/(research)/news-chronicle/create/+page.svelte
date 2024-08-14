@@ -11,7 +11,8 @@
     import { fly } from 'svelte/transition';
 	import { goto } from '$app/navigation';
     
-    let vcEditor = '';
+    let vcEditor = ``;
+
     let chronicleName : string = `chronicle${generateRandomNumberUUID()}`;
     
     let startDate: Date | null = new Date();
@@ -71,16 +72,17 @@
     </script>
     
     <div class ="space-y-4">
-    <h1 class="text-center">News Of The Week</h1>
-    <Card title="Chronicle Date">
+        <p class="text-center font-bold text-[30px]">News Of The Week</p>
+    <Card title="Chronicle Details">
     
     
-        <div class="grid grid-cols grid-cols-4 mt-3">
+        <div class="space-y-4 py-8">
     
-         <div>
+         <div class="grid grid-cols grid-cols-1">
             <Input type="text" placeholder="Chronicle Name" bind:value={chronicleName} />
          </div>   
     
+         <div  class="grid grid-cols lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-4"> 
         <div class="flex gap-4 md:flex-row">
             <DatePicker
                 on:change={handleStartDateChange}
@@ -147,8 +149,8 @@
                 </div>
             {/if}
         </div>
-    
-        <div><button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button></div>
+    </div>
+        <div class="flex justify-end"><button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button></div>
         
     </div>
     

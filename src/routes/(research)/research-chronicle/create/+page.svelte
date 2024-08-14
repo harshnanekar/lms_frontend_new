@@ -1,5 +1,5 @@
 <script lang="ts">
-
+	import { writable } from 'svelte/store';
     import { fetchApi } from '$lib/utils/fetcher';
     import { PUBLIC_API_BASE_URL } from '$env/static/public';
     import { toast } from 'svelte-sonner';
@@ -10,8 +10,11 @@
     import { tooltip } from '$lib/utils/tooltip';
     import { fly } from 'svelte/transition';
 	import { goto } from '$app/navigation';
+	import type { CkEditorInstanceType } from '$lib/types/components/ck-editor';
     
     let vcEditor = '';
+    const formattedChronicleText = writable<string>(vcEditor);
+    let jsonDataForCron: any;
     let chronicleName : string = `chronicle${generateRandomNumberUUID()}`;
     
     let startDate: Date | null = new Date();
@@ -29,6 +32,8 @@
     }
     
     async function handleEndDateChange(e: CustomEvent<any>) {
+            vcEditor = ''
+            formattedChronicleText.set(vcEditor);
             if (!endDate) return;
             endFormattedDate = endDate;
             console.log('start date ', endDate);
@@ -62,12 +67,131 @@
                 });
                 return;
             }
-            console.log('json ',JSON.stringify(json))
+            jsonDataForCron = json;
+            getFormattedHtml(jsonDataForCron);
 
     }
+
+    function getFormattedHtml(data : any){
+        let dataObj = data;
     
-    $: console.log('vc ',vcEditor)
+    vcEditor += '<section><h2>Journal Articles</h2>';
+   for (const ja of dataObj.journal_article) {
+
+    // Adding NMIMS school details
+    for (const school of ja.nmims_school) {
+        vcEditor += `<b> ${school} </b>`;
+    }
+
+    for(const ca of ja.nmims_campus){
+        vcEditor += `<b> ${ca} </b>`;
+    }
+    vcEditor +=   `<ul>`
+    for(const la of ja.all_authors){
+        vcEditor+= ` <li>${la} `
+    }
+    vcEditor+= `,"${ja.journal_name}" (${ja.publish_year}) , ${ja.title}, Impact factor : ${ja.impact_factor}, <a href="${ja.doi_no}">Link</a> , (`
+    for(const na of ja.nmims_authors){
+        vcEditor+= ` ${na} `
+    }
+    vcEditor+=`) </li></ul></section><hr/>`;
+}
+
+// Book Chapter Publications
+vcEditor += '<h2><u>Book Chapter Publications</u></h2>';
+for (const bcp of dataObj.book_chapter_publication) {
+
+//     // Adding NMIMS school details
+    for (const school of bcp.nmims_school) {
+        vcEditor += `<b> ${school} </b>`;
+    }
+
+    for(const campus of bcp.nmims_campus){
+        vcEditor += `<b> ${campus} </b>`;
+    }
+    vcEditor +=   `<ul>`
+    for(const author of bcp.all_authors){
+        vcEditor+= ` <li>${author} `
+    }
+    vcEditor+= `,"${bcp.book_title}" (${bcp.publish_year}) ,${bcp.chapter_title},${bcp.edition},${bcp.volume_no},${bcp.chapter_page_no},${bcp.publisher}, <a href="${bcp.web_link}">Link</a>,${bcp.isbn_no} , (`
+    for(const na of bcp.nmims_authors){
+        vcEditor+= ` ${na} `
+    }
+    vcEditor+=`) </li></ul><hr/>`;
+}
+
+// Conference 
+ vcEditor += '<h2><u>Conference Presentations</u></h2>';
+ for (const conf of dataObj.conference) {
+
+    // Adding NMIMS school details
+    for (const school of conf.nmims_school) {
+        vcEditor += `<b> ${school} </b>`;
+    }
+
+    // Adding NMIMS Campus details
+    for (const campus of conf.nmims_campus) {
+        vcEditor += `<b>${campus}</b>`;
+    }
     
+    vcEditor += `<ul>`;
+    
+    // List all authors
+    for (const ifd of conf.internal_faculty_details) {
+        vcEditor += `<li> ${ifd} `;
+    }
+    
+    // Conference details
+    vcEditor += `, "${conf.conference_name}" (${conf.publication_date}), 
+                      ${conf.paper_title},${conf.place}, 
+                      ${conf.volume_no},
+                      <a href="${conf.doi_no}">Link</a>, 
+                      ${conf.organizing_body}, (`;
+    
+    // NMIMS authors
+    for (const efd of conf.external_faculty_details) {
+        vcEditor += ` ${efd} `;
+    }
+    
+    vcEditor += `)</li></ul><hr/>`;
+}
+
+// Research Seminars
+    vcEditor += '<h2><u>Research Seminars</u></h2>';
+    for (const rs of dataObj.research_seminar) {
+
+    // Adding NMIMS school details
+    for (const school of rs.nmims_school) {
+        vcEditor += `<strong> ${school} </strong>`;
+    }
+
+     // Adding NMIMS Campus details
+    for (const campus of rs.nmims_campus) {
+        vcEditor += `<b> ${campus} </b>`;
+    }
+    
+    vcEditor += `<ul>`;
+    
+    // Seminar Topic and Resource Person
+    vcEditor += `<li>Topic: ${rs.topic}, Resource Person: ${rs.resource_person}`;
+    
+    // Seminar details
+    vcEditor += `,"${rs.journal_name}" (${rs.publication_date}), 
+                     ${rs.paper_title}, 
+                     ${rs.publisher}, ${rs.issn_no},${rs.scopus_site_score}, 
+                      Impact Factor: ${rs.impact_factor}, <a href="${rs.doi_no}">Link</a>, 
+                      (`;
+    
+    // NMIMS authors
+    for (const na of rs.nmims_authors) {
+        vcEditor += ` ${na} `;
+    }
+    
+    vcEditor += `)</li></ul><hr>`;
+   }
+   editorInstance?.setData(vcEditor);
+}
+
     async function handleSubmit(){
         let obj = {
             "startDate" : startFormattedDate,
@@ -93,12 +217,14 @@
                 });
                 return;
             }
+
+            formattedChronicleText.set('');
+
             toast.success('Chronicle created successfully')
             goto('/research-chronicle')
         
     }
-    
-    
+    let editorInstance: CkEditorInstanceType;
     </script>
     
     <div class ="space-y-4">
@@ -184,12 +310,10 @@
         <div class="flex justify-end"><button class="lms-btn lms-primary-btn" on:click={handleSubmit}>Submit</button></div>
         
     </div>
-    
-    
-    
     </Card>
     <div>
-    <CkEditor bind:value={vcEditor} />
+    <!-- <CkEditor bind:value={$formattedChronicleText}/> -->
+    <CkEditor bind:editorInstance={editorInstance} bind:value={vcEditor}/>
     </div>
     </div>
     

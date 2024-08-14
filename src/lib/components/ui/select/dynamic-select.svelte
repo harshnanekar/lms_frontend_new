@@ -229,7 +229,7 @@
 					<span class="required">*</span>
 				{/if}
 			</div>
-			<div class="transition-all" style="rotate: {$isOpen ? '90' : '-90'}deg;">
+			<div class="transition-all" style="rotate: {$isOpen  ? '90' : '-90'}deg;">
 				<ArrowIcon />
 			</div>
 		</button>

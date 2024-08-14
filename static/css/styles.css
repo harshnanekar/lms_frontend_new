@@ -344,3 +344,14 @@ lms-view-input {
 	display: block;
 	background: white;
 }
+
+.ck-content {
+	padding-left: 30px !important;
+}
+
+.ck-content h2 {
+	font-size: 20px !important;
+	font-weight: bold !important;
+	/* text-decoration: underline !important; */
+	margin-top: 30px;
+}
