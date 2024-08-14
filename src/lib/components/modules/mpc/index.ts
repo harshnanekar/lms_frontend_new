@@ -18,6 +18,7 @@ import EContent from './e-content-action.svelte'
 import ResearchAwardAction from './research-award-action.svelte'
 import FacultyAction from './faculty-action.svelte'
 import MasterDataAction from './master-input-action.svelte'
+import ChroniclesAction from './chronicles-action.svelte'
 import { userList, AddAnchor, AddAttendees } from './master-form';
 
 export {
@@ -42,5 +43,6 @@ export {
 	EContent,
 	ResearchAwardAction,
 	FacultyAction,
-	 MasterDataAction
+	 MasterDataAction,
+	 ChroniclesAction
 };

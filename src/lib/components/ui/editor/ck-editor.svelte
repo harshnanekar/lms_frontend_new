@@ -1,22 +1,17 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import type { CkEditorInstanceType } from '$lib/types/components/ck-editor';
 	import { onMount, onDestroy, createEventDispatcher } from 'svelte';
 
-
 	let editorElement: HTMLDivElement;
-	let editorInstance: {
-		setData: (arg0: string) => void;
-		model: { document: { on: (arg0: string, arg1: () => void) => void } };
-		getData: () => any;
-		destroy: () => void;
-	} | null;
+	export let editorInstance: CkEditorInstanceType;
 	const dispatch = createEventDispatcher();
-
 
 	export let value = '';
 
 	onMount(async () => {
 		if (typeof window !== 'undefined') {
-			const { default: ClassicEditor } = await import('@ckeditor/ckeditor5-build-classic');
+			const { default: ClassicEditor, } = await import('@ckeditor/ckeditor5-build-classic');
 
 			try {
 				editorInstance = await ClassicEditor.create(editorElement, {
@@ -64,10 +59,10 @@
 							'|',
 							'findAndReplace',
 							'imageTextAlternative',
-              '|',
-              'clear',
-              'remove',
-              'reset'
+							'|',
+							'clear',
+							'remove',
+							'reset'
 						]
 					},
 					table: {
@@ -133,9 +128,9 @@
 							}
 						]
 					},
-          menuBar: {
-            isVisible: true,
-          },
+					menuBar: {
+						isVisible: true
+					}
 				});
 				editorInstance?.setData(value);
 
@@ -156,12 +151,14 @@
 			editorInstance = null;
 		}
 	});
+
+	// $: browser && value && editorInstance?.setData(value);
 </script>
 
 <div bind:this={editorElement} />
 
 <style>
 	:global(.ck-content) {
-    min-height: 150px !important;
-  }
+		min-height: 150px !important;
+	}
 </style>
