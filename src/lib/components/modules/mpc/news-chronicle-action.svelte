@@ -116,7 +116,7 @@
 		if(ChronicleAction.status == 200){
 			
 		toast.success('Deleted Successfully !');
-		let url: URL = new URL(`${PUBLIC_API_BASE_URL}/chronicle-list-paginate?id=2`);
+		let url: URL = new URL(`${PUBLIC_API_BASE_URL}/chronicle-list-paginate?id=12`);
 		paginateUrl.set(url);
 
 		}else{
@@ -139,12 +139,12 @@
 		>
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 				<a
-					href="{PUBLIC_BASE_URL}chronicle-research/view/"
+					href="{PUBLIC_BASE_URL}news-chronicle/view/"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex gap-2 items-center"
 					role="menuitem"><EyeIcon fill="black"/>View</a
 				>
 				<a
-					href="{PUBLIC_BASE_URL}chronicle-research/edit/"
+					href="{PUBLIC_BASE_URL}news-chronicle/edit/"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex gap-2 items-center"
 					role="menuitem"><PenIcon fill="black"/>Edit</a
 				>

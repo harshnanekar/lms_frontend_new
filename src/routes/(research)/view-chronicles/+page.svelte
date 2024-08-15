@@ -18,22 +18,26 @@ async function viewChronicle(){
             <tr>
                 <th class="!text-[15px]">Sr.No</th>
                 <th class="!text-[15px]">Chronicle Names</th>
+                <th class="!text-[15px]">Start Date</th>
+                <th class="!text-[15px]">End Date</th>
                 <th class="!text-[15px]">Actions</th>
             </tr>
         </thead>
         <tbody>
             {#each data.chronicleData as chro,index}
             {@const chronicleName = [ 
-                ...chro.news_chronicle.map(item => item.chronicle_name),
+                ...chro.vc_chronicle.map(item => item.chronicle_name),
                 ...chro.research_chronicle.map(item => item.chronicle_name),
                 ...chro.meeting_chronicle.map(item => item.chronicle_name),
-                ...chro.vc_chronicle.map(item => item.chronicle_name)
+                ...chro.news_chronicle.map(item => item.chronicle_name)
                 ]}
             {@const chronicles = chronicleName.join(", ")}    
             <tr>
             <td>{index + 1}</td>
             <td>{chronicles}</td>
-            <td><button on:click={viewChronicle}><EyeIcon fill="black"/></button></td>
+            <td>{chro.start_date}</td>
+            <td>{chro.end_date}</td>
+            <td><a href="/chronicle-view/{chro.start_date}/{chro.end_date}"><EyeIcon fill="black"/></a></td>
             </tr>
             {/each}
         </tbody>

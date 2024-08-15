@@ -19,6 +19,9 @@ import ResearchAwardAction from './research-award-action.svelte'
 import FacultyAction from './faculty-action.svelte'
 import MasterDataAction from './master-input-action.svelte'
 import ChroniclesAction from './chronicles-action.svelte'
+import VcChronicleAction from './vc-chronicle-action.svelte';
+import MeetingChronicleAction from './meeting-chronicle-action.svelte';
+import NewsChronicleAction from './news-chronicle-action.svelte';
 import { userList, AddAnchor, AddAttendees } from './master-form';
 
 export {
@@ -44,5 +47,8 @@ export {
 	ResearchAwardAction,
 	FacultyAction,
 	 MasterDataAction,
-	 ChroniclesAction
+	 ChroniclesAction,
+	 VcChronicleAction,
+	 MeetingChronicleAction,
+	 NewsChronicleAction
 };

@@ -1,7 +1,7 @@
 <script lang="ts">
 
     import { fetchApi } from '$lib/utils/fetcher';
-    import { PUBLIC_API_BASE_URL } from '$env/static/public';
+    import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
     import { toast } from 'svelte-sonner';
     import { generateRandomNumberUUID } from '$lib/utils/helper';
     import  { CkEditor,Card, DatePicker, Input } from "$lib/components/ui";
@@ -10,8 +10,13 @@
     import { tooltip } from '$lib/utils/tooltip';
     import { fly } from 'svelte/transition';
 	import { goto } from '$app/navigation';
+	import { validateWithZod } from '$lib/utils/validations';
+	import { chronicleDetails, type chronicleReq } from '$lib/schemas/modules/research/master-validations';
+	import type { CkEditorInstanceType } from '$lib/types/components/ck-editor';
     
     let vcEditor = ``;
+    let editorInstance: CkEditorInstanceType;
+
 
     let chronicleName : string = `chronicle${generateRandomNumberUUID()}`;
     
@@ -33,21 +38,49 @@
             if (!endDate) return;
             endFormattedDate = endDate;
             console.log('start date ', endDate);
+
+            if(startFormattedDate === null) {
+                toast.error('Start date is required')
+                return 
+            }
+
+            if(endFormattedDate === null) {
+                toast.error('End date is required')
+                return 
+            }
+
+            if(startFormattedDate > endFormattedDate) {
+            toast.error('End date should be greater than end date');
+            return
+            }   
     
     }
     
     $: console.log('vc ',vcEditor)
+    editorInstance?.setData(vcEditor);
+
     
     async function handleSubmit(){
-        let obj = {
-            "startDate" : startFormattedDate,
-            "endDate" : endFormattedDate,
+        let obj : chronicleReq = {
+            startDate : startFormattedDate != null ? formatDate(startFormattedDate) : '',
+            endDate : endFormattedDate != null ? formatDate(endFormattedDate) : '',
             chronicleName,
-            "chronicleText" : vcEditor,
-            chronicle_module_id : 12                     
+            chronicleText : vcEditor,
+            chronicle_module_id : 7
         }
     
         console.log("VC Office Editor  :", obj );
+
+        const result = validateWithZod(chronicleDetails, obj);
+
+		if (result.errors) {
+			console.log(result.errors);
+			const [firstPath, firstMessage] = Object.entries(result.errors)[0];
+			toast.error('ALERT!', {
+				description: firstMessage
+			});
+			return;
+		}
     
         const { error, json } = await fetchApi({
                 url: `${PUBLIC_API_BASE_URL}/chronicle-submit`,
@@ -64,7 +97,7 @@
                 return;
             }
             toast.success('Chronicle created successfully');
-            goto('/news-chronicle');
+            goto(`${PUBLIC_BASE_URL}news-chronicle`);
         
     }
     
@@ -158,7 +191,7 @@
     
     </Card>
     <div>
-    <CkEditor bind:value={vcEditor} />
+        <CkEditor bind:editorInstance={editorInstance} bind:value={vcEditor}/>
     </div>
     </div>
     

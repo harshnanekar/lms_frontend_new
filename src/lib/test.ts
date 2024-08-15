@@ -21,6 +21,8 @@ import type {
 	ConferenceRender,
 	EditedBookPublicationView,
 	ResearchProjectRender,
+	ChronicleView,
+	ChronicleActionView,
 	// ConferenceRender,
 	// IPRRender,
 	// patentRender,
@@ -1625,3 +1627,30 @@ export const EditedBookPublicationHeader : TableHeaders<EditedBookPublicationVie
 		showTooltip: false
 	},
 ];
+
+
+
+export const ChronicleHeaders : TableHeaders<ChronicleActionView>[] = [
+	{
+		label: 'Chronicle Name',
+		key: 'name',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Start Date',
+		key: 'start_date',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'End Date',
+		key: 'end_date',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	}
+
+]; 

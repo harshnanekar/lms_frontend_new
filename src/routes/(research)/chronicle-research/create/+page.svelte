@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { writable } from 'svelte/store';
     import { fetchApi } from '$lib/utils/fetcher';
-    import { PUBLIC_API_BASE_URL } from '$env/static/public';
+    import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
     import { toast } from 'svelte-sonner';
     import { generateRandomNumberUUID } from '$lib/utils/helper';
     import  { CkEditor,Card, DatePicker, Input } from "$lib/components/ui";
@@ -11,6 +11,8 @@
     import { fly } from 'svelte/transition';
 	import { goto } from '$app/navigation';
 	import type { CkEditorInstanceType } from '$lib/types/components/ck-editor';
+	import { validateWithZod } from '$lib/utils/validations';
+	import { chronicleDetails, type chronicleReq } from '$lib/schemas/modules/research/master-validations';
     
     let vcEditor = '';
     const formattedChronicleText = writable<string>(vcEditor);
@@ -46,6 +48,11 @@
             if(endFormattedDate === null) {
                 toast.error('End date is required')
                 return 
+            }
+
+            if(startFormattedDate > endFormattedDate) {
+            toast.error('End date should be greater than end date');
+            return
             }
 
             let obj= {
@@ -193,15 +200,26 @@ for (const bcp of dataObj.book_chapter_publication) {
 }
 
     async function handleSubmit(){
-        let obj = {
-            "startDate" : startFormattedDate,
-            "endDate" : endFormattedDate,
+        let obj : chronicleReq = {
+            startDate : startFormattedDate != null ? formatDate(startFormattedDate) : '',
+            endDate : endFormattedDate != null ? formatDate(endFormattedDate) : '',
             chronicleName,
-            "chronicleText" : vcEditor,
-            chronicle_module_id : 2                      
+            chronicleText : vcEditor,
+            chronicle_module_id : 7
         }
     
         console.log("VC Office Editor  :", obj );
+
+        const result = validateWithZod(chronicleDetails, obj);
+
+		if (result.errors) {
+			console.log(result.errors);
+			const [firstPath, firstMessage] = Object.entries(result.errors)[0];
+			toast.error('ALERT!', {
+				description: firstMessage
+			});
+			return;
+		}
     
         const { error, json } = await fetchApi({
                 url: `${PUBLIC_API_BASE_URL}/chronicle-submit`,
@@ -221,7 +239,7 @@ for (const bcp of dataObj.book_chapter_publication) {
             formattedChronicleText.set('');
 
             toast.success('Chronicle created successfully')
-            goto('/research-chronicle')
+            goto(`${PUBLIC_BASE_URL}chronicle-research`)
         
     }
     let editorInstance: CkEditorInstanceType;
