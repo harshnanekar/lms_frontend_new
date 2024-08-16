@@ -5,7 +5,7 @@ import { error, fail, redirect } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ cookies, fetch }) => {
     
-	console.log('cookies server',cookies.get('user_id'))
+	console.log('cookies server for dashboard',cookies.get('user_id'))
 	
 	const { error : err, json } = await fetchApiServer({
 		url: `${PRIVATE_API_BASE_URL}/research-modules`,

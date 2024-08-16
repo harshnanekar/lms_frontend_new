@@ -84,39 +84,39 @@
 
 
 if(ja.ranking){
-    vcEditor += '<div class="padding-top:10px;padding-bottom:10px"><p style="font-weight:bold; font-size:20px;padding-bottom:10px;">Ranking</p>';
-    vcEditor +=   `<ul>`
-    vcEditor+= `<li>${ja.ranking},<a style="color:blue;text-decoration:underline" href="${ja.ranking_link}">Link</a>  </li></ul></div><hr>`
+    vcEditor += '<h5 style="font-weight:bold; font-size:20px;padding-bottom:10px;">Ranking</h5>';
+    vcEditor +=   `<ol>`
+    vcEditor+= `<li>${ja.ranking},<a style="color:blue;text-decoration:underline" href="${ja.ranking_link}">Link</a>  </li></ol></div><hr>`
 }
 
 if(ja.accreditation){
-    vcEditor += '<section class="padding-top:10px;padding-bottom:10px"><p style="font-weight:bold; font-size:20px;padding-bottom:10px;">Accreditation</p>';
-    vcEditor +=   `<ul>`
-    vcEditor+= `<li>${ja.accreditation},<a style="color:blue;text-decoration:underline" href="${ja.accreditation_link}">Link</a>  </li></ul></section><hr/>`
+    vcEditor += '<h5 class="padding-top:10px;padding-bottom:10px">Accreditation</h5>';
+    vcEditor +=   `<ol>`
+    vcEditor+= `<li>${ja.accreditation},<a style="color:blue;text-decoration:underline" href="${ja.accreditation_link}">Link</a>  </li></ol></section><hr/>`
 }
 
 if(ja.achievements){
-    vcEditor += '<section class="padding-top:10px;padding-bottom:10px"><p style="font-weight:bold; font-size:20px;padding-bottom:10px;">Achievements</hp2>';
-    vcEditor +=   `<ul>`
-    vcEditor+= `<li>${ja.achievements},<a style="color:blue;text-decoration:underline" href="${ja.achievements_link}">Link</a>  </li></ul></section><hr/>`
+    vcEditor += '<h5 class="padding-top:10px;padding-bottom:10px">Achievements</h5>';
+    vcEditor +=   `<ol>`
+    vcEditor+= `<li>${ja.achievements},<a style="color:blue;text-decoration:underline" href="${ja.achievements_link}">Link</a>  </li></ol></section><hr/>`
 }
 
 if(ja.convocation){
-    vcEditor += '<section class="padding-top:10px;padding-bottom:10px"><p style="font-weight:bold; font-size:20px;padding-bottom:10px;">Convocation</p>';
-    vcEditor +=   `<ul>`
-    vcEditor+= `<li>${ja.convocation},<a style="color:blue;text-decoration:underline" href="${ja.convocation_link}">Link</a>  </li></ul></section><hr/>`
+    vcEditor += '<h5 class="padding-top:10px;padding-bottom:10px">Convocation</h5>';
+    vcEditor +=   `<ol>`
+    vcEditor+= `<li>${ja.convocation},<a style="color:blue;text-decoration:underline" href="${ja.convocation_link}">Link</a>  </li></ol></section><hr/>`
 }
 
 if(ja.inaugral_program){
-    vcEditor += '<section class="padding-top:10px;padding-bottom:10px"><p style="font-weight:bold; font-size:20px;padding-bottom:10px;">Inaugral Program</p>';
-    vcEditor +=   `<ul>`
-    vcEditor+= `<li>${ja.inaugral_program},<a style="color:blue;text-decoration:underline" href="${ja.inaugral_program_link}">Link</a>  </li></ul></section><hr/>`
+    vcEditor += '<h5 class="padding-top:10px;padding-bottom:10px">Inaugral Program</h5>';
+    vcEditor +=   `<ol>`
+    vcEditor+= `<li>${ja.inaugral_program},<a style="color:blue;text-decoration:underline" href="${ja.inaugral_program_link}">Link</a>  </li></ol></section><hr/>`
 }
 
 if(ja.events){
-    vcEditor += '<section class="padding-top:10px;padding-bottom:10px"><p style="font-weight:bold; font-size:20px;padding-bottom:10px;">Events</p>';
-    vcEditor +=   `<ul>`
-    vcEditor+= `<li>${ja.events},<a style="color:blue;text-decoration:underline" href="${ja.events_link}">Link</a>  </li></ul></section><hr/>`
+    vcEditor += '<h5 class="padding-top:10px;padding-bottom:10px">Events</h5>';
+    vcEditor +=   `<ol>`
+    vcEditor+= `<li>${ja.events},<a style="color:blue;text-decoration:underline" href="${ja.events_link}">Link</a>  </li></ol></section><hr/>`
 }
 
 }

@@ -82,7 +82,7 @@
     function getFormattedHtml(data : any){
         let dataObj = data;
     
-    vcEditor += '<section><h2>Journal Articles</h2>';
+    vcEditor += '<div><h2>Journal Articles</h2>';
    for (const ja of dataObj.journal_article) {
 
     // Adding NMIMS school details
@@ -93,7 +93,7 @@
     for(const ca of ja.nmims_campus){
         vcEditor += `<b> ${ca} </b>`;
     }
-    vcEditor +=   `<ul>`
+    vcEditor +=   `<ol>`
     for(const la of ja.all_authors){
         vcEditor+= ` <li>${la} `
     }
@@ -101,11 +101,11 @@
     for(const na of ja.nmims_authors){
         vcEditor+= ` ${na} `
     }
-    vcEditor+=`) </li></ul></section><hr/>`;
+    vcEditor+=`) </li></ol></div><hr>`;
 }
 
 // Book Chapter Publications
-vcEditor += '<h2><u>Book Chapter Publications</u></h2>';
+vcEditor += '<div><h2>Book Chapter Publications</h2>';
 for (const bcp of dataObj.book_chapter_publication) {
 
 //     // Adding NMIMS school details
@@ -116,7 +116,7 @@ for (const bcp of dataObj.book_chapter_publication) {
     for(const campus of bcp.nmims_campus){
         vcEditor += `<b> ${campus} </b>`;
     }
-    vcEditor +=   `<ul>`
+    vcEditor +=   `<ol>`
     for(const author of bcp.all_authors){
         vcEditor+= ` <li>${author} `
     }
@@ -124,11 +124,11 @@ for (const bcp of dataObj.book_chapter_publication) {
     for(const na of bcp.nmims_authors){
         vcEditor+= ` ${na} `
     }
-    vcEditor+=`) </li></ul><hr/>`;
+    vcEditor+=`) </li></ol></div><hr>`;
 }
 
 // Conference 
- vcEditor += '<h2><u>Conference Presentations</u></h2>';
+ vcEditor += '<div><h2>Conference Presentations</h2>';
  for (const conf of dataObj.conference) {
 
     // Adding NMIMS school details
@@ -141,7 +141,7 @@ for (const bcp of dataObj.book_chapter_publication) {
         vcEditor += `<b>${campus}</b>`;
     }
     
-    vcEditor += `<ul>`;
+    vcEditor += `<ol>`;
     
     // List all authors
     for (const ifd of conf.internal_faculty_details) {
@@ -160,11 +160,11 @@ for (const bcp of dataObj.book_chapter_publication) {
         vcEditor += ` ${efd} `;
     }
     
-    vcEditor += `)</li></ul><hr/>`;
+    vcEditor += `)</li></ol></div><hr>`;
 }
 
 // Research Seminars
-    vcEditor += '<h2><u>Research Seminars</u></h2>';
+    vcEditor += '<div><h2>Research Seminars</h2>';
     for (const rs of dataObj.research_seminar) {
 
     // Adding NMIMS school details
@@ -177,7 +177,7 @@ for (const bcp of dataObj.book_chapter_publication) {
         vcEditor += `<b> ${campus} </b>`;
     }
     
-    vcEditor += `<ul>`;
+    vcEditor += `<ol>`;
     
     // Seminar Topic and Resource Person
     vcEditor += `<li>Topic: ${rs.topic}, Resource Person: ${rs.resource_person}`;
@@ -194,7 +194,7 @@ for (const bcp of dataObj.book_chapter_publication) {
         vcEditor += ` ${na} `;
     }
     
-    vcEditor += `)</li></ul><hr>`;
+    vcEditor += `)</li></ol></div><hr>`;
    }
    editorInstance?.setData(vcEditor);
 }
@@ -205,7 +205,7 @@ for (const bcp of dataObj.book_chapter_publication) {
             endDate : endFormattedDate != null ? formatDate(endFormattedDate) : '',
             chronicleName,
             chronicleText : vcEditor,
-            chronicle_module_id : 7
+            chronicle_module_id : 2
         }
     
         console.log("VC Office Editor  :", obj );

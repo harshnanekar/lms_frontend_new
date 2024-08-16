@@ -33,34 +33,3 @@
 		<ChroniclesAction {actionData} />
 	</PaginateDynamic>
 </div>
-
-<!-- <Card title="Research Chronicle">
-    <div class="lms-table-wrapper rounded-2xl p-4">
-        <table class="lms-table">
-            <thead>
-                <th class="!text-[15px]">Id</th>
-                <th class="!text-[15px]">Name</th>
-                <th class="!text-[15px]">Start Date</th>
-                <th class="!text-[15px]">End Date</th>
-                <th class="!text-[15px]">Actions</th>
-            </thead>
-            <tbody>
-                {#if chronicleList.length > 0}
-                    {#each chronicleList as chro,index}
-                        <tr>
-                            <td class="!text-[15px]">{index + 1}</td>
-                            <td class="!text-[15px]">{chro.name}</td>
-                            <td class="!text-[15px]">{chro.start_date}</td>
-                            <td class="!text-[15px]">{chro.end_date}</td>
-                            <td class="flex items-center">
-                                <ChroniclesAction actionData={chro}/>
-                            </td>
-                        </tr>
-                    {/each}
-                {:else}
-                    <td>No Data Found!</td>
-                {/if}
-            </tbody>
-        </table>
-    </div>
-</Card> -->
