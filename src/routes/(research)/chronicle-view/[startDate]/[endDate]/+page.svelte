@@ -1,11 +1,42 @@
 <script lang="ts">
+    import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from "$env/static/public";
+    import { onMount } from 'svelte';
 
-	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from "$env/static/public";
-    export let data : any;
-    console.log('chronicle json ',JSON.stringify(data))
+    export let data: any;
+    console.log('chronicle json ', JSON.stringify(data));
     let chronicleData = data.chronicleData.length > 0 ? data.chronicleData : [];
 
+    onMount(() => {
+        const ulElements = document.querySelectorAll("ol");
+        ulElements.forEach((ol) => {
+            ol.style.listStyleType = "disc";
+            ol.style.paddingLeft = "20px"; 
+            ol.style.marginTop = "15px"
+        });
+
+        const headElements = document.querySelectorAll("h2");
+        headElements.forEach((h) => {
+            h.style.fontWeight = "bold"; 
+            h.style.marginTop = "20px"
+            h.style.fontSize = "18px"
+        });
+
+        const hElements = document.querySelectorAll("h5");
+        hElements.forEach((h) => {
+            h.style.fontWeight = "bold"; 
+            h.style.marginTop = "20px"
+            h.style.fontSize = "18px"
+        });
+    });
+
+    async function sendForApproval() {
+      
+
+    }
 </script>
+<div class="flex justify-center p-4">
+<p class="font-bold text-lg">Chronicle has been sent for approval</p>
+</div>
 <div class="flex justify-center items-center">
 <div class="bg-[#b7d1eb] w-2/4  p-4 space-y-4">
 <div class=" p-4 w-full flex justify-center">
@@ -79,4 +110,12 @@
     <a class="text-blue-500 hover:text-blue-700 underline" href="https://www.nmims.edu">www.nmims.edu</a>
 </section> 
 </div>
+</div>
+
+<div>
+    {#if chronicleData[0].master_id === null}
+    <div class='flex justify-center'>
+    <button class="lms-btn lms-primary-btn mt-4" on:click={() => sendForApproval()}>Send To Approval</button>
+    </div>
+    {/if}
 </div>

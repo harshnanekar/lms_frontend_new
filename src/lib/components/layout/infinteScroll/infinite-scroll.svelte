@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Divide from './../../../../../node_modules/lucide-svelte/dist/icons/divide.svelte';
     import { browser } from '$app/environment';
     import { SearchIcon } from '$lib/components/icons';
     import type { InfiniteScrollResult } from '$lib/types/request.types';
@@ -160,26 +159,6 @@
             }
         };
     });
-
-
-    document.addEventListener('DOMContentLoaded', function() {
-    const dropdownButton = document.getElementById('dropdownButton');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-    const dropdownArrow = document.querySelector('.dropdown-arrow');
-
-    dropdownButton.addEventListener('click', function() {
-      dropdownMenu.classList.toggle('show');
-      dropdownArrow.style.transform = dropdownMenu.classList.contains('show') ? 'rotate(180deg)' : 'rotate(0deg)';
-    });
-
-    document.addEventListener('click', function(event) {
-      if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
-        dropdownMenu.classList.remove('show');
-        dropdownArrow.style.transform = 'rotate(0deg)';
-      }
-    });
-  });
-    
 </script>
 
 <div>
@@ -202,8 +181,6 @@
                      {/each}
                     </select>
                   </div>
-
-
                 <!-- <DynamicSelect
                 isMultiSelect={false}
                 placeholder={filter.label}
@@ -213,24 +190,8 @@
                /> -->
 
             </div>
-            
-
         {/each}
     </div>
-
-    <div class="dropdown">
-        <button class="dropdown-button" id="dropdownButton">
-          Select an option
-          <span class="dropdown-arrow">▼</span>
-        </button>
-        <div class="dropdown-menu" id="dropdownMenu">
-          <a href="#" data-value="value1">Value 1</a>
-          <a href="#" data-value="value2">Value 2</a>
-          <a href="#" data-value="value3">Value 3</a>
-          <a href="#" data-value="value4">Value 4</a>
-        </div>
-      </div>
-      
 
     {#if showSearch}
         
@@ -308,82 +269,6 @@
   box-sizing:border-box;
   overflow:hidden;
   white-space:nowrap; */
-
   
-  .dropdown {
-    position: relative;
-    display: inline-block;
-    width: 200px;
-  }
 
-  .dropdown-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .dropdown-button:hover {
-    background-color: #0056b3;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .dropdown-arrow {
-    margin-left: auto;
-    transition: transform 0.3s;
-  }
-
-  .dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
-    transform: translateY(-10px);
-    visibility: hidden;
-  }
-
-  .dropdown-menu.show {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-    visibility: visible;
-  }
-
-  .dropdown-menu a {
-    display: block;
-    padding: 12px;
-    color: #333;
-    text-decoration: none;
-    border-bottom: 1px solid #ddd;
-    transition: background-color 0.3s;
-  }
-
-  .dropdown-menu a:last-child {
-    border-bottom: none;
-  }
-
-  .dropdown-menu a:hover {
-    background-color: #f1f1f1;
-  }
-
-  .dropdown-menu a:active {
-    background-color: #e2e6ea;
-  }
 </style>

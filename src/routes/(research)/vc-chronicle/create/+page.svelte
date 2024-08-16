@@ -63,7 +63,7 @@ async function handleSubmit(){
             endDate : endFormattedDate != null ? formatDate(endFormattedDate) : '',
             chronicleName,
             chronicleText : vcEditor,
-            chronicle_module_id : 7
+            chronicle_module_id : 1
         }
     
         console.log("VC Office Editor  :", obj );

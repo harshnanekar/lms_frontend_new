@@ -1,416 +1,248 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 
-    import { browser } from '$app/environment';
+	import { SearchIcon } from '$lib/components/icons';
 
-    import { SearchIcon } from '$lib/components/icons';
+	import type { InfiniteScrollResult } from '$lib/types/request.types';
 
-    import type { InfiniteScrollResult } from '$lib/types/request.types';
+	import { debounce } from '$lib/utils/debounce';
 
-    import { debounce } from '$lib/utils/debounce';
+	import { fetchApi } from '$lib/utils/fetcher';
 
-    import { fetchApi } from '$lib/utils/fetcher';
+	import { onMount } from 'svelte';
 
-    import { onMount } from 'svelte';
+	import { writable } from 'svelte/store';
 
-    import { writable } from 'svelte/store';
+	// import { AnimationPlayer } from '..';
 
-    // import { AnimationPlayer } from '..';
+	type FilterOption = {
+		name: string;
 
+		options: Array<{ value: string; label: string }>;
+	};
 
+	export let url: URL;
 
+	export let filterOptions: FilterOption[] = [];
 
-    type FilterOption = {
+	export let showSearch = true;
 
-        name: string;
+	export let addLimit = true;
 
-        options: Array<{ value: string; label: string }>;
+	export let data: InfiniteScrollResult<any> = {
+		data: [],
 
-    };
+		total: 0,
 
+		nextCursor: null
+	};
 
+	const page = writable(1);
 
+	const limit = writable(10);
 
-    export let url: URL;
+	const filters = writable<{ [key: string]: string }>({});
 
-    export let filterOptions: FilterOption[] = [];
+	const searchQuery = writable('');
 
-    export let showSearch = true;
+	const isLoading = writable(false);
 
-    export let addLimit = true;
+	const error = writable<string | null>(null);
 
-    export let data: InfiniteScrollResult<any> = {
+	async function fetchData(isScroll: boolean = false, isSearch: boolean = false) {
+		if ($isLoading) return;
 
-        data: [],
+		if (data.data.length > 0 && !data.nextCursor && !isSearch) return;
 
-        total: 0,
+		isLoading.set(true);
 
-        nextCursor: null
+		error.set(null);
 
-    };
+		try {
+			const filterParams = new URLSearchParams($filters).toString();
 
+			url.searchParams.set('page', $page.toString());
 
+			if (addLimit) url.searchParams.set('limit', $limit.toString());
 
+			if (filterParams) url.searchParams.set('filter', filterParams);
 
-    const page = writable(1);
+			if (data.nextCursor) url.searchParams.set('cursor', data.nextCursor);
 
-    const limit = writable(10);
+			if ($searchQuery) {
+				url.searchParams.set('search', $searchQuery);
+			} else {
+				url.searchParams.delete('search');
+			}
 
-    const filters = writable<{ [key: string]: string }>({});
+			const response = await fetchApi<InfiniteScrollResult<any>>({
+				url: url.href,
 
-    const searchQuery = writable('');
+				method: 'GET'
+			});
 
+			if (response.error) {
+				error.set(response.error.message || 'An unknown error occurred');
 
+				return;
+			}
 
+			const result = response.json;
 
-    const isLoading = writable(false);
+			data = {
+				data: isScroll ? data.data.concat(result?.data || []) : result?.data || [],
 
-    const error = writable<string | null>(null);
+				total: result?.total || 0,
 
+				nextCursor: result?.nextCursor || null
+			};
+		} catch (err) {
+			error.set(err instanceof Error ? err.message : 'An unknown error occurred');
+		} finally {
+			isLoading.set(false);
+		}
+	}
 
+	$: {
+		if (browser && url) {
+			fetchData(true);
+		}
+	}
 
+	function setSearchQuery(query: string) {
+		searchQuery.set(query.trim());
 
-    async function fetchData(isScroll: boolean = false, isSearch: boolean = false) {
+		data = {
+			data: [],
 
-        if ($isLoading) return;
+			total: 0,
 
-        if (data.data.length > 0 && !data.nextCursor && !isSearch) return;
+			nextCursor: null
+		};
 
-        isLoading.set(true);
+		fetchData(false, true);
+	}
 
-        error.set(null);
+	const handleInput = debounce(
+		(e: Event) => setSearchQuery((e.target as HTMLInputElement).value),
 
-        try {
+		1000
+	);
 
-            const filterParams = new URLSearchParams($filters).toString();
+	const handleChange = (e: Event, filter: FilterOption) => {
+		const target = e.target as HTMLSelectElement;
 
+		filters.update((currentFilters) => ({ ...currentFilters, [filter.name]: target.value }));
 
+		data = {
+			data: [],
 
+			total: 0,
 
-            url.searchParams.set('page', $page.toString());
+			nextCursor: null
+		};
 
-            if (addLimit) url.searchParams.set('limit', $limit.toString());
+		fetchData(false, true);
+	};
 
-            if (filterParams) url.searchParams.set('filter', filterParams);
+	let sentinel: HTMLDivElement | null = null;
 
-            if (data.nextCursor) url.searchParams.set('cursor', data.nextCursor);
+	onMount(() => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				if (entries[0].isIntersecting) {
+					fetchData(true);
+				}
+			},
 
-            if ($searchQuery) {
+			{
+				threshold: 1.0
+			}
+		);
 
-                url.searchParams.set('search', $searchQuery);
+		if (sentinel) {
+			observer.observe(sentinel);
+		}
 
-            } else {
-
-                url.searchParams.delete('search');
-
-            }
-
-
-
-
-            const response = await fetchApi<InfiniteScrollResult<any>>({
-
-                url: url.href,
-
-                method: 'GET'
-
-            });
-
-
-
-
-            if (response.error) {
-
-                error.set(response.error.message || 'An unknown error occurred');
-
-                return;
-
-            }
-
-
-
-
-            const result = response.json;
-
-
-
-
-            data = {
-
-                data: isScroll ? data.data.concat(result?.data || []) : result?.data || [],
-
-                total: result?.total || 0,
-
-                nextCursor: result?.nextCursor || null
-
-            };
-
-        } catch (err) {
-
-            error.set(err instanceof Error ? err.message : 'An unknown error occurred');
-
-        } finally {
-
-            isLoading.set(false);
-
-        }
-
-    }
-
-
-
-
-    $: {
-
-        if (browser && url) {
-
-            fetchData(true);
-
-        }
-
-    }
-
-
-
-
-    function setSearchQuery(query: string) {
-
-        searchQuery.set(query.trim());
-
-        data = {
-
-            data: [],
-
-            total: 0,
-
-            nextCursor: null
-
-        };
-
-        fetchData(false, true);
-
-    }
-
-
-
-
-    const handleInput = debounce(
-
-        (e: Event) => setSearchQuery((e.target as HTMLInputElement).value),
-
-        1000
-
-    );
-
-
-
-
-    const handleChange = (e: Event, filter: FilterOption) => {
-
-        const target = e.target as HTMLSelectElement;
-
-        filters.update((currentFilters) => ({ ...currentFilters, [filter.name]: target.value }));
-
-        data = {
-
-            data: [],
-
-            total: 0,
-
-            nextCursor: null
-
-        };
-
-        fetchData(false, true);
-
-    };
-
-
-
-
-    let sentinel: HTMLDivElement | null = null;
-
-
-
-
-    onMount(() => {
-
-        const observer = new IntersectionObserver(
-
-            (entries) => {
-
-                if (entries[0].isIntersecting) {
-
-                    fetchData(true);
-
-                }
-
-            },
-
-            {
-
-                threshold: 1.0
-
-            }
-
-        );
-
-
-
-
-        if (sentinel) {
-
-            observer.observe(sentinel);
-
-        }
-
-
-
-
-        return () => {
-
-            if (sentinel) {
-
-                observer.unobserve(sentinel);
-
-            }
-
-        };
-
-    });
-
+		return () => {
+			if (sentinel) {
+				observer.unobserve(sentinel);
+			}
+		};
+	});
 </script>
 
-
-
-
 <div>
+	<div class="filters">
+		{#if showSearch}
+			<div class="relative w-full md:w-2/3 lg:w-1/2">
+				<input
+					type="text"
+					placeholder="Search here..."
+					on:input={handleInput}
+					class="w-full rounded-full border py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-slate-200"
+				/>
 
-    <div class="filters">
+				<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+					<SearchIcon />
+				</div>
+			</div>
+		{/if}
 
-        {#if showSearch}
+		{#each filterOptions as filter}
+			<div class="filter">
+				<label for={filter.name}>{filter.name}</label>
 
-            <div class="relative w-full md:w-2/3 lg:w-1/2">
+				<select id={filter.name} on:change={(e) => handleChange(e, filter)}>
+					<option value="">All</option>
 
-                <input
+					{#each filter.options as option}
+						<option value={option.value}>{option.label}</option>
+					{/each}
+				</select>
+			</div>
+		{/each}
+	</div>
 
-                    type="text"
+	{#if data.data}
+		<div class="lms-infinite-scroll-wrapper">
+			{#if !$error && !$isLoading && data.data.length === 0}
+				<div class="flex h-[30vh] flex-col items-center justify-center">
+					<div>
+						<!-- <AnimationPlayer src="/json/no-data-found.json" width={220} height={220} /> -->
+					</div>
 
-                    placeholder="Search here..."
+					<h2 class="text-2xl font-medium">No Data Found</h2>
+				</div>
+			{/if}
 
-                    on:input={handleInput}
+			<slot isLoading={$isLoading} />
 
-                    class="w-full rounded-full border py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-slate-200"
+			<div bind:this={sentinel}></div>
+		</div>
+	{/if}
 
-                />
-
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-
-                    <SearchIcon />
-
-                </div>
-
-            </div>
-
-        {/if}
-
-        {#each filterOptions as filter}
-
-            <div class="filter">
-
-                <label for={filter.name}>{filter.name}</label>
-
-                <select id={filter.name} on:change={(e) => handleChange(e, filter)}>
-
-                    <option value="">All</option>
-
-                    {#each filter.options as option}
-
-                        <option value={option.value}>{option.label}</option>
-
-                    {/each}
-
-                </select>
-
-            </div>
-
-        {/each}
-
-    </div>
-
-
-
-
-    {#if data.data}
-
-        <div class="lms-infinite-scroll-wrapper">
-
-            {#if !$error && !$isLoading && data.data.length === 0}
-
-                <div class="h-[30vh] flex flex-col justify-center items-center">
-
-                    <div>
-
-                        <!-- <AnimationPlayer src="/json/no-data-found.json" width={220} height={220} /> -->
-
-                    </div>
-
-                    <h2 class="font-medium text-2xl">No Data Found</h2>
-
-                </div>
-
-            {/if}
-
-            <slot isLoading={$isLoading} />
-
-            <div bind:this={sentinel}></div>
-
-        </div>
-
-    {/if}
-
-    {#if $error}
-
-        <p>{$error}</p>
-
-    {:else if $isLoading}
-
-        <div class="h-[30vh] flex justify-center items-center">
-
-            <!-- <AnimationPlayer width={70} height={70} /> -->
-
-        </div>
-
-    {/if}
-
+	{#if $error}
+		<p>{$error}</p>
+	{:else if $isLoading}
+		<div class="flex h-[30vh] items-center justify-center">
+			<!-- <AnimationPlayer width={70} height={70} /> -->
+		</div>
+	{/if}
 </div>
 
-
-
-
 <style>
+	.filters {
+		display: flex;
 
-    .filters {
+		gap: 1rem;
 
-        display: flex;
+		margin-bottom: 1rem;
+	}
 
-        gap: 1rem;
+	.filter {
+		display: flex;
 
-        margin-bottom: 1rem;
-
-    }
-
-    .filter {
-
-        display: flex;
-
-        flex-direction: column;
-
-    }
-
+		flex-direction: column;
+	}
 </style>
-
-
-
-
-
-

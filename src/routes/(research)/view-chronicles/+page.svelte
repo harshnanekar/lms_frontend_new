@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { PUBLIC_BASE_URL } from '$env/static/public';
 	import {EyeIcon} from '$lib/components/icons/base';
 	import { ChroniclesAction } from "$lib/components/modules/mpc";
 	import { any } from 'zod';
@@ -8,7 +9,7 @@ export let data : any;
 console.log('data from all chronicles ',JSON.stringify(data))
 
 async function viewChronicle(){
- goto('/chronicle-view')
+ goto(`${PUBLIC_BASE_URL}chronicle-view`)
 }
 </script>
 
@@ -37,7 +38,7 @@ async function viewChronicle(){
             <td>{chronicles}</td>
             <td>{chro.start_date}</td>
             <td>{chro.end_date}</td>
-            <td><a href="/chronicle-view/{chro.start_date}/{chro.end_date}"><EyeIcon fill="black"/></a></td>
+            <td><a href="{PUBLIC_BASE_URL}chronicle-view/{chro.start_date}/{chro.end_date}"><EyeIcon fill="black"/></a></td>
             </tr>
             {/each}
         </tbody>

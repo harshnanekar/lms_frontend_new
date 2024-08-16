@@ -17,7 +17,7 @@
     let actionData : ChronicleActionView
 
     let label = 'News Of The Week'
-    let dynamicUrl = `${PUBLIC_API_BASE_URL}/chronicle-list-paginate?id=2`;
+    let dynamicUrl = `${PUBLIC_API_BASE_URL}/chronicle-list-paginate?id=12`;
     const url = new URL(dynamicUrl);
     paginateUrl.set(url);
 

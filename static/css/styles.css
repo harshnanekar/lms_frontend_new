@@ -355,6 +355,12 @@ lms-view-input {
 	margin-top: 30px;
 }
 
+.ck-content h5 {
+	font-size: 20px !important;
+	font-weight: bold !important;
+	margin-top: 30px;
+}
+
 .ck-content p {
 	padding-bottom: 10px !important;
 	padding-top:10px  !important;
