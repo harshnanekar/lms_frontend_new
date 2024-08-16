@@ -34,6 +34,9 @@
 
     }
 </script>
+<div class="flex justify-center p-4">
+<p class="font-bold text-lg">Chronicle has been sent for approval</p>
+</div>
 <div class="flex justify-center items-center">
 <div class="bg-[#b7d1eb] w-2/4  p-4 space-y-4">
 <div class=" p-4 w-full flex justify-center">
@@ -110,9 +113,9 @@
 </div>
 
 <div>
-    <!-- {#if chronicleData[0].master_id !== null} -->
+    {#if chronicleData[0].master_id === null}
     <div class='flex justify-center'>
     <button class="lms-btn lms-primary-btn mt-4" on:click={() => sendForApproval()}>Send To Approval</button>
     </div>
-    <!-- {/if} -->
+    {/if}
 </div>
