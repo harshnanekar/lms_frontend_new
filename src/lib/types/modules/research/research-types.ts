@@ -674,3 +674,11 @@ export type FileObject = {
 	end_date:Date
 	}[]
  }
+
+ export type ChronicleActionView = {
+	// id ?: number,
+	// chronicle_modules_lid ?:number,
+	name:string,
+	start_date:Date,
+	end_date:Date
+ }

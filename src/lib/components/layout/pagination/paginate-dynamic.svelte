@@ -95,6 +95,7 @@ let modalwidthPercent: ModalSizes = 'md';
 			// 	items: result.data,
 			// 	total: result.totat
 			// });
+			// console.log('paginate json ',JSON.stringify(json))
 			data.set({
 				items: json.data,
 				total: json.total

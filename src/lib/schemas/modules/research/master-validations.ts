@@ -499,3 +499,14 @@ const facultyApproval = z.object({
   export const facultyApprovalObj = z.array(facultyApproval).min(1,{message:'Approval of at least one faculty is required'});
   export type facultyObjReq = z.infer<typeof facultyApprovalObj>;
 
+
+  export const chronicleDetails = z.object({
+    startDate : z.string().refine(date => date !== '1970-01-01'  && date !== '', { message: 'Start Date is required' }),
+	endDate :z.string().refine(date => date !== '1970-01-01'  && date !== '', { message: 'End Date is required' }),
+	chronicleName : z.string(),
+	chronicleText : z.string().min(1,{message:'Chronicle text is required'}),
+	chronicle_module_id : z.number()
+
+  });
+
+export type chronicleReq = z.infer<typeof chronicleDetails>; 

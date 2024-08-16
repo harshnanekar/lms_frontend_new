@@ -352,6 +352,15 @@ lms-view-input {
 .ck-content h2 {
 	font-size: 20px !important;
 	font-weight: bold !important;
-	/* text-decoration: underline !important; */
 	margin-top: 30px;
+}
+
+.ck-content p {
+	padding-bottom: 10px !important;
+	padding-top:10px  !important;
+}
+
+.ck-content a {
+    color: var(--lms--color-info-200);
+	text-decoration: underline !important;	
 }

@@ -130,7 +130,8 @@
 					},
 					menuBar: {
 						isVisible: true
-					}
+					},
+					
 				});
 				editorInstance?.setData(value);
 
