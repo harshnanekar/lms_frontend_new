@@ -1,10 +1,7 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
     import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from "$env/static/public";
-	import { ToastAlert } from "$lib/components/ui";
-	import { fetchApi } from "$lib/utils/fetcher";
     import { onMount } from 'svelte';
-	import { toast } from "svelte-sonner";
 
     export let data: any;
     // console.log('chronicle json ', JSON.stringify(data));
@@ -33,51 +30,9 @@
         });
     });
 
-    async function sendForApproval() {      
-     
-      
-      let obj = {
-      start_date : chronicleData[0].start_date,
-      end_date : chronicleData[0].end_date,
-      chronicle_name : chronicleData[0].vc_chronicle.length > 0 ? chronicleData[0].vc_chronicle[0].chronicle_name : '',
-      chronicle_id : [...chronicleData[0].vc_chronicle.map((data : {id : number}) => data.id),
-                     ...chronicleData[0].research_chronicle.map((data : {id : number}) => data.id),
-                     ...chronicleData[0].meeting_chronicle.map((data : {id:number}) => data.id),
-                     ...chronicleData[0].news_chronicle.map((data : {id : number}) => data.id )]
-      }
-
-      console.log('chronicle json ',JSON.stringify(obj)) 
-      
-      const { error, json } = await fetchApi({
-        url: `${PUBLIC_API_BASE_URL}/chronicle-approval-data`,
-        method: 'POST',
-        body: {
-            "chronicle_approval_details" : obj
-        }
-      });
     
-        if (error) {
-            toast.error(error.message || 'Something went wrong!', {
-                description: error.errorId ? `ERROR-ID: ${error.errorId}` : ''
-            });
-            return;
-        }
-
-        const jsonStatus = json as {status:string,message:string}
-        console.log('jsonStatus',jsonStatus)
-        if(jsonStatus.status === '200'){
-         toast.success('Chronicle sent for approval successfully!')
-         goto(`${PUBLIC_BASE_URL}chronicle-approval`)
-        }
-
-    }
 </script>
 
-{#if chronicleData[0].master_id !== null}
-<div class='mb-8'>
-    <ToastAlert header='Chronicle has been sent for approval'/>
-</div>
-{/if}
 
 <div class="flex justify-center items-center">
 <div class="bg-[#b7d1eb] w-2/4  p-4 space-y-4">
@@ -153,10 +108,3 @@
 </div>
 </div>
 
-<div>
-    {#if chronicleData[0].master_id === null}
-    <div class='flex justify-center'>
-    <button class="lms-btn lms-primary-btn mt-4" on:click={() => sendForApproval()}>Send To Approval</button>
-    </div>
-    {/if}
-</div>

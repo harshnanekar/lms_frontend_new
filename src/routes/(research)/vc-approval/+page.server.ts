@@ -3,12 +3,10 @@ import { PRIVATE_API_BASE_URL, PRIVATE_BASE_URL } from '$env/static/private';
 import { fetchApiServer } from '$lib/server/utils/fetcher';
 import { error, fail, redirect } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async ({ cookies, fetch ,params  }) => {
-
-    let id = params.id;
+export const load: PageServerLoad = async ({ cookies, fetch}) => {
 
     const { error : err, json } = await fetchApiServer({
-		url: `${PRIVATE_API_BASE_URL}/chronicle-edit?id=${id}`,
+		url: `${PRIVATE_API_BASE_URL}/vc-approval-data`,
 		_fetch: fetch,
 		cookies: cookies,
 		method: 'GET'
@@ -26,7 +24,6 @@ export const load: PageServerLoad = async ({ cookies, fetch ,params  }) => {
 
     console.log('json ',json);
 	return {
-		chronicleData : json,
-        id
+		adminData: json,
 	};
-};
+}

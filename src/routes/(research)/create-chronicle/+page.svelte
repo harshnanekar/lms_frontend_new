@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { PUBLIC_BASE_URL } from '$env/static/public';
-	import BrandingIcon from '$lib/components/icons/layout/branding-icon.svelte';
-	import ResearchIcon from '$lib/components/icons/layout/research-icon.svelte';
-  import { MeetingIcon } from '$lib/components/icons/modules/mpc';
+    import { MeetingIcon } from '$lib/components/icons/modules/mpc';
 	import type { ChronicleModules } from '$lib/types/modules/research/research-types';
 
     export let data: ChronicleModules;

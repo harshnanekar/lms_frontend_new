@@ -27,6 +27,7 @@ let modalwidthPercent: ModalSizes = 'md';
 	export let showSearch = true;
 	export let showPagination = true;
 	export let addLimit = true;
+	export let showActions : boolean = true;
 
 	const page = writable(1);
 	const limit = writable(10);
@@ -254,7 +255,9 @@ let modalwidthPercent: ModalSizes = 'md';
 								{/if}
 							</th>
 						{/each}
+						{#if showActions}
 						<th class="!text-[14px]">Actions</th>
+					    {/if}
 					</tr>
 				</thead>
 				<tbody>
@@ -269,9 +272,11 @@ let modalwidthPercent: ModalSizes = 'md';
 								<td class={column.classes}>{item[column.key]}</td>
 								{/if}
 							{/each}
+							{#if showActions}
 							<td>
 								<slot actionData={item} />
 							</td>
+							{/if}
 						</tr>
 					{/each}
 				</tbody>

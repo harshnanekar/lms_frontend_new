@@ -3,6 +3,7 @@ import Image from './image.svelte';
 import DatePicker from './date-picker.svelte';
 import { skeletonLoader, loadingLoader } from './loaders';
 import { FormStatus } from './status';
+import { ToastAlert } from './toast/+index';
 import { Accordion, AccordionItem } from './accordian';
 import { DynamicSelect } from './select';
 import { Modal } from './modal';
@@ -31,5 +32,6 @@ export {
 	loadingLoader,
 	CustomConfirm,
 	ProfileDropDown,
-	CkEditor
+	CkEditor,
+	ToastAlert
 };

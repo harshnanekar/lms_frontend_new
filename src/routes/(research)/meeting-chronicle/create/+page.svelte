@@ -53,6 +53,14 @@
             return
             }
 
+            const timeDifference : number = endFormattedDate.getTime() - startFormattedDate.getTime();
+            const dayDifference : number = timeDifference / (1000 * 60 * 60 * 24);
+
+            if(dayDifference !== 7) { 
+             toast.error('Difference between two dates must be of one week')
+             return;
+            } 
+
             let obj= {
                 startDate : startFormattedDate,
                 endDate : endFormattedDate

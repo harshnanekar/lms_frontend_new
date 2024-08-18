@@ -53,6 +53,14 @@
             toast.error('End date should be greater than end date');
             return
             }   
+
+            const timeDifference : number = endFormattedDate.getTime() - startFormattedDate.getTime();
+            const dayDifference : number = timeDifference / (1000 * 60 * 60 * 24);
+
+            if(dayDifference !== 7) { 
+             toast.error('Difference between two dates must be of one week')
+             return;
+            } 
     
     }
     
@@ -120,7 +128,6 @@
             <DatePicker
                 on:change={handleStartDateChange}
                 bind:selectedDateTime={startDate}
-                disabled={(publicationDate) => publicationDate.getTime() < new Date().setHours(0, 0, 0, 0)}
             >
                 <div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
                     <SelectDateIcon />
@@ -154,7 +161,6 @@
             <DatePicker
                 on:change={handleEndDateChange}
                 bind:selectedDateTime={endDate}
-                disabled={(publicationDate) => publicationDate.getTime() < new Date().setHours(0, 0, 0, 0)}
             >
                 <div class="text-primary hover:bg-base flex items-center gap-x-3 rounded-lg px-3 py-2">
                     <SelectDateIcon />

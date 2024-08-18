@@ -3,7 +3,7 @@
 	import { ArrowIcon, MenuBarIcon } from '$lib/components/icons';
 	import { COLORS } from '$lib/constants/colors';
 	import { goto } from '$app/navigation';
-	import { SIDEBAR_URL,ADMIN_SIDEBAR,CHRONICLE_SIDEBAR } from '$lib/test';
+	import { SIDEBAR_URL,ADMIN_SIDEBAR,CHRONICLE_SIDEBAR,VC_SIDEBAR } from '$lib/test';
 	import { SecondSidebarItem, SidebarItem } from '.';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
@@ -21,7 +21,10 @@
 		console.log("role_faculty:::::::::::::::::::::::",role_vies_sideBar);
 	}else if(role === 'role_chronicle'){
 		role_vies_sideBar = CHRONICLE_SIDEBAR;
-	}else {
+	}else if(role === 'VChancellor'){
+		role_vies_sideBar = VC_SIDEBAR;
+	}
+	else {
 		role_vies_sideBar = ADMIN_SIDEBAR
 		console.log("role_Admin:::::::::::::::::::::::",role_vies_sideBar);
 	}

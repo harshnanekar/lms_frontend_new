@@ -10,9 +10,7 @@
 	import { paginateUrl } from '$lib/stores/modules/research/master.store';
 	import { Header } from '$lib/components/researchHeader';
 
-    // export let data : ChronicleView;
-    // let chronicleList = data.chronicleData.length > 0 ? data.chronicleData : []
-    // console.log('chronicle data ',JSON.stringify(data.chronicleData))
+
     let actionData : ChronicleActionView
 
     let label = 'Research Chronicle'

@@ -171,23 +171,20 @@
             
                 <!-- {JSON.stringify(filter.options)} -->
                 <!-- svelte-ignore a11y-label-has-associated-control -->
-                <label class="lms-label">{filter.label}</label>
-                <div class="relative inline-flex">
-                    
-                    <!-- <svg class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232"><path d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z" fill="#648299" fill-rule="nonzero"/></svg> -->
-                    <select on:change={(e) => handleChange(e, filter)} class=" border border-gray-200 rounded-2xl text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none">
-                     {#each filter.options as fs}
-                     <option value={fs.value}>{fs.label}</option>
-                     {/each}
+                  <label class="lms-label">{filter.label}</label>
+                  <select
+                        class="border-slate-250 inline-flex w-full items-center
+                        justify-between rounded-lg border bg-white px-5 py-3.5 text-left text-xs font-medium
+                        text-slate-100 shadow-sm hover:bg-slate-50 focus:outline-none"
+                        name=""
+                        id=""
+                        placeholder="enter data"
+                        on:change={(e) => handleChange(e, filter)}
+                    >
+                    {#each filter.options as fs}
+                        <option class="py-2 text-sm" value={fs.value}>{fs.label}</option>
+                    {/each} 
                     </select>
-                  </div>
-                <!-- <DynamicSelect
-                isMultiSelect={false}
-                placeholder={filter.label}
-                options={getDynamicDropdown(filter.options)}
-                on:change={(e) => handleChange(e,filter)}
-                 bind:selectedOptions = {filter.options[0]}
-               /> -->
 
             </div>
         {/each}

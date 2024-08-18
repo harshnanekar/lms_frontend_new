@@ -669,10 +669,15 @@ export type FileObject = {
 	chronicleData : {
 	id: number,
 	chronicle_modules_lid:number,
+	chronicle_text ?: string,
 	name:string,
 	start_date:Date,
 	end_date:Date
 	}[]
+
+	id ?: {
+		id : number
+	}
  }
 
  export type ChronicleActionView = {
@@ -682,3 +687,22 @@ export type FileObject = {
 	start_date:Date,
 	end_date:Date
  }
+
+ export type ChronicleApprovalView = {
+	name : string,
+	start_date : string,
+	end_date : string,
+	remarks : string,
+	status : string,
+ }
+
+ export type InfiniteVcView = {
+    id : number,
+	name : string,
+    start_date : Date,
+	end_date : Date,
+	remarks : string,
+	is_mail_sent : boolean | null,
+	status :string,
+	status_lid :number
+ }[]

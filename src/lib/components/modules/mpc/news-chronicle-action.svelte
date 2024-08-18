@@ -138,13 +138,9 @@
 			style="top: {$menuPosition.top}px; left: {$menuPosition.left}px;"
 		>
 			<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+			
 				<a
-					href="{PUBLIC_BASE_URL}news-chronicle/view/"
-					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex gap-2 items-center"
-					role="menuitem"><EyeIcon fill="black"/>View</a
-				>
-				<a
-					href="{PUBLIC_BASE_URL}news-chronicle/edit/"
+					href="{PUBLIC_BASE_URL}news-chronicle/edit/{actionData.id}"
 					class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex gap-2 items-center"
 					role="menuitem"><PenIcon fill="black"/>Edit</a
 				>

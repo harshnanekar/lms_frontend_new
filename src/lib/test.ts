@@ -23,6 +23,7 @@ import type {
 	ResearchProjectRender,
 	ChronicleView,
 	ChronicleActionView,
+	ChronicleApprovalView,
 	// ConferenceRender,
 	// IPRRender,
 	// patentRender,
@@ -420,6 +421,143 @@ export const CHRONICLE_SIDEBAR = [
 	}
 
 ]
+
+
+export const VC_SIDEBAR = [
+	{
+		url: `${PUBLIC_BASE_URL}dashboard`,
+		icon: 'dashboard',
+		label: 'Home',
+		module: null,
+		child: []
+	},
+	{
+		url: `${PUBLIC_BASE_URL}vc-approval`,
+		icon: 'form-approval',
+		label: 'VC Chronicle Approval',
+		module: null,
+		child: []
+	},
+	{
+		url: `${PUBLIC_BASE_URL}vc-research`,
+		icon: 'research',
+		label: 'Research',
+		module: null,
+		child: [
+			{
+				url: `${PUBLIC_BASE_URL}vc-research/1`,
+				icon: 'journal',
+				label: 'Journal Articles Published',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}vc-research/2`,
+				icon: 'book-publication',
+				label: 'Book Publication',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}vc-research/3`,
+				icon: 'edited-book-publication',
+				label: 'Edited Book Publication',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}vc-research/4`,
+				icon: 'book-chapter-publication',
+				label: 'Book Chapter Publication',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}vc-research/5`,
+				icon: 'conference',
+				label: 'Conference',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}vc-research/6`,
+				icon: 'research-project',
+				label: 'Research Projects',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}vc-research/7`,
+				icon: 'patent-submission',
+				label: 'Patent Submission & Grants',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}vc-research/8`,
+				icon: 'ipr',
+				label: 'IPR',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}vc-research/9`,
+				icon: 'research-award',
+				label: 'Research Award',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}vc-research/10`,
+				icon: 'e-content',
+				label: 'E-Content Development',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}vc-research/11`,
+				icon: 'research-seminar',
+				label: 'Research Seminar At Nmims',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}vc-research/12`,
+				icon: 'case-study',
+				label: 'Case Study',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}vc-research/13`,
+				icon: 'teaching-excellance',
+				label: 'Teaching Excellance',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}vc-research/14`,
+				icon: 'meeting-stakeholder',
+				label:'Meeting Stakeholders',
+				module: null,
+				child: []
+			},
+			{
+				url: `${PUBLIC_BASE_URL}vc-research/15`,
+				icon: 'branding-advertisement',
+				label: 'Branding & Advertisement',
+				module: null,
+				child: []
+			},
+		]
+	}
+
+]
+
+
+
+
+
 
 export const obj = [
 	{
@@ -1648,6 +1786,46 @@ export const ChronicleHeaders : TableHeaders<ChronicleActionView>[] = [
 	{
 		label: 'End Date',
 		key: 'end_date',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	}
+
+]; 
+
+
+export const ChronicleApprovalHeaders : TableHeaders<ChronicleApprovalView>[] = [
+	{
+		label: 'Chronicle Name',
+		key: 'name',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Start Date',
+		key: 'start_date',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'End Date',
+		key: 'end_date',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Remarks',
+		key: 'remarks',
+		sortable: false,
+		classes: 'id',
+		showTooltip: false
+	},
+	{
+		label: 'Status',
+		key: 'status',
 		sortable: false,
 		classes: 'id',
 		showTooltip: false

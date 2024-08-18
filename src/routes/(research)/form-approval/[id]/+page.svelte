@@ -238,7 +238,7 @@
 <Modal bind:isOpen={$isOpen} size={modalwidthPercent} on:close={closeModal}>
 	<div slot="header">
 		<div class="border-b p-4">
-			<h2 class="text-lg font-semibold">Faculty Remarks</h2>
+			<h2 class="text-lg font-semibold">Remarks</h2>
 		</div>
 	</div>
 	<svalte:fragment slot="body">

@@ -510,3 +510,12 @@ const facultyApproval = z.object({
   });
 
 export type chronicleReq = z.infer<typeof chronicleDetails>; 
+
+export const vcObj = z.object({
+	id : z.number(),
+    remarks : z.string(),
+	status_lid : z.number()
+})
+
+export const vcApprovalObj = z.array(vcObj).min(1,{message:'Approval of at least one chronicle is required'});
+export type vcObjReq = z.infer<typeof vcApprovalObj>;

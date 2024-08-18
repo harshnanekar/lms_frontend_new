@@ -1,11 +1,7 @@
 <script lang="ts">
-	import { PUBLIC_API_BASE_URL, PUBLIC_BASE_URL } from '$env/static/public';
-	import { fetchApi } from '$lib/utils/fetcher';
-	import { toast } from 'svelte-sonner';
+
 	import { MenuBarIcon, SearchIcon, SignOutIcon } from '../icons';
-	import { Image, ProfileDropDown } from '../ui';
 	import { isSidebarOverlayOpen } from './sidebar/store';
-	import { goto } from '$app/navigation';
 	import ProfileDropdown from '../ui/profile-dropdown.svelte';
 
 	export let profilData:any;
@@ -28,21 +24,14 @@
 			<img src="/images/layout/logo.png" alt="Logo" class="h-[36px] w-[102px]" />
 		</div>
 		<div class="flex items-center gap-x-4 md:gap-x-6">
-			<!-- <button on:click={() => window.history.back()}>Back</button> -->
-
-			<!-- <button class="lms-btn lms-primary-btn"
-				><SignOutIcon fill="white" />Signout</button
-			> -->
-			<!-- <button>
-				<Image
-					src="/icons/layout/notification.png"
-					name="Notification"
-					classes="w-6 h-6 rounded-full"
-				/>
-			</button> -->
+	
 			<div>
 				<p class="rollusername">
+					{#if profilData[0].first_name!=null && profilData[0].last_name != null}
 					{profilData[0].first_name} {profilData[0].last_name}
+					{:else}
+                    User
+					{/if}
 				</p>
 				<span class="userroll italic">
 					{profilData[0].role_name}
@@ -58,11 +47,7 @@
 						username={profilData[0]?.username}
 
 					/>
-					<!-- <Image
-						src="/icons/layout/notificataion.png"
-						name="Notification"
-						classes="w-10 h-10 rounded-full"
-					/> -->
+					
 				</button>
 			</div>
 		</div>

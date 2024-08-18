@@ -1,14 +1,12 @@
-import type { PageServerLoad } from "./$types";
+import type { PageServerLoad } from './$types';
 import { PRIVATE_API_BASE_URL, PRIVATE_BASE_URL } from '$env/static/private';
 import { fetchApiServer } from '$lib/server/utils/fetcher';
 import { error, fail, redirect } from '@sveltejs/kit';
+import type { ChronicleModules } from '$lib/types/modules/research/research-types';
 
-export const load: PageServerLoad = async ({ cookies, fetch ,params  }) => {
-
-    let id = params.id;
-
-    const { error : err, json } = await fetchApiServer({
-		url: `${PRIVATE_API_BASE_URL}/chronicle-edit?id=${id}`,
+export const load: PageServerLoad = async ({ cookies, fetch }) => {
+	const { error : err, json } = await fetchApiServer<ChronicleModules[]>({
+		url: `${PRIVATE_API_BASE_URL}/create-chronicle-modules`,
 		_fetch: fetch,
 		cookies: cookies,
 		method: 'GET'
@@ -23,10 +21,8 @@ export const load: PageServerLoad = async ({ cookies, fetch ,params  }) => {
     }
 
 
-
-    console.log('json ',json);
+	console.log('json ', json);
 	return {
-		chronicleData : json,
-        id
+		json
 	};
 };
