@@ -111,7 +111,7 @@
 		is_changed : false
 	}));
 
-	 function updateFacultyStatus(form_lid: number, value: any, field: string): void {
+	 function updateFacultyStatus(form_lid: any, value: any, field: string): void {
 		console.log('form status value ', value);
 		vcData = vcData.map((item: { id : number }) =>
 			item.id === form_lid ? { ...item, [field]: value ,is_changed :true } : item
@@ -122,7 +122,7 @@
 	async function handleSubmit() {
 		const vcObj: vcObjReq = vcData
 		    .filter((data: {is_changed : boolean}) => data.is_changed === true)
-			.map((dt:any) => {
+			.map((dt: any) => {
 				return { id: Number(dt.id), status_lid: Number(dt.status_lid),remarks:dt.remarks != null ? dt.remarks : 'No Remarks Found !'};
 			});
 
